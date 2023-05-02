@@ -1,6 +1,10 @@
 # EvilKali
 
-This is a Bash script that automates the download and installation of various penetration testing tools. The script checks for the availability of 'git' and 'unzip' commands and creates directories under /opt/tools.
+This is a Bash script that automates the download and installation of various penetration testing tools. The script checks for the availability of 'git' and 'unzip' commands and creates directories under the following directories: 
+
+- /opt/tools
+- /opt/tools/C2
+- /opt/tools/evasion
 
 Below is the list of tools that will be downloaded and installed
 
@@ -40,6 +44,7 @@ Below is the list of tools that will be downloaded and installed
 
 ### Evasion
 - Invisi-Shell
+- Freeze
 
 ### Misc
 - Updog
