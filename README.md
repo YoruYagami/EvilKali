@@ -1,6 +1,7 @@
 # EvilKali
 
-This is a Bash script that automates the download and installation of various penetration testing tools. The purpose of the script is to create an environment with all the necessary tools for red teaming and creates directories under the following directories: 
+This is a Bash script that automates the download and installation of various penetration testing tools. 
+The purpose of the script is to create an environment with all the necessary tools for red teaming and creates directories under the following directories: 
 
 - /opt/tools
 - /opt/tools/C2
