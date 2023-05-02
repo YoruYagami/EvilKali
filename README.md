@@ -7,7 +7,6 @@ Below is the list of tools that will be downloaded and installed
 ### C2 Framework
 - AM0N-Eye
 - Villain
-- Hoaxshell
 
 ### Vulnerability Scanners
 - linWinPwn
