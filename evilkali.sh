@@ -58,7 +58,6 @@ echo "Downloading tools..."
 
 # C2 Framework
 download_git_tool "https://github.com/t3l3machus/Villain.git" "/opt/tools/C2"
-download_git_tool "https://github.com/t3l3machus/hoaxshell.git" "/opt/tools/C2"
 download_git_tool "https://github.com/momika233/AM0N-Eye.git" "/opt/tools/C2"
 
 # Vulnerability Scanners
