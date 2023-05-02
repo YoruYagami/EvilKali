@@ -107,6 +107,7 @@ download_wget_tool "https://raw.githubusercontent.com/PowerShellMafia/PowerSploi
 download_git_tool "https://github.com/OmerYa/Invisi-Shell.git" "/opt/tools/"
 
 # Misc
+pip3 install updog
 download_wget_tool "https://github.com/gentilkiwi/kekeo/releases/download/2.2.0-20211214/kekeo.zip" "/opt/tools/kekeo.zip"
 download_wget_tool "https://github.com/gentilkiwi/mimikatz/releases/download/2.2.0-20220919/mimikatz_trunk.zip" "/opt/tools/mimikatz.zip"
 download_wget_tool "https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1" "/opt/tools/powercat.ps1"
