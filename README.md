@@ -33,9 +33,9 @@ Below is the list of tools that will be downloaded and installed
 
 ### Reconnaissance
 - PowerView.ps1
-- SharpHound
 - PowerView-Dev.ps1
-
+- SharpHound
+- 
 ### Privilege Escalation
 - PowerUp.ps1
 
