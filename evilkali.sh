@@ -55,7 +55,7 @@ create_dir "/opt/tools/impacket"
 create_dir "/opt/tools/evasion"
 
 # Downloading tools
-echo "Downloading tools..."
+echo -e "${GREEN}Downloading tools...${NC}"
 
 # C2 Framework
 download_git_tool "https://github.com/t3l3machus/Villain.git" "/opt/tools/C2/Villain"
@@ -119,4 +119,4 @@ unzip -q /opt/tools/mimikatz.zip -d /opt/tools/mimikatz
 unzip -q /opt/tools/SharpHound.zip -d /opt/tools/SharpHound
 unzip -q /opt/tools/kekeo.zip -d /opt/tools/kekeo
 
-echo "All downloads completed."
+echo -e "${GREEN}All downloads completed.${NC}"
