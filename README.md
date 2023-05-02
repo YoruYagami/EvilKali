@@ -66,6 +66,11 @@ Install dependencies
   chmod +x ./evilkali.sh
 ```
 
+execute 
+
+```bash
+./evilkali.sh
+```
 
 ## Roadmap
 
