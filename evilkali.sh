@@ -52,16 +52,17 @@ fi
 create_dir "/opt/tools"
 create_dir "/opt/tools/C2"
 create_dir "/opt/tools/impacket"
+create_dir "/opt/tools/evasion"
 
 # Downloading tools
 echo "Downloading tools..."
 
 # C2 Framework
-download_git_tool "https://github.com/t3l3machus/Villain.git" "/opt/tools/C2"
-download_git_tool "https://github.com/momika233/AM0N-Eye.git" "/opt/tools/C2"
+download_git_tool "https://github.com/t3l3machus/Villain.git" "/opt/tools/C2/Villain"
+download_git_tool "https://github.com/momika233/AM0N-Eye.git" "/opt/tools/C2/AM0N-Eye"
 
 # Vulnerability Scanners
-download_git_tool "https://github.com/lefayjey/linWinPwn.git" "/opt/tools"
+download_git_tool "https://github.com/lefayjey/linWinPwn.git" "/opt/tools/linWinPwn"
 
 # Downloading and installing impacket tools
 pipx ensurepath
@@ -104,7 +105,8 @@ download_wget_tool "https://raw.githubusercontent.com/lucky-luk3/ActiveDirectory
 download_wget_tool "https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Privesc/PowerUp.ps1" "/opt/tools/PowerUp.ps1"
 
 # Evasion
-download_git_tool "https://github.com/OmerYa/Invisi-Shell.git" "/opt/tools/"
+download_git_tool "https://github.com/OmerYa/Invisi-Shell.git" "/opt/tools/evasion/Invisi-Shell"
+download_git_tool "https://github.com/optiv/Freeze" "/opt/tools/evasion/Freeze"
 
 # Misc
 pip3 install updog
