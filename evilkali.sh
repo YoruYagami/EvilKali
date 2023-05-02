@@ -64,7 +64,7 @@ download_git_tool "https://github.com/momika233/AM0N-Eye.git" "/opt/tools/C2"
 # Vulnerability Scanners
 download_git_tool "https://github.com/lefayjey/linWinPwn.git" "/opt/tools"
 
-# Impacket
+# Downloading and installing impacket tools
 pipx ensurepath
 pipx install git+https://github.com/dirkjanm/ldapdomaindump.git --force
 pipx install git+https://github.com/Porchetta-Industries/CrackMapExec.git --force
@@ -78,7 +78,6 @@ pipx install git+https://github.com/garrettfoster13/pre2k.git --force
 pipx install git+https://github.com/zblurx/certsync.git --force
 pipx install hekatomb --force
 
-# Downloading impacket tools
 download_wget_tool "https://github.com/ropnop/go-windapsearch/releases/latest/download/windapsearch-linux-amd64" "/opt/tools/impacket/windapsearch"
 download_wget_tool "https://github.com/ropnop/kerbrute/releases/latest/download/kerbrute_linux_amd64" "/opt/tools/impacket/kerbrute"
 download_wget_tool "https://raw.githubusercontent.com/cddmp/enum4linux-ng/master/enum4linux-ng.py" "/opt/tools/impacket/enum4linux-ng.py"
