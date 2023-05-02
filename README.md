@@ -42,6 +42,7 @@ Below is the list of tools that will be downloaded and installed
 - Invisi-Shell
 
 ### Misc
+- Updog
 - kekeo
 - mimikatz
 - powercat
