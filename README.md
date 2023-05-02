@@ -4,7 +4,7 @@ This is a Bash script that automates the download and installation of various pe
 
 - /opt/tools
 - /opt/tools/C2
-- /opt/tools/evasion
+- /opt/tools/windows
 
 Below is the list of tools that will be downloaded and installed
 
