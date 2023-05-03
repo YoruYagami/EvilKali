@@ -77,10 +77,11 @@ echo -e '${GREEN}Downloading tools...${NC}'
 # Requirements
 sudo apt install python3 git unzip php openssh-client golang-go -y
 
-# C2 Framework
+# Command and Control
 download_git_tool 'https://github.com/t3l3machus/Villain.git' '/opt/tools/C2/Villain'
 download_git_tool '--recurse-submodules https://github.com/cobbr/Covenant' '/opt/tools/C2/Covenant'
 download_git_tool 'https://github.com/momika233/AM0N-Eye.git' '/opt/tools/C2/AM0N-Eye'
+sudo pip3 install pwncat-cs
 
 # Vulnerability Scanners
 download_git_tool 'https://github.com/lefayjey/linWinPwn.git' '/opt/tools/linWinPwn'
@@ -156,14 +157,12 @@ download_git_tool 'https://github.com/pwndoc/pwndoc.git' '/opt/tools/reporting/p
 
 # Misc
 sudo pip3 install updog
-sudo pip3 install pwncat-cs
 copy '/usr/share/windows-resources/mimikatz/x64/mimikatz.exe' '/opt/tools/windows/mimikatz64.exe'
 copy '/usr/share/windows-resources/mimikatz/Win32/mimikatz.exe' '/opt/tools/windows/mimikatz32.exe'
 copy '/usr/share/windows-binaries/nc.exe' '/opt/tools/windows/nc.exe'
 copy '/usr/share/windows-binaries/wget.exe' '/opt/tools/windows/wget.exe'
 copy '/usr/share/windows-resources/powersploit/Exfiltration/Invoke-Mimikatz.ps1' '/opt/tools/windows/Invoke-Mimikatz.ps1'
-download_wget_tool 'https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/raw/master/Rubeus.exe' '/opt/tools/windows/Rubeus.exe'
-download_wget_tool 'https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/raw/master/SharpUp.exe' '/opt/tools/windows/SharpUp.exe'
+download_wget_tool 'https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git' '/opt/tools/windows/'
 download_wget_tool 'https://github.com/RythmStick/AMSITrigger/releases/download/v3/AmsiTrigger_x64.exe' '/opt/tools/windows/AmsiTrigger_x64.exe'
 download_wget_tool 'https://github.com/RythmStick/AMSITrigger/releases/download/v3/AmsiTrigger_x86.exe' '/opt/tools/windows/AmsiTrigger_x86.exe'
 download_wget_tool 'https://raw.githubusercontent.com/samratashok/nishang/master/Shells/Invoke-PowerShellTcp.ps1' '/opt/tools/windows/Invoke-PowerShellTcp.ps1'
