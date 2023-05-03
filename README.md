@@ -10,16 +10,25 @@ The purpose of the script is to create an environment with all the necessary too
 
 Below is the list of tools that will be downloaded and installed
 
-### C2 Framework
-- AM0N-Eye
+### Command and Control:
 - Villain
+- AM0N-Eye
+- Covenant
+- pwncat-cs
 
-### Vulnerability Scanners
+### Reconnaissance:
+- PowerView.ps1
+- PowerView-Dev.ps1
+- SharpHound
+- Privilege Escalation:
+
+### Vulnerability Scanners:
 - linWinPwn
 
-### Impacket
+### Impacket:
 - ldapdomaindump
 - CrackMapExec
+- impacket
 - adidnsdump
 - certi
 - Certipy
@@ -36,23 +45,33 @@ Below is the list of tools that will be downloaded and installed
 - targetedKerberoast.py
 - DonPAPI
 
-### Reconnaissance
-- PowerView.ps1
-- PowerView-Dev.ps1
-- SharpHound
-
 ### Privilege Escalation
 - PowerUp.ps1
+- winPEASany_ofs.exe
+- PowerUpSQL.ps1
+- PowerUpSQL.psd1
+- PowerUpSQL.psm1
+- PrivescCheck.ps1
 
-### Evasion
+### Evasion:
 - Invisi-Shell
 - Freeze
 
-### Misc
+### Misc:
 - Updog
 - kekeo
-- mimikatz
-- powercat
+- mimikatz32.exe
+- mimikatz64.exe
+- nc.exe
+- wget.exe
+- Invoke-Mimikatz.ps1
+- Rubeus.exe
+- SharpUp.exe
+- AmsiTrigger_x64.exe
+- AmsiTrigger_x86.exe
+- Invoke-PowerShellTcp.ps1
+- Set-RemotePSRemoting.ps1
+- powercat.ps1
 
 ## Run Locally
 
