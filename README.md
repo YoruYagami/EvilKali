@@ -66,8 +66,6 @@ Below is the list of tools that will be downloaded and installed
 - nc.exe
 - wget.exe
 - Invoke-Mimikatz.ps1
-- Rubeus.exe
-- SharpUp.exe
 - AmsiTrigger_x64.exe
 - AmsiTrigger_x86.exe
 - Invoke-PowerShellTcp.ps1
