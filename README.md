@@ -50,7 +50,7 @@ Below is the list of tools that will be downloaded and installed
  - DonPAPI
  
 ### Pishing
- -evilginx2
+ - evilginx2
  - gophish
  - PyPhisher
 
