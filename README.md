@@ -58,6 +58,7 @@ Below is the list of tools that will be downloaded and installed
 - Freeze
 
 ### Misc:
+- Ghostpack-CompiledBinaries
 - Updog
 - kekeo
 - mimikatz32.exe
