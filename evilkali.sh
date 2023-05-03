@@ -156,6 +156,7 @@ download_git_tool 'https://github.com/pwndoc/pwndoc.git' '/opt/tools/reporting/p
 
 # Misc
 sudo pip3 install updog
+sudo pip3 install pwncat-cs
 copy '/usr/share/windows-resources/mimikatz/x64/mimikatz.exe' '/opt/tools/windows/mimikatz64.exe'
 copy '/usr/share/windows-resources/mimikatz/Win32/mimikatz.exe' '/opt/tools/windows/mimikatz32.exe'
 copy '/usr/share/windows-binaries/nc.exe' '/opt/tools/windows/nc.exe'
