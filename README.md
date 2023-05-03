@@ -19,6 +19,13 @@ Below is the list of tools that will be downloaded and installed
  - AM0N-Eye
  - pwncat-cs
  
+ ### Reconnaisance
+ - PowerView.ps1
+ - Invoke-Portscan.ps1
+ - SharpHound
+ - PowerView-Dev.ps1
+ - ADModule
+ 
 ### Vulnerability Scanners
  - linWinPwn
 
@@ -41,14 +48,7 @@ Below is the list of tools that will be downloaded and installed
  - silenthound.py
  - targetedKerberoast.py
  - DonPAPI
-
-### Reconnaisance
- - PowerView.ps1
- - Invoke-Portscan.ps1
- - SharpHound
- - PowerView-Dev.ps1
- - ADModule
-
+ 
 ### Pishing
  -evilginx2
  - gophish
@@ -71,11 +71,8 @@ Below is the list of tools that will be downloaded and installed
  - winPEASany_ofs.exe
  - PowerUpSQL
  - PrivescCheck.ps1
-
-### Reporting
- - pwndoc
-
-### Misc
+ 
+ ### Misc
  - Ghostpack CompiledBinaries
  - updog
  - mimikatz64.exe
@@ -90,6 +87,9 @@ Below is the list of tools that will be downloaded and installed
  - powercat.ps1
  - repoupdater
  - kekeo
+
+### Reporting
+ - pwndoc
 
 ## Run Locally
 
