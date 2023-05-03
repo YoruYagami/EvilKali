@@ -3,74 +3,93 @@
 This is a Bash script that automates the download and installation of various penetration testing tools. 
 The purpose of the script is to create an environment with all the necessary tools for red teaming. The script Place all the tools under the following directories: 
 
-- /opt/tools
-- /opt/tools/C2
-- /opt/tools/Impacket
-- /opt/tools/windows
+ - /opt/tools
+ - /opt/tools/C2
+ - /opt/tools/impacket
+ - /opt/tools/phishing
+ - /opt/tools/exploits
+ - /opt/tools/windows
+ - /opt/tools/reporting
 
 Below is the list of tools that will be downloaded and installed
 
-### Command and Control:
-- Villain
-- AM0N-Eye
-- Covenant
-- pwncat-cs
+### Command and Control
+ - Villain
+ - Covenant
+ - AM0N-Eye
+ - pwncat-cs
+ 
+### Vulnerability Scanners
+ - linWinPwn
 
-### Reconnaissance:
-- PowerView.ps1
-- PowerView-Dev.ps1
-- SharpHound
-- Privilege Escalation:
+### Impacket
+ - ldapdomaindump
+ - CrackMapExec
+ - impacket
+ - adidnsdump
+ - certi
+ - Certipy
+ - BloodHound.py
+ - ldeep
+ - pre2k
+ - certsync
+ - hekatomb
+ - windapsearch
+ - kerbrute
+ - enum4linux-ng.py
+ - CVE-2022-33679.py
+ - silenthound.py
+ - targetedKerberoast.py
+ - DonPAPI
 
-### Vulnerability Scanners:
-- linWinPwn
+### Reconnaisance
+ - PowerView.ps1
+ - Invoke-Portscan.ps1
+ - SharpHound
+ - PowerView-Dev.ps1
+ - ADModule
 
-### Impacket:
-- ldapdomaindump
-- CrackMapExec
-- impacket
-- adidnsdump
-- certi
-- Certipy
-- BloodHound.py
-- ldeep
-- pre2k
-- certsync
-- hekatomb
-- windapsearch
-- kerbrute
-- enum4linux-ng.py
-- CVE-2022-33679.py
-- silenthound.py
-- targetedKerberoast.py
-- DonPAPI
+### Pishing
+ -evilginx2
+ - gophish
+ - PyPhisher
+
+### File Trasfer
+ - HFS (HTTP File Server)
+
+### Exploits
+ - zerologon
+ - PetitPotam
+
+### Evasion
+ - Invisi-Shell
+ - Freeze
 
 ### Privilege Escalation
-- PowerUp.ps1
-- winPEASany_ofs.exe
-- PowerUpSQL.ps1
-- PowerUpSQL.psd1
-- PowerUpSQL.psm1
-- PrivescCheck.ps1
+ - PowerUp.ps1
+ - Get-System.ps1
+ - winPEASany_ofs.exe
+ - PowerUpSQL
+ - PrivescCheck.ps1
 
-### Evasion:
-- Invisi-Shell
-- Freeze
+### Reporting
+ - pwndoc
 
-### Misc:
-- Ghostpack-CompiledBinaries
-- Updog
-- kekeo
-- mimikatz32.exe
-- mimikatz64.exe
-- nc.exe
-- wget.exe
-- Invoke-Mimikatz.ps1
-- AmsiTrigger_x64.exe
-- AmsiTrigger_x86.exe
-- Invoke-PowerShellTcp.ps1
-- Set-RemotePSRemoting.ps1
-- powercat.ps1
+### Misc
+ - Ghostpack CompiledBinaries
+ - updog
+ - mimikatz64.exe
+ - mimikatz32.exe
+ - nc.exe
+ - wget.exe
+ - Invoke-Mimikatz.ps1
+ - AmsiTrigger_x64.exe
+ - AmsiTrigger_x86.exe
+ - Invoke-PowerShellTcp.ps1
+ - Set-RemotePSRemoting.ps1
+ - powercat.ps1
+ - repoupdater
+ - kekeo
 
 ## Run Locally
 
