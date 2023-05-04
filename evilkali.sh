@@ -58,7 +58,6 @@ copy() {
 # Create directories
 create_dir '/opt/tools'
 create_dir '/opt/tools/C2'
-create_dir '/opt/tools/impacket'
 create_dir '/opt/tools/phishing'
 create_dir '/opt/tools/exploits'
 create_dir '/opt/tools/windows'
