@@ -83,6 +83,14 @@ download_git_tool '--recurse-submodules https://github.com/cobbr/Covenant' '/opt
 download_git_tool 'https://github.com/momika233/AM0N-Eye.git' '/opt/tools/C2/AM0N-Eye'
 sudo pip3 install pwncat-cs
 
+# Reconnaisance
+copy '/usr/share/windows-resources/powersploit/Recon/PowerView.ps1 /opt/tools/windows/PowerView.ps1'
+copy '/usr/share/windows-resources/powersploit/Recon/Invoke-Portscan.ps1 /opt/tools/windows/Invoke-Portscan.ps1'
+download_wget_tool 'https://github.com/BloodHoundAD/SharpHound/releases/download/v1.1.0/SharpHound-v1.1.0.zip' '/opt/tools/windows/SharpHound.zip'
+download_wget_tool 'https://raw.githubusercontent.com/lucky-luk3/ActiveDirectory/master/PowerView-Dev.ps1' '/opt/tools/windows/PowerView-Dev.ps1'
+download_git_tool 'https://github.com/samratashok/ADModule.git' '/opt/tools/windows/ADModule'
+sudo apt install bloodhound -y
+
 # Vulnerability Scanners
 download_git_tool 'https://github.com/lefayjey/linWinPwn.git' '/opt/tools/linWinPwn'
 
@@ -117,13 +125,6 @@ change_permissions '/opt/tools/impacket/silenthound.py'
 change_permissions '/opt/tools/impacket/targetedKerberoast.py'
 change_permissions '/opt/tools/impacket/DonPAPI-main/DonPAPI.py'
 unzip -o '/opt/tools/impacket/DonPAPI.zip' -d /opt/tools/impacket/DonPAPI
-
-# Reconnaisance
-copy '/usr/share/windows-resources/powersploit/Recon/PowerView.ps1 /opt/tools/windows/PowerView.ps1'
-copy '/usr/share/windows-resources/powersploit/Recon/Invoke-Portscan.ps1 /opt/tools/windows/Invoke-Portscan.ps1'
-download_wget_tool 'https://github.com/BloodHoundAD/SharpHound/releases/download/v1.1.0/SharpHound-v1.1.0.zip' '/opt/tools/windows/SharpHound.zip'
-download_wget_tool 'https://raw.githubusercontent.com/lucky-luk3/ActiveDirectory/master/PowerView-Dev.ps1' '/opt/tools/windows/PowerView-Dev.ps1'
-download_git_tool 'https://github.com/samratashok/ADModule.git' '/opt/tools/windows/ADModule'
 
 # Pishing
 sudo apt install evilginx2 -y
