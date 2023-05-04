@@ -33,6 +33,26 @@ Below is the list of tools that will be downloaded and installed
  - gophish
  - PyPhisher
 
+### Impacket
+ - ldapdomaindump
+ - CrackMapExec
+ - impacket
+ - adidnsdump
+ - certi
+ - Certipy
+ - BloodHound.py
+ - ldeep
+ - pre2k
+ - certsync
+ - hekatomb
+ - windapsearch
+ - kerbrute
+ - enum4linux-ng.py
+ - CVE-2022-33679.py
+ - silenthound.py
+ - targetedKerberoast.py
+ - DonPAPI
+
 ### File Trasfer
  - HFS (HTTP File Server)
 
