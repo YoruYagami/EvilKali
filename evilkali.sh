@@ -86,38 +86,6 @@ sudo pip3 install pwncat-cs
 # Vulnerability Scanners
 download_git_tool 'https://github.com/lefayjey/linWinPwn.git' '/opt/tools/linWinPwn'
 
-# Impacket
-pipx ensurepath
-pipx install git+https://github.com/dirkjanm/ldapdomaindump.git --force
-pipx install git+https://github.com/Porchetta-Industries/CrackMapExec.git --force
-pipx install git+https://github.com/ThePorgs/impacket.git --force
-pipx install git+https://github.com/dirkjanm/adidnsdump.git --force
-pipx install git+https://github.com/zer1t0/certi.git --force
-pipx install git+https://github.com/ly4k/Certipy.git --force
-pipx install git+https://github.com/fox-it/BloodHound.py.git --force
-pipx install git+https://github.com/franc-pentest/ldeep.git --force
-pipx install git+https://github.com/garrettfoster13/pre2k.git --force
-pipx install git+https://github.com/zblurx/certsync.git --force
-pipx install hekatomb --force
-
-download_wget_tool 'https://github.com/ropnop/go-windapsearch/releases/latest/download/windapsearch-linux-amd64' '/opt/tools/impacket/windapsearch'
-download_wget_tool 'https://github.com/ropnop/kerbrute/releases/latest/download/kerbrute_linux_amd64' '/opt/tools/impacket/kerbrute'
-download_wget_tool 'https://raw.githubusercontent.com/cddmp/enum4linux-ng/master/enum4linux-ng.py' '/opt/tools/impacket/enum4linux-ng.py'
-download_wget_tool 'https://raw.githubusercontent.com/Bdenneu/CVE-2022-33679/main/CVE-2022-33679.py' '/opt/tools/impacket/CVE-2022-33679.py'
-download_wget_tool 'https://raw.githubusercontent.com/layer8secure/SilentHound/main/silenthound.py' '/opt/tools/impacket/silenthound.py'
-download_wget_tool 'https://raw.githubusercontent.com/ShutdownRepo/targetedKerberoast/main/targetedKerberoast.py' '/opt/tools/impacket/targetedKerberoast.py'
-download_wget_tool 'https://github.com/login-securite/DonPAPI/archive/master.zip' '/opt/tools/impacket/DonPAPI.zip'
-
-# Changing permissions for impacket tools
-change_permissions '/opt/tools/impacket/windapsearch'
-change_permissions '/opt/tools/impacket/kerbrute'
-change_permissions '/opt/tools/impacket/enum4linux-ng.py'
-change_permissions '/opt/tools/impacket/CVE-2022-33679.py'
-change_permissions '/opt/tools/impacket/silenthound.py'
-change_permissions '/opt/tools/impacket/targetedKerberoast.py'
-change_permissions '/opt/tools/impacket/DonPAPI-main/DonPAPI.py'
-unzip -o '/opt/tools/impacket/DonPAPI.zip' -d /opt/tools/impacket/DonPAPI
-
 # Reconnaisance
 copy '/usr/share/windows-resources/powersploit/Recon/PowerView.ps1 /opt/tools/windows/PowerView.ps1'
 copy '/usr/share/windows-resources/powersploit/Recon/Invoke-Portscan.ps1 /opt/tools/windows/Invoke-Portscan.ps1'
