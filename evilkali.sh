@@ -180,5 +180,9 @@ unzip -q /opt/tools/windows/hfs-windows.zip -d /opt/tools/windows/hfs-windows
 
 # Removing unnecessary files
 sudo rm -rf /opt/tools/windows/hfs-windows/plugins/
+sudo rm -rf /opt/tools/windows/mimikatz.zip
+sudo rm -rf /opt/tools/windows/SharpHound.zip
+sudo rm -rf /opt/tools/windows/kekeo.zip
+sduo rm -rf /opt/tools/windows/hfs-windows.zip
 
 echo -e '${GREEN}All downloads completed.${NC}'
