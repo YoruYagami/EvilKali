@@ -22,6 +22,7 @@ Below is the list of tools that will be downloaded and installed
  - PowerView.ps1
  - Invoke-Portscan.ps1
  - SharpHound
+ - BloodHound
  - PowerView-Dev.ps1
  - ADModule
  
