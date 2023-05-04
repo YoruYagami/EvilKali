@@ -73,12 +73,6 @@ Below is the list of tools that will be downloaded and installed
 
 ## Run Locally
 
-Execute directly on kali
-
-```bash
-curl -s https://raw.githubusercontent.com/YoruYagami/EvilKali/main/evilkali.sh | bash
-```
-
 Clone the project
 
 ```bash
