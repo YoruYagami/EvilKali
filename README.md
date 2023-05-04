@@ -5,7 +5,6 @@ The purpose of the script is to create an environment with all the necessary too
 
  - /opt/tools
  - /opt/tools/C2
- - /opt/tools/impacket
  - /opt/tools/phishing
  - /opt/tools/exploits
  - /opt/tools/windows
