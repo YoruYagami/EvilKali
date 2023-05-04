@@ -128,7 +128,7 @@ sudo unzip -o '/opt/tools/impacket/DonPAPI.zip' -d /opt/tools/impacket/DonPAPI
 
 # Pishing
 sudo apt install evilginx2 -y
-download_git_tool 'git clone https://github.com/gophish/gophish.git' '/opt/tools/phishing/gophish'
+download_git_tool 'https://github.com/gophish/gophish.git' '/opt/tools/phishing/gophish'
 download_git_tool 'https://github.com/KasRoudra/PyPhisher.git' '/opt/tools/phishing/PyPhisher'
 sudo pip3 install -r /opt/tools/phishing/PyPhisher/files/requirements.txt
 
