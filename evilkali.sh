@@ -152,7 +152,7 @@ download_wget_tool 'https://raw.githubusercontent.com/layer8secure/SilentHound/m
 download_wget_tool 'https://raw.githubusercontent.com/ShutdownRepo/targetedKerberoast/main/targetedKerberoast.py' '/opt/tools/impacket/targetedKerberoast.py'
 download_wget_tool 'https://github.com/login-securite/DonPAPI/archive/master.zip' '/opt/tools/impacket/DonPAPI.zip'
 
-# Changing permissions for impacket tools
+# Changing permissions
 change_permissions '/opt/tools/impacket/windapsearch'
 change_permissions '/opt/tools/impacket/kerbrute'
 change_permissions '/opt/tools/impacket/enum4linux-ng.py'
@@ -160,7 +160,6 @@ change_permissions '/opt/tools/impacket/CVE-2022-33679.py'
 change_permissions '/opt/tools/impacket/silenthound.py'
 change_permissions '/opt/tools/impacket/targetedKerberoast.py'
 change_permissions '/opt/tools/impacket/DonPAPI-main/DonPAPI.py'
-sudo unzip -o '/opt/tools/impacket/DonPAPI.zip' -d /opt/tools/impacket/DonPAPI
 
 # Pishing
 sudo apt install evilginx2 -y
@@ -193,7 +192,7 @@ download_git_tool 'https://github.com/pwndoc/pwndoc.git' '/opt/tools/reporting/p
 
 # Misc
 sudo pip3 install updog
-sduo apt install neovim -y
+sudo apt install neovim -y
 copy '/usr/share/windows-resources/mimikatz/x64/mimikatz.exe' '/opt/tools/windows/mimikatz64.exe'
 copy '/usr/share/windows-resources/mimikatz/Win32/mimikatz.exe' '/opt/tools/windows/mimikatz32.exe'
 copy '/usr/share/windows-binaries/nc.exe' '/opt/tools/windows/nc.exe'
@@ -206,18 +205,19 @@ download_wget_tool 'https://github.com/RythmStick/AMSITrigger/releases/download/
 download_wget_tool 'https://raw.githubusercontent.com/samratashok/nishang/master/Shells/Invoke-PowerShellTcp.ps1' '/opt/tools/windows/Invoke-PowerShellTcp.ps1'
 download_wget_tool 'https://raw.githubusercontent.com/samratashok/nishang/master/Backdoors/Set-RemotePSRemoting.ps1' '/opt/tools/windows/Set-RemotePSRemoting.ps1'
 download_wget_tool 'https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1' '/opt/tools/windows/powercat.ps1'
-download_wget_tool 'https://raw.githubusercontent.com/YoruYagami/RepoUpdater/main/repoupdater.sh' '/usr/local/bin/repoupdater'
 download_wget_tool 'https://github.com/gentilkiwi/kekeo/releases/download/2.2.0-20211214/kekeo.zip' '/opt/tools/windows/kekeo.zip'
+change_permissions '/usr/local/bin/repoupdater'
 
 # Unzipping
-unzip -q /opt/tools/windows/SharpHound.zip -d /opt/tools/windows/SharpHound
-unzip -q /opt/tools/windows/kekeo.zip -d /opt/tools/windows/kekeo
-unzip -q /opt/tools/windows/hfs-windows.zip -d /opt/tools/windows/hfs-windows
+sudo unzip -q '/opt/tools/windows/SharpHound.zip' -d '/opt/tools/windows/SharpHound'
+sudo unzip -q '/opt/tools/windows/kekeo.zip' -d '/opt/tools/windows/kekeo'
+sudo unzip -q '/opt/tools/windows/hfs-windows.zip' -d '/opt/tools/windows/hfs-windows'
+sudo unzip -o '/opt/tools/impacket/DonPAPI.zip' -d '/opt/tools/impacket/DonPAPI'
 
 # Removing unnecessary files
-sudo rm -rf /opt/tools/windows/hfs-windows/plugins/
-sudo rm -rf /opt/tools/windows/SharpHound.zip
-sudo rm -rf /opt/tools/windows/kekeo.zip
-sduo rm -rf /opt/tools/windows/hfs-windows.zip
+sudo rm -rf '/opt/tools/windows/hfs-windows/plugins/'
+sudo rm -rf '/opt/tools/windows/SharpHound.zip'
+sudo rm -rf '/opt/tools/windows/kekeo.zip'
+sudo rm -rf '/opt/tools/windows/hfs-windows.zip'
 
 echo -e "${GREEN}All downloads completed.${NC}"
