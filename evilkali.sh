@@ -134,7 +134,7 @@ download_git_tool 'https://github.com/KasRoudra/PyPhisher.git' '/opt/tools/phish
 sudo pip3 install -r /opt/tools/phishing/PyPhisher/files/requirements.txt
 
 # File Trasfer
-dowload_wget_tool 'https://github.com/rejetto/hfs/releases/download/v0.44.0/hfs-windows.zip' '/opt/tools/windows/hfs-windows.zip'
+download_wget_tool 'https://github.com/rejetto/hfs/releases/download/v0.44.0/hfs-windows.zip' '/opt/tools/windows/hfs-windows.zip'
 
 # Exploits
 download_git_tool 'https://github.com/risksense/zerologon.git' '/opt/tools/exploits/zerologon'
@@ -175,16 +175,14 @@ download_wget_tool 'https://raw.githubusercontent.com/YoruYagami/RepoUpdater/mai
 download_wget_tool 'https://github.com/gentilkiwi/kekeo/releases/download/2.2.0-20211214/kekeo.zip' '/opt/tools/windows/kekeo.zip'
 
 # Unzipping
-unzip -q /opt/tools/windows/mimikatz.zip -d /opt/tools/windows/mimikatz
 unzip -q /opt/tools/windows/SharpHound.zip -d /opt/tools/windows/SharpHound
 unzip -q /opt/tools/windows/kekeo.zip -d /opt/tools/windows/kekeo
 unzip -q /opt/tools/windows/hfs-windows.zip -d /opt/tools/windows/hfs-windows
 
 # Removing unnecessary files
 sudo rm -rf /opt/tools/windows/hfs-windows/plugins/
-sudo rm -rf /opt/tools/windows/mimikatz.zip
 sudo rm -rf /opt/tools/windows/SharpHound.zip
 sudo rm -rf /opt/tools/windows/kekeo.zip
 sduo rm -rf /opt/tools/windows/hfs-windows.zip
 
-echo -e '${GREEN}All downloads completed.${NC}'
+echo -e "${GREEN}All downloads completed.${NC}"
