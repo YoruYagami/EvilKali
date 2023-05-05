@@ -17,7 +17,7 @@ command_exists() {
 }
 
 # Ask the user if they want to enable tmux auto-start
-read -p "Do you want to enable tmux auto-start? (y/n) " -n 1 -r
+read -p "${BLUE}Do you want to enable tmux auto-start? (y/n)${NC}" -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     ENABLE_TMUX=true
@@ -100,14 +100,14 @@ create_dir '/opt/tools/windows'
 create_dir '/opt/tools/reporting'
 
 # Prompt user to upgrade system first
-read -p 'Do you want to upgrade the system first? (y/n)' -n 1 -r
+read -p "${BLUE}Do you want to upgrade the system first? (y/n)${NC}" -n 1 -r
 echo ''
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   sudo apt update -y && sudo apt upgrade -y
 fi
 
 # Downloading tools
-echo -e '${GREEN}Downloading tools...${NC}'
+echo -e "${GREEN}Downloading tools...${NC}"
 
 # Requirements
 sudo apt install python3 git unzip php openssh-client golang-go -y
