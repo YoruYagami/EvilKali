@@ -100,7 +100,7 @@ create_dir '/opt/tools/windows'
 create_dir '/opt/tools/reporting'
 
 # Prompt user to upgrade system first
-read -p "${BLUE}Do you want to upgrade the system first? (y/n)${NC}" -n 1 -r
+read -p "Do you want to upgrade the system first? (y/n)" -n 1 -r
 echo ''
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   sudo apt update -y && sudo apt upgrade -y
