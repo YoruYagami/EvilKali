@@ -16,6 +16,41 @@ command_exists() {
   command -v '$1' >/dev/null 2>&1
 }
 
+# Ask the user if they want to enable tmux auto-start
+read -p "Do you want to enable tmux auto-start? (y/n) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    ENABLE_TMUX=true
+else
+    ENABLE_TMUX=false
+fi
+
+# Detect user's default shell
+DEFAULT_SHELL=$(basename "$SHELL")
+
+# Select the configuration file based on the default shell
+if [ "$DEFAULT_SHELL" == "bash" ]; then
+    CONFIG_FILE="$HOME/.bashrc"
+elif [ "$DEFAULT_SHELL" == "zsh" ]; then
+    CONFIG_FILE="$HOME/.zshrc"
+else
+    echo -e "${RED}Unsupported shell. This script only supports Bash and Zsh.${NC}"
+    exit 1
+fi
+
+# Check if the tmux command is already present in the configuration file
+if ! grep -q "if \[ \"\$TMUX\" = \"\" \]; then tmux; fi" "$CONFIG_FILE"; then
+    # Add the command to automatically start tmux when launching the terminal
+    if [ "$ENABLE_TMUX" = true ]; then
+        echo -e "\n# Automatically start tmux when launching the terminal\nif [ \"\$TMUX\" = \"\" ]; then tmux; fi" >> "$CONFIG_FILE"
+        echo -e "Command added to ${BLUE}$CONFIG_FILE${NC} to automatically start tmux."
+    else
+        echo -e "Skipping auto-start of tmux."
+    fi
+else
+    echo -e "The command to automatically start tmux is already present in ${BLUE}$CONFIG_FILE${NC}."
+fi
+
 # Function to create directories
 create_dir() {
   dir_path=$1
