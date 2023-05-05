@@ -103,7 +103,7 @@ create_dir '/opt/tools/reporting'
 read -p "Do you want to upgrade the system first? (y/n)" -n 1 -r
 echo ''
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-  sudo apt update -y && sudo apt upgrade -y
+  sudo apt update -y && sudo apt -y full-upgrade -y && sudo apt -y dist-upgrade -y && sudo apt autoremove -y && sudo apt clean -y
 fi
 
 # Downloading tools
