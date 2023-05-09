@@ -117,6 +117,7 @@ download_git_tool 'https://github.com/t3l3machus/Villain.git' '/opt/tools/C2/Vil
 download_git_tool '--recurse-submodules https://github.com/cobbr/Covenant' '/opt/tools/C2/Covenant'
 download_git_tool 'https://github.com/momika233/AM0N-Eye.git' '/opt/tools/C2/AM0N-Eye'
 download_git_tool 'https://github.com/HavocFramework/Havoc.git' '/opt/tools/C2/Havoc'
+curl https://sliver.sh/install|sudo bash
 sudo pip3 install pwncat-cs
 
 # Reconnaisance
