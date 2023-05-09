@@ -189,6 +189,7 @@ download_wget_tool 'https://raw.githubusercontent.com/itm4n/PrivescCheck/master/
 
 # Reporting
 download_git_tool 'https://github.com/pwndoc/pwndoc.git' '/opt/tools/reporting/pwndoc'
+download_git_tool 'https://github.com/Syslifters/OSCP-Reporting' '/opt/tools/reporting/OSCP-Reporting'
 
 # Misc
 sudo pip3 install updog
