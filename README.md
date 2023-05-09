@@ -16,6 +16,7 @@ Below is the list of tools that will be downloaded and installed
  - Villain
  - Covenant
  - AM0N-Eye
+ - Sliver
  - pwncat-cs
  
  ### Reconnaisance
