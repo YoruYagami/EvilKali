@@ -90,6 +90,7 @@ Below is the list of tools that will be downloaded and installed
 
 ### Reporting
  - pwndoc
+ - OSCP-Reporting
 
 ## Run Locally
 
