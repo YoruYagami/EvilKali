@@ -491,6 +491,7 @@ EOF
     echo -e "${BLUE}5. Vulnerability Scanners${NC}"
     echo -e "${BLUE}6. AV/EDR Evasion Tools${NC}"
     echo -e "${BLUE}7. Windows Privilege Escaltion Tools${NC}"
+    echo ""
     echo -e "${BLUE}99. Quit${NC}"
     echo ""
     echo -n "Choose an option: "
