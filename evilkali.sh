@@ -491,7 +491,7 @@ EOF
     echo -e "${BLUE}5. Vulnerability Scanners${NC}"
     echo -e "${BLUE}6. AV/EDR Evasion Tools${NC}"
     echo -e "${BLUE}7. Windows Privilege Escaltion Tools${NC}"
-    echo -e "${BLUE}8. Quit${NC}"
+    echo -e "${BLUE}99. Quit${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -504,7 +504,7 @@ EOF
         5) vulnerability_scanners;;
         6) Evasion_Tools;;
         7) Windows_Privilege_Escalation_Tools;;
-        8) exit;;
+        99) exit;;
         *) echo "Invalid option"; main_menu;;
     esac
 }
