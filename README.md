@@ -30,10 +30,3 @@ execute
 ```bash
 ./evilkali.sh
 ```
-
-## Roadmap
-
-- ability to exclude tools before starting with the bulk download and installation
-
-- Final notification with list of successful/failed downloads
-
