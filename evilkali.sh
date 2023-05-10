@@ -17,6 +17,7 @@ command_exists() {
 }
 
 # Ask the user if they want to enable tmux auto-start
+echo ""
 read -p "Do you want to enable tmux auto-start? (y/n)" -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -38,6 +39,14 @@ else
     exit 1
 fi
 
+# Prompt user to upgrade system first
+echo ""
+read -p "Do you want to update/upgrade the system first? (y/n)" -n 1 -r
+echo ''
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  sudo apt update -y && sudo apt -y full-upgrade -y && sudo apt -y dist-upgrade -y && sudo apt autoremove -y && sudo apt clean -y
+fi
+
 # Check if the tmux command is already present in the configuration file
 if ! grep -q "if \[ \"\$TMUX\" = \"\" \]; then tmux; fi" "$CONFIG_FILE"; then
     # Add the command to automatically start tmux when launching the terminal
@@ -51,148 +60,453 @@ else
     echo -e "The command to automatically start tmux is already present in ${BLUE}$CONFIG_FILE${NC}."
 fi
 
-# Function to create directories
-create_dir() {
-  dir_path=$1
-  dir_name=$(basename $dir_path)
+# Requirements/Essentials
+sudo apt install neovim python3 wget git unzip php openssh-client golang-go -y
+sudo pip3 install updog
 
-  if [ ! -d '$dir_path' ]; then
-    echo 'Creating '$dir_name' directory...'
-    sudo mkdir -p $dir_path
-    sudo chown $USER:$USER $dir_path
-  fi
+# --[ Command and Control ]--
+function download_villain() {
+    sudo mkdir -p '/opt/tools/C2'
+    sudo git clone 'https://github.com/t3l3machus/Villain.git' '/opt/tools/C2/Villain'
+    echo -e "${GREEN}Villain downloaded successfully.${NC}"
 }
 
-# Create directories
-create_dir '/opt/tools'
-create_dir '/opt/tools/C2'
-create_dir '/opt/tools/phishing'
-create_dir '/opt/tools/impacket'
-create_dir '/opt/tools/exploits'
-create_dir '/opt/tools/windows'
-create_dir '/opt/tools/reporting'
+function download_covenant() {
+    sudo mkdir -p '/opt/tools/C2'
+    sudo git clone --recurse-submodules https://github.com/cobbr/Covenant '/opt/tools/C2/Covenant'
+    echo -e "${GREEN}Covenant downloaded successfully.${NC}"
+}
 
-# Prompt user to upgrade system first
-read -p "Do you want to update/upgrade the system first? (y/n)" -n 1 -r
-echo ''
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-  sudo apt update -y && sudo apt -y full-upgrade -y && sudo apt -y dist-upgrade -y && sudo apt autoremove -y && sudo apt clean -y
-fi
+function download_AM0N_Eye() {
+    sudo mkdir -p '/opt/tools/C2'
+    sudo git clone 'https://github.com/momika233/AM0N-Eye.git' '/opt/tools/C2/AM0N-Eye'
+        echo -e "${GREEN}AM0N_Eye downloaded successfully.${NC}"
+}
 
-# Downloading tools
-echo -e "${GREEN}Downloading tools...${NC}"
+function download_Havoc() {
+    sudo mkdir -p '/opt/tools/C2'
+    sudo git clone 'https://github.com/HavocFramework/Havoc.git' '/opt/tools/C2/Havoc'
+    echo -e "${GREEN}Havoc Framework downloaded successfully.${NC}"
+}
 
-# Requirements
-sudo apt install python3 git unzip php openssh-client golang-go -y
+function install_sliver() {
+    curl https://sliver.sh/install|sudo bash
+    echo -e "${GREEN}Sliver installed successfully.${NC}"
+}
 
-# Command and Control
-sudo git clone 'https://github.com/t3l3machus/Villain.git' '/opt/tools/C2/Villain'
-sudo git clone '--recurse-submodules https://github.com/cobbr/Covenant' '/opt/tools/C2/Covenant'
-sudo git clone 'https://github.com/momika233/AM0N-Eye.git' '/opt/tools/C2/AM0N-Eye'
-sudo git clone 'https://github.com/HavocFramework/Havoc.git' '/opt/tools/C2/Havoc'
-curl https://sliver.sh/install|sudo bash
-sudo pip3 install pwncat-cs
+function install_pwncat() {
+    sudo pip3 install pwncat-cs
+    echo -e "${GREEN}pwncat-cs installed successfully.${NC}"
+}
 
-# Reconnaisance
-cp '/usr/share/windows-resources/powersploit/Recon/PowerView.ps1 /opt/tools/windows/PowerView.ps1'
-cp '/usr/share/windows-resources/powersploit/Recon/Invoke-Portscan.ps1 /opt/tools/windows/Invoke-Portscan.ps1'
-sudo wget -q 'https://github.com/BloodHoundAD/SharpHound/releases/download/v1.1.0/SharpHound-v1.1.0.zip' -O '/opt/tools/windows/SharpHound.zip'
-sudo wget -q 'https://raw.githubusercontent.com/lucky-luk3/ActiveDirectory/master/PowerView-Dev.ps1' -O '/opt/tools/windows/PowerView-Dev.ps1'
-sudo git clone 'https://github.com/samratashok/ADModule.git' '/opt/tools/windows/ADModule'
-sudo apt install bloodhound -y
+function download_install_all_c2_tools() {
+    download_villain
+    download_covenant
+    download_AM0N_Eye
+    download_Havoc
+    install_sliver
+    install_pwncat
+}
 
-# Vulnerability Scanners
-sudo git clone 'https://github.com/lefayjey/linWinPwn.git' '/opt/tools/linWinPwn'
+function command_and_control() {
+    clear
+    echo -e "${RED}"
+    cat << "EOF"
+╔═╗┌─┐┌┬┐┌┬┐┌─┐┌┐┌┌┬┐  ┌─┐┌┐┌┌┬┐  ╔═╗┌─┐┌┐┌┌┬┐┬─┐┌─┐┬    ╔═╗┬─┐┌─┐┌┬┐┌─┐┬ ┬┌─┐┬─┐┬┌─┌─┐
+║  │ │││││││├─┤│││ ││  ├─┤│││ ││  ║  │ ││││ │ ├┬┘│ ││    ╠╣ ├┬┘├─┤│││├┤ ││││ │├┬┘├┴┐└─┐
+╚═╝└─┘┴ ┴┴ ┴┴ ┴┘└┘─┴┘  ┴ ┴┘└┘─┴┘  ╚═╝└─┘┘└┘ ┴ ┴└─└─┘┴─┘  ╚  ┴└─┴ ┴┴ ┴└─┘└┴┘└─┘┴└─┴ ┴└─┘
+EOF
+    echo ""
+    echo -e "${BLUE}1. Download/Install All Tools${NC}"
+    echo -e "${BLUE}2. Download Villain${NC}"
+    echo -e "${BLUE}3. Download Covenant${NC}"
+    echo -e "${BLUE}4. Download AM0N_Eye${NC}"
+    echo -e "${BLUE}5. Download Havoc${NC}"
+    echo -e "${BLUE}6. Install Sliver${NC}"
+    echo -e "${BLUE}7. Install pwncat-cs${NC}"
+    echo -e "${BLUE}8. Back${NC}"
+    echo ""
+    echo -n "Choose an option: "
+    read option
 
-# Impacket
-pipx ensurepath
-pipx install git+https://github.com/dirkjanm/ldapdomaindump.git --force
-pipx install git+https://github.com/Porchetta-Industries/CrackMapExec.git --force
-pipx install git+https://github.com/ThePorgs/impacket.git --force
-pipx install git+https://github.com/dirkjanm/adidnsdump.git --force
-pipx install git+https://github.com/zer1t0/certi.git --force
-pipx install git+https://github.com/ly4k/Certipy.git --force
-pipx install git+https://github.com/fox-it/BloodHound.py.git --force
-pipx install git+https://github.com/franc-pentest/ldeep.git --force
-pipx install git+https://github.com/garrettfoster13/pre2k.git --force
-pipx install git+https://github.com/zblurx/certsync.git --force
-pipx install hekatomb --force
+    case $option in
+        1) download_install_all_c2_tools; command_and_control;;
+        2) download_villain; command_and_control;;
+        3) download_covenant; command_and_control;;
+        4) download_AM0N_Eye; command_and_control;;
+        5) download_Havoc; command_and_control;;
+        6) install_Sliver; command_and_control;;
+        7) install_pwncat; command_and_control;;
+        8) main_menu;;
+        *) echo "Invalid option"; command_and_control;;
+    esac
+}
 
-sudo wget -q 'https://github.com/ropnop/go-windapsearch/releases/latest/download/windapsearch-linux-amd64' -O '/opt/tools/impacket/windapsearch'
-sudo wget -q 'https://github.com/ropnop/kerbrute/releases/latest/download/kerbrute_linux_amd64' -O '/opt/tools/impacket/kerbrute'
-sudo wget -q 'https://raw.githubusercontent.com/cddmp/enum4linux-ng/master/enum4linux-ng.py' -O '/opt/tools/impacket/enum4linux-ng.py'
-sudo wget -q 'https://raw.githubusercontent.com/Bdenneu/CVE-2022-33679/main/CVE-2022-33679.py' -O '/opt/tools/impacket/CVE-2022-33679.py'
-sudo wget -q 'https://raw.githubusercontent.com/layer8secure/SilentHound/main/silenthound.py' -O '/opt/tools/impacket/silenthound.py'
-sudo wget -q 'https://raw.githubusercontent.com/ShutdownRepo/targetedKerberoast/main/targetedKerberoast.py' -O '/opt/tools/impacket/targetedKerberoast.py'
-sudo wget -q 'https://github.com/login-securite/DonPAPI/archive/master.zip' -O '/opt/tools/impacket/DonPAPI.zip'
+# --[ Reconnaissance ]--
+function get_powerview() {
+    sudo mkdir -p '/opt/tools/windows'
+    sudo cp '/usr/share/windows-resources/powersploit/Recon/PowerView.ps1' '/opt/tools/windows/PowerView.ps1'
+    echo -e "${GREEN}PowerView has been copied successfully.${NC}"
+}
 
-# Changing permissions
-sudo chmod +x '/opt/tools/impacket/windapsearch'
-sudo chmod +x '/opt/tools/impacket/kerbrute'
-sudo chmod +x '/opt/tools/impacket/enum4linux-ng.py'
-sudo chmod +x '/opt/tools/impacket/CVE-2022-33679.py'
-sudo chmod +x '/opt/tools/impacket/silenthound.py'
-sudo chmod +x '/opt/tools/impacket/targetedKerberoast.py'
-sudo chmod +x '/opt/tools/impacket/DonPAPI-main/DonPAPI.py'
+function download_PowerView_Dev.ps1() {
+    sudo mkdir -p '/opt/tools/windows'
+    sudo wget -q 'https://raw.githubusercontent.com/lucky-luk3/ActiveDirectory/master/PowerView-Dev.ps1' -O '/opt/tools/windows/PowerView-Dev.ps1'
+    echo -e "${GREEN}PowerView-Dev.ps1 downloaded successfully.${NC}"
+}
 
-# Pishing
-sudo apt install evilginx2 -y
-sudo git clone 'https://github.com/gophish/gophish.git' '/opt/tools/phishing/gophish'
-sudo git clone 'https://github.com/KasRoudra/PyPhisher.git' '/opt/tools/phishing/PyPhisher'
-sudo pip3 install -r /opt/tools/phishing/PyPhisher/files/requirements.txt
+function download_ADModule() {
+    sudo mkdir -p '/opt/tools/windows'
+    sudo git clone 'https://github.com/samratashok/ADModule.git' '/opt/tools/windows/ADModule'
+    echo -e "${GREEN}ADModule downloaded successfully.${NC}"
+}
 
-# File Trasfer
-sudo wget -q 'https://github.com/rejetto/hfs/releases/download/v0.44.0/hfs-windows.zip' -O '/opt/tools/windows/hfs-windows.zip'
+function install_bloodhound() {
+    sudo apt install bloodhound -y
+    echo -e "${GREEN}bloodhound installed successfully.${NC}"
+}
 
-# Exploits
-sudo git clone 'https://github.com/risksense/zerologon.git' '/opt/tools/exploits/zerologon'
-sudo git clone 'https://github.com/topotam/PetitPotam.git' '/opt/tools/exploits/PetitPotam'
+function get_Invoke_Portscan.ps1() {
+    sudo mkdir -p '/opt/tools/windows'
+    sudo cp '/usr/share/windows-resources/powersploit/Recon/Invoke-Portscan.ps1' '/opt/tools/windows/Invoke-Portscan.ps1'
+    echo -e "${GREEN}Invoke_PortScan has been copied successfully.${NC}"
+}
 
-# Evasion
-sudo git clone 'https://github.com/OmerYa/Invisi-Shell.git' '/opt/tools/windows/Invisi-Shell'
-sudo git clone 'https://github.com/optiv/Freeze' '/opt/tools/windows/Freeze'
+function download_SharpHound() {
+    sudo mkdir -p '/opt/tools/windows'
+    sudo wget -q 'https://github.com/BloodHoundAD/SharpHound/releases/download/v1.1.0/SharpHound-v1.1.0.zip' -O '/opt/tools/windows/SharpHound.zip'
+    echo -e "${GREEN}SharpHound downloaded successfully.${NC}"
+    sudo unzip -q '/opt/tools/windows/SharpHound.zip' -d '/opt/tools/windows/SharpHound'
+    sudo rm -rf '/opt/tools/windows/SharpHound.zip'
+    echo -e "${GREEN}SharpHound unzipped successfully.${NC}"
+}
 
-# Privilege Escalation
-cp '/usr/share/windows-resources/powersploit/Privesc/PowerUp.ps1' '/opt/tools/windows/PowerUp.ps1'
-cp '/usr/share/windows-resources/powersploit/Privesc/Get-System.ps1' '/opt/tools/windows/Get-System.ps1'
-sudo wget -q 'https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany_ofs.exe' -O '/opt/tools/windows/winPEASany_ofs.exe'
-sudo wget -q 'https://raw.githubusercontent.com/NetSPI/PowerUpSQL/master/PowerUpSQL.ps1' -O '/opt/tools/windows/PowerUpSQL.ps1'
-sudo wget -q 'https://raw.githubusercontent.com/NetSPI/PowerUpSQL/master/PowerUpSQL.psd1' -O '/opt/tools/windows/PowerUpSQL.psd1'
-sudo wget -q 'https://raw.githubusercontent.com/NetSPI/PowerUpSQL/master/PowerUpSQL.psm1' -O '/opt/tools/windows/PowerUpSQL.psm1'
-sudo wget -q 'https://raw.githubusercontent.com/itm4n/PrivescCheck/master/PrivescCheck.ps1' -O '/opt/tools/windows/PrivescCheck.ps1'
+function install_all_recon_tools() {
+    get_powerview
+    download_PowerView_Dev.ps1
+    download_ADModule
+    install_bloodhound
+    get_Invoke_Portscan.ps1
+    download_SharpHound
+}
 
-# Reporting
-sudo git clone 'https://github.com/pwndoc/pwndoc.git' '/opt/tools/reporting/pwndoc'
-sudo git clone 'https://github.com/Syslifters/OSCP-Reporting' '/opt/tools/reporting/OSCP-Reporting'
+function reconnaissance() {
+    clear
+    echo -e "${RED}"
+    cat << "EOF"
+┬─┐┌─┐┌─┐┌─┐┌┐┌┌┐┌┌─┐┬┌─┐┌─┐┌─┐┌┐┌┌─┐┌─┐
+├┬┘├┤ │  │ │││││││├─┤│└─┐└─┐├─┤││││  ├┤ 
+┴└─└─┘└─┘└─┘┘└┘┘└┘┴ ┴┴└─┘└─┘┴ ┴┘└┘└─┘└─┘
+EOF
+    echo ""
+    echo -e "${BLUE}1. Install All Tools${NC}"
+    echo -e "${BLUE}2. Get PowerView${NC}"
+    echo -e "${BLUE}3. Download SharpHound${NC}"
+    echo -e "${BLUE}4. Download ADModules${NC}"
+    echo -e "${BLUE}5. Install BloodHound${NC}"
+    echo -e "${BLUE}6. Download SharpenHound${NC}"
+    echo -e "${BLUE}7. Get Invoke_Portscan.ps1${NC}"
+    echo -e "${BLUE}8. Back${NC}"
+    echo ""
+    echo -n "Choose an option: "
+    read option
 
-# Misc
-sudo pip3 install updog
-sudo apt install neovim -y
-cp '/usr/share/windows-resources/mimikatz/x64/mimikatz.exe' '/opt/tools/windows/mimikatz64.exe'
-cp '/usr/share/windows-resources/mimikatz/Win32/mimikatz.exe' '/opt/tools/windows/mimikatz32.exe'
-cp '/usr/share/windows-binaries/nc.exe' '/opt/tools/windows/nc.exe'
-cp '/usr/share/windows-binaries/wget.exe' '/opt/tools/windows/wget.exe'
-cp '/usr/share/windows-resources/powersploit/Exfiltration/Invoke-Mimikatz.ps1' '/opt/tools/windows/Invoke-Mimikatz.ps1'
-sudo git clone 'https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git' '/opt/tools/windows/GhostPack'
-sudo wget -q 'https://raw.githubusercontent.com/YoruYagami/RepoUpdater/main/repoupdater.sh' -O '/usr/local/bin/repoupdater'
-sudo wget -q 'https://github.com/RythmStick/AMSITrigger/releases/download/v3/AmsiTrigger_x64.exe' -O '/opt/tools/windows/AmsiTrigger_x64.exe'
-sudo wget -q 'https://github.com/RythmStick/AMSITrigger/releases/download/v3/AmsiTrigger_x86.exe' -O '/opt/tools/windows/AmsiTrigger_x86.exe'
-sudo wget -q 'https://raw.githubusercontent.com/samratashok/nishang/master/Shells/Invoke-PowerShellTcp.ps1' -O '/opt/tools/windows/Invoke-PowerShellTcp.ps1'
-sudo wget -q 'https://raw.githubusercontent.com/samratashok/nishang/master/Backdoors/Set-RemotePSRemoting.ps1' -O '/opt/tools/windows/Set-RemotePSRemoting.ps1'
-sudo wget -q 'https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1' -O '/opt/tools/windows/powercat.ps1'
-sudo wget -q 'https://github.com/gentilkiwi/kekeo/releases/download/2.2.0-20211214/kekeo.zip' -O '/opt/tools/windows/kekeo.zip'
-sudo chmod +x '/usr/local/bin/repoupdater'
+    case $option in
+        1) install_all_recon_tools; reconnaissance;;
+        2) get_powerview; reconnaissance;;
+        3) download_sharphound; reconnaissance;;
+        4) download_ADModule; reconnaissance;;
+        5) install_bloodhound; reconnaissance;;
+        6) download_SharpHound; reconnaissance;;
+        7) get_Invoke_Portscan.ps1; reconnaissance;;
+        8) main_menu;;
+        *) echo "Invalid option"; reconnaissance;;
+    esac
+}
 
-# Unzipping
-sudo unzip -q '/opt/tools/windows/SharpHound.zip' -d '/opt/tools/windows/SharpHound'
-sudo unzip -q '/opt/tools/windows/kekeo.zip' -d '/opt/tools/windows/kekeo'
-sudo unzip -q '/opt/tools/windows/hfs-windows.zip' -d '/opt/tools/windows/hfs-windows'
-sudo unzip -o '/opt/tools/impacket/DonPAPI.zip' -d '/opt/tools/impacket/DonPAPI'
+# --[ Vulnerabilities Scanners ]--
+function download_linwinpwn() {
+    sudo git clone 'https://github.com/lefayjey/linWinPwn.git' '/opt/tools/linWinPwn'
+    echo -e "${GREEN}linwinpwn downloaded successfully.${NC}"
+}
 
-# Removing unnecessary files
-sudo rm -rf '/opt/tools/windows/hfs-windows/plugins/'
-sudo rm -rf '/opt/tools/windows/SharpHound.zip'
-sudo rm -rf '/opt/tools/windows/kekeo.zip'
-sudo rm -rf '/opt/tools/windows/hfs-windows.zip'
+function install_all_vulnerability_scanners() {
+    download_linwinpwn
+}
 
-echo -e "${GREEN}All downloads completed.${NC}"
+function vulnerability_scanners() {
+    clear
+    echo -e "${RED}"
+    cat << "EOF"
+╦  ╦┬ ┬┬  ┌┐┌┌─┐┬─┐┌─┐┌┐ ┬┬  ┬┌┬┐┬┌─┐┌─┐  ╔═╗┌─┐┌─┐┌┐┌┌┐┌┌─┐┬─┐┌─┐
+╚╗╔╝│ ││  │││├┤ ├┬┘├─┤├┴┐││  │ │ │├┤ └─┐  ╚═╗│  ├─┤││││││├┤ ├┬┘└─┐
+ ╚╝ └─┘┴─┘┘└┘└─┘┴└─┴ ┴└─┘┴┴─┘┴ ┴ ┴└─┘└─┘  ╚═╝└─┘┴ ┴┘└┘┘└┘└─┘┴└─└─┘
+EOF
+    echo ""
+    echo -e "${BLUE}1. Install All Tools${NC}"
+    echo -e "${BLUE}2. Download linwinpwn${NC}"
+    echo -e "${BLUE}3. Back${NC}"
+    echo ""
+    echo -n "Choose an option: "
+    read option
+
+    case $option in
+        1) install_all_vulnerability_scanners; vulnerability_scanners;;
+        2) download_linwinpwn; vulnerability_scanners;;
+        3) main_menu;;
+        *) echo "Invalid option"; vulnerability_scanners;;
+    esac
+}
+
+# --[ Phishing ]--
+function install_evilginx2() {
+    sudo apt install evilginx2 -y
+    echo -e "${GREEN}evilginx2 installed successfully.${NC}"
+}
+
+function download_gophish() {
+    sudo mkdir -p '/opt/tools/phishing/'
+    sudo git clone 'https://github.com/gophish/gophish.git' '/opt/tools/phishing/gophish'
+    echo -e "${GREEN}gophish downloaded successfully.${NC}"
+    cd '/opt/tools/phishing/gophish'
+    sudo go build
+    echo -e "${GREEN}gophish builded successfully.${NC}"
+}
+
+function download_PyPhisher() {
+    sudo mkdir -p '/opt/tools/phishing/'
+    sudo git clone 'https://github.com/KasRoudra/PyPhisher.git' '/opt/tools/phishing/PyPhisher'
+    echo -e "${GREEN}PyPhisher downloaded successfully.${NC}"
+    cd  /opt/tools/phishing/PyPhisher/files/
+    sudo pip3 install -r requirements.txt
+    echo -e "${GREEN}requirements of PyPhisher installed successfully.${NC}"
+}
+
+function download_install_all_phishing_tools() {
+    install_evilginx2
+    download_gophish
+    download_PyPhisher
+}
+
+function phishing() {
+    clear
+    echo -e "${RED}"
+    cat << "EOF"
+╔═╗┬ ┬┬┌─┐┬ ┬┬┌┐┌┌─┐  ╔╦╗┌─┐┌─┐┬  ┌─┐
+╠═╝├─┤│└─┐├─┤│││││ ┬   ║ │ ││ ││  └─┐
+╩  ┴ ┴┴└─┘┴ ┴┴┘└┘└─┘   ╩ └─┘└─┘┴─┘└─┘
+EOF
+    echo -e ""
+    echo -e "${BLUE}1. Install All Tools${NC}"
+    echo -e "${BLUE}2. Install evilginx2${NC}"
+    echo -e "${BLUE}3. Download gophish${NC}"
+    echo -e "${BLUE}4. Download PyPhisher${NC}"
+    echo -e "${BLUE}5. Back${NC}"
+    echo ""
+    echo -n "Choose an option: "
+    read option
+
+    case $option in
+        1) download_install_all_phishing_tools; phishing;;
+        2) install_evilginx2; phishing;;
+        3) download_gophish; phishing;;
+        4) download_PyPhisher; phishing;;
+        5) main_menu;;
+        *) echo "Invalid option"; phishing;;
+    esac
+}
+
+# --[ File Trasfer ]--
+function download_hfs() {
+    sudo mkdir -p '/opt/tools/windows'
+    sudo wget -q 'https://github.com/rejetto/hfs/releases/download/v0.44.0/hfs-windows.zip' -O '/opt/tools/windows/hfs-windows.zip'
+    sudo rm -rf '/opt/tools/windows/hfs-windows.zip'
+    echo -e "${GREEN}HFS downloaded and unzipped successfully.${NC}"
+    sudo rm -rf '/opt/tools/windows/hfs-windows/plugins/'
+    echo -e "${GREEN}HFS plugins folder removed successfully.${NC}"
+}
+
+function install_all_file_trasfer_tools() {
+    download_hfs
+}
+
+function File_Trasfer_Tools() {
+    clear
+    echo -e "${RED}"
+    cat << "EOF"
+╔═╗┬┬  ┌─┐  ╔╦╗┬─┐┌─┐┌─┐┌─┐┌─┐┬─┐
+╠╣ ││  ├┤    ║ ├┬┘├─┤└─┐├┤ ├┤ ├┬┘
+╚  ┴┴─┘└─┘   ╩ ┴└─┴ ┴└─┘└  └─┘┴└─
+EOF
+    echo -e "${GREEN}--[ File Trasfer Tools ]--${NC}"
+    echo -e "${BLUE}1. Install All Tools${NC}"
+    echo -e "${BLUE}2. Download HFS${NC}"
+    echo -e "${BLUE}3. Back${NC}"
+    echo ""
+    echo -n "Choose an option: "
+    read option
+
+    case $option in
+        1) install_all_file_trasfer_tools; File_Trasfer_Tools;;
+        2) download_hfs; File_Trasfer_Tools;;
+        3) main_menu;;
+        *) echo "Invalid option"; File_Trasfer_Tools;;
+    esac
+}
+
+# --[ AV/EDR Evasion Tools ]--
+function download_Freeze() {
+    sudo mkdir -p '/opt/tools/windows/'
+    sudo git clone 'https://github.com/optiv/Freeze' '/opt/tools/windows/Freeze'
+    echo -e "${GREEN}Freeze downloaded successfully.${NC}"
+    cd '/opt/tools/windows/Freeze'
+    sudo go build Freeze.go
+    echo -e "${GREEN}Freeze builded successfully.${NC}"
+}
+
+function download_Invisi_Shell() {
+    sudo mkdir -p '/opt/tools/windows/'
+    sudo git clone 'https://github.com/OmerYa/Invisi-Shell.git' '/opt/tools/windows/Invisi-Shell'
+    echo -e "${GREEN}Invisi-Shell downloaded successfully.${NC}"
+}
+
+function install_all_Evasion_tools() {
+    download_Freeze
+    download_Invisi_Shell
+}
+
+function Evasion_Tools() {
+    clear
+    echo -e "${RED}"
+    cat << "EOF"
+╔═╗╦  ╦  ╔═╗┬  ┬┌─┐┌─┐┬┌─┐┌┐┌  ╔╦╗┌─┐┌─┐┬  ┌─┐
+╠═╣╚╗╔╝  ║╣ └┐┌┘├─┤└─┐││ ││││   ║ │ ││ ││  └─┐
+╩ ╩ ╚╝   ╚═╝ └┘ ┴ ┴└─┘┴└─┘┘└┘   ╩ └─┘└─┘┴─┘└─┘
+EOF
+    echo ""
+    echo -e "${BLUE}1. Install All Tools${NC}"
+    echo -e "${BLUE}2. Download Freeze${NC}"
+    echo -e "${BLUE}3. Download Invisi_Shell${NC}"
+    echo -e "${BLUE}4. Back${NC}"
+    echo ""
+    echo -n "Choose an option: "
+    read option
+
+    case $option in
+        1) install_all_Evasion_tools; Evasion_Tools;;
+        2) download_Freeze; Evasion_Tools;;
+        3) download_Invisi_Shell; Evasion_Tools;;
+        4) main_menu;;
+        *) echo "Invalid option"; Evasion_Tools;;
+    esac
+}
+
+# --[ Windows Privilege Escalation ]--
+function get_PowerUp.ps1() {
+    sudo mkdir -p '/opt/tools/windows/'
+    sudo cp '/usr/share/windows-resources/powersploit/Privesc/PowerUp.ps1' '/opt/tools/windows/PowerUp.ps1'
+    echo -e "${GREEN}PowerUp has been copied successfully.${NC}"
+}
+
+function download_PowerUpSQL() {
+    sudo mkdir -p '/opt/tools/windows/'
+    sudo wget -q 'https://raw.githubusercontent.com/NetSPI/PowerUpSQL/master/PowerUpSQL.ps1' -O '/opt/tools/windows/PowerUpSQL.ps1'
+    sudo wget -q 'https://raw.githubusercontent.com/NetSPI/PowerUpSQL/master/PowerUpSQL.psd1' -O '/opt/tools/windows/PowerUpSQL.psd1'
+    sudo wget -q 'https://raw.githubusercontent.com/NetSPI/PowerUpSQL/master/PowerUpSQL.psm1' -O '/opt/tools/windows/PowerUpSQL.psm1'
+    echo -e "${GREEN}PowerUpSQL downloaded successfully.${NC}"
+}
+
+function get_system() {
+    sudo mkdir -p '/opt/tools/windows/'
+    cp '/usr/share/windows-resources/powersploit/Privesc/Get-System.ps1' '/opt/tools/windows/Get-System.ps1'
+    echo -e "${GREEN}Get-System.ps1 has been copied successfully.${NC}"
+}
+
+function download_PrivescCheck() {
+    sudo mkdir -p '/opt/tools/windows/'
+    sudo wget -q 'https://raw.githubusercontent.com/itm4n/PrivescCheck/master/PrivescCheck.ps1' -O '/opt/tools/windows/PrivescCheck.ps1'
+    echo -e "${GREEN}PrivEscCheck.ps1 downloaded successfully.${NC}"
+}
+
+function download_WinPEAS() {
+    sudo mkdir -p '/opt/tools/windows/'
+    sudo wget -q 'https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany_ofs.exe' -O '/opt/tools/windows/winPEASany_ofs.exe'
+    echo -e "${GREEN}WinPEASany_ofs.exe downloaded successfully.${NC}"
+}
+
+function download_install_all_Privilege_Escalation_tools() {
+    get_PowerUp.ps1
+    download_PowerUpSQL
+    get_system
+    download_PrivescCheck
+    download_WinPEAS
+}
+
+function Windows_Privilege_Escalation_Tools() {
+    clear
+    echo -e "${RED}"
+    cat << "EOF"
+╦ ╦┬┌┐┌┌┬┐┌─┐┬ ┬┌─┐  ╔═╗┬─┐┬┬  ┬┬┬  ┌─┐┌─┐┌─┐  ╔═╗┌─┐┌─┐┌─┐┬  ┌─┐┌┬┐┬┌─┐┌┐┌  ╔╦╗┌─┐┌─┐┬  ┌─┐
+║║║││││ │││ ││││└─┐  ╠═╝├┬┘│└┐┌┘││  ├┤ │ ┬├┤   ║╣ └─┐│  ├─┤│  ├─┤ │ ││ ││││   ║ │ ││ ││  └─┐
+╚╩╝┴┘└┘─┴┘└─┘└┴┘└─┘  ╩  ┴└─┴ └┘ ┴┴─┘└─┘└─┘└─┘  ╚═╝└─┘└─┘┴ ┴┴─┘┴ ┴ ┴ ┴└─┘┘└┘   ╩ └─┘└─┘┴─┘└─┘
+EOF
+    echo ""
+    echo -e "${BLUE}1. Install All Tools${NC}"
+    echo -e "${BLUE}2. Get PowerUp.ps1${NC}"
+    echo -e "${BLUE}3. Download PowerUpSQL${NC}"
+    echo -e "${BLUE}4. Get GetSystem.ps1${NC}"
+    echo -e "${BLUE}5. Download PrivescCheck.ps1${NC}"
+    echo -e "${BLUE}6. Download WinPEASany_ofs.exe${NC}"
+    echo -e "${BLUE}7. Back${NC}"
+    echo ""
+    echo -n "Choose an option: "
+    read option
+
+    case $option in
+        1) download_install_all_Privilege_Escalation_tools;;
+        2) get_PowerUp.ps1; Windows_Privilege_Escalation_Tools;;
+        3) download_PowerUpSQL; Windows_Privilege_Escalation_Tools;;
+        4) get_system; Windows_Privilege_Escalation_Tools;;
+        5) download_PrivescCheck; Windows_Privilege_Escalation_Tools;;
+        6) download_WinPEAS; Windows_Privilege_Escalation_Tools;;
+        7) main_menu;;
+        *) echo "Invalid option"; Windows_Privilege_Escalation_Tools;;
+    esac
+}
+
+function main_menu() {
+    clear
+    echo -e "${RED}"
+    cat << "EOF"
+    ╔═╗┬  ┬┬┬  ╦╔═┌─┐┬  ┬
+    ║╣ └┐┌┘││  ╠╩╗├─┤│  │
+    ╚═╝ └┘ ┴┴─┘╩ ╩┴ ┴┴─┘┴
+                    By YoruYagami
+EOF
+    echo ""
+    echo -e "${BLUE}1. Install All Tools${NC}"
+    echo -e "${BLUE}2. Command and Control${NC}"
+    echo -e "${BLUE}3. Reconnaissance${NC}"
+    echo -e "${BLUE}4. Phishing${NC}"
+    echo -e "${BLUE}5. Vulnerability Scanners${NC}"
+    echo -e "${BLUE}6. AV/EDR Evasion Tools${NC}"
+    echo -e "${BLUE}7. Windows Privilege Escaltion Tools${NC}"
+    echo -e "${BLUE}8. Quit${NC}"
+    echo ""
+    echo -n "Choose an option: "
+    read option
+
+    case $option in
+        1) download_install_all_c2_tools; install_all_recon_tools; install_all_vulnerability_scanners; download_install_all_phishing_tools; install_all_Evasion_tools main_menu;;
+        2) command_and_control;;
+        3) reconnaissance;;
+        4) phishing;;
+        5) vulnerability_scanners;;
+        6) Evasion_Tools;;
+        7) Windows_Privilege_Escalation_Tools;;
+        8) exit;;
+        *) echo "Invalid option"; main_menu;;
+    esac
+}
+
+main_menu
