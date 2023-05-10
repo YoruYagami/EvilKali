@@ -28,5 +28,5 @@ Install dependencies
 execute 
 
 ```bash
-./evilkali.sh
+sudo ./evilkali.sh
 ```
