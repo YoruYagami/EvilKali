@@ -18,7 +18,7 @@ command_exists() {
 
 # Ask the user if they want to enable tmux auto-start
 echo ""
-read -p "Do you want to enable tmux auto-start? (y/n)" -n 1 -r
+read -p "Do you prefer to have tmux automatically enabled when the terminal is launched? (y/n)" -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     ENABLE_TMUX=true
