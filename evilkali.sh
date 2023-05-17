@@ -77,7 +77,7 @@ for pkg in "${essentials[@]}"; do
     if is_command $pkg; then
         echo -e "${GREEN}$pkg already installed.${NC}"
     else
-        echo "${RED}$pkg is not installed.${NC}${GREEN}installing for you${NC}"
+        echo "$pkg is not installed.${NC}${GREEN}installing for you"
         sudo apt install $pkg -y  
     fi
 done
@@ -707,7 +707,7 @@ function download_Ghostpack() {
     else
         echo -e "${YELLOW}Downloading Compiled GhostPack Binaries${NC}"
         sudo git clone 'https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git' '/opt/evilkali/Ghostpack/'
-        sudo cp -r '/opt/evilkali/Ghostpack/*' '/opt/evilkali/windows/'
+        sudo cp -r /opt/evilkali/Ghostpack/* /opt/evilkali/windows/
         sudo rm -r '/opt/evilkali/Ghostpack'
         sudo rm -rf '/opt/evilkali/windows/README.md'
         echo -e "${GREEN}Ghostpack downloaded successfully.${NC}"
