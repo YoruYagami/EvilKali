@@ -387,7 +387,7 @@ function download_PyPhisher() {
         echo -e "${RED}PyPhisher is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading PyPhisher${NC}"
-        sudo git clone 'https://github.com/KasRoudra/PyPhisher.git' '/opt/evilkali/phishing/PyPhisher'>/dev/null 2>&1
+        sudo git clone 'https://github.com/KasRoudra/PyPhisher.git' '/opt/evilkali/phishing/PyPhisher'
         echo -e "${GREEN}PyPhisher downloaded successfully.${NC}"
     fi
     
