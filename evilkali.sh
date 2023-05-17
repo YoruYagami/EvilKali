@@ -77,7 +77,7 @@ for pkg in "${essentials[@]}"; do
     if is_command $pkg; then
         echo -e "${GREEN}$pkg already installed.${NC}"
     else
-        echo "${RED}$pkg is not installed.${NC}${GREEN}installing for you...${NC}"
+        echo "${RED}$pkg is not installed.${NC}${GREEN}installing for you${NC}"
         sudo apt install $pkg -y  
     fi
 done
@@ -88,7 +88,7 @@ function download_villain() {
     if [ -d "/opt/evilkali/C2/Villain" ]; then
         echo -e "${RED}Villain is already installed.${NC}"
     else
-        echo -e "${YELLOW}Downloading Villain...${NC}"
+        echo -e "${YELLOW}Downloading Villain${NC}"
         sudo git clone 'https://github.com/t3l3machus/Villain.git' '/opt/evilkali/C2/Villain' 
         echo -e "${GREEN}Villain downloaded successfully.${NC}"
     fi
@@ -100,7 +100,7 @@ function download_covenant() {
     if [ -d "/opt/evilkali/C2/Covenant" ]; then
         echo -e "${RED}Covenant is already installed.${NC}"
     else
-        echo -e "${YELLOW}Downloading Covenant...${NC}"
+        echo -e "${YELLOW}Downloading Covenant${NC}"
         sudo git clone --recurse-submodules https://github.com/cobbr/Covenant '/opt/evilkali/C2/Covenant' 
         echo -e "${GREEN}Covenant downloaded successfully.${NC}"
     fi
@@ -112,7 +112,7 @@ function download_AM0N_Eye() {
     if [ -d "/opt/evilkali/C2/AM0N-Eye" ]; then
         echo -e "${RED}AM0N-Eye is already installed.${NC}"
     else
-        echo -e "${YELLOW}Downloading AM0N_Eye...${NC}"
+        echo -e "${YELLOW}Downloading AM0N_Eye${NC}"
         sudo git clone 'https://github.com/S3N4T0R-0X0/AMON-Eye.git' '/opt/evilkali/C2/AM0N-Eye' 
         echo -e "${GREEN}AM0N_Eye downloaded successfully.${NC}"
     fi
@@ -122,7 +122,7 @@ function download_AM0N_Eye() {
 function download_Havoc() {
     sudo mkdir -p '/opt/evilkali/C2'
     if [ ! -d "/opt/evilkali/C2/Havoc" ]; then
-        echo -e "${YELLOW}Downloading Havoc Framework...${NC}"
+        echo -e "${YELLOW}Downloading Havoc Framework${NC}"
         sudo git clone 'https://github.com/HavocFramework/Havoc.git' '/opt/evilkali/C2/Havoc' 
         echo -e "${GREEN}Havoc Framework downloaded successfully.${NC}"
     else
@@ -228,7 +228,7 @@ function install_bloodhound() {
     if dpkg -s bloodhound; then
         echo -e "${RED}bloodhound is already installed.${NC}"
     else
-        echo -e "${YELLOW}Installing bloodhound...${NC}"
+        echo -e "${YELLOW}Installing bloodhound${NC}"
         sudo apt install bloodhound -y 
         echo -e "${GREEN}bloodhound installed successfully.${NC}"
     fi
@@ -251,7 +251,7 @@ function download_SharpHound() {
     if [ -d "/opt/evilkali/windows/SharpHound" ]; then
         echo -e "${RED}SharpHound is already downloaded and unzipped.${NC}"
     else
-        echo -e "${YELLOW}Downloading SharpHound...${NC}"
+        echo -e "${YELLOW}Downloading SharpHound${NC}"
         sudo wget -q 'https://github.com/BloodHoundAD/SharpHound/releases/download/v1.1.0/SharpHound-v1.1.0.zip' -O '/opt/evilkali/windows/SharpHound.zip' 
         echo -e "${GREEN}SharpHound downloaded successfully.${NC}"
         sudo unzip -q '/opt/evilkali/windows/SharpHound.zip' -d '/opt/evilkali/windows/SharpHound'
@@ -310,7 +310,7 @@ function download_linwinpwn() {
     if [ -d "/opt/evilkali/linWinPwn" ]; then
         echo -e "${RED}linwinpwn is already downloaded.${NC}"
     else
-        echo -e "${YELLOW}Downloading linwinpwn...${NC}"
+        echo -e "${YELLOW}Downloading linwinpwn${NC}"
         sudo git clone 'https://github.com/lefayjey/linWinPwn.git' '/opt/evilkali/linWinPwn' 
         echo -e "${GREEN}linwinpwn downloaded successfully.${NC}"
     fi
@@ -365,7 +365,7 @@ function download_gophish() {
     if [ -d "/opt/evilkali/phishing/gophish" ]; then
         echo -e "${RED}gophish is already downloaded.${NC}"
     else
-        echo -e "${YELLOW}Downloading gophish...${NC}"
+        echo -e "${YELLOW}Downloading gophish${NC}"
         sudo git clone 'https://github.com/gophish/gophish.git' '/opt/evilkali/phishing/gophish'
         echo -e "${GREEN}gophish downloaded successfully.${NC}"
     fi
@@ -374,7 +374,7 @@ function download_gophish() {
         echo -e "${RED}gophish is already built.${NC}"
     else
         cd '/opt/evilkali/phishing/gophish'
-        echo -e "${YELLOW}Building gophish...${NC}"
+        echo -e "${YELLOW}Building gophish${NC}"
         sudo go build
         echo -e "${GREEN}gophish built successfully.${NC}"
     fi
@@ -386,7 +386,7 @@ function download_PyPhisher() {
     if [ -d "/opt/evilkali/phishing/PyPhisher" ]; then
         echo -e "${RED}PyPhisher is already downloaded.${NC}"
     else
-        echo -e "${YELLOW}Downloading PyPhisher...${NC}"
+        echo -e "${YELLOW}Downloading PyPhisher${NC}"
         sudo git clone 'https://github.com/KasRoudra/PyPhisher.git' '/opt/evilkali/phishing/PyPhisher'>/dev/null 2>&1
         echo -e "${GREEN}PyPhisher downloaded successfully.${NC}"
     fi
@@ -394,7 +394,7 @@ function download_PyPhisher() {
     if [ -f "/opt/evilkali/phishing/PyPhisher/files/requirements.txt" ]; then
         echo -e "${RED}Requirements of PyPhisher are already installed.${NC}"
     else
-        echo -e "${YELLOW}Installing PyPhisher requirements...${NC}"
+        echo -e "${YELLOW}Installing PyPhisher requirements${NC}"
         cd  '/opt/evilkali/phishing/PyPhisher/files/'
         sudo pip3 install -r requirements.txt
         echo -e "${GREEN}Requirements of PyPhisher installed successfully.${NC}"
@@ -453,7 +453,7 @@ function download_hfs() {
             echo -e "${RED}HFS plugins folder does not exist or has already been removed.${NC}"
         fi
     else
-        echo -e "${YELLOW}Downloading HFS...${NC}"
+        echo -e "${YELLOW}Downloading HFS${NC}"
         sudo wget -q 'https://github.com/rejetto/hfs/releases/download/v0.44.0/hfs-windows.zip' -O '/opt/evilkali/windows/hfs-windows.zip' 
         echo -e "${GREEN}HFS downloaded successfully.${NC}"
         echo -e "${YELLOW}Unzipping HFS${NC}"
@@ -537,7 +537,7 @@ function download_Freeze() {
     if [ -d "/opt/evilkali/windows/Freeze" ]; then
         echo -e "${RED}Freeze is already downloaded.${NC}"
     else
-        echo -e "${YELLOW}Downloading Freeze...${NC}"
+        echo -e "${YELLOW}Downloading Freeze${NC}"
         sudo git clone 'https://github.com/optiv/Freeze' '/opt/evilkali/windows/Freeze' 
         echo -e "${GREEN}Freeze downloaded successfully.${NC}"
     fi
@@ -556,7 +556,7 @@ function download_Invisi_Shell() {
     if [ -d "/opt/evilkali/windows/Invisi-Shell" ]; then
         echo -e "${RED}Invisi-Shell is already downloaded.${NC}"
     else
-        echo -e "${YELLOW}Downloading Invisi-Shell...${NC}"
+        echo -e "${YELLOW}Downloading Invisi-Shell${NC}"
         sudo git clone 'https://github.com/OmerYa/Invisi-Shell.git' '/opt/evilkali/windows/Invisi-Shell' 
         echo -e "${GREEN}Invisi-Shell downloaded successfully.${NC}"
     fi
@@ -603,7 +603,7 @@ function get_PowerUp.ps1() {
     if [ -f "/opt/evilkali/windows/PowerUp.ps1" ]; then
         echo -e "${YELLOW}PowerUp.ps1 is already copied.${NC}"
     else
-        echo -e "${YELLOW}copying PowerUp.ps1...${NC}"
+        echo -e "${YELLOW}copying PowerUp.ps1${NC}"
         sudo cp '/usr/share/windows-resources/powersploit/Privesc/PowerUp.ps1' '/opt/evilkali/windows/PowerUp.ps1'
         echo -e "${GREEN}PowerUp has been copied successfully.${NC}"
     fi
@@ -614,7 +614,7 @@ function download_PowerUpSQL() {
     if [ -f "/opt/evilkali/windows/PowerUpSQL.ps1" ] && [ -f "/opt/evilkali/windows/PowerUpSQL.psd1" ] && [ -f "/opt/evilkali/windows/PowerUpSQL.psm1" ]; then
         echo -e "${RED}PowerUpSQL is already downloaded.${NC}"
     else
-        echo -e "${YELLOW}Downloading PowerUpSQL...${NC}"
+        echo -e "${YELLOW}Downloading PowerUpSQL${NC}"
         sudo wget -q 'https://raw.githubusercontent.com/NetSPI/PowerUpSQL/master/PowerUpSQL.ps1' -O '/opt/evilkali/windows/PowerUpSQL.ps1' 
         sudo wget -q 'https://raw.githubusercontent.com/NetSPI/PowerUpSQL/master/PowerUpSQL.psd1' -O '/opt/evilkali/windows/PowerUpSQL.psd1' 
         sudo wget -q 'https://raw.githubusercontent.com/NetSPI/PowerUpSQL/master/PowerUpSQL.psm1' -O '/opt/evilkali/windows/PowerUpSQL.psm1' 
@@ -627,7 +627,7 @@ function get_system() {
     if [ -f "/opt/evilkali/windows/Get-System.ps1" ]; then
         echo -e "${RED}Get-System.ps1 is already copied.${NC}"
     else
-        echo -e "${YELLOW}copying Get_System.ps1...${NC}"
+        echo -e "${YELLOW}copying Get_System.ps1${NC}"
         cp '/usr/share/windows-resources/powersploit/Privesc/Get-System.ps1' '/opt/evilkali/windows/Get-System.ps1'
         echo -e "${GREEN}Get-System.ps1 has been copied successfully.${NC}"
     fi
