@@ -65,7 +65,7 @@ else
 fi
 
 # List of essentials packages to check
-essentials=(python3 git gobuster docker-compose docker.io neovim wget git unzip php openssh-client golang-go)
+essentials=(python3 git gobuster docker-compose docker.io neovim wget git unzip php openssh-client golang-go sed curl openssl uuid-runtime)
 
 # Function to check if a command is available
 is_command() {
@@ -207,7 +207,7 @@ function get_powerview() {
         echo -e "${RED}PowerView has already been copied.${NC}"
     else
         sudo cp '/usr/share/windows-resources/powersploit/Recon/PowerView.ps1' '/opt/evilkali/windows/PowerView.ps1'
-        sudo wget -q 'https://raw.githubusercontent.com/lucky-luk3/ActiveDirectory/master/PowerView-Dev.ps1' -O '/opt/tools/windows/PowerView-Dev.ps1' 
+        sudo wget -q 'https://raw.githubusercontent.com/lucky-luk3/ActiveDirectory/master/PowerView-Dev.ps1' -O '/opt/evilkali/windows/PowerView-Dev.ps1' 
         echo -e "${GREEN}PowerView has been copied successfully.${NC}"
     fi
     sleep 2
@@ -786,6 +786,82 @@ EOF
     esac
 }
 
+# --[ Reporting tools ]--
+function download_pwndoc() {
+    sudo mkdir -p '/opt/evilkali/reporting/'
+    if [ -d "/opt/evilkali/reporting/pwndoc" ]; then
+        echo -e "${RED}pwndoc is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Downloading pwndoc${NC}"
+        sudo git clone 'https://github.com/pwndoc/pwndoc.git' '/opt/evilkali/reporting/pwndoc' 
+        echo -e "${GREEN}pwndoc downloaded successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function download_ghostwriter() {
+    sudo mkdir -p '/opt/evilkali/reporting/'
+    if [ -d "/opt/evilkali/reporting/ghostwriter" ]; then
+        echo -e "${RED}ghostwriter is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Downloading ghostwriter${NC}"
+        sudo git clone 'https://github.com/GhostManager/Ghostwriter.git' '/opt/evilkali/reporting/ghostwriter' 
+        echo -e "${GREEN}ghostwriter downloaded successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function install_OSCP-Reporting() {
+    sudo mkdir -p '/opt/evilkali/reporting/'
+    if [ -d "/opt/evilkali/reporting/OSCP-Reporting" ]; then
+        echo -e "${RED}OSCP-Reporting is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Installing OSCP-Reporting${NC}"
+        sudo curl -s https://docs.sysreptor.com/install.sh | bash
+        sudo rm -rf /opt/sysreptor.tar.gz
+        echo -e "${GREEN}OSCP-Reporting installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function download_install_all_Reporting_tools() {
+    download_pwndoc
+    download_ghostwriter
+    install_OSCP-Reporting
+}
+
+function Reporting_Tools() {
+    clear
+    echo -e "${RED}"
+    cat << "EOF"
+__________                             __  .__                
+\______   \ ____ ______   ____________/  |_|__| ____    ____  
+ |       _// __ \\____ \ /  _ \_  __ \   __\  |/    \  / ___\ 
+ |    |   \  ___/|  |_> >  <_> )  | \/|  | |  |   |  \/ /_/  >
+ |____|_  /\___  >   __/ \____/|__|   |__| |__|___|  /\___  / 
+        \/     \/|__|                              \//_____/  
+EOF
+    echo ""
+    echo -e "${BLUE}1. Download/Install All Tools${NC}"
+    echo -e "${BLUE}2. Download pwndoc${NC}"
+    echo -e "${BLUE}3. Download ghostwriter${NC}"
+    echo -e "${BLUE}4. Install OSCP-Reporting${NC}"
+    echo -e "${BLUE}5. Back${NC}"
+    echo ""
+    echo -n "Choose an option: "
+    read option
+
+    case $option in
+        1) download_install_all_Reporting_tools; Reporting_Tools;;
+        2) download_pwndoc; Reporting_Tools;;
+        3) download_ghostwriter; Reporting_Tools;;
+        4) install_OSCP-Reporting; Reporting_Tools;;
+        5) main_menu;;
+        *) echo "Invalid option"; Reporting_Tools;;
+    esac
+}
+
+# --[ Function to install from 3 through 11 tools ]
 function install_from_3_through_10() {
     install_all_recon_tools
     install_all_vulnerability_scanners
@@ -819,7 +895,8 @@ EOF
     echo -e "${BLUE}7)  Ghostpack Compiled Binaries${NC}"
     echo -e "${BLUE}8)  Evasion Tools${NC}"
     echo -e "${BLUE}9)  Windows Privilege Escaltion Tools${NC}"
-    echo -e "${BLUE}10) Linux Privilege Escaltion Tools${NC}"    
+    echo -e "${BLUE}10) Linux Privilege Escaltion Tools${NC}"
+    echo -e "${BLUE}11) Reporting${NC}"
     echo ""
     echo -e "${BLUE}A) Download/Install all tools from 3 through 10${NC}"
     echo ""
@@ -830,7 +907,7 @@ EOF
     read option
 
     case $option in
-        1) download_install_all_c2_tools; install_all_recon_tools; install_all_vulnerability_scanners; install_all_file_trasfer_tools; download_install_all_phishing_tools; download_Ghostpack; install_all_Evasion_tools; download_install_all_Windows_Privilege_Escalation_tools; download_install_all_Linux_Privilege_Escalation_tools; main_menu;;
+        1) download_install_all_c2_tools; install_all_recon_tools; install_all_vulnerability_scanners; install_all_file_trasfer_tools; download_install_all_phishing_tools; download_Ghostpack; install_all_Evasion_tools; download_install_all_Windows_Privilege_Escalation_tools; download_install_all_Linux_Privilege_Escalation_tools; download_install_all_Reporting_tools; main_menu;;
         2) command_and_control;;
         3) reconnaissance;;
         4) phishing;;
@@ -840,6 +917,7 @@ EOF
         8) Evasion_Tools;;
         9) Windows_Privilege_Escalation_Tools;;
         10) Linux_Privilege_Escalation_Tools;;
+        11) Reporting_Tools;;
         99) exit;;
         A) install_from_3_through_10; main_menu;;
         *) echo "Invalid option"; main_menu;;
