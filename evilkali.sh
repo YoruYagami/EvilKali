@@ -174,7 +174,7 @@ _________  ________   ___________                                               
         \/         \/      \/               \/      \/     \/                        \/
 
 EOF
-    echo -e "${BLUE}\n Select an option from menu:${NC}"
+        echo -e "${BLUE}\n Select an option from menu:${NC}"
     echo -e "${BLUE}\nKey     Menu Option:"${NC}
     echo -e "---     -------------------------"
     echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
@@ -739,6 +739,7 @@ function download_LinEnum() {
         sudo wget -q 'https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh' -O '/opt/evilkali/linux/LinEnum.sh' 
         echo -e "${GREEN}LinEnum.sh downloaded successfully.${NC}"
     fi
+    sleep 2
 }
 
 function download_LinPeas() {
@@ -750,6 +751,7 @@ function download_LinPeas() {
         sudo wget -q 'https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh' -O '/opt/evilkali/linux/linpeas.sh' 
         echo -e "${GREEN}linpeas.sh downloaded successfully.${NC}"
     fi
+    sleep 2
 }
 
 function download_linuxsmartenumeration() {
@@ -761,6 +763,7 @@ function download_linuxsmartenumeration() {
         sudo wget -q 'https://raw.githubusercontent.com/diego-treitos/linux-smart-enumeration/master/lse.sh' -O '/opt/evilkali/linux/lse.sh' 
         echo -e "${GREEN}lse.sh downloaded successfully.${NC}"
     fi
+    sleep 2
 }
 
 function download_install_all_Linux_Privilege_Escalation_tools() {
