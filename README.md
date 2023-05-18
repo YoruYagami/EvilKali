@@ -1,6 +1,6 @@
 # EvilKali
 
-This is a Bash script that automates the download and installation of various penetration testing tools. 
+EvilKali is a Bash script that automates the download and installation of various penetration testing tools. 
 The purpose of the script is to create an environment with all the necessary tools for red teaming.
 
 ⚠️EvilKali is actually in work in progress. many more tools will be added later.⚠️
