@@ -77,7 +77,7 @@ for pkg in "${essentials[@]}"; do
     if is_command $pkg; then
         echo -e "$pkg already installed."
     else
-        echo "$pkg is not installed.${NC}${GREEN}installing for you"
+        echo "$pkg is not installed.installing for you"
         sudo apt install $pkg -y  
     fi
 done
