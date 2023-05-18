@@ -5,7 +5,7 @@ The purpose of the script is to create an environment with all the necessary too
 
 ⚠️EvilKali is actually in work in progress. many more tools will be added later.⚠️
 
-![image](https://github.com/YoruYagami/EvilKali/assets/70035442/f617d2aa-33f9-4cb5-93ed-aa7310db3e0d)
+![image](https://github.com/YoruYagami/EvilKali/assets/70035442/8bc744fb-3d26-4c20-902d-6ba43746f41e)
 
 Following the list of tools that can be installed
 
