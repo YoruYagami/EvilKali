@@ -145,7 +145,7 @@ function install_sliver() {
 function install_pwncat() {
     if ! pip3 list 2>/dev/null | grep -q pwncat-cs; then
         echo -e "${YELLOW}Installing pwncat-cs.${NC}"
-        sudo pip3 install pwncat-cs 
+        pip3 install pwncat-cs 
         echo -e "${GREEN}pwncat-cs installed successfully.${NC}"
     else
         echo -e "${RED}pwncat-cs is already installed.${NC}"
