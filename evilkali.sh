@@ -712,6 +712,7 @@ function download_Ghostpack() {
         sudo rm -rf '/opt/evilkali/windows/README.md'
         echo -e "${GREEN}Ghostpack downloaded successfully.${NC}"
     fi
+    sleep 2
 }
 
 function main_menu() {
@@ -749,7 +750,7 @@ EOF
         4) phishing;;
         5) vulnerability_scanners;;
         6) File_Trasfer_Tools;;
-        7) download_Ghostpack;;
+        7) download_Ghostpack; main_menu;;
         8) Evasion_Tools;;
         9) Windows_Privilege_Escalation_Tools;;
         99) exit;;
