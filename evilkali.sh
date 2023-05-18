@@ -786,6 +786,17 @@ EOF
     esac
 }
 
+function install_from_3_through_10() {
+    install_all_recon_tools
+    install_all_vulnerability_scanners
+    install_all_file_trasfer_tools
+    download_install_all_phishing_tools
+    download_Ghostpack
+    install_all_Evasion_tools
+    download_install_all_Windows_Privilege_Escalation_tools
+    download_install_all_Linux_Privilege_Escalation_tools
+}
+
 function main_menu() {
     clear
     echo -e "${RED}"
@@ -799,16 +810,19 @@ ___________     .__.__   ____  __.      .__  .__
                                 By YoruYagami
 EOF
     echo ""
-    echo -e "${BLUE}1.  Download/Install All Tools${NC}"
-    echo -e "${BLUE}2.  Command and Control Frameworks${NC}"
-    echo -e "${BLUE}3.  Reconnaissance${NC}"
-    echo -e "${BLUE}4.  Phishing${NC}"
-    echo -e "${BLUE}5.  Vulnerability Scanners${NC}"
-    echo -e "${BLUE}6.  File Trasferer tools${NC}"
-    echo -e "${BLUE}7.  Ghostpack Compiled Binaries${NC}"
-    echo -e "${BLUE}8.  Evasion Tools${NC}"
-    echo -e "${BLUE}9.  Windows Privilege Escaltion Tools${NC}"
-    echo -e "${BLUE}10. Linux Privilege Escaltion Tools${NC}"     
+    echo -e "${BLUE}1)  Download/Install All Tools${NC}"
+    echo -e "${BLUE}2)  Command and Control Frameworks${NC}"
+    echo -e "${BLUE}3)  Reconnaissance${NC}"
+    echo -e "${BLUE}4)  Phishing${NC}"
+    echo -e "${BLUE}5)  Vulnerability Scanners${NC}"
+    echo -e "${BLUE}6)  File Trasferer tools${NC}"
+    echo -e "${BLUE}7)  Ghostpack Compiled Binaries${NC}"
+    echo -e "${BLUE}8)  Evasion Tools${NC}"
+    echo -e "${BLUE}9)  Windows Privilege Escaltion Tools${NC}"
+    echo -e "${BLUE}10) Linux Privilege Escaltion Tools${NC}"    
+    echo ""
+    echo ""
+    echo -e "${BLUE}A) Download/Install all tools from 3 through 10${NC}"
     echo ""
     echo -e "${BLUE}99. Quit${NC}"
     echo ""
@@ -816,7 +830,7 @@ EOF
     read option
 
     case $option in
-        1) download_install_all_c2_tools; install_all_recon_tools; install_all_vulnerability_scanners; install_all_file_trasfer_tools; download_install_all_phishing_tools; download_Ghostpack; install_all_Evasion_tools; download_install_all_Linux_Privilege_Escalation_tools; main_menu;;
+        1) download_install_all_c2_tools; install_all_recon_tools; install_all_vulnerability_scanners; install_all_file_trasfer_tools; download_install_all_phishing_tools; download_Ghostpack; install_all_Evasion_tools; download_install_all_Windows_Privilege_Escalation_tools; download_install_all_Linux_Privilege_Escalation_tools; main_menu;;
         2) command_and_control;;
         3) reconnaissance;;
         4) phishing;;
@@ -827,6 +841,7 @@ EOF
         9) Windows_Privilege_Escalation_Tools;;
         10) Linux_Privilege_Escalation_Tools;;
         99) exit;;
+        A) install_from_3_through_10; main_menu;;
         *) echo "Invalid option"; main_menu;;
     esac
 }
