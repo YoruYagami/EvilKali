@@ -923,7 +923,6 @@ EOF
     echo ""
     echo -e "${BLUE} A   -  Download/Install all tools from 3 through 10${NC}"
     echo ""
-    echo ""
     echo -e "${BLUE} 99  -  Quit${NC}"
     echo ""
     echo -n "Choose an option: "
