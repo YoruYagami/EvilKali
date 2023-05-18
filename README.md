@@ -43,18 +43,18 @@ Following the list of tools that can be installed
 - invisi_shell
 
 ### Windows Privilege Escalation Tools
-- PowerUp.ps1
-- PowerUpSQL.ps1, PowerUpSQL.psd1, PowerUpSQL.psm1
-- Get-System.ps1
-- PrivescCheck.ps1
-- winPEASany_ofs.exe
+- PowerUp
+- PowerUpSQL
+- Get-System
+- PrivescCheck
+- winPEASany_ofs
 
 ### Ghostpack-CompiledBinaries entire repo
 
 ### Linux Privilege Escalation Tools
 - LinEnum
-- linpeas
-- lse.sh (Linux Smart Enumeration)
+- linPEAS
+- lse (Linux Smart Enumeration)
 
 ### Reporting
 - pwndoc
