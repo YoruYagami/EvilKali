@@ -7,8 +7,6 @@ The purpose of the script is to create an environment with all the necessary too
 
 Following the list of tools that can be installed
 
-- Ghostpack-CompiledBinaries
-
 ### C2 Framework
 - Villain
 - Covenant
@@ -48,6 +46,8 @@ Following the list of tools that can be installed
 - Get-System.ps1
 - PrivescCheck.ps1
 - winPEASany_ofs.exe
+
+### Ghostpack-CompiledBinaries entire repo
 
 ### Linux Privilege Escalation Tools
 - LinEnum
