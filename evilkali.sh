@@ -174,15 +174,17 @@ _________  ________   ___________                                               
         \/         \/      \/               \/      \/     \/                        \/
 
 EOF
-    echo ""
-    echo -e "${BLUE}1. Download/Install All Tools${NC}"
-    echo -e "${BLUE}2. Download Villain${NC}"
-    echo -e "${BLUE}3. Download Covenant${NC}"
-    echo -e "${BLUE}4. Download AM0N_Eye${NC}"
-    echo -e "${BLUE}5. Download Havoc${NC}"
-    echo -e "${BLUE}6. Install Sliver${NC}"
-    echo -e "${BLUE}7. Install pwncat-cs${NC}"
-    echo -e "${BLUE}8. Back${NC}"
+    echo -e "${BLUE}\n Select an option from menu:${NC}"
+    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "---     -------------------------"
+    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
+    echo -e "${BLUE} 2   -  Download Villain${NC}"
+    echo -e "${BLUE} 3   -  Download Covenant${NC}"
+    echo -e "${BLUE} 4   -  Download AM0N_Eye${NC}"
+    echo -e "${BLUE} 5   -  Download Havoc${NC}"
+    echo -e "${BLUE} 6   -  Install Sliver${NC}"
+    echo -e "${BLUE} 7   -  Install pwncat-cs${NC}"
+    echo -e "${BLUE} 8   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -281,14 +283,16 @@ __________                                         .__
  |____|_  /\___  >\___  >____/|___|  /___|  (____  /__/____  >(____  /___|  /\___  >___  >
         \/     \/     \/           \/     \/     \/        \/      \/     \/     \/    \/ 
 EOF
-    echo ""
-    echo -e "${BLUE}1. Download/Install All Tools${NC}"
-    echo -e "${BLUE}2. Get PowerView${NC}"
-    echo -e "${BLUE}3. Download SharpHound${NC}"
-    echo -e "${BLUE}4. Download ADModule${NC}"
-    echo -e "${BLUE}5. Install BloodHound${NC}"
-    echo -e "${BLUE}6. Get Invoke_Portscan.ps1${NC}"
-    echo -e "${BLUE}7. Back${NC}"
+    echo -e "${BLUE}\n Select an option from menu:${NC}"
+    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "---     -------------------------"
+    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
+    echo -e "${BLUE} 2   -  Get PowerView${NC}"
+    echo -e "${BLUE} 3   -  Download SharpHound${NC}"
+    echo -e "${BLUE} 4   -  Download ADModule${NC}"
+    echo -e "${BLUE} 5   -  Install BloodHound${NC}"
+    echo -e "${BLUE} 6   -  Get Invoke_Portscan.ps1${NC}"
+    echo -e "${BLUE} 7   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -332,10 +336,12 @@ ____   ____    .__             _________
    \___/ |____/|____/___|  / /_______  /\___  >____  /___|  /___|  /\___  >__|   
                          \/          \/     \/     \/     \/     \/     \/       
 EOF
-    echo ""
-    echo -e "${BLUE}1. Download/Install All Tools${NC}"
-    echo -e "${BLUE}2. Download linwinpwn${NC}"
-    echo -e "${BLUE}3. Back${NC}"
+    echo -e "${BLUE}\n Select an option from menu:${NC}"
+    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "---     -------------------------"
+    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
+    echo -e "${BLUE} 2   -  Download linwinpwn${NC}"
+    echo -e "${BLUE} 3   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -421,12 +427,14 @@ __________.__    .__       .__    .__                 ___________           .__
                \/        \/     \/        \//_____/                                   \/ 
 
 EOF
-    echo -e ""
-    echo -e "${BLUE}1. Download/Install All Tools${NC}"
-    echo -e "${BLUE}2. Install evilginx2${NC}"
-    echo -e "${BLUE}3. Download gophish${NC}"
-    echo -e "${BLUE}4. Download PyPhisher${NC}"
-    echo -e "${BLUE}5. Back${NC}"
+    echo -e "${BLUE}\n Select an option from menu:${NC}"
+    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "---     -------------------------"
+    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
+    echo -e "${BLUE} 2   -  Install evilginx2${NC}"
+    echo -e "${BLUE} 3   -  Download gophish${NC}"
+    echo -e "${BLUE} 4   -  Download PyPhisher${NC}"
+    echo -e "${BLUE} 5   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -511,12 +519,14 @@ ___________.__.__           ___________                       _____
  \___  /   |__|____/\___  >   |____|   |__|  (____  /____  > |__|  \___  >__|   
      \/                 \/                        \/     \/            \/       
 EOF
-    echo -e "${GREEN}--[ File Trasfer Tools ]--${NC}"
-    echo -e "${BLUE}1. Download/Install All Tools${NC}"
-    echo -e "${BLUE}2. Download HFS${NC}"
-    echo -e "${BLUE}3. Get nc.exe${NC}"
-    echo -e "${BLUE}4. Install Updog${NC}"
-    echo -e "${BLUE}5. Back${NC}"
+    echo -e "${BLUE}\n Select an option from menu:${NC}"
+    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "---     -------------------------"
+    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
+    echo -e "${BLUE} 2   -  Download HFS${NC}"
+    echo -e "${BLUE} 3   -  Get nc.exe${NC}"
+    echo -e "${BLUE} 4   -  Install Updog${NC}"
+    echo -e "${BLUE} 5   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -579,11 +589,13 @@ ___________                    .__
         \/            \/     \/               \/ 
 
 EOF
-    echo ""
-    echo -e "${BLUE}1. Download/Install All Tools${NC}"
-    echo -e "${BLUE}2. Download Freeze${NC}"
-    echo -e "${BLUE}3. Download Invisi_Shell${NC}"
-    echo -e "${BLUE}4. Back${NC}"
+    echo -e "${BLUE}\n Select an option from menu:${NC}"
+    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "---     -------------------------"
+    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
+    echo -e "${BLUE} 2   -  Download Freeze${NC}"
+    echo -e "${BLUE} 3   -  Download Invisi_Shell${NC}"
+    echo -e "${BLUE} 4   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -675,14 +687,16 @@ function Windows_Privilege_Escalation_Tools() {
        \/          \/      \/                 \/                                       \/     \/     \/ 
 
 EOF
-    echo ""
-    echo -e "${BLUE}1. Download/Install All Tools${NC}"
-    echo -e "${BLUE}2. Get PowerUp.ps1${NC}"
-    echo -e "${BLUE}3. Download PowerUpSQL${NC}"
-    echo -e "${BLUE}4. Get GetSystem.ps1${NC}"
-    echo -e "${BLUE}5. Download PrivescCheck.ps1${NC}"
-    echo -e "${BLUE}6. Download WinPEASany_ofs.exe${NC}"
-    echo -e "${BLUE}7. Back${NC}"
+    echo -e "${BLUE}\n Select an option from menu:${NC}"
+    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "---     -------------------------"
+    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
+    echo -e "${BLUE} 2   -  Get PowerUp.ps1${NC}"
+    echo -e "${BLUE} 3   -  Download PowerUpSQL${NC}"
+    echo -e "${BLUE} 4   -  Get GetSystem.ps1${NC}"
+    echo -e "${BLUE} 5   -  Download PrivescCheck.ps1${NC}"
+    echo -e "${BLUE} 6   -  Download WinPEASany_ofs.exe${NC}"
+    echo -e "${BLUE} 7   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -766,12 +780,14 @@ function Linux_Privilege_Escalation_Tools() {
 |_______ \__|___|  /____//__/\_ \  |____|     |__|  |__| \_/   /_______  /____  >\___  >
         \/       \/            \/                                      \/     \/     \/ 
 EOF
-    echo ""
-    echo -e "${BLUE}1. Download/Install All Tools${NC}"
-    echo -e "${BLUE}2. Download LinEnum${NC}"
-    echo -e "${BLUE}3. Download linPEAS${NC}"
-    echo -e "${BLUE}4. Download LinuxSmartEnumeration${NC}"
-    echo -e "${BLUE}5. Back${NC}"
+    echo -e "${BLUE}\n Select an option from menu:${NC}"
+    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "---     -------------------------"
+    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
+    echo -e "${BLUE} 2   -  Download LinEnum${NC}"
+    echo -e "${BLUE} 3   -  Download linPEAS${NC}"
+    echo -e "${BLUE} 4   -  Download LinuxSmartEnumeration${NC}"
+    echo -e "${BLUE} 5   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -841,12 +857,14 @@ __________                             __  .__
  |____|_  /\___  >   __/ \____/|__|   |__| |__|___|  /\___  / 
         \/     \/|__|                              \//_____/  
 EOF
-    echo ""
-    echo -e "${BLUE}1. Download/Install All Tools${NC}"
-    echo -e "${BLUE}2. Download pwndoc${NC}"
-    echo -e "${BLUE}3. Download ghostwriter${NC}"
-    echo -e "${BLUE}4. Install OSCP-Reporting${NC}"
-    echo -e "${BLUE}5. Back${NC}"
+    echo -e "${BLUE}\n Select an option from menu:${NC}"
+    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "---     -------------------------"
+    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
+    echo -e "${BLUE} 2   -  Download pwndoc${NC}"
+    echo -e "${BLUE} 3   -  Download ghostwriter${NC}"
+    echo -e "${BLUE} 4   -  Install OSCP-Reporting${NC}"
+    echo -e "${BLUE} 5   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -885,23 +903,25 @@ ___________     .__.__   ____  __.      .__  .__
         \/                      \/    \/         
                                 By YoruYagami
 EOF
+    echo -e "${BLUE}\n Select an option from menu:${NC}"
+    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "---     -------------------------"
+    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
+    echo -e "${BLUE} 2   -  Command and Control Frameworks${NC}"
+    echo -e "${BLUE} 3   -  Reconnaissance${NC}"
+    echo -e "${BLUE} 4   -  Phishing${NC}"
+    echo -e "${BLUE} 5   -  Vulnerability Scanners${NC}"
+    echo -e "${BLUE} 6   -  File Trasferer tools${NC}"
+    echo -e "${BLUE} 7   -  Ghostpack Compiled Binaries${NC}"
+    echo -e "${BLUE} 8   -  Evasion Tools${NC}"
+    echo -e "${BLUE} 9   -  Windows Privilege Escaltion Tools${NC}"
+    echo -e "${BLUE} 10  -  Linux Privilege Escaltion Tools${NC}"
+    echo -e "${BLUE} 11  -  Reporting${NC}"
     echo ""
-    echo -e "${BLUE}1)  Download/Install All Tools${NC}"
-    echo -e "${BLUE}2)  Command and Control Frameworks${NC}"
-    echo -e "${BLUE}3)  Reconnaissance${NC}"
-    echo -e "${BLUE}4)  Phishing${NC}"
-    echo -e "${BLUE}5)  Vulnerability Scanners${NC}"
-    echo -e "${BLUE}6)  File Trasferer tools${NC}"
-    echo -e "${BLUE}7)  Ghostpack Compiled Binaries${NC}"
-    echo -e "${BLUE}8)  Evasion Tools${NC}"
-    echo -e "${BLUE}9)  Windows Privilege Escaltion Tools${NC}"
-    echo -e "${BLUE}10) Linux Privilege Escaltion Tools${NC}"
-    echo -e "${BLUE}11) Reporting${NC}"
-    echo ""
-    echo -e "${BLUE}A) Download/Install all tools from 3 through 10${NC}"
+    echo -e "${BLUE} A   -  Download/Install all tools from 3 through 10${NC}"
     echo ""
     echo ""
-    echo -e "${BLUE}99. Quit${NC}"
+    echo -e "${BLUE} 99  -  Quit${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
