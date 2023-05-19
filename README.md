@@ -49,12 +49,32 @@ Following the list of tools that can be installed
 - PrivescCheck
 - winPEASany_ofs
 
-### Ghostpack-CompiledBinaries entire repo
+### Ghostpack-CompiledBinaries
+- Certify.exe
+- Koh.exe
+- LockLess.exe
+- RestrictedAdmin.exe
+- Rubeus.exe
+- SafetyKatz.exe
+- Seatbelt.exe
+- SharpChrome.exe
+- SharpDPAPI.exe
+- SharpDump.exe
+- SharpRoast.exe
+- SharpUp.exe
+- SharpWMI.exe
 
 ### Linux Privilege Escalation Tools
 - LinEnum
 - linPEAS
 - lse (Linux Smart Enumeration)
+
+### API Penetration Testing Tools
+- mitmproxy2swagger
+- postman
+- jwt tool
+- kiterunner
+- arjun
 
 ### Reporting
 - pwndoc
