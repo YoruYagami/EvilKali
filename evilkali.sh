@@ -74,7 +74,7 @@ is_command() {
 
 # Check and install some essentials packages
 for pkg in "${essentials[@]}"; do
-    if is_command $pkg; then
+    if is_command $pkg &> /dev/null; then
         echo -e "$pkg already installed."
     else
         echo "$pkg is not installed.installing for you"
@@ -121,18 +121,18 @@ function download_AM0N_Eye() {
 
 function download_Havoc() {
     sudo mkdir -p '/opt/evilkali/C2'
-    if [ ! -d "/opt/evilkali/C2/Havoc" ]; then
+    if [ -d "/opt/evilkali/C2/Havoc" ]; then
+        echo -e "${RED}Havoc Framework is already installed.${NC}"
+    else
         echo -e "${YELLOW}Downloading Havoc Framework${NC}"
         sudo git clone 'https://github.com/HavocFramework/Havoc.git' '/opt/evilkali/C2/Havoc' 
         echo -e "${GREEN}Havoc Framework downloaded successfully.${NC}"
-    else
-        echo -e "${RED}Havoc Framework is already installed.${NC}"
     fi
     sleep 2
 }
 
 function install_sliver() {
-    if command -v sliver; then
+    if command -v sliver &> /dev/null; then
         echo -e "${RED}Sliver is already installed.${NC}"
     else
         echo -e "${YELLOW}Installing Sliver Framework.${NC}"
@@ -164,7 +164,7 @@ function download_install_all_c2_tools() {
 
 function command_and_control() {
     clear
-    echo -e "${RED}"
+    echo -e "${GREEN}"
     cat << "EOF"
 _________  ________   ___________                                                __    
 \_   ___ \ \_____  \  \_   _____/___________    _____   ______  _  _____________|  | __
@@ -174,17 +174,17 @@ _________  ________   ___________                                               
         \/         \/      \/               \/      \/     \/                        \/
 
 EOF
-        echo -e "${BLUE}\n Select an option from menu:${NC}"
-    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+        echo -e "${GREEN}\n Select an option from menu:${NC}"
+    echo -e "${GREEN}\nKey     Menu Option:"${NC}
     echo -e "---     -------------------------"
-    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
-    echo -e "${BLUE} 2   -  Download Villain${NC}"
-    echo -e "${BLUE} 3   -  Download Covenant${NC}"
-    echo -e "${BLUE} 4   -  Download AM0N_Eye${NC}"
-    echo -e "${BLUE} 5   -  Download Havoc${NC}"
-    echo -e "${BLUE} 6   -  Install Sliver${NC}"
-    echo -e "${BLUE} 7   -  Install pwncat-cs${NC}"
-    echo -e "${BLUE} 8   -  Back${NC}"
+    echo -e "${GREEN} 1   -  Download/Install All Tools${NC}"
+    echo -e "${GREEN} 2   -  Download Villain${NC}"
+    echo -e "${GREEN} 3   -  Download Covenant${NC}"
+    echo -e "${GREEN} 4   -  Download AM0N_Eye${NC}"
+    echo -e "${GREEN} 5   -  Download Havoc${NC}"
+    echo -e "${GREEN} 6   -  Install Sliver${NC}"
+    echo -e "${GREEN} 7   -  Install pwncat-cs${NC}"
+    echo -e "${GREEN} 8   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -274,7 +274,7 @@ function install_all_recon_tools() {
 
 function reconnaissance() {
     clear
-    echo -e "${RED}"
+    echo -e "${GREEN}"
     cat << "EOF"
 __________                                         .__                                    
 \______   \ ____   ____  ____   ____   ____ _____  |__| ___________    ____   ____  ____  
@@ -283,16 +283,16 @@ __________                                         .__
  |____|_  /\___  >\___  >____/|___|  /___|  (____  /__/____  >(____  /___|  /\___  >___  >
         \/     \/     \/           \/     \/     \/        \/      \/     \/     \/    \/ 
 EOF
-    echo -e "${BLUE}\n Select an option from menu:${NC}"
-    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "${GREEN}\n Select an option from menu:${NC}"
+    echo -e "${GREEN}\nKey     Menu Option:"${NC}
     echo -e "---     -------------------------"
-    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
-    echo -e "${BLUE} 2   -  Get PowerView${NC}"
-    echo -e "${BLUE} 3   -  Download SharpHound${NC}"
-    echo -e "${BLUE} 4   -  Download ADModule${NC}"
-    echo -e "${BLUE} 5   -  Install BloodHound${NC}"
-    echo -e "${BLUE} 6   -  Get Invoke_Portscan.ps1${NC}"
-    echo -e "${BLUE} 7   -  Back${NC}"
+    echo -e "${GREEN} 1   -  Download/Install All Tools${NC}"
+    echo -e "${GREEN} 2   -  Get PowerView${NC}"
+    echo -e "${GREEN} 3   -  Download SharpHound${NC}"
+    echo -e "${GREEN} 4   -  Download ADModule${NC}"
+    echo -e "${GREEN} 5   -  Install BloodHound${NC}"
+    echo -e "${GREEN} 6   -  Get Invoke_Portscan.ps1${NC}"
+    echo -e "${GREEN} 7   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -327,7 +327,7 @@ function install_all_vulnerability_scanners() {
 
 function vulnerability_scanners() {
     clear
-    echo -e "${RED}"
+    echo -e "${GREEN}"
     cat << "EOF"
 ____   ____    .__             _________                                         
 \   \ /   /_ __|  |   ____    /   _____/ ____ _____    ____   ____   ___________ 
@@ -336,12 +336,12 @@ ____   ____    .__             _________
    \___/ |____/|____/___|  / /_______  /\___  >____  /___|  /___|  /\___  >__|   
                          \/          \/     \/     \/     \/     \/     \/       
 EOF
-    echo -e "${BLUE}\n Select an option from menu:${NC}"
-    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "${GREEN}\n Select an option from menu:${NC}"
+    echo -e "${GREEN}\nKey     Menu Option:"${NC}
     echo -e "---     -------------------------"
-    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
-    echo -e "${BLUE} 2   -  Download linwinpwn${NC}"
-    echo -e "${BLUE} 3   -  Back${NC}"
+    echo -e "${GREEN} 1   -  Download/Install All Tools${NC}"
+    echo -e "${GREEN} 2   -  Download linwinpwn${NC}"
+    echo -e "${GREEN} 3   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -356,7 +356,7 @@ EOF
 
 # --[ Phishing ]--
 function install_evilginx2() {
-    if command -v evilginx2; then
+    if command -v evilginx2 &> /dev/null; then
         echo -e "${RED}evilginx2 is already installed.${NC}"
     else
         echo -e "${YELLOW}installing evilginx2${NC}"
@@ -416,7 +416,7 @@ function download_install_all_phishing_tools() {
 
 function phishing() {
     clear
-    echo -e "${RED}"
+    echo -e "${GREEN}"
     cat << "EOF"
 
 __________.__    .__       .__    .__                 ___________           .__          
@@ -427,14 +427,14 @@ __________.__    .__       .__    .__                 ___________           .__
                \/        \/     \/        \//_____/                                   \/ 
 
 EOF
-    echo -e "${BLUE}\n Select an option from menu:${NC}"
-    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "${GREEN}\n Select an option from menu:${NC}"
+    echo -e "${GREEN}\nKey     Menu Option:"${NC}
     echo -e "---     -------------------------"
-    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
-    echo -e "${BLUE} 2   -  Install evilginx2${NC}"
-    echo -e "${BLUE} 3   -  Download gophish${NC}"
-    echo -e "${BLUE} 4   -  Download PyPhisher${NC}"
-    echo -e "${BLUE} 5   -  Back${NC}"
+    echo -e "${GREEN} 1   -  Download/Install All Tools${NC}"
+    echo -e "${GREEN} 2   -  Install evilginx2${NC}"
+    echo -e "${GREEN} 3   -  Download gophish${NC}"
+    echo -e "${GREEN} 4   -  Download PyPhisher${NC}"
+    echo -e "${GREEN} 5   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -492,7 +492,7 @@ function get_netcat_binary() {
 }
 
 function install_updog() {
-    if command -v updog; then
+    if command -v updog &> /dev/null; then
         echo -e "${RED}updog is already installed.${NC}"
     else
         echo -e "${YELLOW}installing updog${NC}"
@@ -510,7 +510,7 @@ function install_all_file_trasfer_tools() {
 
 function File_Trasfer_Tools() {
     clear
-    echo -e "${RED}"
+    echo -e "${GREEN}"
     cat << "EOF"
 ___________.__.__           ___________                       _____             
 \_   _____/|__|  |   ____   \__    ___/___________    _______/ ____\___________ 
@@ -519,14 +519,14 @@ ___________.__.__           ___________                       _____
  \___  /   |__|____/\___  >   |____|   |__|  (____  /____  > |__|  \___  >__|   
      \/                 \/                        \/     \/            \/       
 EOF
-    echo -e "${BLUE}\n Select an option from menu:${NC}"
-    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "${GREEN}\n Select an option from menu:${NC}"
+    echo -e "${GREEN}\nKey     Menu Option:"${NC}
     echo -e "---     -------------------------"
-    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
-    echo -e "${BLUE} 2   -  Download HFS${NC}"
-    echo -e "${BLUE} 3   -  Get nc.exe${NC}"
-    echo -e "${BLUE} 4   -  Install Updog${NC}"
-    echo -e "${BLUE} 5   -  Back${NC}"
+    echo -e "${GREEN} 1   -  Download/Install All Tools${NC}"
+    echo -e "${GREEN} 2   -  Download HFS${NC}"
+    echo -e "${GREEN} 3   -  Get nc.exe${NC}"
+    echo -e "${GREEN} 4   -  Install Updog${NC}"
+    echo -e "${GREEN} 5   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -579,7 +579,7 @@ function install_all_Evasion_tools() {
 
 function Evasion_Tools() {
     clear
-    echo -e "${RED}"
+    echo -e "${GREEN}"
     cat << "EOF"
 ___________                    .__               
 \_   _____/__  _______    _____|__| ____   ____  
@@ -589,13 +589,13 @@ ___________                    .__
         \/            \/     \/               \/ 
 
 EOF
-    echo -e "${BLUE}\n Select an option from menu:${NC}"
-    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "${GREEN}\n Select an option from menu:${NC}"
+    echo -e "${GREEN}\nKey     Menu Option:"${NC}
     echo -e "---     -------------------------"
-    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
-    echo -e "${BLUE} 2   -  Download Freeze${NC}"
-    echo -e "${BLUE} 3   -  Download Invisi_Shell${NC}"
-    echo -e "${BLUE} 4   -  Back${NC}"
+    echo -e "${GREEN} 1   -  Download/Install All Tools${NC}"
+    echo -e "${GREEN} 2   -  Download Freeze${NC}"
+    echo -e "${GREEN} 3   -  Download Invisi_Shell${NC}"
+    echo -e "${GREEN} 4   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -677,7 +677,7 @@ function download_install_all_Windows_Privilege_Escalation_tools() {
 
 function Windows_Privilege_Escalation_Tools() {
     clear
-    echo -e "${RED}"
+    echo -e "${GREEN}"
     cat << "EOF"
  __      __.__            .___                    __________        .__        ___________              
 /  \    /  \__| ____    __| _/______  _  ________ \______   \_______|__|__  __ \_   _____/ ______ ____  
@@ -687,16 +687,16 @@ function Windows_Privilege_Escalation_Tools() {
        \/          \/      \/                 \/                                       \/     \/     \/ 
 
 EOF
-    echo -e "${BLUE}\n Select an option from menu:${NC}"
-    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "${GREEN}\n Select an option from menu:${NC}"
+    echo -e "${GREEN}\nKey     Menu Option:"${NC}
     echo -e "---     -------------------------"
-    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
-    echo -e "${BLUE} 2   -  Get PowerUp.ps1${NC}"
-    echo -e "${BLUE} 3   -  Download PowerUpSQL${NC}"
-    echo -e "${BLUE} 4   -  Get GetSystem.ps1${NC}"
-    echo -e "${BLUE} 5   -  Download PrivescCheck.ps1${NC}"
-    echo -e "${BLUE} 6   -  Download WinPEASany_ofs.exe${NC}"
-    echo -e "${BLUE} 7   -  Back${NC}"
+    echo -e "${GREEN} 1   -  Download/Install All Tools${NC}"
+    echo -e "${GREEN} 2   -  Get PowerUp.ps1${NC}"
+    echo -e "${GREEN} 3   -  Download PowerUpSQL${NC}"
+    echo -e "${GREEN} 4   -  Get GetSystem.ps1${NC}"
+    echo -e "${GREEN} 5   -  Download PrivescCheck.ps1${NC}"
+    echo -e "${GREEN} 6   -  Download WinPEASany_ofs.exe${NC}"
+    echo -e "${GREEN} 7   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -774,7 +774,7 @@ function download_install_all_Linux_Privilege_Escalation_tools() {
 
 function Linux_Privilege_Escalation_Tools() {
     clear
-    echo -e "${RED}"
+    echo -e "${GREEN}"
     cat << "EOF"
 .____    .__                      __________        .__        ___________              
 |    |   |__| ____  __ _____  ___ \______   \_______|__|__  __ \_   _____/ ______ ____  
@@ -783,14 +783,14 @@ function Linux_Privilege_Escalation_Tools() {
 |_______ \__|___|  /____//__/\_ \  |____|     |__|  |__| \_/   /_______  /____  >\___  >
         \/       \/            \/                                      \/     \/     \/ 
 EOF
-    echo -e "${BLUE}\n Select an option from menu:${NC}"
-    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "${GREEN}\n Select an option from menu:${NC}"
+    echo -e "${GREEN}\nKey     Menu Option:"${NC}
     echo -e "---     -------------------------"
-    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
-    echo -e "${BLUE} 2   -  Download LinEnum${NC}"
-    echo -e "${BLUE} 3   -  Download linPEAS${NC}"
-    echo -e "${BLUE} 4   -  Download LinuxSmartEnumeration${NC}"
-    echo -e "${BLUE} 5   -  Back${NC}"
+    echo -e "${GREEN} 1   -  Download/Install All Tools${NC}"
+    echo -e "${GREEN} 2   -  Download LinEnum${NC}"
+    echo -e "${GREEN} 3   -  Download linPEAS${NC}"
+    echo -e "${GREEN} 4   -  Download LinuxSmartEnumeration${NC}"
+    echo -e "${GREEN} 5   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -802,6 +802,121 @@ EOF
         4) download_linuxsmartenumeration; Linux_Privilege_Escalation_Tools;;
         5) main_menu;;
         *) echo "Invalid option"; Linux_Privilege_Escalation_Tools;;
+    esac
+}
+
+# --[ API Pentesting tools ]--
+function install_mitmproxy2swagger() {
+    sudo mkdir -p '/opt/evilkali/api/'
+    if command -v mitmproxy2swagger &> /dev/null; then
+        echo -e "${RED}mitmproxy2swagger is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing mitmproxy2swagger${NC}"
+        pip3 install mitmproxy2swagger
+        echo -e "${GREEN}mitmproxy2swagger installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function install_postman() {
+    sudo mkdir -p '/opt/evilkali/api'
+    if [ -d "/opt/evilkali/api/Postman" ]; then
+        echo -e "${RED}Postman is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Downloading and installing latest Postman${NC}"
+        sudo wget https://dl.pstmn.io/download/latest/linux64 -O postman-linux-x64.tar.gz
+        sudo tar -zxvf postman-linux-x64.tar.gz -C /opt/evilkali/api
+        sudo rm -rf postman-linux-x64.tar.gz
+        create_symlink /opt/evilkali/api/Postman/Postman /usr/bin/postman
+        echo -e "${GREEN}Postman installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function install_jwt_tool() {
+    sudo mkdir -p '/opt/evilkali/api'
+    if [ -d "/opt/evilkali/api/jwt_tool" ]; then
+        echo -e "${RED}jwt_tool is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing jwt_tool${NC}"
+        sudo git clone https://github.com/ticarpi/jwt_tool.git /opt/evilkali/api/jwt_tool
+        sudo pip3 install -r /opt/evilkali/api/jwt_tool/requirements.txt
+        sudo chmod +x /opt/evilkali/api/jwt_tool/jwt_tool.py
+        create_symlink /opt/evilkali/api/jwt_tool/jwt_tool.py /usr/bin/jwt_tool
+        echo -e "${GREEN}jwt_tool installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function install_kiterunner() {
+    sudo mkdir -p '/opt/evilkali/api'
+    if [ -d "/opt/evilkali/api/kiterunner" ]; then
+        echo -e "${RED}kiterunner is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing kiterunner${NC}"
+        sudo git clone https://github.com/assetnote/kiterunner.git /opt/evilkali/api/kiterunner
+        sudo make -C /opt/evilkali/api/kiterunner build
+        create_symlink /opt/evilkali/api/kiterunner/dist/kr /usr/bin/kr
+        echo -e "${GREEN}kiterunner installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function install_arjun() {
+    sudo mkdir -p '/opt/evilkali/api'
+    if [ -d "/opt/evilkali/api/Arjun" ]; then
+        echo -e "${RED}Arjun is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing Arjun${NC}"
+        sudo git clone https://github.com/s0md3v/Arjun.git /opt/evilkali/api/Arjun
+        cd /opt/evilkali/api/Arjun && sudo python3 setup.py install
+        echo -e "${GREEN}Arjun installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function download_install_all_API_tools() {
+    install_mitmproxy2swagger
+    install_postman
+    install_jwt_tool
+    install_kiterunner
+    install_arjun
+}
+
+function API_Tools() {
+    clear
+    echo -e "${GREEN}"
+    cat << "EOF"
+   _____ __________.___  __________               __                   __  .__                
+  /  _  \\______   \   | \______   \ ____   _____/  |_  ____   _______/  |_|__| ____    ____  
+ /  /_\  \|     ___/   |  |     ___// __ \ /    \   __\/ __ \ /  ___/\   __\  |/    \  / ___\ 
+/    |    \    |   |   |  |    |   \  ___/|   |  \  | \  ___/ \___ \  |  | |  |   |  \/ /_/  >
+\____|__  /____|   |___|  |____|    \___  >___|  /__|  \___  >____  > |__| |__|___|  /\___  / 
+        \/                              \/     \/          \/     \/               \//_____/  
+EOF
+    echo -e "${GREEN}\n Select an option from menu:${NC}"
+    echo -e "${GREEN}\nKey     Menu Option:"${NC}
+    echo -e "---     -------------------------"
+    echo -e "${GREEN} 1   -  Download/Install All Tools${NC}"
+    echo -e "${GREEN} 2   -  Install mitmproxy2swagger${NC}"
+    echo -e "${GREEN} 3   -  Install postman ${NC}"
+    echo -e "${GREEN} 4   -  install jwt tool${NC}"
+    echo -e "${GREEN} 5   -  Install kiterunner${NC}"
+    echo -e "${GREEN} 6   -  Install arjun${NC}"
+    echo -e "${GREEN} 7   -  Back${NC}"
+    echo ""
+    echo -n "Choose an option: "
+    read option
+
+    case $option in
+        1) download_install_all_API_tools; API_Tools;;
+        2) install_mitmproxy2swagger; API_Tools;;
+        3) install_postman; API_Tools;;
+        4) install_jwt_tool; API_Tools;;
+        5) install_kiterunner; API_Tools;;
+        6) install_arjun; API_Tools;;
+        7) main_menu;;
+        *) echo "Invalid option"; API_Tools;;
     esac
 }
 
@@ -851,7 +966,7 @@ function download_install_all_Reporting_tools() {
 
 function Reporting_Tools() {
     clear
-    echo -e "${RED}"
+    echo -e "${GREEN}"
     cat << "EOF"
 __________                             __  .__                
 \______   \ ____ ______   ____________/  |_|__| ____    ____  
@@ -860,14 +975,14 @@ __________                             __  .__
  |____|_  /\___  >   __/ \____/|__|   |__| |__|___|  /\___  / 
         \/     \/|__|                              \//_____/  
 EOF
-    echo -e "${BLUE}\n Select an option from menu:${NC}"
-    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "${GREEN}\n Select an option from menu:${NC}"
+    echo -e "${GREEN}\nKey     Menu Option:"${NC}
     echo -e "---     -------------------------"
-    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
-    echo -e "${BLUE} 2   -  Download pwndoc${NC}"
-    echo -e "${BLUE} 3   -  Download ghostwriter${NC}"
-    echo -e "${BLUE} 4   -  Install OSCP-Reporting${NC}"
-    echo -e "${BLUE} 5   -  Back${NC}"
+    echo -e "${GREEN} 1   -  Download/Install All Tools${NC}"
+    echo -e "${GREEN} 2   -  Download pwndoc${NC}"
+    echo -e "${GREEN} 3   -  Download ghostwriter${NC}"
+    echo -e "${GREEN} 4   -  Install OSCP-Reporting${NC}"
+    echo -e "${GREEN} 5   -  Back${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -896,7 +1011,7 @@ function install_from_3_through_10() {
 
 function main_menu() {
     clear
-    echo -e "${RED}"
+    echo -e "${GREEN}"
     cat << "EOF"
 ___________     .__.__   ____  __.      .__  .__ 
 \_   _____/__  _|__|  | |    |/ _|____  |  | |__|
@@ -906,30 +1021,31 @@ ___________     .__.__   ____  __.      .__  .__
         \/                      \/    \/         
                                 By YoruYagami
 EOF
-    echo -e "${BLUE}\n Select an option from menu:${NC}"
-    echo -e "${BLUE}\nKey     Menu Option:"${NC}
+    echo -e "${GREEN}\n Select an option from menu:${NC}"
+    echo -e "${GREEN}\nKey     Menu Option:"${NC}
     echo -e "---     -------------------------"
-    echo -e "${BLUE} 1   -  Download/Install All Tools${NC}"
-    echo -e "${BLUE} 2   -  Command and Control Frameworks${NC}"
-    echo -e "${BLUE} 3   -  Reconnaissance${NC}"
-    echo -e "${BLUE} 4   -  Phishing${NC}"
-    echo -e "${BLUE} 5   -  Vulnerability Scanners${NC}"
-    echo -e "${BLUE} 6   -  File Trasferer tools${NC}"
-    echo -e "${BLUE} 7   -  Ghostpack Compiled Binaries${NC}"
-    echo -e "${BLUE} 8   -  Evasion Tools${NC}"
-    echo -e "${BLUE} 9   -  Windows Privilege Escaltion Tools${NC}"
-    echo -e "${BLUE} 10  -  Linux Privilege Escaltion Tools${NC}"
-    echo -e "${BLUE} 11  -  Reporting${NC}"
+    echo -e "${GREEN} 1   -  Download/Install All Tools${NC}"
+    echo -e "${GREEN} 2   -  Command and Control Frameworks${NC}"
+    echo -e "${GREEN} 3   -  Reconnaissance${NC}"
+    echo -e "${GREEN} 4   -  Phishing${NC}"
+    echo -e "${GREEN} 5   -  Vulnerability Scanners${NC}"
+    echo -e "${GREEN} 6   -  File Trasferer tools${NC}"
+    echo -e "${GREEN} 7   -  Ghostpack Compiled Binaries${NC}"
+    echo -e "${GREEN} 8   -  Evasion Tools${NC}"
+    echo -e "${GREEN} 9   -  Windows Privilege Escaltion Tools${NC}"
+    echo -e "${GREEN} 10  -  Linux Privilege Escaltion Tools${NC}"
+    echo -e "${GREEN} 11  -  API Penenetration Testing Tools${NC}"
+    echo -e "${GREEN} 12  -  Reporting${NC}"
     echo ""
-    echo -e "${BLUE} A   -  Download/Install all tools from 3 through 10${NC}"
+    echo -e "${GREEN} A   -  Download/Install all tools from 3 through 10${NC}"
     echo ""
-    echo -e "${BLUE} 99  -  Quit${NC}"
+    echo -e "${GREEN} 99  -  Quit${NC}"
     echo ""
     echo -n "Choose an option: "
     read option
 
     case $option in
-        1) download_install_all_c2_tools; install_all_recon_tools; install_all_vulnerability_scanners; install_all_file_trasfer_tools; download_install_all_phishing_tools; download_Ghostpack; install_all_Evasion_tools; download_install_all_Windows_Privilege_Escalation_tools; download_install_all_Linux_Privilege_Escalation_tools; download_install_all_Reporting_tools; main_menu;;
+        1) download_install_all_c2_tools; install_all_recon_tools; install_all_vulnerability_scanners; install_all_file_trasfer_tools; download_install_all_phishing_tools; download_Ghostpack; install_all_Evasion_tools; download_install_all_Windows_Privilege_Escalation_tools; download_install_all_Linux_Privilege_Escalation_tools; download_install_all_API_tools; download_install_all_Reporting_tools; main_menu;;
         2) command_and_control;;
         3) reconnaissance;;
         4) phishing;;
@@ -939,7 +1055,8 @@ EOF
         8) Evasion_Tools;;
         9) Windows_Privilege_Escalation_Tools;;
         10) Linux_Privilege_Escalation_Tools;;
-        11) Reporting_Tools;;
+        11) API_Tools;;
+        12) Reporting_Tools;;
         99) exit;;
         A) install_from_3_through_10; main_menu;;
         *) echo "Invalid option"; main_menu;;
