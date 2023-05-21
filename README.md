@@ -76,6 +76,17 @@ Following the list of tools that can be installed
 - kiterunner
 - arjun
 
+### Mobile App Penetration Testing Tools
+- aapt
+- apktool
+- adb
+- apksigner
+- zipalign
+- wkhtmltopdf
+- default-jdk
+- jadx
+- Mobile-Security-Framework-MobSF
+
 ### Reporting
 - pwndoc
 - ghostwriter
