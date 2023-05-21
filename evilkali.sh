@@ -920,6 +920,168 @@ EOF
     esac
 }
 
+# --[ Mobile Application Penetration Testing Tools ]--
+
+function install_aapt() {
+    if command -v aapt &> /dev/null; then
+        echo -e "${RED}aapt is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing aapt${NC}"
+        sudo apt install aapt -y
+        echo -e "${GREEN}aapt installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function install_apktool() {
+    if command -v apktool &> /dev/null; then
+        echo -e "${RED}apktool is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing apktool${NC}"
+        sudo apt install apktool -y
+        echo -e "${GREEN}apktool installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function install_adb() {
+    if command -v adb &> /dev/null; then
+        echo -e "${RED}adb is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing adb${NC}"
+        sudo apt install adb -y
+        echo -e "${GREEN}adb installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function install_apksigner() {
+    if command -v apksigner &> /dev/null; then
+        echo -e "${RED}apksigner is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing apksigner${NC}"
+        sudo apt install apksigner -y
+        echo -e "${GREEN}apksigner installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function install_zipalign() {
+    if command -v zipalign &> /dev/null; then
+        echo -e "${RED}zipalign is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing zipalign${NC}"
+        sudo apt install zipalign -y
+        echo -e "${GREEN}zipalign installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function install_wkhtmltopdf() {
+    if command -v wkhtmltopdf &> /dev/null; then
+        echo -e "${RED}wkhtmltopdf is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing wkhtmltopdf${NC}"
+        sudo apt install wkhtmltopdf -y
+        echo -e "${GREEN}wkhtmltopdf installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function install_default-jdk() {
+    if command -v default-jdk &> /dev/null; then
+        echo -e "${RED}default-jdk is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing default-jdk${NC}"
+        sudo apt install default-jdk -y
+        echo -e "${GREEN}default-jdk installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function install_jadx() {
+    if command -v jadx &> /dev/null; then
+        echo -e "${RED}jadx is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing jadx${NC}"
+        sudo apt install jadx -y
+        echo -e "${GREEN}jadx installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function install_MobSF() {
+    sudo mkdir -p '/opt/evilkali/mobile_app'
+    if [ -d "/opt/evilkali/mobile_app/MobSF" ]; then
+        echo -e "${RED}Mobile-Security-Framework-MobSF is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Downloading and installing Mobile-Security-Framework-MobSF${NC}"
+        sudo git clone https://github.com/MobSF/Mobile-Security-Framework-MobSF '/opt/evilkali/mobile_app/MobSF'
+        sudo chmod +x /opt/evilkali/mobile_app/MobSF/*.sh
+        cd /opt/evilkali/mobile_app/MobSF/
+        /opt/evilkali/mobile_app/Mobile-Security-Framework-MobSF/setup.sh
+        echo -e "${GREEN}Mobile-Security-Framework-MobSF installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
+function download_install_all_Mobile_App_tools() {
+    install_aapt
+    install_apktool
+    install_adb
+    install_apksigner
+    install_zipalign
+    install_wkhtmltopdf
+    install_default-jdk
+    install_jadx
+    install_MobSF
+}
+
+function Mobile_App_Tools() {
+    clear
+    echo -e "${GREEN}"
+    cat << "EOF"
+   _____        ___.   .__.__              _____                  ___________           .__          
+  /     \   ____\_ |__ |__|  |   ____     /  _  \ ______ ______   \__    ___/___   ____ |  |   ______
+ /  \ /  \ /  _ \| __ \|  |  | _/ __ \   /  /_\  \\____ \\____ \    |    | /  _ \ /  _ \|  |  /  ___/
+/    Y    (  <_> ) \_\ \  |  |_\  ___/  /    |    \  |_> >  |_> >   |    |(  <_> |  <_> )  |__\___ \ 
+\____|__  /\____/|___  /__|____/\___  > \____|__  /   __/|   __/    |____| \____/ \____/|____/____  >
+        \/           \/             \/          \/|__|   |__|                                     \/ 
+EOF
+    echo -e "${GREEN}\n Select an option from menu:${NC}"
+    echo -e "${GREEN}\nKey     Menu Option:"${NC}
+    echo -e "---     -------------------------"
+    echo -e "${GREEN} 1   -  Download/Install All Tools${NC}"
+    echo -e "${GREEN} 2   -  Install aapt${NC}"
+    echo -e "${GREEN} 3   -  Install apktool ${NC}"
+    echo -e "${GREEN} 4   -  install adb${NC}"
+    echo -e "${GREEN} 5   -  Install apksigner${NC}"
+    echo -e "${GREEN} 6   -  Install zipalign${NC}"
+    echo -e "${GREEN} 7 - Install wkhtmltopdf${NC}"
+    echo -e "${GREEN} 8 - Install default-jdk${NC}"
+    echo -e "${GREEN} 9 - Install jadx${NC}"
+    echo -e "${GREEN} 10 - Install MobFS${NC}"
+    echo -e "${GREEN} 11   -  Back${NC}"
+    echo ""
+    echo -n "Choose an option: "
+    read option
+
+    case $option in
+        1) download_install_all_Mobile_App_tools; Mobile_App_Tools;;
+        2) install_aapt; Mobile_App_Tools;;
+        3) install_apktool; Mobile_App_Tools;;
+        4) install_adb; Mobile_App_Tools;;
+        5) install_apksigner; Mobile_App_Tools;;
+        6) install_zipalign; Mobile_App_Tools;;
+        7) install_wkhtmltopdf; Mobile_App_Tools;;
+        8) install_default-jdk; Mobile_App_Tools;;
+        9) install_jadx; Mobile_App_Tools;;
+        10) install_MobSF; Mobile_App_Tools;;
+        11) main_menu;;
+        *) echo "Invalid option"; Mobile_App_Tools;;
+    esac
+}
+
 # --[ Reporting tools ]--
 function download_pwndoc() {
     sudo mkdir -p '/opt/evilkali/reporting/'
@@ -1035,7 +1197,8 @@ EOF
     echo -e "${GREEN} 9   -  Windows Privilege Escaltion Tools${NC}"
     echo -e "${GREEN} 10  -  Linux Privilege Escaltion Tools${NC}"
     echo -e "${GREEN} 11  -  API Penenetration Testing Tools${NC}"
-    echo -e "${GREEN} 12  -  Reporting${NC}"
+    echo -e "${GREEN} 12  -  Mobile Application Penetration Testing Tools${NC}"
+    echo -e "${GREEN} 13  -  Reporting${NC}"
     echo ""
     echo -e "${GREEN} A   -  Download/Install all tools from 3 through 10${NC}"
     echo ""
@@ -1045,7 +1208,7 @@ EOF
     read option
 
     case $option in
-        1) download_install_all_c2_tools; install_all_recon_tools; install_all_vulnerability_scanners; install_all_file_trasfer_tools; download_install_all_phishing_tools; download_Ghostpack; install_all_Evasion_tools; download_install_all_Windows_Privilege_Escalation_tools; download_install_all_Linux_Privilege_Escalation_tools; download_install_all_API_tools; download_install_all_Reporting_tools; main_menu;;
+        1) download_install_all_c2_tools; install_all_recon_tools; install_all_vulnerability_scanners; install_all_file_trasfer_tools; download_install_all_phishing_tools; download_Ghostpack; install_all_Evasion_tools; download_install_all_Windows_Privilege_Escalation_tools; download_install_all_Linux_Privilege_Escalation_tools; download_install_all_API_tools; download_install_all_Mobile_App_tools; download_install_all_Reporting_tools; main_menu;;
         2) command_and_control;;
         3) reconnaissance;;
         4) phishing;;
@@ -1056,7 +1219,8 @@ EOF
         9) Windows_Privilege_Escalation_Tools;;
         10) Linux_Privilege_Escalation_Tools;;
         11) API_Tools;;
-        12) Reporting_Tools;;
+        12) Mobile_App_Tools;;
+        13) Reporting_Tools;;
         99) exit;;
         A) install_from_3_through_10; main_menu;;
         *) echo "Invalid option"; main_menu;;
