@@ -48,7 +48,7 @@ echo ""
 read -p "Do you want to update/upgrade the system first? (highly recommended) (y/n)" -n 1 -r
 echo ''
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-  sudo apt update -y && sudo apt -y full-upgrade -y && sudo apt -y dist-upgrade -y && sudo apt autoremove -y && sudo apt clean -y sudo apt autoremove -y
+  sudo apt update -y && sudo apt -y full-upgrade -y && sudo apt -y dist-upgrade -y && sudo apt autoremove -y && sudo apt clean -y
 fi
 
 # Check if the tmux command is already present in the configuration file
