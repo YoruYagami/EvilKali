@@ -20,16 +20,6 @@ command_exists() {
   command -v '$1'
 }
 
-# Ask the user if they want to enable tmux auto-start
-echo ""
-read -p "Do you prefer to have tmux automatically enabled when the terminal is launched? (y/n)" -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    ENABLE_TMUX=true
-else
-    ENABLE_TMUX=false
-fi
-
 # Detect user's default shell
 DEFAULT_SHELL=$(basename "$SHELL")
 
@@ -49,19 +39,6 @@ read -p "Do you want to update/upgrade the system first? (highly recommended) (y
 echo ''
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   sudo apt update -y && sudo apt -y full-upgrade -y && sudo apt -y dist-upgrade -y && sudo apt autoremove -y && sudo apt clean -y
-fi
-
-# Check if the tmux command is already present in the configuration file
-if ! grep -q "if \[ \"\$TMUX\" = \"\" \]; then tmux; fi" "$CONFIG_FILE"; then
-    # Add the command to automatically start tmux when launching the terminal
-    if [ "$ENABLE_TMUX" = true ]; then
-        echo -e "\n# Automatically start tmux when launching the terminal\nif [ \"\$TMUX\" = \"\" ]; then tmux; fi" >> "$CONFIG_FILE"
-        echo -e "Command added to ${BLUE}$CONFIG_FILE${NC} to automatically start tmux."
-    else
-        echo -e "${BLUE}Skipping auto-start of tmux.${NC}"
-    fi
-else
-    echo -e "The command to automatically start tmux is already present in ${BLUE}$CONFIG_FILE${NC}."
 fi
 
 # List of essentials packages to check
