@@ -807,7 +807,6 @@ EOF
 
 # --[ API Pentesting tools ]--
 function install_mitmproxy2swagger() {
-    sudo mkdir -p '/opt/evilkali/api/'
     if command -v mitmproxy2swagger &> /dev/null; then
         echo -e "${RED}mitmproxy2swagger is already installed.${NC}"
     else
