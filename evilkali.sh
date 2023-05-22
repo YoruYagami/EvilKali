@@ -985,19 +985,43 @@ function install_jadx() {
     fi
     sleep 2
 }
-
+    
 function install_MobSF() {
-    sudo mkdir -p '/opt/evilkali/mobile_app'
-    if [ -d "/opt/evilkali/mobile_app/MobSF" ]; then
-        echo -e "${RED}Mobile-Security-Framework-MobSF is already installed.${NC}"
-    else
-        echo -e "${YELLOW}Downloading and installing Mobile-Security-Framework-MobSF${NC}"
-        sudo git clone https://github.com/MobSF/Mobile-Security-Framework-MobSF '/opt/evilkali/mobile_app/MobSF'
-        sudo chmod +x /opt/evilkali/mobile_app/MobSF/*.sh
-        cd /opt/evilkali/mobile_app/MobSF/
-        /opt/evilkali/mobile_app/Mobile-Security-Framework-MobSF/setup.sh
-        echo -e "${GREEN}Mobile-Security-Framework-MobSF installed successfully.${NC}"
-    fi
+    echo -e "For the tool ${BLUE}MobSF${NC} would you like to clone from ${BLUE}GitHub${NC} or pull from ${BLUE}Docker${NC}?"
+    echo ""
+    echo -e "1) Clone from ${BLUE}GitHub${NC}"
+    echo -e "2) Pull from ${BLUE}Docker${NC}"
+    echo ""
+    read -p "Please select an option: " choice
+    
+    case $choice in
+        1)
+            if [ -d "/opt/evilkali/mobile_app/MobSF" ]; then
+                echo -e "${RED}Mobile-Security-Framework-MobSF is already installed.${NC}"
+            else
+                echo -e "${YELLOW}Downloading and installing Mobile-Security-Framework-MobSF${NC}"
+                sudo mkdir -p '/opt/evilkali/mobile_app'
+                sudo git clone https://github.com/MobSF/Mobile-Security-Framework-MobSF '/opt/evilkali/mobile_app/MobSF'
+                sudo chmod +x /opt/evilkali/mobile_app/MobSF/*.sh
+                cd /opt/evilkali/mobile_app/MobSF/
+                ./setup.sh
+                echo -e "${GREEN}Mobile-Security-Framework-MobSF installed successfully.${NC}"
+            fi
+            ;;
+        2)
+            if sudo docker images | grep -q 'opensecurity/mobile-security-framework-mobsf'; then
+                echo -e "${RED}Mobile-Security-Framework-MobSF Docker image is already present.${NC}"
+            else
+                echo -e "${YELLOW}Pulling and running Mobile-Security-Framework-MobSF from Docker${NC}"
+                sudo docker pull opensecurity/mobile-security-framework-mobsf:latest
+                echo -e "${GREEN}Mobile-Security-Framework-MobSF Docker image pulled successfully.${NC}"
+            fi
+            ;;
+        *)
+            echo -e "${RED}Invalid option selected.${NC}"
+            ;;
+    esac
+
     sleep 2
 }
 
