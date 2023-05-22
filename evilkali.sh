@@ -987,40 +987,19 @@ function install_jadx() {
 }
     
 function install_MobSF() {
-    echo -e "For the tool ${BLUE}MobSF${NC} would you like to clone from ${BLUE}GitHub${NC} or pull from ${BLUE}Docker${NC}?"
-    echo ""
-    echo -e "1) Clone from ${BLUE}GitHub${NC}"
-    echo -e "2) Pull from ${BLUE}Docker${NC}"
-    echo ""
-    read -p "Please select an option: " choice
-    
-    case $choice in
-        1)
-            if [ -d "/opt/evilkali/mobile_app/MobSF" ]; then
-                echo -e "${RED}Mobile-Security-Framework-MobSF is already installed.${NC}"
-            else
-                echo -e "${YELLOW}Downloading and installing Mobile-Security-Framework-MobSF${NC}"
-                sudo mkdir -p '/opt/evilkali/mobile_app'
-                sudo git clone https://github.com/MobSF/Mobile-Security-Framework-MobSF '/opt/evilkali/mobile_app/MobSF'
-                sudo chmod +x /opt/evilkali/mobile_app/MobSF/*.sh
-                cd /opt/evilkali/mobile_app/MobSF/
-                ./setup.sh
-                echo -e "${GREEN}Mobile-Security-Framework-MobSF installed successfully.${NC}"
-            fi
-            ;;
-        2)
-            if sudo docker images | grep -q 'opensecurity/mobile-security-framework-mobsf'; then
-                echo -e "${RED}Mobile-Security-Framework-MobSF Docker image is already present.${NC}"
-            else
-                echo -e "${YELLOW}Pulling Mobile-Security-Framework-MobSF from Docker${NC}"
-                sudo docker pull opensecurity/mobile-security-framework-mobsf:latest
-                echo -e "${GREEN}Mobile-Security-Framework-MobSF Docker image pulled successfully.${NC}"
-            fi
-            
-            if [ ! -f "/opt/evilkali/mobile_app/run_mobsf.sh" ]; then
-                echo ""
-                echo -e "${YELLOW}Would you like to have the following script to run MobSF Docker container?:${NC}"
-                echo -e "${GREEN}
+    sudo mkdir -p '/opt/evilkali/mobile_app'
+
+    # Check if MobSF is already installed
+    if [ -d "/opt/evilkali/mobile_app/MobSF" ]; then
+        echo -e "${RED}Mobile-Security-Framework-MobSF is already installed via GitHub.${NC}"
+    elif sudo docker images | grep -q 'opensecurity/mobile-security-framework-mobsf'; then
+        echo -e "${RED}Mobile-Security-Framework-MobSF Docker image is already present.${NC}"
+
+        # Ask for creating run script if not already there
+        if [ ! -f "/opt/evilkali/mobile_app/run_mobsf.sh" ]; then
+            echo ""
+            echo -e "${YELLOW}Would you like to have the following script to run MobSF Docker container?:${NC}"
+            echo -e "${GREEN}
 #!/bin/bash
 read -p \"Would you like to start MobSF? [Y/n] \" response
 if [[ \"\$response\" =~ ^([yY][eE][sS]|[yY])+$ ]]
@@ -1030,12 +1009,11 @@ else
     echo \"MobSF will not be started. Run this script again if you change your mind.\"
 fi
 ${NC}"
-                read -p "I will save it under this path "/opt/evilkali/mobile_app" choose [Y/n] " response
-                if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
-                then
-                    echo -e "${YELLOW}Creating script to run MobSF Docker container${NC}"
-                     sudo mkdir -p '/opt/evilkali/mobile_app'
-                    cat << EOF > /opt/evilkali/mobile_app/run_mobsf.sh
+            read -p "I will save it under this path "/opt/evilkali/mobile_app" choose [Y/n] " response
+            if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+            then
+                echo -e "${YELLOW}Creating script to run MobSF Docker container${NC}"
+                cat << EOF > /opt/evilkali/mobile_app/run_mobsf.sh
 #!/bin/bash
 read -p "Would you like to start MobSF? [Y/n] " response
 if [[ "\$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
@@ -1045,15 +1023,38 @@ else
     echo "MobSF will not be started. Run this script again if you change your mind."
 fi
 EOF
-                    sudo chmod +x /opt/evilkali/mobile_app/run_mobsf.sh
-                    echo -e "${GREEN}Script created successfully. Run /opt/evilkali/mobile_app/run_mobsf.sh to start MobSF.${NC}"
-                fi
+                sudo chmod +x /opt/evilkali/mobile_app/run_mobsf.sh
+                echo -e "${GREEN}Script created successfully. Run /opt/evilkali/mobile_app/run_mobsf.sh to start MobSF.${NC}"
             fi
-            ;;
-        *)
-            echo -e "${RED}Invalid option selected.${NC}"
-            ;;
-    esac
+        fi
+
+    else
+        echo -e "For the tool ${BLUE}MobSF${NC} would you like to clone from ${BLUE}GitHub${NC} or pull from ${BLUE}Docker${NC}?"
+        echo ""
+        echo -e "1) Clone from ${BLUE}GitHub${NC}"
+        echo -e "2) Pull from ${BLUE}Docker${NC}"
+        echo ""
+        read -p "Please select an option: " choice
+
+        case $choice in
+            1)
+                echo -e "${YELLOW}Downloading and installing Mobile-Security-Framework-MobSF${NC}"
+                sudo git clone https://github.com/MobSF/Mobile-Security-Framework-MobSF '/opt/evilkali/mobile_app/MobSF'
+                sudo chmod +x /opt/evilkali/mobile_app/MobSF/*.sh
+                cd /opt/evilkali/mobile_app/MobSF/
+                ./setup.sh
+                echo -e "${GREEN}Mobile-Security-Framework-MobSF installed successfully.${NC}"
+                ;;
+            2)
+                echo -e "${YELLOW}Pulling Mobile-Security-Framework-MobSF from Docker${NC}"
+                sudo docker pull opensecurity/mobile-security-framework-mobsf:latest
+                echo -e "${GREEN}Mobile-Security-Framework-MobSF Docker image pulled successfully.${NC}"
+                ;;
+            *)
+                echo -e "${RED}Invalid option selected.${NC}"
+                ;;
+        esac
+    fi
 
     sleep 2
 }
