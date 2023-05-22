@@ -1012,9 +1012,42 @@ function install_MobSF() {
             if sudo docker images | grep -q 'opensecurity/mobile-security-framework-mobsf'; then
                 echo -e "${RED}Mobile-Security-Framework-MobSF Docker image is already present.${NC}"
             else
-                echo -e "${YELLOW}Pulling and running Mobile-Security-Framework-MobSF from Docker${NC}"
+                echo -e "${YELLOW}Pulling Mobile-Security-Framework-MobSF from Docker${NC}"
                 sudo docker pull opensecurity/mobile-security-framework-mobsf:latest
                 echo -e "${GREEN}Mobile-Security-Framework-MobSF Docker image pulled successfully.${NC}"
+            fi
+            
+            if [ ! -f "/opt/evilkali/mobile_app/run_mobsf.sh" ]; then
+                echo ""
+                echo -e "${YELLOW}Would you like to have the following script to run MobSF Docker container?:${NC}"
+                echo -e "${GREEN}
+#!/bin/bash
+read -p \"Would you like to start MobSF? [Y/n] \" response
+if [[ \"\$response\" =~ ^([yY][eE][sS]|[yY])+$ ]]
+then
+    docker run -it --rm -p 8000:8000 opensecurity/mobile-security-framework-mobsf:latest
+else
+    echo \"MobSF will not be started. Run this script again if you change your mind.\"
+fi
+${NC}"
+                read -p "I will save it under this path "/opt/evilkali/mobile_app" choose [Y/n] " response
+                if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+                then
+                    echo -e "${YELLOW}Creating script to run MobSF Docker container${NC}"
+                     sudo mkdir -p '/opt/evilkali/mobile_app'
+                    cat << EOF > /opt/evilkali/mobile_app/run_mobsf.sh
+#!/bin/bash
+read -p "Would you like to start MobSF? [Y/n] " response
+if [[ "\$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+then
+    docker run -it --rm -p 8000:8000 opensecurity/mobile-security-framework-mobsf:latest
+else
+    echo "MobSF will not be started. Run this script again if you change your mind."
+fi
+EOF
+                    sudo chmod +x /opt/evilkali/mobile_app/run_mobsf.sh
+                    echo -e "${GREEN}Script created successfully. Run /opt/evilkali/mobile_app/run_mobsf.sh to start MobSF.${NC}"
+                fi
             fi
             ;;
         *)
