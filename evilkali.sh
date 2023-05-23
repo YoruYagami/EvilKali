@@ -1267,14 +1267,6 @@ EOF
     echo -e "${GREEN} 12  -  Mobile Application Penetration Testing Tools${NC}"
     echo -e "${GREEN} 13  -  Reporting${NC}"
     echo ""
-    echo ""
-    echo -e "${GREEN}"
-    cat << "EOF"
-╔╗ ┬ ┬┬  ┬┌─  ╔╦╗┌─┐┬ ┬┌┐┌┬  ┌─┐┌─┐┌┬┐┌─┐┬─┐  ╔═╗┌─┐┌─┐┌┬┐┬┌─┐┌┐┌
-╠╩╗│ ││  ├┴┐   ║║│ ││││││││  │ │├─┤ ││├┤ ├┬┘  ╚═╗├┤ │   │ ││ ││││
-╚═╝└─┘┴─┘┴ ┴  ═╩╝└─┘└┴┘┘└┘┴─┘└─┘┴ ┴─┴┘└─┘┴└─  ╚═╝└─┘└─┘ ┴ ┴└─┘┘└┘
-EOF
-    echo ""
     echo -e "${GREEN} A${NC}   -  ${GREEN}[Everything]${NC} ${GREEN}Install all tools provided by the script${NC}"
     echo -e "${GREEN} B${NC}   -  ${RED}[RedTeam]${NC}    ${GREEN}Install all tools from  2 -> 9${NC}"
     echo -e "${GREEN} C${NC}   -  ${YELLOW}[AppSec]${NC}     ${GREEN}Install all tools from 10 -> 12${NC}"
