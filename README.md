@@ -5,7 +5,7 @@ The purpose of the script is to create an environment with all the necessary too
 
 ⚠️EvilKali is actually in work in progress. many more tools will be added later.⚠️
 
-![image](https://github.com/YoruYagami/EvilKali/assets/70035442/c7a61b8b-e9b7-4d07-a4e2-26542e325582)
+![image](https://github.com/YoruYagami/EvilKali/assets/70035442/60ac968a-276e-45b2-b564-0468b61703d3)
 
 Following the list of tools that can be installed
 
@@ -70,7 +70,7 @@ Following the list of tools that can be installed
 - lse (Linux Smart Enumeration)
 
 ### Web Application / Bug Bounty Tools
-- Micro0x00/Arsenal
+- [Micro0x00/Arsenal](https://github.com/Micro0x00/Arsenal/tree/main)
 
 ### API Penetration Testing Tools
 - mitmproxy2swagger
