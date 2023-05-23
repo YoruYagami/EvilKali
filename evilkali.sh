@@ -1261,7 +1261,7 @@ EOF
 }
 
 # --[ Function to install from 2 through 9 tools ]
-function install_from_3_through_9() {
+function install_from_2_through_9() {
     install_all_recon_tools
     install_all_vulnerability_scanners
     install_all_file_trasfer_tools
@@ -1273,7 +1273,7 @@ function install_from_3_through_9() {
 }
 
 # --[ Function to install from 10 through 12 tools ]
-function install_from_11_through_12() {
+function install_from_10_through_12() {
     Bug_Bounty_Tools
     download_install_all_API_tools
     download_install_all_Mobile_App_tools
