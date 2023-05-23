@@ -70,7 +70,7 @@ Following the list of tools that can be installed
 - lse (Linux Smart Enumeration)
 
 ### Web Application / Bug Bounty Tools
-- Micro0x00/Arsenal
+- [Micro0x00/Arsenal](https://github.com/Micro0x00/Arsenal/tree/main)
 
 ### API Penetration Testing Tools
 - mitmproxy2swagger
