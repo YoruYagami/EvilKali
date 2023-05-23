@@ -41,23 +41,64 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   sudo apt update -y && sudo apt -y full-upgrade -y && sudo apt -y dist-upgrade -y && sudo apt autoremove -y && sudo apt clean -y
 fi
 
-# List of essentials packages to check
-essentials=(python3 git gobuster docker-compose docker.io neovim wget git unzip php openssh-client golang-go sed curl openssl uuid-runtime)
+# Map of essentials packages to check to their corresponding commands
+declare -A essentials=(
+    ["python3"]="python3"
+    ["git"]="git"
+    ["gobuster"]="gobuster"
+    ["docker-compose"]="docker-compose"
+    ["docker.io"]="docker"
+    ["neovim"]="nvim"
+    ["wget"]="wget"
+    ["unzip"]="unzip"
+    ["php"]="php"
+    ["openssh-client"]="ssh"
+    ["golang-go"]="go"
+    ["sed"]="sed"
+    ["curl"]="curl"
+    ["openssl"]="openssl"
+    ["uuid-runtime"]="uuidgen"
+)
 
 # Function to check if a command is available
 is_command() {
     command -v $1
 }
 
-# Check and install some essentials packages
-for pkg in "${essentials[@]}"; do
-    if is_command $pkg &> /dev/null; then
-        echo -e "$pkg already installed."
+# Function to ask user confirmation
+ask_user() {
+    echo ""
+    echo "The following packages are not installed:${missing[@]}"
+    while true; do
+        read -p "Do you want me to install all these packages? (y/n) " yn
+        case $yn in
+            [Yy]* ) 
+                for pkg in "${missing[@]}"; do
+                    sudo apt install $pkg -y
+                done
+                break;;
+            [Nn]* ) return;;
+            * ) echo "Respond yes (y) or no (n).";;
+        esac
+    done
+}
+
+# Initialize an empty array for missing packages
+missing=()
+
+# Check essentials packages
+for pkg in "${!essentials[@]}"; do
+    if is_command ${essentials[$pkg]} &> /dev/null; then
+        echo -e "${GREEN}$pkg already installed.${NC}"
     else
-        echo "$pkg is not installed.installing for you"
-        sudo apt install $pkg -y  
+        missing+=($pkg)
     fi
 done
+
+# If there are missing packages, ask the user
+if [ ${#missing[@]} -gt 0 ]; then
+    ask_user
+fi
 
 # --[ Command and Control ]--
 function download_villain() {
