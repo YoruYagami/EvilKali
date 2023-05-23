@@ -1263,7 +1263,7 @@ EOF
     echo -e "${GREEN} 8   -  Evasion Tools${NC}"
     echo -e "${GREEN} 9   -  Windows Privilege Escaltion Tools${NC}"
     echo -e "${GREEN} 10  -  Linux Privilege Escaltion Tools${NC}"
-    echo -e "${GREEN} 11  -  Bug Bounty Tools (This will execute Micro0x00/Arsenal)${NC}"
+    echo -e "${GREEN} 11  -  Web Application / Bug Bounty Tools (This will execute Micro0x00/Arsenal)${NC}"
     echo -e "${GREEN} 12  -  API Penenetration Testing Tools${NC}"
     echo -e "${GREEN} 13  -  Mobile Application Penetration Testing Tools${NC}"
     echo -e "${GREEN} 14  -  Reporting${NC}"
