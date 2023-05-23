@@ -69,6 +69,9 @@ Following the list of tools that can be installed
 - linPEAS
 - lse (Linux Smart Enumeration)
 
+### Web Application / Bug Bounty Tools
+- Micro0x00/Arsenal
+
 ### API Penetration Testing Tools
 - mitmproxy2swagger
 - postman

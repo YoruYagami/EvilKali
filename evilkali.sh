@@ -782,6 +782,32 @@ EOF
     esac
 }
 
+# --[ Install and Run Micro0x00/Arsenal, then remove it ]--
+function Bug_Bounty_Tools() {
+    if [ -d "/opt/Arsenal" ]; then
+        echo -e "${BLUE}Arsenal has been already executed before, do you want to re-execute it? (Tools that have already been downloaded and installed will be skipped) choose (y/n) ${NC}"
+        read response
+        if [ "$response" = "y" ]; then
+            echo -e "${GREEN}Installing and running Arsenal${NC}"
+            sudo mkdir -p '/opt/evilkali/temporary_arsenal'
+            sudo curl -o /opt/evilkali/temporary_arsenal/Arsenal.sh https://raw.githubusercontent.com/Micro0x00/Arsenal/main/Arsenal.sh
+            sudo chmod +x /opt/evilkali/temporary_arsenal/Arsenal.sh
+            sudo /opt/evilkali/temporary_arsenal/Arsenal.sh
+            sudo rm -rf /opt/evilkali/temporary_arsenal
+        else
+            echo -e "${BLUE}oook, no problem :) ${NC}"
+        fi
+    else
+        echo -e "${GREEN}Arsenal is not installed. Installing and running Arsenal${NC}"
+        sudo mkdir -p '/opt/evilkali/temporary_arsenal'
+        sudo curl -o /opt/evilkali/temporary_arsenal/Arsenal.sh https://raw.githubusercontent.com/Micro0x00/Arsenal/main/Arsenal.sh
+        sudo chmod +x /opt/evilkali/temporary_arsenal/Arsenal.sh
+        sudo /opt/evilkali/temporary_arsenal/Arsenal.sh
+        sudo rm -rf /opt/evilkali/temporary_arsenal
+    fi
+    sleep 2
+}
+
 # --[ API Pentesting tools ]--
 function install_mitmproxy2swagger() {
     if command -v mitmproxy2swagger &> /dev/null; then
@@ -1193,8 +1219,8 @@ EOF
     esac
 }
 
-# --[ Function to install from 3 through 11 tools ]
-function install_from_3_through_10() {
+# --[ Function to install from 2 through 9 tools ]
+function install_from_3_through_9() {
     install_all_recon_tools
     install_all_vulnerability_scanners
     install_all_file_trasfer_tools
@@ -1203,6 +1229,13 @@ function install_from_3_through_10() {
     install_all_Evasion_tools
     download_install_all_Windows_Privilege_Escalation_tools
     download_install_all_Linux_Privilege_Escalation_tools
+}
+
+# --[ Function to install from 10 through 12 tools ]
+function install_from_11_through_12() {
+    Bug_Bounty_Tools
+    download_install_all_API_tools
+    download_install_all_Mobile_App_tools
 }
 
 function main_menu() {
@@ -1220,21 +1253,23 @@ EOF
     echo -e "${GREEN}\n Select an option from menu:${NC}"
     echo -e "${GREEN}\nKey     Menu Option:"${NC}
     echo -e "---     -------------------------"
-    echo -e "${GREEN} 1   -  Download/Install All Tools${NC}"
-    echo -e "${GREEN} 2   -  Command and Control Frameworks${NC}"
-    echo -e "${GREEN} 3   -  Reconnaissance${NC}"
-    echo -e "${GREEN} 4   -  Phishing${NC}"
-    echo -e "${GREEN} 5   -  Vulnerability Scanners${NC}"
-    echo -e "${GREEN} 6   -  File Trasferer tools${NC}"
-    echo -e "${GREEN} 7   -  Ghostpack Compiled Binaries${NC}"
-    echo -e "${GREEN} 8   -  Evasion Tools${NC}"
-    echo -e "${GREEN} 9   -  Windows Privilege Escaltion Tools${NC}"
-    echo -e "${GREEN} 10  -  Linux Privilege Escaltion Tools${NC}"
+    echo -e "${GREEN} 1   -  Command and Control Frameworks${NC}"
+    echo -e "${GREEN} 2   -  Reconnaissance${NC}"
+    echo -e "${GREEN} 3   -  Phishing${NC}"
+    echo -e "${GREEN} 4   -  Vulnerability Scanners${NC}"
+    echo -e "${GREEN} 5   -  File Trasferer tools${NC}"
+    echo -e "${GREEN} 6   -  Ghostpack Compiled Binaries${NC}"
+    echo -e "${GREEN} 7   -  Evasion Tools${NC}"
+    echo -e "${GREEN} 8   -  Windows Privilege Escaltion Tools${NC}"
+    echo -e "${GREEN} 9   -  Linux Privilege Escaltion Tools${NC}"
+    echo -e "${GREEN} 10  -  Web Application / Bug Bounty Tools${NC}"
     echo -e "${GREEN} 11  -  API Penenetration Testing Tools${NC}"
     echo -e "${GREEN} 12  -  Mobile Application Penetration Testing Tools${NC}"
     echo -e "${GREEN} 13  -  Reporting${NC}"
     echo ""
-    echo -e "${GREEN} A   -  Download/Install all tools from 3 through 10${NC}"
+    echo -e "${GREEN} A${NC}   -  ${GREEN}[Everything]${NC} ${GREEN}Install all tools provided by the script${NC}"
+    echo -e "${GREEN} B${NC}   -  ${RED}[RedTeam]${NC}    ${GREEN}Install all tools from  2 -> 9${NC}"
+    echo -e "${GREEN} C${NC}   -  ${YELLOW}[AppSec]${NC}     ${GREEN}Install all tools from 10 -> 12${NC}"
     echo ""
     echo -e "${GREEN} 99  -  Quit${NC}"
     echo ""
@@ -1242,21 +1277,23 @@ EOF
     read option
 
     case $option in
-        1) download_install_all_c2_tools; install_all_recon_tools; install_all_vulnerability_scanners; install_all_file_trasfer_tools; download_install_all_phishing_tools; download_Ghostpack; install_all_Evasion_tools; download_install_all_Windows_Privilege_Escalation_tools; download_install_all_Linux_Privilege_Escalation_tools; download_install_all_API_tools; download_install_all_Mobile_App_tools; download_install_all_Reporting_tools; main_menu;;
-        2) command_and_control;;
-        3) reconnaissance;;
-        4) phishing;;
-        5) vulnerability_scanners;;
-        6) File_Trasfer_Tools;;
-        7) download_Ghostpack; main_menu;;
-        8) Evasion_Tools;;
-        9) Windows_Privilege_Escalation_Tools;;
-        10) Linux_Privilege_Escalation_Tools;;
+        1) command_and_control;;
+        2) reconnaissance;;
+        3) phishing;;
+        4) vulnerability_scanners;;
+        5) File_Trasfer_Tools;;
+        6) download_Ghostpack; main_menu;;
+        7) Evasion_Tools;;
+        8) Windows_Privilege_Escalation_Tools;;
+        9) Linux_Privilege_Escalation_Tools;;
+        10) Bug_Bounty_Tools; main_menu;;
         11) API_Tools;;
         12) Mobile_App_Tools;;
         13) Reporting_Tools;;
         99) exit;;
-        A) install_from_3_through_10; main_menu;;
+        A) download_install_all_c2_tools; install_all_recon_tools; install_all_vulnerability_scanners; install_all_file_trasfer_tools; download_install_all_phishing_tools; download_Ghostpack; install_all_Evasion_tools; download_install_all_Windows_Privilege_Escalation_tools; download_install_all_Linux_Privilege_Escalation_tools; Bug_Bounty_Tools; download_install_all_API_tools; download_install_all_Mobile_App_tools; download_install_all_Reporting_tools; main_menu;;
+        B) install_from_2_through_9; main_menu;;
+        C) install_from_10_through_12; main_menu;;
         *) echo "Invalid option"; main_menu;;
     esac
 }
