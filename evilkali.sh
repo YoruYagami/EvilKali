@@ -1132,6 +1132,7 @@ function Bug_Bounty_Tools() {
 		sudo pip3 install -r /opt/evilkali/web_app/paramspider/requirements.txt
 		sudo chmod +x /opt/evilkali/web_app/paramspider/paramspider.py
 		echo -e "${GREEN}paramspider installed successfully"
+	fi
 }
 
 
