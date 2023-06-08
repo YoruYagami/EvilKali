@@ -117,34 +117,36 @@ Following the list of tools that can be installed:
   - linPEAS
   - lse (Linux Smart Enumeration)
 - Web Application / Bug Bounty Tools
-	- httprobe
-	- amass
-	- gobuster
-	- subfinder
-	- assetfinder
-	- ffuf
-	- gf
-	- meg
-	- waybackurls
-	- subzy
-	- asnmap
-	- jsleak
-	- mapcidr
-	- dnsx
-	- gospider
-	- wpscan
-	- CRLFuzz
-	- uncover
-	- dalfox
-	- GoLinkFinder
-	- hakrawler
-	- csprecon
-	- gotator
-	- osmedeus
-	- shuffledns
-	- socialhunter
-	- getJS
-	- parshu
+  - httprobe
+  - amass
+  - gobuster
+  - subfinder
+  - assetfinder
+  - ffuf
+  - gf
+  - meg
+  - waybackurls
+  - subzy
+  - asnmap
+  - jsleak
+  - mapcidr
+  - dnsx
+  - gospider
+  - wpscan
+  - CRLFuzz
+  - uncover
+  - dalfox
+  - GoLinkFinder
+  - hakrawler
+  - csprecon
+  - gotator
+  - osmedeus
+  - shuffledns
+  - socialhunter
+  - getJS
+  - parshu
+  - tplmap
+  - paramspider
 - API Penetration Testing Tools
   - mitmproxy2swagger
   - postman
