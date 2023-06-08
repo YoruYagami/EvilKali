@@ -4,7 +4,7 @@
   <br>
   <img src="https://img.shields.io/badge/Maintained%3F-Yes-23a82c">
   <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/YoruYagami/Evilkali">
-  <img src="https://img.shields.io/badge/Developed%20for-kali%20linux-blueviolet">
+  <img src="https://img.shields.io/badge/Developed%20for-kali%20linux/BlackArch-blueviolet">
 </h1>
 
 ⚠️ EvilKali is currently in its early release stage. Numerous additional tools will be incorporated in the future, along with enhancements to the user interface and the introduction of compatibility for arch-based environments.
@@ -117,9 +117,34 @@ Following the list of tools that can be installed:
   - linPEAS
   - lse (Linux Smart Enumeration)
 - Web Application / Bug Bounty Tools
-  - [Micro0x00/Arsenal](https://github.com/Micro0x00/Arsenal.git)
-  - [R0X4R/Parshu](https://github.com/R0X4R/Parshu)
-  - XSRFProbe
+	- httprobe
+	- amass
+	- gobuster
+	- subfinder
+	- assetfinder
+	- ffuf
+	- gf
+	- meg
+	- waybackurls
+	- subzy
+	- asnmap
+	- jsleak
+	- mapcidr
+	- dnsx
+	- gospider
+	- wpscan
+	- CRLFuzz
+	- uncover
+	- dalfox
+	- GoLinkFinder
+	- hakrawler
+	- csprecon
+	- gotator
+	- osmedeus
+	- shuffledns
+	- socialhunter
+	- getJS
+	- parshu
 - API Penetration Testing Tools
   - mitmproxy2swagger
   - postman
@@ -135,6 +160,7 @@ Following the list of tools that can be installed:
   - wkhtmltopdf
   - default-jdk
   - jadx
+  - apkleaks
   - Mobile-Security-Framework-MobSF
 - Reporting
   - pwndoc
