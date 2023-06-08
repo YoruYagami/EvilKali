@@ -145,7 +145,7 @@ Following the list of tools that can be installed:
   - socialhunter
   - getJS
   - parshu
-  - tplmap
+  - SSTImap
   - paramspider
 - API Penetration Testing Tools
   - mitmproxy2swagger
