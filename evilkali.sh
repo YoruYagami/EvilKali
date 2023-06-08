@@ -15,11 +15,6 @@ if [ $(id -u) -ne 0 ]; then
     exit 1
 fi
 
-# Function to check if a command is available
-command_exists() {
-  command -v "$1"
-}
-
 # Detect user's default shell
 DEFAULT_SHELL=$(basename "$SHELL")
 
@@ -38,9 +33,9 @@ echo ""
 read -p "Do you want to update/upgrade the system first? (highly recommended) (y/n)" -n 1 -r
 echo ''
 if [ "$REPLY" = "y" ] || [ "$REPLY" = "Y" ]; then
-    if command_exists apt-get; then
+    if command -v apt-get; then
         sudo apt-get update -y && sudo apt-get -y full-upgrade -y && sudo apt-get -y dist-upgrade -y && sudo apt-get autoremove -y && sudo apt-get clean -y && sudo apt-get install build-essential -y
-    elif command_exists pacman; then
+    elif command -v pacman; then
         sudo pacman -Syu --noconfirm && sudo pacman -Sc --noconfirm && sudo pacman -Rns $(pacman -Qdtq) --noconfirm && sudo pacman -S --needed base-devel -y
     else
         echo -e "${RED}Package manager not found. Please update the system manually.${NC}"
@@ -90,11 +85,6 @@ declare -A essentials=(
     ["uuid-runtime"]="uuidgen"
 )
 
-# Function to check if a command is available
-is_command() {
-    command -v $1
-}
-
 create_symlink() {
     source_path=$1
     dest_path=$2
@@ -110,9 +100,9 @@ ask_user() {
         case $yn in
             [Yy]* ) 
                 for pkg in "${missing[@]}"; do
-                    if command_exists apt-get; then
+                    if command -v apt-get; then
                         sudo apt-get install $pkg -y
-                    elif command_exists pacman; then
+                    elif command -v pacman; then
                         sudo pacman -S $pkg --noconfirm
                     fi
                 done
@@ -128,7 +118,7 @@ missing=()
 
 # Check essentials packages
 for pkg in "${!essentials[@]}"; do
-    if is_command ${essentials[$pkg]} &> /dev/null; then
+    if command -v ${essentials[$pkg]} &> /dev/null; then
         echo -e "${GREEN}$pkg already installed.${NC}"
     else
         missing+=($pkg)
@@ -286,12 +276,20 @@ function download_ADModule() {
 }
 
 function install_bloodhound() {
-    if dpkg -s bloodhound; then
+    if dpkg -s bloodhound &> /dev/null; then
         echo -e "${RED}bloodhound is already installed.${NC}"
     else
-        echo -e "${YELLOW}Installing bloodhound${NC}"
-        sudo apt install bloodhound -y 
-        echo -e "${GREEN}bloodhound installed successfully.${NC}"
+        if command -v pacman &> /dev/null; then
+            echo -e "${YELLOW}Installing bloodhound${NC}"
+            sudo pacman -Sy bloodhound --noconfirm
+            echo -e "${GREEN}bloodhound installed successfully.${NC}"
+        elif command -v apt-get &> /dev/null; then
+            echo -e "${YELLOW}Installing bloodhound${NC}"
+            sudo apt-get install bloodhound -y
+            echo -e "${GREEN}bloodhound installed successfully.${NC}"
+        else
+            echo -e "${RED}Unable to install bloodhound. Please install it manually.${NC}"
+        fi
     fi
     sleep 2
 }
@@ -418,9 +416,17 @@ function install_evilginx2() {
     if command -v evilginx2 &> /dev/null; then
         echo -e "${RED}evilginx2 is already installed.${NC}"
     else
-        echo -e "${YELLOW}installing evilginx2${NC}"
-        sudo apt install evilginx2 -y
-        echo -e "${GREEN}evilginx2 installed successfully.${NC}"
+        if command -v pacman &> /dev/null; then
+            echo -e "${YELLOW}Installing evilginx2${NC}"
+            sudo pacman -Sy evilginx2 --noconfirm
+            echo -e "${GREEN}evilginx2 installed successfully.${NC}"
+        elif command -v apt-get &> /dev/null; then
+            echo -e "${YELLOW}Installing evilginx2${NC}"
+            sudo apt-get install evilginx2 -y
+            echo -e "${GREEN}evilginx2 installed successfully.${NC}"
+        else
+            echo -e "${RED}Unable to install evilginx2. Please install it manually.${NC}"
+        fi
     fi
     sleep 2
 }
@@ -866,37 +872,266 @@ EOF
 
 # --[ Install and Run kh4sh3i/smartrecon, then remove it ]--
 function Bug_Bounty_Tools() {
-    if [ -d "/opt/Arsenal" ]; then
-        echo -e "${BLUE}Arsenal has already been executed before. Do you want to re-execute it? (Tools that have already been downloaded and installed will be skipped) Choose (y/n) ${NC}"
-        read response
-        if [ "$response" = "y" ]; then
-            echo -e "${GREEN}Installing and running Arsenal${NC}"
-            sudo mkdir -p '/opt/evilkali/temporary_arsenal'
-            sudo curl -o /opt/evilkali/temporary_arsenal/Arsenal.sh https://raw.githubusercontent.com/Micro0x00/Arsenal/main/Arsenal.sh
-            sudo chmod +x /opt/evilkali/temporary_arsenal/Arsenal.sh
-            sudo /opt/evilkali/temporary_arsenal/Arsenal.sh
-            sudo rm -rf /opt/evilkali/temporary_arsenal
-        else
-            echo -e "${BLUE}Okay, no problem :) ${NC}"
+    if ! command -v httprobe &> /dev/null; then
+        echo -e "${RED}Installing httprobe now${NC}"
+        go install github.com/tomnomnom/httprobe@latest
+        sudo cp $HOME/go/bin/httprobe /usr/local/bin
+        echo -e "${GREEN}httprobe has been installed${NC}"
+    else
+        echo -e "${GREEN}httprobe is already installed${NC}"
+    fi
+
+	if ! command -v amass &> /dev/null; then
+		echo -e "${RED}Installing amass now${NC}"
+		go install -v github.com/OWASP/Amass/v3/...@master &> /dev/null
+		sudo cp $HOME/go/bin/amass /usr/local/bin
+		echo -e "${GREEN}amass has been installed${NC}"
+	else
+		echo -e "${GREEN}amass is already installed${NC}"
+	fi
+	
+	if ! command -v gobuster &> /dev/null; then
+		echo -e "${RED}Installing gobuster now${NC}"
+		go install github.com/OJ/gobuster/v3@latest &> /dev/null
+		sudo cp $HOME/go/bin/gobuster /usr/local/bin
+		echo -e "${GREEN}GoBuster has been installed${NC}"
+	else
+		echo -e "${GREEN}Gobuster is already installed${NC}"
+	fi
+	
+	if ! command -v nuclei &> /dev/null; then
+		echo -e "${RED}Installing nuclei now${NC}"
+		go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest &> /dev/null
+		sudo cp $HOME/go/bin/nuclei /usr/local/bin
+		echo -e "${GREEN}nuclei installation is done${NC}"
+	else
+		echo -e "${GREEN}nuclei is already installed${NC}"
+	fi
+	
+	if ! command -v subfinder &> /dev/null; then
+		echo -e "${RED}Installing subfinder now${NC}"
+		go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest &> /dev/null
+		sudo cp $HOME/go/bin/subfinder /usr/local/bin
+		echo -e "${GREEN}subfinder installation is done${NC}"
+	else
+		echo -e "${GREEN}subfinder is already installed${NC}"
+	fi
+	
+	if ! command -v assetfinder &> /dev/null; then
+		echo -e "${RED}Installing assetfinder now${NC}"
+		go install github.com/tomnomnom/assetfinder@latest &> /dev/null
+		echo -e "${GREEN}assetfinder has been installed${NC}"
+	else
+		echo -e "${GREEN}assetfinder is installed${NC}"
+	fi
+	
+	if ! command -v ffuf &> /dev/null; then
+		echo -e "${RED}Installing ffuf now${NC}"
+		go install github.com/ffuf/ffuf@latest
+		cp $HOME/go/bin/ffuf /usr/local/bin
+		echo -e "${GREEN}ffuf has been installed${NC}"
+	else
+		echo -e "${GREEN}ffuf is already installed${NC}"
+	fi
+	
+	if ! command -v gf &> /dev/null; then
+		echo -e "${RED}Installing gf now${NC}"
+		go install github.com/tomnomnom/gf@latest &> /dev/null
+		cp $HOME/go/bin/gf /usr/local/bin
+		echo -e "${GREEN}gf has been installed${NC}"
+	else
+		echo -e "${GREEN}gf is already installed${NC}"
+	fi
+	
+	if ! command -v meg &> /dev/null; then
+		echo -e "${RED}Installing meg now${NC}"
+		go install github.com/tomnomnom/meg@latest &> /dev/null
+		cp $HOME/go/bin/meg /usr/local/bin
+		echo -e "${GREEN}meg has been installed${NC}"
+	else
+		echo -e "${GREEN}meg is already installed${NC}"
+	fi
+	
+	if ! command -v waybackurls &> /dev/null; then
+		echo -e "${RED}Installing waybackurls now${NC}"
+		go install github.com/tomnomnom/waybackurls@latest &> /dev/null
+		cp $HOME/go/bin/waybackurls /usr/local/bin
+		echo -e "${GREEN}waybackurls has been installed${NC}"
+	else
+		echo -e "${GREEN}waybackurls is already installed${NC}"
+	fi
+	
+	if ! command -v subzy &> /dev/null; then
+		echo -e "${RED}Installing subzy now${NC}"
+		go install -v github.com/LukaSikic/subzy@latest &> /dev/null
+		sudo cp $HOME/go/bin/subzy /usr/local/bin
+		echo -e "${GREEN}subzy has been installed${NC}"
+	else
+		echo -e "${GREEN}subzy is already installed${NC}"
+	fi
+	
+	if ! command -v asnmap -h &> /dev/null; then
+		echo -e "${RED}Installing asnmap now${NC}"
+		go install github.com/projectdiscovery/asnmap/cmd/asnmap@latest &> /dev/null
+		echo -e "${GREEN}asnmap has been installed${NC}"
+	else
+		echo -e "${GREEN}asnmap is already installed${NC}"
+	fi
+	
+	if ! command -v jsleak -h &> /dev/null; then
+		echo -e "${RED}Installing jsleak now${NC}"
+		go install github.com/channyein1337/jsleak@latest &> /dev/null
+		echo -e "${GREEN}jsleak has been installed${NC}"
+	else
+		echo -e "${GREEN}jsleak is already installed${NC}"
+	fi
+	
+	if ! command -v mapcidr -h &> /dev/null; then
+		echo -e "${RED}Installing mapcidr now${NC}"
+		go install -v github.com/projectdiscovery/mapcidr/cmd/mapcidr@latest &> /dev/null
+		echo -e "${GREEN}mapcidr has been installed${NC}"
+	else
+		echo -e "${GREEN}mapcidr is already installed${NC}"
+	fi
+	
+	if ! command -v dnsx &> /dev/null; then
+		echo -e "${RED}Installing dnsx now${NC}"
+		go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest &> /dev/null
+		sudo cp $HOME/go/bin/dnsx /usr/local/bin
+		echo -e "${GREEN}dnsx has been installed${NC}"
+	else
+		echo -e "${GREEN}dnsx is already installed${NC}"
+	fi
+	
+	if ! command -v gospider &> /dev/null; then
+		echo -e "${RED}Installing gospider now${NC}"
+		go install github.com/jaeles-project/gospider@latest &> /dev/null
+		sudo cp $HOME/go/bin/gospider /usr/local/bin
+		echo -e "${GREEN}gospider has been installed${NC}"
+	else
+		echo -e "${GREEN}gospider is already installed${NC}"
+	fi
+
+    if ! command -v wpscan &> /dev/null; then
+        echo -e "${RED}Installing wpscan now${NC}"
+        gem install wpscan &> /dev/null
+        if command -v wpscan -h; then
+            echo -e "${GREEN}wpscan has been installed${NC}"
         fi
     else
-        echo -e "${GREEN}Arsenal is not installed. Installing and running Arsenal${NC}"
-        sudo mkdir -p '/opt/evilkali/temporary_arsenal'
-        sudo curl -o /opt/evilkali/temporary_arsenal/Arsenal.sh https://raw.githubusercontent.com/Micro0x00/Arsenal/main/Arsenal.sh
-        sudo chmod +x /opt/evilkali/temporary_arsenal/Arsenal.sh
-        sudo /opt/evilkali/temporary_arsenal/Arsenal.sh
-        sudo rm -rf /opt/evilkali/temporary_arsenal
+        echo -e "${GREEN}wpscan is already installed${NC}"
     fi
-    sleep 2
 
-    if command -v xsrfprobe &> /dev/null; then
-        echo -e "${RED}xsrfprobe is already installed.${NC}"
+    if ! command -v CRLFuzz &> /dev/null; then
+        echo -e "${RED}Installing CRLFuzz now${NC}"
+        go install github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest &> /dev/null
+        sudo cp $HOME/go/bin/crlfuzz /usr/local/bin
+        echo -e "${GREEN}CRLFuzz has been installed${NC}"
     else
-        echo -e "${YELLOW}Installing xsrfprobe${NC}"
-        sudo pip3 install xsrfprobe
-        echo -e "${GREEN}xsrfprobe installed successfully.${NC}"
+        echo -e "${GREEN}CRLFuzz is already installed${NC}"
     fi
-    sleep 2
+
+    echo -e "${RED}Installing dontgo403 now${NC}"
+    git clone https://github.com/devploit/dontgo403 &> /dev/null
+    cd dontgo403
+    go get &> /dev/null
+    go build &> /dev/null
+    echo -e "Try ./dontgo403 -h to run"
+    cd - &> /dev/null
+
+    if ! command -v katana -h &> /dev/null; then
+        echo -e "${RED}Installing katana now${NC}"
+        go install github.com/projectdiscovery/katana/cmd/katana@latest &> /dev/null
+        sudo cp $HOME/go/bin/katana /usr/local/bin
+        echo -e "${GREEN}Katana has been installed${NC}"
+    else
+        echo -e "${GREEN}katana is already installed${NC}"
+    fi
+
+    if ! command -v uncover &> /dev/null; then
+        echo -e "${RED}Installing uncover now${NC}"
+        go install -v github.com/projectdiscovery/uncover/cmd/uncover@latest &> /dev/null
+        sudo cp $HOME/go/bin/uncover /usr/local/bin
+        echo -e "${GREEN}uncover has been installed${NC}"
+    else
+        echo -e "${GREEN}uncover is already installed${NC}"
+    fi
+
+    if ! command -v dalfox &> /dev/null; then
+        echo -e "${RED}Installing Dalfox now${NC}"
+        go install github.com/hahwul/dalfox/v2@latest &> /dev/null
+        cp $HOME/go/bin/dalfox /usr/local/bin
+        echo -e "${GREEN}dalfox has been installed${NC}"
+    else
+        echo -e "${GREEN}dalfox is already installed${NC}"
+    fi
+
+    if ! command -v GoLinkFinder &> /dev/null; then
+        echo -e "${RED}Installing GoLinkFinder now${NC}"
+        go install github.com/0xsha/GoLinkFinder@latest &> /dev/null
+        cp $HOME/go/bin/GoLinkFinder /usr/local/bin
+        echo -e "${GREEN}GoLinkFinder has been installed${NC}"
+    else
+        echo -e "${GREEN}GoLinkFinder is already installed${NC}"
+    fi
+
+    if ! command -v hakrawler &> /dev/null; then
+        echo -e "${RED}Installing hakrawler now${NC}"
+        go install github.com/hakluke/hakrawler@latest &> /dev/null
+        cp $HOME/go/bin/hakrawler /usr/local/bin
+        echo -e "${GREEN}Hakrawler has been installed${NC}"
+    else
+        echo -e "${GREEN}hakrawler is already installed${NC}"
+    fi
+
+    if ! command -v csprecon &> /dev/null; then
+        echo -e "${RED}Installing csprecon now${NC}"
+        go install github.com/edoardottt/csprecon/cmd/csprecon@latest &> /dev/null
+        echo -e "${GREEN}csprecon has been installed${NC}"
+    else
+        echo -e "${GREEN}csprecon is already installed${NC}"
+    fi
+
+    if ! command -v gotator &> /dev/null; then
+        echo -e "${RED}Installing gotator now${NC}"
+        go env -w GO111MODULE="auto"
+        go install github.com/Josue87/gotator@latest &> /dev/null
+        echo -e "${GREEN}gotator has been installed${NC}"
+    else
+        echo -e "${GREEN}gotator is already installed${NC}"
+    fi
+
+    if ! command -v osmedeus &> /dev/null; then
+        echo -e "${RED}Installing osmedeus now${NC}"
+        go install -v github.com/j3ssie/osmedeus@latest &> /dev/null
+        echo -e "${GREEN}osmedeus has been installed${NC}"
+    else
+        echo -e "${GREEN}osmedeus is already installed${NC}"
+    fi
+
+    if ! command -v shuffledns &> /dev/null; then
+        echo -e "${RED}Installing shuffledns now${NC}"
+        go install -v github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest &> /dev/null
+        echo -e "${GREEN}shuffledns has been installed${NC}"
+    else
+        echo -e "${GREEN}shuffledns is already installed${NC}"
+    fi
+
+    if ! command -v socialhunter -h &> /dev/null; then
+        echo -e "${RED}Installing socialhunter now${NC}"
+        go install github.com/utkusen/socialhunter@latest &> /dev/null
+        echo -e "${GREEN}socialhunter has been installed${NC}"
+    else
+        echo -e "${GREEN}socialhunter is already installed${NC}"
+    fi
+
+    if ! command -v getJS &> /dev/null; then
+        echo -e "${RED}Installing getJS now${NC}"
+        go install github.com/003random/getJS@latest &> /dev/null
+        echo -e "${GREEN}getJS has been installed${NC}"
+    else
+        echo -e "${GREEN}getJS is already installed${NC}"
+    fi
 
     if command -v parshu &> /dev/null; then
         echo -e "${RED}parshu is already installed.${NC}"
@@ -1029,9 +1264,17 @@ function install_aapt() {
     if command -v aapt &> /dev/null; then
         echo -e "${RED}aapt is already installed.${NC}"
     else
-        echo -e "${YELLOW}Installing aapt${NC}"
-        sudo apt install aapt -y
-        echo -e "${GREEN}aapt installed successfully.${NC}"
+        if command -v pacman &> /dev/null; then
+            echo -e "${YELLOW}Installing aapt${NC}"
+            sudo pacman -Sy aapt --noconfirm
+            echo -e "${GREEN}aapt installed successfully.${NC}"
+        elif command -v apt-get &> /dev/null; then
+            echo -e "${YELLOW}Installing aapt${NC}"
+            sudo apt-get install aapt -y
+            echo -e "${GREEN}aapt installed successfully.${NC}"
+        else
+            echo -e "${RED}Unable to install aapt. Please install it manually.${NC}"
+        fi
     fi
     sleep 2
 }
@@ -1040,9 +1283,17 @@ function install_apktool() {
     if command -v apktool &> /dev/null; then
         echo -e "${RED}apktool is already installed.${NC}"
     else
-        echo -e "${YELLOW}Installing apktool${NC}"
-        sudo apt install apktool -y
-        echo -e "${GREEN}apktool installed successfully.${NC}"
+        if command -v pacman &> /dev/null; then
+            echo -e "${YELLOW}Installing apktool${NC}"
+            sudo pacman -Sy apktool --noconfirm
+            echo -e "${GREEN}apktool installed successfully.${NC}"
+        elif command -v apt-get &> /dev/null; then
+            echo -e "${YELLOW}Installing apktool${NC}"
+            sudo apt-get install apktool -y
+            echo -e "${GREEN}apktool installed successfully.${NC}"
+        else
+            echo -e "${RED}Unable to install apktool. Please install it manually.${NC}"
+        fi
     fi
     sleep 2
 }
@@ -1051,9 +1302,17 @@ function install_adb() {
     if command -v adb &> /dev/null; then
         echo -e "${RED}adb is already installed.${NC}"
     else
-        echo -e "${YELLOW}Installing adb${NC}"
-        sudo apt install adb -y
-        echo -e "${GREEN}adb installed successfully.${NC}"
+        if command -v pacman &> /dev/null; then
+            echo -e "${YELLOW}Installing adb${NC}"
+            sudo pacman -Sy android-tools --noconfirm
+            echo -e "${GREEN}adb installed successfully.${NC}"
+        elif command -v apt-get &> /dev/null; then
+            echo -e "${YELLOW}Installing adb${NC}"
+            sudo apt-get install adb -y
+            echo -e "${GREEN}adb installed successfully.${NC}"
+        else
+            echo -e "${RED}Unable to install adb. Please install it manually.${NC}"
+        fi
     fi
     sleep 2
 }
@@ -1062,9 +1321,17 @@ function install_apksigner() {
     if command -v apksigner &> /dev/null; then
         echo -e "${RED}apksigner is already installed.${NC}"
     else
-        echo -e "${YELLOW}Installing apksigner${NC}"
-        sudo apt install apksigner -y
-        echo -e "${GREEN}apksigner installed successfully.${NC}"
+        if command -v pacman &> /dev/null; then
+            echo -e "${YELLOW}Installing apksigner${NC}"
+            sudo pacman -Sy apksigner --noconfirm
+            echo -e "${GREEN}apksigner installed successfully.${NC}"
+        elif command -v apt-get &> /dev/null; then
+            echo -e "${YELLOW}Installing apksigner${NC}"
+            sudo apt-get install apksigner -y
+            echo -e "${GREEN}apksigner installed successfully.${NC}"
+        else
+            echo -e "${RED}Unable to install apksigner. Please install it manually.${NC}"
+        fi
     fi
     sleep 2
 }
@@ -1073,9 +1340,17 @@ function install_zipalign() {
     if command -v zipalign &> /dev/null; then
         echo -e "${RED}zipalign is already installed.${NC}"
     else
-        echo -e "${YELLOW}Installing zipalign${NC}"
-        sudo apt install zipalign -y
-        echo -e "${GREEN}zipalign installed successfully.${NC}"
+        if command -v pacman &> /dev/null; then
+            echo -e "${YELLOW}Installing zipalign${NC}"
+            sudo pacman -Sy zipalign --noconfirm
+            echo -e "${GREEN}zipalign installed successfully.${NC}"
+        elif command -v apt-get &> /dev/null; then
+            echo -e "${YELLOW}Installing zipalign${NC}"
+            sudo apt-get install zipalign -y
+            echo -e "${GREEN}zipalign installed successfully.${NC}"
+        else
+            echo -e "${RED}Unable to install zipalign. Please install it manually.${NC}"
+        fi
     fi
     sleep 2
 }
@@ -1084,9 +1359,17 @@ function install_wkhtmltopdf() {
     if command -v wkhtmltopdf &> /dev/null; then
         echo -e "${RED}wkhtmltopdf is already installed.${NC}"
     else
-        echo -e "${YELLOW}Installing wkhtmltopdf${NC}"
-        sudo apt install wkhtmltopdf -y
-        echo -e "${GREEN}wkhtmltopdf installed successfully.${NC}"
+        if command -v pacman &> /dev/null; then
+            echo -e "${YELLOW}Installing wkhtmltopdf${NC}"
+            sudo pacman -Sy wkhtmltopdf --noconfirm
+            echo -e "${GREEN}wkhtmltopdf installed successfully.${NC}"
+        elif command -v apt-get &> /dev/null; then
+            echo -e "${YELLOW}Installing wkhtmltopdf${NC}"
+            sudo apt-get install wkhtmltopdf -y
+            echo -e "${GREEN}wkhtmltopdf installed successfully.${NC}"
+        else
+            echo -e "${RED}Unable to install wkhtmltopdf. Please install it manually.${NC}"
+        fi
     fi
     sleep 2
 }
@@ -1095,24 +1378,40 @@ function install_default_jdk() {
     if command -v default-jdk &> /dev/null; then
         echo -e "${RED}default-jdk is already installed.${NC}"
     else
-        echo -e "${YELLOW}Installing default-jdk${NC}"
-        sudo apt install default-jdk -y
-        echo -e "${GREEN}default-jdk installed successfully.${NC}"
+        if command -v pacman &> /dev/null; then
+            echo -e "${YELLOW}Installing default-jdk${NC}"
+            sudo pacman -Sy jdk-openjdk --noconfirm
+            echo -e "${GREEN}default-jdk installed successfully.${NC}"
+        elif command -v apt-get &> /dev/null; then
+            echo -e "${YELLOW}Installing default-jdk${NC}"
+            sudo apt-get install default-jdk -y
+            echo -e "${GREEN}default-jdk installed successfully.${NC}"
+        else
+            echo -e "${RED}Unable to install default-jdk. Please install it manually.${NC}"
+        fi
     fi
     sleep 2
 }
-
 
 function install_jadx() {
     if command -v jadx &> /dev/null; then
         echo -e "${RED}jadx is already installed.${NC}"
     else
-        echo -e "${YELLOW}Installing jadx${NC}"
-        sudo apt install jadx -y
-        echo -e "${GREEN}jadx installed successfully.${NC}"
+        if command -v pacman &> /dev/null; then
+            echo -e "${YELLOW}Installing jadx${NC}"
+            sudo pacman -Sy jadx --noconfirm
+            echo -e "${GREEN}jadx installed successfully.${NC}"
+        elif command -v apt-get &> /dev/null; then
+            echo -e "${YELLOW}Installing jadx${NC}"
+            sudo apt-get install jadx -y
+            echo -e "${GREEN}jadx installed successfully.${NC}"
+        else
+            echo -e "${RED}Unable to install jadx. Please install it manually.${NC}"
+        fi
     fi
     sleep 2
 }
+
     
 function install_MobSF() {
     sudo mkdir -p '/opt/evilkali/mobile_app'
@@ -1341,7 +1640,7 @@ function install_from_10_through_12() {
     install_ProjectDiscovery_Toolkit
 }
 
-# --[ Function to install all Project Discovery Tools ]
+# Function to install all Project Discovery Tools
 function install_ProjectDiscovery_Toolkit() {
     if ! command -v pdtm &> /dev/null; then
         echo -e "${RED}Installing ProjectDiscovery's Open Source Tool Manager.${NC}"
@@ -1352,12 +1651,56 @@ function install_ProjectDiscovery_Toolkit() {
     else
         echo -e "${GREEN}ProjectDiscovery's Open Source Tool Manager is already installed.${NC}"
         sleep 2
-        echo -e "${GREEN}Installing/Updating all the tools${NC}"
-        pdtm -install-all
+        echo -e "${GREEN}Updating all the tools${NC}"
         pdtm -update-all
+    fi
+
+    # Check if aix is installed
+    if ! command -v aix &> /dev/null; then
+        echo -e "${RED}Installing aix.${NC}"
+        go install github.com/projectdiscovery/aix/cmd/aix@latest
+
+        # Move aix to /usr/local/bin
+        sudo mv $HOME/go/bin/aix /usr/local/bin/
+    else
+        echo -e "${GREEN}aix is already installed.${NC}"
+
+        # Check if aix is already in /usr/local/bin
+        if [ ! -f "/usr/local/bin/aix" ]; then
+            echo -e "${RED}Moving aix to /usr/local/bin.${NC}"
+            sudo mv $HOME/go/bin/aix /usr/local/bin/
+        fi
+        sleep 2
+    fi
+
+    # Check if nuclei is installed
+    if ! command -v nuclei &> /dev/null; then
+        echo -e "${RED}Installing nuclei.${NC}"
+        sudo go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
+    else
+        echo -e "${GREEN}nuclei is already installed.${NC}"
+        echo -e "${GREEN}Running nuclei -update${NC}"
+        sudo nuclei -update
+        return
+    fi
+    sleep 2
+
+    echo -e "${GREEN}Running nuclei${NC}"
+    sudo nuclei -update
+
+    # Check if fuzzing-templates repository exists
+    if [ ! -d "$HOME/fuzzing-templates" ]; then
+        echo -e "${RED}Cloning fuzzing-templates repository.${NC}"
+        git clone https://github.com/projectdiscovery/fuzzing-templates.git $HOME/fuzzing-templates
+    else
+        echo -e "${GREEN}fuzzing-templates repository already exists. Updating.${NC}"
+        cd $HOME/fuzzing-templates
+        git pull
+        cd -
     fi
     sleep 2
 }
+
 
 function main_menu() {
     clear
