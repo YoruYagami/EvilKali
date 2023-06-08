@@ -1654,51 +1654,6 @@ function install_ProjectDiscovery_Toolkit() {
         echo -e "${GREEN}Updating all the tools${NC}"
         pdtm -update-all
     fi
-
-    # Check if aix is installed
-    if ! command -v aix &> /dev/null; then
-        echo -e "${RED}Installing aix.${NC}"
-        go install github.com/projectdiscovery/aix/cmd/aix@latest
-
-        # Move aix to /usr/local/bin
-        sudo mv $HOME/go/bin/aix /usr/local/bin/
-    else
-        echo -e "${GREEN}aix is already installed.${NC}"
-
-        # Check if aix is already in /usr/local/bin
-        if [ ! -f "/usr/local/bin/aix" ]; then
-            echo -e "${RED}Moving aix to /usr/local/bin.${NC}"
-            sudo mv $HOME/go/bin/aix /usr/local/bin/
-        fi
-        sleep 2
-    fi
-
-    # Check if nuclei is installed
-    if ! command -v nuclei &> /dev/null; then
-        echo -e "${RED}Installing nuclei.${NC}"
-        sudo go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
-    else
-        echo -e "${GREEN}nuclei is already installed.${NC}"
-        echo -e "${GREEN}Running nuclei -update${NC}"
-        sudo nuclei -update
-        return
-    fi
-    sleep 2
-
-    echo -e "${GREEN}Running nuclei${NC}"
-    sudo nuclei -update
-
-    # Check if fuzzing-templates repository exists
-    if [ ! -d "$HOME/fuzzing-templates" ]; then
-        echo -e "${RED}Cloning fuzzing-templates repository.${NC}"
-        git clone https://github.com/projectdiscovery/fuzzing-templates.git $HOME/fuzzing-templates
-    else
-        echo -e "${GREEN}fuzzing-templates repository already exists. Updating.${NC}"
-        cd $HOME/fuzzing-templates
-        git pull
-        cd -
-    fi
-    sleep 2
 }
 
 
