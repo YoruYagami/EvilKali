@@ -1123,6 +1123,15 @@ function Bug_Bounty_Tools() {
         	sudo chmod +x /opt/evilkali/web_app/tplmap/tplmap.py
         	echo -e "${GREEN}tplmap installed successfully.${NC}"
     	fi
+	
+	if [ -d "/opt/evilkali/web_app/ParamSpider" ]; then
+		echo -e "${RED}ParamSpider is already installed.${NC}"
+	else
+		echo -e "${YELLOW}Installing ParamSpider${NC}"
+		sudo git clone 'https://github.com/devanshbatham/ParamSpider.git' '/opt/evilkali/web_app/paramspider'
+		sudo pip3 install -r /opt/evilkali/web_app/paramspider/requirements.txt
+		sudo chmod +x /opt/evilkali/web_app/paramspider/paramspider.py
+		echo -e "${GREEN}paramspider installed successfully"
 }
 
 
