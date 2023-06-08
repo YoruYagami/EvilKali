@@ -1124,7 +1124,7 @@ function Bug_Bounty_Tools() {
         	echo -e "${GREEN}tplmap installed successfully.${NC}"
     	fi
 	
-	if [ -d "/opt/evilkali/web_app/ParamSpider" ]; then
+	if [ -d "/opt/evilkali/web_app/paramspider" ]; then
 		echo -e "${RED}ParamSpider is already installed.${NC}"
 	else
 		echo -e "${YELLOW}Installing ParamSpider${NC}"
