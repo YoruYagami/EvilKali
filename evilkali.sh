@@ -1114,16 +1114,6 @@ function Bug_Bounty_Tools() {
         	echo -e "${GREEN}parshu installed successfully.${NC}"
     	fi
     
-    	if [ -d "/opt/evilkali/web_app/tplmap" ]; then
-        	echo -e "${RED}tplmap is already installed.${NC}"
-    	else
-        	echo -e "${YELLOW}Installing tplmap${NC}"
-        	sudo git clone 'https://github.com/epinna/tplmap.git' '/opt/evilkali/web_app/tplmap'
-        	sudo pip3 install -r /opt/evilkali/web_app/tplmap/requirements.txt
-        	sudo chmod +x /opt/evilkali/web_app/tplmap/tplmap.py
-        	echo -e "${GREEN}tplmap installed successfully.${NC}"
-    	fi
-	
 	if [ -d "/opt/evilkali/web_app/SSTImap" ]; then
 		echo -e "${RED}SSTImap is already installed.${NC}"
 	else
