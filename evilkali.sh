@@ -1132,7 +1132,15 @@ function Bug_Bounty_Tools() {
     else
         echo -e "${GREEN}getJS is already installed${NC}"
     fi
-
+    
+    if command -v apkleaks &> /dev/null; then
+        echo -e "${RED}apkleaks is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing apkleaks${NC}"
+        sudo pip3 install apkleaks
+        echo -e "${GREEN}apkleaks installed successfully.${NC}"
+    fi
+    
     if command -v parshu &> /dev/null; then
         echo -e "${RED}parshu is already installed.${NC}"
     else
@@ -1140,7 +1148,6 @@ function Bug_Bounty_Tools() {
         sudo pip3 install parshu
         echo -e "${GREEN}parshu installed successfully.${NC}"
     fi
-    sleep 2
 }
 
 
