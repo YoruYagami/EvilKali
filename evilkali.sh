@@ -1106,14 +1106,6 @@ function Bug_Bounty_Tools() {
         	echo -e "${GREEN}getJS is already installed${NC}"
     	fi
     
-    	if command -v apkleaks &> /dev/null; then
-        	echo -e "${RED}apkleaks is already installed.${NC}"
-    	else
-        	echo -e "${YELLOW}Installing apkleaks${NC}"
-        	sudo pip3 install apkleaks
-        	echo -e "${GREEN}apkleaks installed successfully.${NC}"
-    	fi
-    
     	if command -v parshu &> /dev/null; then
         	echo -e "${RED}parshu is already installed.${NC}"
     	else
@@ -1392,7 +1384,14 @@ function install_jadx() {
     sleep 2
 }
 
-    
+    if command -v apkleaks &> /dev/null; then
+        echo -e "${RED}apkleaks is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing apkleaks${NC}"
+        sudo pip3 install apkleaks
+        echo -e "${GREEN}apkleaks installed successfully.${NC}"
+    fi
+
 function install_MobSF() {
     sudo mkdir -p '/opt/evilkali/mobile_app'
 
