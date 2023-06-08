@@ -1124,6 +1124,15 @@ function Bug_Bounty_Tools() {
         	echo -e "${GREEN}tplmap installed successfully.${NC}"
     	fi
 	
+	if [ -d "/opt/evilkali/web_app/SSTImap" ]; then
+		echo -e "${RED}SSTImap is already installed.${NC}"
+	else
+		echo -e "${YELLOW}Installing SSTImap${NC}"
+		sudo git clone 'https://github.com/vladko312/SSTImap.git' '/opt/evilkali/web_app/SSTImap'
+		sudo pip3 install -r /opt/evilkali/web_app/SSTImap/requirements.txt
+		sudo chmod +x /opt/evilikali/web_app/SSTImap/sstimap.py
+		echo -e "${GREEN}SSTImap installed successfully${NC}"
+	
 	if [ -d "/opt/evilkali/web_app/paramspider" ]; then
 		echo -e "${RED}ParamSpider is already installed.${NC}"
 	else
