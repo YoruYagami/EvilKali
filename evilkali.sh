@@ -1113,6 +1113,17 @@ function Bug_Bounty_Tools() {
         	sudo pip3 install parshu
         	echo -e "${GREEN}parshu installed successfully.${NC}"
     	fi
+    
+    	if [ -d "/opt/evilkali/web_app/tplmap" ]; then
+        	echo -e "${RED}tplmap is already installed.${NC}"
+    	else
+        	echo -e "${YELLOW}Installing tplmap${NC}"
+        	sudo git clone 'https://github.com/epinna/tplmap.git' '/opt/evilkali/web_app/tplmap'
+        	sudo pip3 install -r /opt/evilkali/web_app/tplmap/requirements.txt
+        	sudo chmod +x /opt/evilkali/web_app/tplmap/tplmap.py
+        	create_symlink /opt/evilkali/web_app/tplmap/tplmap.py /usr/bin/tplmap
+        	echo -e "${GREEN}tplmap installed successfully.${NC}"
+    	fi
 }
 
 
