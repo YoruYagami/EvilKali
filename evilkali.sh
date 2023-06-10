@@ -870,7 +870,7 @@ EOF
     esac
 }
 
-# --[ Install and Run kh4sh3i/smartrecon, then remove it ]--
+# --[ Web Application - Bug Bounty Tools ]--
 function Bug_Bounty_Tools() {
     	if ! command -v httprobe &> /dev/null; then
         	echo -e "${RED}Installing httprobe now${NC}"
