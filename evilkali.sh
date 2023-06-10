@@ -1122,6 +1122,7 @@ function Bug_Bounty_Tools() {
 		sudo pip install -r /opt/evilkali/web_app/SSTImap/requirements.txt
 		sudo chmod +x /opt/evilikali/web_app/SSTImap/sstimap.py
 		echo -e "${GREEN}SSTImap installed successfully${NC}"
+	fi
 	
 	if [ -d "/opt/evilkali/web_app/paramspider" ]; then
 		echo -e "${RED}ParamSpider is already installed.${NC}"
