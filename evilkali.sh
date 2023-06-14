@@ -1114,6 +1114,15 @@ function Bug_Bounty_Tools() {
         	echo -e "${GREEN}parshu installed successfully.${NC}"
     	fi
     
+    if [ -d "/opt/evilkali/web_app/NucleiFuzzer.git" ]; then
+		echo -e "${RED}NucleiFuzzer is already installed.${NC}"
+	else
+		echo -e "${YELLOW}Installing NucleiFuzzer${NC}"
+		sudo git clone 'https://github.com/0xKayala/NucleiFuzzer.git' '/opt/evilkali/web_app/NucleiFuzzer'
+		sudo chmod +x /opt/evilikali/web_app/NucleiFuzzer/NucleiFuzzer.sh
+		echo -e "${GREEN}NucleiFuzzer installed successfully${NC}"
+	fi
+
 	if [ -d "/opt/evilkali/web_app/SSTImap" ]; then
 		echo -e "${RED}SSTImap is already installed.${NC}"
 	else

@@ -145,6 +145,7 @@ Following the list of tools that can be installed:
   - socialhunter
   - getJS
   - parshu
+  - NucleiFuzzer
   - SSTImap
   - paramspider
 - API Penetration Testing Tools
