@@ -1119,7 +1119,7 @@ function Bug_Bounty_Tools() {
 	else
 		echo -e "${YELLOW}Installing NucleiFuzzer${NC}"
 		sudo git clone 'https://github.com/0xKayala/NucleiFuzzer.git' '/opt/evilkali/web_app/NucleiFuzzer'
-		sudo chmod +x /opt/evilikali/web_app/NucleiFuzzer/NucleiFuzzer.sh
+		sudo chmod +x /opt/evilkali/web_app/NucleiFuzzer/NucleiFuzzer.sh
 		echo -e "${GREEN}NucleiFuzzer installed successfully${NC}"
 	fi
 
