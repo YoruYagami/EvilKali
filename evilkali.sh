@@ -626,6 +626,25 @@ function download_Freeze() {
     fi
 }
 
+function install_Shellter() {
+    if dpkg -s shellter &> /dev/null; then
+        echo -e "${RED}Shellter is already installed.${NC}"
+    else
+        if command -v pacman &> /dev/null; then
+            echo -e "${YELLOW}Installing Shellter${NC}"
+            sudo pacman -Sy shellter --noconfirm
+            echo -e "${GREEN}Shellter installed successfully.${NC}"
+        elif command -v apt-get &> /dev/null; then
+            echo -e "${YELLOW}Installing Shellter${NC}"
+            sudo apt-get install shellter -y
+            echo -e "${GREEN}Shellter installed successfully.${NC}"
+        else
+            echo -e "${RED}Unable to install Shellter. Please install it manually.${NC}"
+        fi
+    fi
+    sleep 2
+}
+
 function download_Invisi_Shell() {
     sudo mkdir -p '/opt/evilkali/windows/'
     if [ -d "/opt/evilkali/windows/Invisi-Shell" ]; then
@@ -639,6 +658,7 @@ function download_Invisi_Shell() {
 
 function install_all_Evasion_tools() {
     download_Freeze
+    install_Shellter
     download_Invisi_Shell
 }
 
@@ -659,8 +679,9 @@ EOF
     echo -e "---     -------------------------"
     echo -e " 1   -  Download/Install All Tools"
     echo -e " 2   -  Download Freeze"
-    echo -e " 3   -  Download Invisi_Shell"
-    echo -e " 4   -  Back"
+    echo -e " 3   -  Install Shellter"
+    echo -e " 4   -  Download Invisi_Shell"
+    echo -e " 5   -  Back"
     echo ""
     echo -n "Choose an option: "
     read option
@@ -668,8 +689,9 @@ EOF
     case $option in
         1) install_all_Evasion_tools; Evasion_Tools;;
         2) download_Freeze; Evasion_Tools;;
-        3) download_Invisi_Shell; Evasion_Tools;;
-        4) main_menu;;
+        3) install_Shellter; Evasion_Tools;;
+        4) download_Invisi_Shell; Evasion_Tools;;
+        5) main_menu;;
         *) echo "Invalid option"; Evasion_Tools;;
     esac
 }
