@@ -91,6 +91,7 @@ Following the list of tools that can be installed:
   - updog
 - Evasion
   - freeze
+  - Shellter
   - invisi_shell
 - Windows Privilege Escalation Tools
   - PowerUp
