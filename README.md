@@ -146,6 +146,10 @@ Following the list of tools that can be installed:
   - socialhunter
   - getJS
   - parshu
+  - kxss
+  - anew 
+  - gau 
+  - qsreplace
   - NucleiFuzzer
   - SSTImap
   - paramspider

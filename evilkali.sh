@@ -894,14 +894,14 @@ EOF
 
 # --[ Web Application - Bug Bounty Tools ]--
 function Bug_Bounty_Tools() {
-    	if ! command -v httprobe &> /dev/null; then
-        	echo -e "${RED}Installing httprobe now${NC}"
-        	go install github.com/tomnomnom/httprobe@latest
-        	sudo cp $HOME/go/bin/httprobe /usr/local/bin
-        	echo -e "${GREEN}httprobe has been installed${NC}"
-    	else
-        	echo -e "${GREEN}httprobe is already installed${NC}"
-    	fi
+    if ! command -v httprobe &> /dev/null; then
+        echo -e "${RED}Installing httprobe now${NC}"
+        go install github.com/tomnomnom/httprobe@latest
+        sudo cp $HOME/go/bin/httprobe /usr/local/bin
+        echo -e "${GREEN}httprobe has been installed${NC}"
+    else
+        echo -e "${GREEN}httprobe is already installed${NC}"
+    fi
 
 	if ! command -v amass &> /dev/null; then
 		echo -e "${RED}Installing amass now${NC}"
@@ -1024,117 +1024,139 @@ function Bug_Bounty_Tools() {
 		echo -e "${GREEN}gospider is already installed${NC}"
 	fi
 
-    	if ! command -v wpscan &> /dev/null; then
-        	echo -e "${RED}Installing wpscan now${NC}"
-        	gem install wpscan &> /dev/null
-        	if command -v wpscan -h; then
-            	echo -e "${GREEN}wpscan has been installed${NC}"
-        	fi
-    	else
-        	echo -e "${GREEN}wpscan is already installed${NC}"
-    	fi
+    if ! command -v CRLFuzz &> /dev/null; then
+        echo -e "${RED}Installing CRLFuzz now${NC}"
+        go install github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest &> /dev/null
+        sudo cp $HOME/go/bin/crlfuzz /usr/local/bin
+        echo -e "${GREEN}CRLFuzz has been installed${NC}"
+    else
+        echo -e "${GREEN}CRLFuzz is already installed${NC}"
+    fi
 
-    	if ! command -v CRLFuzz &> /dev/null; then
-        	echo -e "${RED}Installing CRLFuzz now${NC}"
-        	go install github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest &> /dev/null
-        	sudo cp $HOME/go/bin/crlfuzz /usr/local/bin
-        	echo -e "${GREEN}CRLFuzz has been installed${NC}"
-    	else
-        	echo -e "${GREEN}CRLFuzz is already installed${NC}"
-    	fi
+    if ! command -v uncover &> /dev/null; then
+        echo -e "${RED}Installing uncover now${NC}"
+        go install -v github.com/projectdiscovery/uncover/cmd/uncover@latest &> /dev/null
+        sudo cp $HOME/go/bin/uncover /usr/local/bin
+        echo -e "${GREEN}uncover has been installed${NC}"
+    else
+        echo -e "${GREEN}uncover is already installed${NC}"
+    fi
 
-    	if ! command -v uncover &> /dev/null; then
-        	echo -e "${RED}Installing uncover now${NC}"
-        	go install -v github.com/projectdiscovery/uncover/cmd/uncover@latest &> /dev/null
-        	sudo cp $HOME/go/bin/uncover /usr/local/bin
-        	echo -e "${GREEN}uncover has been installed${NC}"
-    	else
-        	echo -e "${GREEN}uncover is already installed${NC}"
-    	fi
+    if ! command -v dalfox &> /dev/null; then
+        echo -e "${RED}Installing Dalfox now${NC}"
+        go install github.com/hahwul/dalfox/v2@latest &> /dev/null
+        cp $HOME/go/bin/dalfox /usr/local/bin
+        echo -e "${GREEN}dalfox has been installed${NC}"
+    else
+        echo -e "${GREEN}dalfox is already installed${NC}"
+    fi
 
-    	if ! command -v dalfox &> /dev/null; then
-        	echo -e "${RED}Installing Dalfox now${NC}"
-        	go install github.com/hahwul/dalfox/v2@latest &> /dev/null
-        	cp $HOME/go/bin/dalfox /usr/local/bin
-        	echo -e "${GREEN}dalfox has been installed${NC}"
-    	else
-        	echo -e "${GREEN}dalfox is already installed${NC}"
-    	fi
+    if ! command -v GoLinkFinder &> /dev/null; then
+        echo -e "${RED}Installing GoLinkFinder now${NC}"
+        go install github.com/0xsha/GoLinkFinder@latest &> /dev/null
+        cp $HOME/go/bin/GoLinkFinder /usr/local/bin
+        echo -e "${GREEN}GoLinkFinder has been installed${NC}"
+    else
+        echo -e "${GREEN}GoLinkFinder is already installed${NC}"
+    fi
 
-    	if ! command -v GoLinkFinder &> /dev/null; then
-        	echo -e "${RED}Installing GoLinkFinder now${NC}"
-        	go install github.com/0xsha/GoLinkFinder@latest &> /dev/null
-        	cp $HOME/go/bin/GoLinkFinder /usr/local/bin
-        	echo -e "${GREEN}GoLinkFinder has been installed${NC}"
-    	else
-        	echo -e "${GREEN}GoLinkFinder is already installed${NC}"
-    	fi
+    if ! command -v hakrawler &> /dev/null; then
+        echo -e "${RED}Installing hakrawler now${NC}"
+        go install github.com/hakluke/hakrawler@latest &> /dev/null
+        cp $HOME/go/bin/hakrawler /usr/local/bin
+        echo -e "${GREEN}Hakrawler has been installed${NC}"
+    else
+        echo -e "${GREEN}hakrawler is already installed${NC}"
+    fi
 
-    	if ! command -v hakrawler &> /dev/null; then
-        	echo -e "${RED}Installing hakrawler now${NC}"
-        	go install github.com/hakluke/hakrawler@latest &> /dev/null
-        	cp $HOME/go/bin/hakrawler /usr/local/bin
-        	echo -e "${GREEN}Hakrawler has been installed${NC}"
-    	else
-        	echo -e "${GREEN}hakrawler is already installed${NC}"
-    	fi
+    if ! command -v csprecon &> /dev/null; then
+        echo -e "${RED}Installing csprecon now${NC}"
+        go install github.com/edoardottt/csprecon/cmd/csprecon@latest &> /dev/null
+        echo -e "${GREEN}csprecon has been installed${NC}"
+    else
+        echo -e "${GREEN}csprecon is already installed${NC}"
+    fi
 
-    	if ! command -v csprecon &> /dev/null; then
-        	echo -e "${RED}Installing csprecon now${NC}"
-        	go install github.com/edoardottt/csprecon/cmd/csprecon@latest &> /dev/null
-        	echo -e "${GREEN}csprecon has been installed${NC}"
-    	else
-        	echo -e "${GREEN}csprecon is already installed${NC}"
-    	fi
+    if ! command -v gotator &> /dev/null; then
+        echo -e "${RED}Installing gotator now${NC}"
+        go env -w GO111MODULE="auto"
+        go install github.com/Josue87/gotator@latest &> /dev/null
+        echo -e "${GREEN}gotator has been installed${NC}"
+    else
+        echo -e "${GREEN}gotator is already installed${NC}"
+    fi
 
-    	if ! command -v gotator &> /dev/null; then
-        	echo -e "${RED}Installing gotator now${NC}"
-        	go env -w GO111MODULE="auto"
-        	go install github.com/Josue87/gotator@latest &> /dev/null
-        	echo -e "${GREEN}gotator has been installed${NC}"
-    	else
-        	echo -e "${GREEN}gotator is already installed${NC}"
-    	fi
+    if ! command -v osmedeus &> /dev/null; then
+        echo -e "${RED}Installing osmedeus now${NC}"
+        go install -v github.com/j3ssie/osmedeus@latest &> /dev/null
+        echo -e "${GREEN}osmedeus has been installed${NC}"
+    else
+        echo -e "${GREEN}osmedeus is already installed${NC}"
+    fi
 
-    	if ! command -v osmedeus &> /dev/null; then
-        	echo -e "${RED}Installing osmedeus now${NC}"
-        	go install -v github.com/j3ssie/osmedeus@latest &> /dev/null
-        	echo -e "${GREEN}osmedeus has been installed${NC}"
-    	else
-        	echo -e "${GREEN}osmedeus is already installed${NC}"
-    	fi
+    if ! command -v shuffledns &> /dev/null; then
+        echo -e "${RED}Installing shuffledns now${NC}"
+        go install -v github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest &> /dev/null
+        echo -e "${GREEN}shuffledns has been installed${NC}"
+    else
+        echo -e "${GREEN}shuffledns is already installed${NC}"
+    fi
 
-    	if ! command -v shuffledns &> /dev/null; then
-        	echo -e "${RED}Installing shuffledns now${NC}"
-        	go install -v github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest &> /dev/null
-        	echo -e "${GREEN}shuffledns has been installed${NC}"
-    	else
-        	echo -e "${GREEN}shuffledns is already installed${NC}"
-    	fi
+    if ! command -v socialhunter -h &> /dev/null; then
+        echo -e "${RED}Installing socialhunter now${NC}"
+        go install github.com/utkusen/socialhunter@latest &> /dev/null
+        echo -e "${GREEN}socialhunter has been installed${NC}"
+	else
+        echo -e "${GREEN}socialhunter is already installed${NC}"
+    fi
 
-    	if ! command -v socialhunter -h &> /dev/null; then
-        	echo -e "${RED}Installing socialhunter now${NC}"
-        	go install github.com/utkusen/socialhunter@latest &> /dev/null
-        	echo -e "${GREEN}socialhunter has been installed${NC}"
-	    else
-        	echo -e "${GREEN}socialhunter is already installed${NC}"
-    	fi
-
-    	if ! command -v getJS &> /dev/null; then
-        	echo -e "${RED}Installing getJS now${NC}"
-        	go install github.com/003random/getJS@latest &> /dev/null
-        	echo -e "${GREEN}getJS has been installed${NC}"
-    	else
-        	echo -e "${GREEN}getJS is already installed${NC}"
-    	fi
+    if ! command -v getJS &> /dev/null; then
+        echo -e "${RED}Installing getJS now${NC}"
+        go install github.com/003random/getJS@latest &> /dev/null
+        echo -e "${GREEN}getJS has been installed${NC}"
+    else
+        echo -e "${GREEN}getJS is already installed${NC}"
+    fi
     
-    	if command -v parshu &> /dev/null; then
-        	echo -e "${RED}parshu is already installed.${NC}"
-    	else
-        	echo -e "${YELLOW}Installing parshu${NC}"
-        	sudo pip3 install parshu
-        	echo -e "${GREEN}parshu installed successfully.${NC}"
-    	fi
+    if command -v parshu &> /dev/null; then
+        echo -e "${RED}parshu is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing parshu${NC}"
+        sudo pip3 install parshu
+        echo -e "${GREEN}parshu installed successfully.${NC}"
+    fi
+
+    if ! command -v kxss &> /dev/null; then
+        echo -e "${RED}Installing kxss now${NC}"
+        go install github.com/Emoe/kxss@latest
+        echo -e "${GREEN}kxss has been installed${NC}"
+    else
+        echo -e "${GREEN}kxss is already installed${NC}"
+    fi
+
+    if ! command -v anew &> /dev/null; then
+        echo -e "${RED}Installing anew now${NC}"
+        go install -v github.com/tomnomnom/anew@latest
+        echo -e "${GREEN}anew has been installed${NC}"
+    else
+        echo -e "${GREEN}anew is already installed${NC}"
+    fi
+
+    if ! command -v qsreplace &> /dev/null; then
+        echo -e "${RED}Installing qsreplace now${NC}"
+        go install github.com/tomnomnom/qsreplace@latest
+        echo -e "${GREEN}qsreplace has been installed${NC}"
+    else
+        echo -e "${GREEN}qsreplace is already installed${NC}"
+    fi
+
+    if ! command -v gau &> /dev/null; then
+        echo -e "${RED}Installing gau now${NC}"
+        go install github.com/lc/gau/v2/cmd/gau@latest
+        echo -e "${GREEN}gau has been installed${NC}"
+    else
+        echo -e "${GREEN}gau is already installed${NC}"
+    fi
     
     if [ -d "/opt/evilkali/web_app/NucleiFuzzer.git" ]; then
 		echo -e "${RED}NucleiFuzzer is already installed.${NC}"
