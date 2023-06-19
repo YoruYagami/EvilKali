@@ -83,13 +83,25 @@ declare -A essentials=(
     ["curl"]="curl"
     ["openssl"]="openssl"
     ["uuid-runtime"]="uuidgen"
+    ["seclists"]="seclists"
+    ["dnsrecon"]="dnsrecon"
+    ["enum4linux"]="enum4linux"
+    ["feroxbuster"]="feroxbuster"
+    ["impacket-scripts"]="impacket-scripts"
+    ["nbtscan"]="nbtscan"
+    ["nikto"]="nikto"
+    ["nmap"]="nmap"
+    ["onesixtyone"]="onesixtyone"
+    ["oscanner"]="oscanner"
+    ["redis-tools"]="redis-tools"
+    ["smbclient"]="smbclient"
+    ["smbmap"]="smbmap"
+    ["snmp"]="snmp"
+    ["sslscan"]="sslscan"
+    ["sipvicious"]="sipvicious"
+    ["tnscmd10g"]="tnscmd10g"
+    ["whatweb"]="whatweb"
 )
-
-create_symlink() {
-    source_path=$1
-    dest_path=$2
-    sudo ln -sf $source_path $dest_path
-}
 
 # Function to ask user confirmation
 ask_user() {
@@ -1225,7 +1237,7 @@ function install_postman() {
         sudo wget https://dl.pstmn.io/download/latest/linux64 -O postman-linux-x64.tar.gz
         sudo tar -zxvf postman-linux-x64.tar.gz -C /opt/evilkali/api
         sudo rm -rf postman-linux-x64.tar.gz
-        create_symlink /opt/evilkali/api/Postman/Postman /usr/bin/postman
+        sudo ln -sf /opt/evilkali/api/Postman/Postman /usr/bin/postman
         echo -e "${GREEN}Postman installed successfully.${NC}"
     fi
     sleep 2
@@ -1240,7 +1252,7 @@ function install_jwt_tool() {
         sudo git clone https://github.com/ticarpi/jwt_tool.git /opt/evilkali/api/jwt_tool
         sudo pip3 install -r /opt/evilkali/api/jwt_tool/requirements.txt
         sudo chmod +x /opt/evilkali/api/jwt_tool/jwt_tool.py
-        create_symlink /opt/evilkali/api/jwt_tool/jwt_tool.py /usr/bin/jwt_tool
+        sudo ln -sf /opt/evilkali/api/jwt_tool/jwt_tool.py /usr/bin/jwt_tool
         echo -e "${GREEN}jwt_tool installed successfully.${NC}"
     fi
     sleep 2
@@ -1254,7 +1266,7 @@ function install_kiterunner() {
         echo -e "${YELLOW}Installing kiterunner${NC}"
         sudo git clone https://github.com/assetnote/kiterunner.git /opt/evilkali/api/kiterunner
         sudo make -C /opt/evilkali/api/kiterunner build
-        create_symlink /opt/evilkali/api/kiterunner/dist/kr /usr/bin/kr
+        sudo ln -sf /opt/evilkali/api/kiterunner/dist/kr /usr/bin/kr
         echo -e "${GREEN}kiterunner installed successfully.${NC}"
     fi
     sleep 2
