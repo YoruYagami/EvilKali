@@ -894,14 +894,14 @@ EOF
 
 # --[ Web Application - Bug Bounty Tools ]--
 function Bug_Bounty_Tools() {
-    if ! command -v httprobe &> /dev/null; then
-        echo -e "${RED}Installing httprobe now${NC}"
-        go install github.com/tomnomnom/httprobe@latest
-        sudo cp $HOME/go/bin/httprobe /usr/local/bin
-        echo -e "${GREEN}httprobe has been installed${NC}"
-    else
-        echo -e "${GREEN}httprobe is already installed${NC}"
-    fi
+	if ! command -v httprobe &> /dev/null; then
+		echo -e "${RED}Installing httprobe now${NC}"
+		go install github.com/tomnomnom/httprobe@latest
+		sudo cp $HOME/go/bin/httprobe /usr/local/bin
+		echo -e "${GREEN}httprobe has been installed${NC}"
+	else
+		echo -e "${GREEN}httprobe is already installed${NC}"
+	fi
 
 	if ! command -v amass &> /dev/null; then
 		echo -e "${RED}Installing amass now${NC}"
@@ -911,7 +911,7 @@ function Bug_Bounty_Tools() {
 	else
 		echo -e "${GREEN}amass is already installed${NC}"
 	fi
-	
+
 	if ! command -v gobuster &> /dev/null; then
 		echo -e "${RED}Installing gobuster now${NC}"
 		go install github.com/OJ/gobuster/v3@latest &> /dev/null
@@ -920,7 +920,7 @@ function Bug_Bounty_Tools() {
 	else
 		echo -e "${GREEN}Gobuster is already installed${NC}"
 	fi
-		
+
 	if ! command -v subfinder &> /dev/null; then
 		echo -e "${RED}Installing subfinder now${NC}"
 		go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest &> /dev/null
@@ -929,7 +929,7 @@ function Bug_Bounty_Tools() {
 	else
 		echo -e "${GREEN}subfinder is already installed${NC}"
 	fi
-	
+
 	if ! command -v assetfinder &> /dev/null; then
 		echo -e "${RED}Installing assetfinder now${NC}"
 		go install github.com/tomnomnom/assetfinder@latest &> /dev/null
@@ -937,7 +937,7 @@ function Bug_Bounty_Tools() {
 	else
 		echo -e "${GREEN}assetfinder is installed${NC}"
 	fi
-	
+
 	if ! command -v ffuf &> /dev/null; then
 		echo -e "${RED}Installing ffuf now${NC}"
 		go install github.com/ffuf/ffuf@latest
@@ -946,7 +946,7 @@ function Bug_Bounty_Tools() {
 	else
 		echo -e "${GREEN}ffuf is already installed${NC}"
 	fi
-	
+
 	if ! command -v gf &> /dev/null; then
 		echo -e "${RED}Installing gf now${NC}"
 		go install github.com/tomnomnom/gf@latest &> /dev/null
@@ -955,7 +955,7 @@ function Bug_Bounty_Tools() {
 	else
 		echo -e "${GREEN}gf is already installed${NC}"
 	fi
-	
+
 	if ! command -v meg &> /dev/null; then
 		echo -e "${RED}Installing meg now${NC}"
 		go install github.com/tomnomnom/meg@latest &> /dev/null
@@ -964,7 +964,7 @@ function Bug_Bounty_Tools() {
 	else
 		echo -e "${GREEN}meg is already installed${NC}"
 	fi
-	
+
 	if ! command -v waybackurls &> /dev/null; then
 		echo -e "${RED}Installing waybackurls now${NC}"
 		go install github.com/tomnomnom/waybackurls@latest &> /dev/null
@@ -973,7 +973,7 @@ function Bug_Bounty_Tools() {
 	else
 		echo -e "${GREEN}waybackurls is already installed${NC}"
 	fi
-	
+
 	if ! command -v subzy &> /dev/null; then
 		go install -v github.com/LukaSikic/subzy@latest &> /dev/null
 		sudo cp $HOME/go/bin/subzy /usr/local/bin
@@ -981,7 +981,7 @@ function Bug_Bounty_Tools() {
 	else
 		echo -e "${GREEN}subzy is already installed${NC}"
 	fi
-	
+
 	if ! command -v asnmap -h &> /dev/null; then
 		echo -e "${RED}Installing asnmap now${NC}"
 		go install github.com/projectdiscovery/asnmap/cmd/asnmap@latest &> /dev/null
@@ -989,7 +989,7 @@ function Bug_Bounty_Tools() {
 	else
 		echo -e "${GREEN}asnmap is already installed${NC}"
 	fi
-	
+
 	if ! command -v jsleak -h &> /dev/null; then
 		echo -e "${RED}Installing jsleak now${NC}"
 		go install github.com/channyein1337/jsleak@latest &> /dev/null
@@ -997,7 +997,7 @@ function Bug_Bounty_Tools() {
 	else
 		echo -e "${GREEN}jsleak is already installed${NC}"
 	fi
-	
+
 	if ! command -v mapcidr -h &> /dev/null; then
 		echo -e "${RED}Installing mapcidr now${NC}"
 		go install -v github.com/projectdiscovery/mapcidr/cmd/mapcidr@latest &> /dev/null
@@ -1005,7 +1005,7 @@ function Bug_Bounty_Tools() {
 	else
 		echo -e "${GREEN}mapcidr is already installed${NC}"
 	fi
-	
+
 	if ! command -v dnsx &> /dev/null; then
 		echo -e "${RED}Installing dnsx now${NC}"
 		go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest &> /dev/null
@@ -1014,7 +1014,7 @@ function Bug_Bounty_Tools() {
 	else
 		echo -e "${GREEN}dnsx is already installed${NC}"
 	fi
-	
+
 	if ! command -v gospider &> /dev/null; then
 		echo -e "${RED}Installing gospider now${NC}"
 		go install github.com/jaeles-project/gospider@latest &> /dev/null
@@ -1024,149 +1024,149 @@ function Bug_Bounty_Tools() {
 		echo -e "${GREEN}gospider is already installed${NC}"
 	fi
 
-    if ! command -v CRLFuzz &> /dev/null; then
-        echo -e "${RED}Installing CRLFuzz now${NC}"
-        go install github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest &> /dev/null
-        sudo cp $HOME/go/bin/crlfuzz /usr/local/bin
-        echo -e "${GREEN}CRLFuzz has been installed${NC}"
-    else
-        echo -e "${GREEN}CRLFuzz is already installed${NC}"
-    fi
-
-    if ! command -v uncover &> /dev/null; then
-        echo -e "${RED}Installing uncover now${NC}"
-        go install -v github.com/projectdiscovery/uncover/cmd/uncover@latest &> /dev/null
-        sudo cp $HOME/go/bin/uncover /usr/local/bin
-        echo -e "${GREEN}uncover has been installed${NC}"
-    else
-        echo -e "${GREEN}uncover is already installed${NC}"
-    fi
-
-    if ! command -v dalfox &> /dev/null; then
-        echo -e "${RED}Installing Dalfox now${NC}"
-        go install github.com/hahwul/dalfox/v2@latest &> /dev/null
-        cp $HOME/go/bin/dalfox /usr/local/bin
-        echo -e "${GREEN}dalfox has been installed${NC}"
-    else
-        echo -e "${GREEN}dalfox is already installed${NC}"
-    fi
-
-    if ! command -v GoLinkFinder &> /dev/null; then
-        echo -e "${RED}Installing GoLinkFinder now${NC}"
-        go install github.com/0xsha/GoLinkFinder@latest &> /dev/null
-        cp $HOME/go/bin/GoLinkFinder /usr/local/bin
-        echo -e "${GREEN}GoLinkFinder has been installed${NC}"
-    else
-        echo -e "${GREEN}GoLinkFinder is already installed${NC}"
-    fi
-
-    if ! command -v hakrawler &> /dev/null; then
-        echo -e "${RED}Installing hakrawler now${NC}"
-        go install github.com/hakluke/hakrawler@latest &> /dev/null
-        cp $HOME/go/bin/hakrawler /usr/local/bin
-        echo -e "${GREEN}Hakrawler has been installed${NC}"
-    else
-        echo -e "${GREEN}hakrawler is already installed${NC}"
-    fi
-
-    if ! command -v csprecon &> /dev/null; then
-        echo -e "${RED}Installing csprecon now${NC}"
-        go install github.com/edoardottt/csprecon/cmd/csprecon@latest &> /dev/null
-        echo -e "${GREEN}csprecon has been installed${NC}"
-    else
-        echo -e "${GREEN}csprecon is already installed${NC}"
-    fi
-
-    if ! command -v gotator &> /dev/null; then
-        echo -e "${RED}Installing gotator now${NC}"
-        go env -w GO111MODULE="auto"
-        go install github.com/Josue87/gotator@latest &> /dev/null
-        echo -e "${GREEN}gotator has been installed${NC}"
-    else
-        echo -e "${GREEN}gotator is already installed${NC}"
-    fi
-
-    if ! command -v osmedeus &> /dev/null; then
-        echo -e "${RED}Installing osmedeus now${NC}"
-        go install -v github.com/j3ssie/osmedeus@latest &> /dev/null
-        echo -e "${GREEN}osmedeus has been installed${NC}"
-    else
-        echo -e "${GREEN}osmedeus is already installed${NC}"
-    fi
-
-    if ! command -v shuffledns &> /dev/null; then
-        echo -e "${RED}Installing shuffledns now${NC}"
-        go install -v github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest &> /dev/null
-        echo -e "${GREEN}shuffledns has been installed${NC}"
-    else
-        echo -e "${GREEN}shuffledns is already installed${NC}"
-    fi
-
-    if ! command -v socialhunter -h &> /dev/null; then
-        echo -e "${RED}Installing socialhunter now${NC}"
-        go install github.com/utkusen/socialhunter@latest &> /dev/null
-        echo -e "${GREEN}socialhunter has been installed${NC}"
+	if ! command -v CRLFuzz &> /dev/null; then
+		echo -e "${RED}Installing CRLFuzz now${NC}"
+		go install github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest &> /dev/null
+		sudo cp $HOME/go/bin/crlfuzz /usr/local/bin
+		echo -e "${GREEN}CRLFuzz has been installed${NC}"
 	else
-        echo -e "${GREEN}socialhunter is already installed${NC}"
-    fi
+		echo -e "${GREEN}CRLFuzz is already installed${NC}"
+	fi
 
-    if ! command -v getJS &> /dev/null; then
-        echo -e "${RED}Installing getJS now${NC}"
-        go install github.com/003random/getJS@latest &> /dev/null
-        echo -e "${GREEN}getJS has been installed${NC}"
-    else
-        echo -e "${GREEN}getJS is already installed${NC}"
-    fi
-    
-    if command -v parshu &> /dev/null; then
-        echo -e "${RED}parshu is already installed.${NC}"
-    else
-        echo -e "${YELLOW}Installing parshu${NC}"
-        sudo pip3 install parshu
-        echo -e "${GREEN}parshu installed successfully.${NC}"
-    fi
+	if ! command -v uncover &> /dev/null; then
+		echo -e "${RED}Installing uncover now${NC}"
+		go install -v github.com/projectdiscovery/uncover/cmd/uncover@latest &> /dev/null
+		sudo cp $HOME/go/bin/uncover /usr/local/bin
+		echo -e "${GREEN}uncover has been installed${NC}"
+	else
+		echo -e "${GREEN}uncover is already installed${NC}"
+	fi
 
-    if ! command -v kxss &> /dev/null; then
-        echo -e "${RED}Installing kxss now${NC}"
-        go install github.com/Emoe/kxss@latest
-        echo -e "${GREEN}kxss has been installed${NC}"
-    else
-        echo -e "${GREEN}kxss is already installed${NC}"
-    fi
+	if ! command -v dalfox &> /dev/null; then
+		echo -e "${RED}Installing Dalfox now${NC}"
+		go install github.com/hahwul/dalfox/v2@latest &> /dev/null
+		cp $HOME/go/bin/dalfox /usr/local/bin
+		echo -e "${GREEN}dalfox has been installed${NC}"
+	else
+		echo -e "${GREEN}dalfox is already installed${NC}"
+	fi
 
-    if ! command -v anew &> /dev/null; then
-        echo -e "${RED}Installing anew now${NC}"
-        go install -v github.com/tomnomnom/anew@latest
-        echo -e "${GREEN}anew has been installed${NC}"
-    else
-        echo -e "${GREEN}anew is already installed${NC}"
-    fi
+	if ! command -v GoLinkFinder &> /dev/null; then
+		echo -e "${RED}Installing GoLinkFinder now${NC}"
+		go install github.com/0xsha/GoLinkFinder@latest &> /dev/null
+		cp $HOME/go/bin/GoLinkFinder /usr/local/bin
+		echo -e "${GREEN}GoLinkFinder has been installed${NC}"
+	else
+		echo -e "${GREEN}GoLinkFinder is already installed${NC}"
+	fi
 
-    if ! command -v qsreplace &> /dev/null; then
-        echo -e "${RED}Installing qsreplace now${NC}"
-        go install github.com/tomnomnom/qsreplace@latest
-        echo -e "${GREEN}qsreplace has been installed${NC}"
-    else
-        echo -e "${GREEN}qsreplace is already installed${NC}"
-    fi
+	if ! command -v hakrawler &> /dev/null; then
+		echo -e "${RED}Installing hakrawler now${NC}"
+		go install github.com/hakluke/hakrawler@latest &> /dev/null
+		cp $HOME/go/bin/hakrawler /usr/local/bin
+		echo -e "${GREEN}Hakrawler has been installed${NC}"
+	else
+		echo -e "${GREEN}hakrawler is already installed${NC}"
+	fi
 
-    if ! command -v gau &> /dev/null; then
-        echo -e "${RED}Installing gau now${NC}"
-        go install github.com/lc/gau/v2/cmd/gau@latest
-        echo -e "${GREEN}gau has been installed${NC}"
-    else
-        echo -e "${GREEN}gau is already installed${NC}"
-    fi
+	if ! command -v csprecon &> /dev/null; then
+		echo -e "${RED}Installing csprecon now${NC}"
+		go install github.com/edoardottt/csprecon/cmd/csprecon@latest &> /dev/null
+		echo -e "${GREEN}csprecon has been installed${NC}"
+	else
+		echo -e "${GREEN}csprecon is already installed${NC}"
+	fi
 
-    if ! command -v smap &> /dev/null; then
-        echo -e "${RED}Installing smap now${NC}"
-        go install -v github.com/s0md3v/smap/cmd/smap@latest
-        echo -e "${GREEN}smap has been installed${NC}"
-    else
-        echo -e "${GREEN}smap is already installed${NC}"
-    fi
+	if ! command -v gotator &> /dev/null; then
+		echo -e "${RED}Installing gotator now${NC}"
+		go env -w GO111MODULE="auto"
+		go install github.com/Josue87/gotator@latest &> /dev/null
+		echo -e "${GREEN}gotator has been installed${NC}"
+	else
+		echo -e "${GREEN}gotator is already installed${NC}"
+	fi
 
-    if [ -d "/opt/evilkali/web_app/NucleiFuzzer.git" ]; then
+	if ! command -v osmedeus &> /dev/null; then
+		echo -e "${RED}Installing osmedeus now${NC}"
+		go install -v github.com/j3ssie/osmedeus@latest &> /dev/null
+		echo -e "${GREEN}osmedeus has been installed${NC}"
+	else
+		echo -e "${GREEN}osmedeus is already installed${NC}"
+	fi
+
+	if ! command -v shuffledns &> /dev/null; then
+		echo -e "${RED}Installing shuffledns now${NC}"
+		go install -v github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest &> /dev/null
+		echo -e "${GREEN}shuffledns has been installed${NC}"
+	else
+		echo -e "${GREEN}shuffledns is already installed${NC}"
+	fi
+
+	if ! command -v socialhunter -h &> /dev/null; then
+		echo -e "${RED}Installing socialhunter now${NC}"
+		go install github.com/utkusen/socialhunter@latest &> /dev/null
+		echo -e "${GREEN}socialhunter has been installed${NC}"
+	else
+		echo -e "${GREEN}socialhunter is already installed${NC}"
+	fi
+
+	if ! command -v getJS &> /dev/null; then
+		echo -e "${RED}Installing getJS now${NC}"
+		go install github.com/003random/getJS@latest &> /dev/null
+		echo -e "${GREEN}getJS has been installed${NC}"
+	else
+		echo -e "${GREEN}getJS is already installed${NC}"
+	fi
+
+	if command -v parshu &> /dev/null; then
+		echo -e "${RED}parshu is already installed.${NC}"
+	else
+		echo -e "${YELLOW}Installing parshu${NC}"
+		sudo pip3 install parshu
+		echo -e "${GREEN}parshu installed successfully.${NC}"
+	fi
+
+	if ! command -v kxss &> /dev/null; then
+		echo -e "${RED}Installing kxss now${NC}"
+		go install github.com/Emoe/kxss@latest
+		echo -e "${GREEN}kxss has been installed${NC}"
+	else
+		echo -e "${GREEN}kxss is already installed${NC}"
+	fi
+
+	if ! command -v anew &> /dev/null; then
+		echo -e "${RED}Installing anew now${NC}"
+		go install -v github.com/tomnomnom/anew@latest
+		echo -e "${GREEN}anew has been installed${NC}"
+	else
+		echo -e "${GREEN}anew is already installed${NC}"
+	fi
+
+	if ! command -v qsreplace &> /dev/null; then
+		echo -e "${RED}Installing qsreplace now${NC}"
+		go install github.com/tomnomnom/qsreplace@latest
+		echo -e "${GREEN}qsreplace has been installed${NC}"
+	else
+		echo -e "${GREEN}qsreplace is already installed${NC}"
+	fi
+
+	if ! command -v gau &> /dev/null; then
+		echo -e "${RED}Installing gau now${NC}"
+		go install github.com/lc/gau/v2/cmd/gau@latest
+		echo -e "${GREEN}gau has been installed${NC}"
+	else
+		echo -e "${GREEN}gau is already installed${NC}"
+	fi
+
+	if ! command -v smap &> /dev/null; then
+		echo -e "${RED}Installing smap now${NC}"
+		go install -v github.com/s0md3v/smap/cmd/smap@latest
+		echo -e "${GREEN}smap has been installed${NC}"
+	else
+		echo -e "${GREEN}smap is already installed${NC}"
+	fi
+
+	if [ -d "/opt/evilkali/web_app/NucleiFuzzer.git" ]; then
 		echo -e "${RED}NucleiFuzzer is already installed.${NC}"
 	else
 		echo -e "${YELLOW}Installing NucleiFuzzer${NC}"
@@ -1181,10 +1181,10 @@ function Bug_Bounty_Tools() {
 		echo -e "${YELLOW}Installing SSTImap${NC}"
 		sudo git clone 'https://github.com/vladko312/SSTImap.git' '/opt/evilkali/web_app/SSTImap'
 		sudo pip install -r /opt/evilkali/web_app/SSTImap/requirements.txt
-		sudo chmod +x /opt/evilikali/web_app/SSTImap/sstimap.py
+		sudo chmod +x /opt/evilkali/web_app/SSTImap/sstimap.py
 		echo -e "${GREEN}SSTImap installed successfully${NC}"
 	fi
-	
+
 	if [ -d "/opt/evilkali/web_app/paramspider" ]; then
 		echo -e "${RED}ParamSpider is already installed.${NC}"
 	else
@@ -1192,10 +1192,17 @@ function Bug_Bounty_Tools() {
 		sudo git clone 'https://github.com/devanshbatham/ParamSpider.git' '/opt/evilkali/web_app/paramspider'
 		sudo pip3 install -r /opt/evilkali/web_app/paramspider/requirements.txt
 		sudo chmod +x /opt/evilkali/web_app/paramspider/paramspider.py
-		echo -e "${GREEN}paramspider installed successfully"
+		echo -e "${GREEN}paramspider installed successfully${NC}"
+	fi
+
+	if [ -d "/opt/evilkali/web_app/XSStrike" ]; then
+		echo -e "${RED}XSStrike is already installed.${NC}"
+	else
+		echo -e "${YELLOW}Installing XSStrike${NC}"
+		sudo git clone 'https://github.com/s0md3v/XSStrike.git' '/opt/evilkali/web_app/XSStrike'
+		echo -e "${GREEN}XSStrike installed successfully${NC}"
 	fi
 }
-
 
 # --[ API Pentesting tools ]--
 function install_mitmproxy2swagger() {

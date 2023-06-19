@@ -154,6 +154,7 @@ Following the list of tools that can be installed:
   - NucleiFuzzer
   - SSTImap
   - paramspider
+  - XSStrike
 - API Penetration Testing Tools
   - mitmproxy2swagger
   - postman
