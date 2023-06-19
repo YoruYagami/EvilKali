@@ -150,6 +150,7 @@ Following the list of tools that can be installed:
   - anew 
   - gau 
   - qsreplace
+  - smap
   - NucleiFuzzer
   - SSTImap
   - paramspider

@@ -1157,7 +1157,15 @@ function Bug_Bounty_Tools() {
     else
         echo -e "${GREEN}gau is already installed${NC}"
     fi
-    
+
+    if ! command -v smap &> /dev/null; then
+        echo -e "${RED}Installing smap now${NC}"
+        go install -v github.com/s0md3v/smap/cmd/smap@latest
+        echo -e "${GREEN}smap has been installed${NC}"
+    else
+        echo -e "${GREEN}smap is already installed${NC}"
+    fi
+
     if [ -d "/opt/evilkali/web_app/NucleiFuzzer.git" ]; then
 		echo -e "${RED}NucleiFuzzer is already installed.${NC}"
 	else
