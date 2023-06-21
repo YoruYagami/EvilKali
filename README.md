@@ -148,6 +148,7 @@ Following the list of tools that can be installed:
   - getJS
   - parshu
   - kxss
+  - Gxss
   - anew 
   - gau 
   - qsreplace
@@ -177,3 +178,7 @@ Following the list of tools that can be installed:
   - pwndoc
   - ghostwriter
   - OSCP-Reporting
+- Miscellaneous
+  - Pimpmykali
+  - Visual Studio Code
+  - xct/kali-clean
