@@ -12,7 +12,7 @@ clear
 
 # Check if the script get executed with sudo
 if [ $(id -u) -ne 0 ]; then
-    echo "${RED}This script must be run as root. Please run with sudo.${NC}"
+    echo "This script must be run as root. Please run with sudo."
     exit 1
 fi
 
@@ -232,27 +232,29 @@ EOF
         echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
-    echo -e " 1   -  Download/Install All Tools"
-    echo -e " 2   -  Download Villain"
-    echo -e " 3   -  Download Covenant"
-    echo -e " 4   -  Download AM0N_Eye"
-    echo -e " 5   -  Download Havoc"
-    echo -e " 6   -  Install Sliver"
-    echo -e " 7   -  Install pwncat-cs"
-    echo -e " 8   -  Back"
+    echo -e " 1   -  Download Villain"
+    echo -e " 2   -  Download Covenant"
+    echo -e " 3   -  Download AM0N_Eye"
+    echo -e " 4   -  Download Havoc"
+    echo -e " 5   -  Install Sliver"
+    echo -e " 6   -  Install pwncat-cs"
+    echo ""
+    echo -e " A   -  Download/Install All Tools"
+    echo ""
+    echo -e "${BLUE} 0    -  Back to Red Team Menu"${NC}
     echo ""
     echo -n "Choose an option: "
     read option
 
     case $option in
-        1) download_install_all_c2_tools; command_and_control;;
-        2) download_villain; command_and_control;;
-        3) download_covenant; command_and_control;;
-        4) download_AM0N_Eye; command_and_control;;
-        5) download_Havoc; command_and_control;;
-        6) install_Sliver; command_and_control;;
-        7) install_pwncat; command_and_control;;
-        8) main_menu;;
+        1) download_villain; command_and_control;;
+        2) download_covenant; command_and_control;;
+        3) download_AM0N_Eye; command_and_control;;
+        4) download_Havoc; command_and_control;;
+        5) install_Sliver; command_and_control;;
+        6) install_pwncat; command_and_control;;
+        A) download_install_all_c2_tools; command_and_control;;
+        0) red_team_menu;;
         *) echo "Invalid option"; command_and_control;;
     esac
 }
@@ -348,25 +350,27 @@ EOF
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
-    echo -e " 1   -  Download/Install All Tools"
-    echo -e " 2   -  Get PowerView"
-    echo -e " 3   -  Download SharpHound"
-    echo -e " 4   -  Download ADModule"
-    echo -e " 5   -  Install BloodHound"
-    echo -e " 6   -  Get Invoke_Portscan.ps1"
-    echo -e " 7   -  Back"
+    echo -e " 1   -  Get PowerView"
+    echo -e " 2   -  Download SharpHound"
+    echo -e " 3   -  Download ADModule"
+    echo -e " 4   -  Install BloodHound"
+    echo -e " 5   -  Get Invoke_Portscan.ps1"
+    echo ""
+    echo -e " A   -  Download/Install All Tools"
+    echo ""
+    echo -e "${BLUE} 0    -  Back to Red Team Menu"${NC}
     echo ""
     echo -n "Choose an option: "
     read option
 
     case $option in
-        1) install_all_recon_tools; reconnaissance;;
-        2) get_powerview; reconnaissance;;
-        3) download_SharpHound; reconnaissance;;
-        4) download_ADModule; reconnaissance;;
-        5) install_bloodhound; reconnaissance;;
-        6) get_Invoke_Portscan.ps1; reconnaissance;;
-        7) main_menu;;
+        1) get_powerview; reconnaissance;;
+        2) download_SharpHound; reconnaissance;;
+        3) download_ADModule; reconnaissance;;
+        4) install_bloodhound; reconnaissance;;
+        5) get_Invoke_Portscan.ps1; reconnaissance;;
+        A) install_all_recon_tools; reconnaissance;;
+        0) red_team_menu;;
         *) echo "Invalid option"; reconnaissance;;
     esac
 }
@@ -401,17 +405,17 @@ EOF
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
-    echo -e " 1   -  Download/Install All Tools"
-    echo -e " 2   -  Download linwinpwn"
-    echo -e " 3   -  Back"
+    echo -e " 1   -  Download linwinpwn"
+    echo ""
+    echo -e "${BLUE} 0    -  Back to Red Team Menu"${NC}
     echo ""
     echo -n "Choose an option: "
     read option
 
     case $option in
-        1) install_all_vulnerability_scanners; vulnerability_scanners;;
-        2) download_linwinpwn; vulnerability_scanners;;
-        3) main_menu;;
+        #1) install_all_vulnerability_scanners; vulnerability_scanners;;
+        1) download_linwinpwn; vulnerability_scanners;;
+        0) red_team_menu;;
         *) echo "Invalid option"; vulnerability_scanners;;
     esac
 }
@@ -472,7 +476,7 @@ function download_PyPhisher() {
     else
         echo -e "${YELLOW}Installing PyPhisher requirements${NC}"
         cd  '/opt/evilkali/phishing/PyPhisher/files/'
-        sudo pip3 install -r requirements.txt
+        pip3 install -r requirements.txt
         echo -e "${GREEN}Requirements of PyPhisher installed successfully.${NC}"
     fi
     sleep 2
@@ -500,21 +504,23 @@ EOF
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
-    echo -e " 1   -  Download/Install All Tools"
-    echo -e " 2   -  Install evilginx2"
-    echo -e " 3   -  Download gophish"
-    echo -e " 4   -  Download PyPhisher"
-    echo -e " 5   -  Back"
+    echo -e " 1   -  Install evilginx2"
+    echo -e " 2   -  Download gophish"
+    echo -e " 3   -  Download PyPhisher"
+    echo ""
+    echo -e " A   -  Download/Install All Tools"
+    echo ""
+    echo -e "${BLUE} 0    -  Back to Red Team Menu"${NC}
     echo ""
     echo -n "Choose an option: "
     read option
 
     case $option in
-        1) download_install_all_phishing_tools; phishing;;
-        2) install_evilginx2; phishing;;
-        3) download_gophish; phishing;;
-        4) download_PyPhisher; phishing;;
-        5) main_menu;;
+        1) install_evilginx2; phishing;;
+        2) download_gophish; phishing;;
+        3) download_PyPhisher; phishing;;
+        A) download_install_all_phishing_tools; phishing;;
+        0) red_team_menu;;
         *) echo "Invalid option"; phishing;;
     esac
 }
@@ -566,7 +572,7 @@ function install_updog() {
         echo -e "${RED}updog is already installed.${NC}"
     else
         echo -e "${YELLOW}installing updog${NC}"
-        sudo pip3 install updog
+        pip3 install updog
         echo -e "${GREEN}updog installed successfully.${NC}"
     fi
     sleep 2
@@ -592,21 +598,23 @@ EOF
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
-    echo -e " 1   -  Download/Install All Tools"
-    echo -e " 2   -  Download HFS"
-    echo -e " 3   -  Get nc.exe"
-    echo -e " 4   -  Install Updog"
-    echo -e " 5   -  Back"
+    echo -e " 1   -  Download HFS"
+    echo -e " 2   -  Get nc.exe"
+    echo -e " 3   -  Install Updog"
+    echo ""
+    echo -e " A   -  Download/Install All Tools"
+    echo ""
+    echo -e "${BLUE} 0    -  Back to Red Team Menu"${NC}
     echo ""
     echo -n "Choose an option: "
     read option
 
     case $option in
-        1) install_all_file_trasfer_tools; File_Trasfer_Tools;;
-        2) download_hfs; File_Trasfer_Tools;;
-        3) get_netcat_binary;;
-        4) install_updog;;
-        5) main_menu;;
+        1) download_hfs; File_Trasfer_Tools;;
+        2) get_netcat_binary;;
+        3) install_updog;;
+        A) install_all_file_trasfer_tools; File_Trasfer_Tools;;
+        0) red_team_menu;;
         *) echo "Invalid option"; File_Trasfer_Tools;;
     esac
 }
@@ -682,21 +690,23 @@ EOF
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
-    echo -e " 1   -  Download/Install All Tools"
-    echo -e " 2   -  Download Freeze"
-    echo -e " 3   -  Install Shellter"
-    echo -e " 4   -  Download Invisi_Shell"
-    echo -e " 5   -  Back"
+    echo -e " 1   -  Download Freeze"
+    echo -e " 2   -  Install Shellter"
+    echo -e " 3   -  Download Invisi_Shell"
+    echo ""
+    echo -e " A   -  Download/Install All Tools"
+    echo ""
+    echo -e "${BLUE} 0    -  Back to Red Team Menu"${NC}
     echo ""
     echo -n "Choose an option: "
     read option
 
     case $option in
-        1) install_all_Evasion_tools; Evasion_Tools;;
-        2) download_Freeze; Evasion_Tools;;
-        3) install_Shellter; Evasion_Tools;;
-        4) download_Invisi_Shell; Evasion_Tools;;
-        5) main_menu;;
+        1) download_Freeze; Evasion_Tools;;
+        2) install_Shellter; Evasion_Tools;;
+        3) download_Invisi_Shell; Evasion_Tools;;
+        A) install_all_Evasion_tools; Evasion_Tools;;
+        0) red_team_menu;;
         *) echo "Invalid option"; Evasion_Tools;;
     esac
 }
@@ -782,25 +792,27 @@ EOF
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
-    echo -e " 1   -  Download/Install All Tools"
-    echo -e " 2   -  Get PowerUp.ps1"
-    echo -e " 3   -  Download PowerUpSQL"
-    echo -e " 4   -  Get GetSystem.ps1"
-    echo -e " 5   -  Download PrivescCheck.ps1"
-    echo -e " 6   -  Download WinPEASany_ofs.exe"
-    echo -e " 7   -  Back"
+    echo -e " 1   -  Get PowerUp.ps1"
+    echo -e " 2   -  Download PowerUpSQL"
+    echo -e " 3   -  Get GetSystem.ps1"
+    echo -e " 4   -  Download PrivescCheck.ps1"
+    echo -e " 5   -  Download WinPEASany_ofs.exe"
+    echo ""
+    echo -e " A   -  Download/Install All Tools"
+    echo ""
+    echo -e "${BLUE} 0    -  Back to Red Team Menu"${NC}
     echo ""
     echo -n "Choose an option: "
     read option
 
     case $option in
-        1) download_install_all_Windows_Privilege_Escalation_tools; Windows_Privilege_Escalation_Tools;;
-        2) get_PowerUp_ps1; Windows_Privilege_Escalation_Tools;;
-        3) download_PowerUpSQL; Windows_Privilege_Escalation_Tools;;
-        4) get_system; Windows_Privilege_Escalation_Tools;;
-        5) download_PrivescCheck; Windows_Privilege_Escalation_Tools;;
-        6) download_WinPEAS; Windows_Privilege_Escalation_Tools;;
-        7) main_menu;;
+        1) get_PowerUp_ps1; Windows_Privilege_Escalation_Tools;;
+        2) download_PowerUpSQL; Windows_Privilege_Escalation_Tools;;
+        3) get_system; Windows_Privilege_Escalation_Tools;;
+        4) download_PrivescCheck; Windows_Privilege_Escalation_Tools;;
+        5) download_WinPEAS; Windows_Privilege_Escalation_Tools;;
+        A) download_install_all_Windows_Privilege_Escalation_tools; Windows_Privilege_Escalation_Tools;;
+        0) red_team_menu;;
         *) echo "Invalid option"; Windows_Privilege_Escalation_Tools;;
     esac
 }
@@ -878,21 +890,23 @@ EOF
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
-    echo -e " 1   -  Download/Install All Tools"
-    echo -e " 2   -  Download LinEnum"
-    echo -e " 3   -  Download linPEAS"
-    echo -e " 4   -  Download LinuxSmartEnumeration"
-    echo -e " 5   -  Back"
+    echo -e " 1   -  Download LinEnum"
+    echo -e " 2   -  Download linPEAS"
+    echo -e " 3   -  Download LinuxSmartEnumeration"
+    echo ""
+    echo -e " A   -  Download/Install All Tools"
+    echo ""
+    echo -e "${BLUE} 0    -  Back to Red Team Menu"${NC}
     echo ""
     echo -n "Choose an option: "
     read option
 
     case $option in
-        1) download_install_all_Linux_Privilege_Escalation_tools; Linux_Privilege_Escalation_Tools;;
-        2) download_LinEnum; Linux_Privilege_Escalation_Tools;;
-        3) download_LinPeas; Linux_Privilege_Escalation_Tools;;
-        4) download_linuxsmartenumeration; Linux_Privilege_Escalation_Tools;;
-        5) main_menu;;
+        1) download_LinEnum; Linux_Privilege_Escalation_Tools;;
+        2) download_LinPeas; Linux_Privilege_Escalation_Tools;;
+        3) download_linuxsmartenumeration; Linux_Privilege_Escalation_Tools;;
+        A) download_install_all_Linux_Privilege_Escalation_tools; Linux_Privilege_Escalation_Tools;;
+        0) red_team_menu;;
         *) echo "Invalid option"; Linux_Privilege_Escalation_Tools;;
     esac
 }
@@ -1127,7 +1141,7 @@ function Bug_Bounty_Tools() {
 		echo -e "${RED}parshu is already installed.${NC}"
 	else
 		echo -e "${YELLOW}Installing parshu${NC}"
-		sudo pip3 install parshu
+		pip3 install parshu
 		echo -e "${GREEN}parshu installed successfully.${NC}"
 	fi
 
@@ -1137,6 +1151,14 @@ function Bug_Bounty_Tools() {
 		echo -e "${GREEN}kxss has been installed${NC}"
 	else
 		echo -e "${GREEN}kxss is already installed${NC}"
+	fi
+
+    if ! command -v Gxss &> /dev/null; then
+		echo -e "${RED}Installing Gxss now${NC}"
+		go install github.com/KathanP19/Gxss@latest
+		echo -e "${GREEN}Gxss has been installed${NC}"
+	else
+		echo -e "${GREEN}Gxss is already installed${NC}"
 	fi
 
 	if ! command -v anew &> /dev/null; then
@@ -1195,7 +1217,7 @@ function Bug_Bounty_Tools() {
 	else
 		echo -e "${YELLOW}Installing ParamSpider${NC}"
 		sudo git clone 'https://github.com/devanshbatham/ParamSpider.git' '/opt/evilkali/web_app/paramspider'
-		sudo pip3 install -r /opt/evilkali/web_app/paramspider/requirements.txt
+		pip3 install -r /opt/evilkali/web_app/paramspider/requirements.txt
 		sudo chmod +x /opt/evilkali/web_app/paramspider/paramspider.py
 		echo -e "${GREEN}paramspider installed successfully${NC}"
 	fi
@@ -1243,7 +1265,7 @@ function install_jwt_tool() {
     else
         echo -e "${YELLOW}Installing jwt_tool${NC}"
         sudo git clone https://github.com/ticarpi/jwt_tool.git /opt/evilkali/api/jwt_tool
-        sudo pip3 install -r /opt/evilkali/api/jwt_tool/requirements.txt
+        pip3 install -r /opt/evilkali/api/jwt_tool/requirements.txt
         sudo chmod +x /opt/evilkali/api/jwt_tool/jwt_tool.py
         sudo ln -sf /opt/evilkali/api/jwt_tool/jwt_tool.py /usr/bin/jwt_tool
         echo -e "${GREEN}jwt_tool installed successfully.${NC}"
@@ -1300,25 +1322,27 @@ EOF
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
-    echo -e " 1   -  Download/Install All Tools"
-    echo -e " 2   -  Install mitmproxy2swagger"
-    echo -e " 3   -  Install postman "
-    echo -e " 4   -  install jwt tool"
-    echo -e " 5   -  Install kiterunner"
-    echo -e " 6   -  Install arjun"
-    echo -e " 7   -  Back"
+    echo -e " 1   -  Install mitmproxy2swagger"
+    echo -e " 2   -  Install postman "
+    echo -e " 3   -  install jwt tool"
+    echo -e " 4   -  Install kiterunner"
+    echo -e " 5   -  Install arjun"
+    echo ""    
+    echo -e " A   -  Download/Install All Tools"
+    echo ""
+    echo -e "${BLUE} 0    -  Back to AppSec Menu"${NC}
     echo ""
     echo -n "Choose an option: "
     read option
 
     case $option in
-        1) download_install_all_API_tools; API_Tools;;
-        2) install_mitmproxy2swagger; API_Tools;;
-        3) install_postman; API_Tools;;
-        4) install_jwt_tool; API_Tools;;
-        5) install_kiterunner; API_Tools;;
-        6) install_arjun; API_Tools;;
-        7) main_menu;;
+        1) install_mitmproxy2swagger; API_Tools;;
+        2) install_postman; API_Tools;;
+        3) install_jwt_tool; API_Tools;;
+        4) install_kiterunner; API_Tools;;
+        5) install_arjun; API_Tools;;
+        A) download_install_all_API_tools; API_Tools;;
+        0) appsec_menu;;
         *) echo "Invalid option"; API_Tools;;
     esac
 }
@@ -1481,7 +1505,7 @@ function install_jadx() {
         echo -e "${RED}apkleaks is already installed.${NC}"
     else
         echo -e "${YELLOW}Installing apkleaks${NC}"
-        sudo pip3 install apkleaks
+        pip3 install apkleaks
         echo -e "${GREEN}apkleaks installed successfully.${NC}"
     fi
 
@@ -1584,33 +1608,35 @@ EOF
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
-    echo -e " 1   -  Download/Install All Tools"
-    echo -e " 2   -  Install aapt"
-    echo -e " 3   -  Install apktool "
-    echo -e " 4   -  install adb"
-    echo -e " 5   -  Install apksigner"
-    echo -e " 6   -  Install zipalign"
-    echo -e " 7   -  Install wkhtmltopdf"
-    echo -e " 8   -  Install default-jdk"
-    echo -e " 9   -  Install jadx"
-    echo -e " 10  -  Install MobFS"
-    echo -e " 11  -  Back"
+    echo -e " 1   -  Install aapt"
+    echo -e " 2   -  Install apktool "
+    echo -e " 3   -  install adb"
+    echo -e " 4   -  Install apksigner"
+    echo -e " 5   -  Install zipalign"
+    echo -e " 6   -  Install wkhtmltopdf"
+    echo -e " 7   -  Install default-jdk"
+    echo -e " 8   -  Install jadx"
+    echo -e " 9   -  Install MobFS"
+    echo ""
+    echo -e " A   -  Download/Install All Tools"
+    echo ""
+    echo -e "${BLUE} 0    -  Back to AppSec Menu"${NC}
     echo ""
     echo -n "Choose an option: "
     read option
 
     case $option in
-        1) download_install_all_Mobile_App_tools; Mobile_App_Tools;;
-        2) install_aapt; Mobile_App_Tools;;
-        3) install_apktool; Mobile_App_Tools;;
-        4) install_adb; Mobile_App_Tools;;
-        5) install_apksigner; Mobile_App_Tools;;
-        6) install_zipalign; Mobile_App_Tools;;
-        7) install_wkhtmltopdf; Mobile_App_Tools;;
-        8) install_default_jdk; Mobile_App_Tools;;
-        9) install_jadx; Mobile_App_Tools;;
-        10) install_MobSF; Mobile_App_Tools;;
-        11) main_menu;;
+        1) install_aapt; Mobile_App_Tools;;
+        2) install_apktool; Mobile_App_Tools;;
+        3) install_adb; Mobile_App_Tools;;
+        4) install_apksigner; Mobile_App_Tools;;
+        5) install_zipalign; Mobile_App_Tools;;
+        6) install_wkhtmltopdf; Mobile_App_Tools;;
+        7) install_default_jdk; Mobile_App_Tools;;
+        8) install_jadx; Mobile_App_Tools;;
+        9) install_MobSF; Mobile_App_Tools;;
+        A) download_install_all_Mobile_App_tools; Mobile_App_Tools;;
+        0) appsec_menu;;
         *) echo "Invalid option"; Mobile_App_Tools;;
     esac
 }
@@ -1673,27 +1699,28 @@ EOF
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
-    echo -e " 1   -  Download/Install All Tools"
-    echo -e " 2   -  Download pwndoc"
-    echo -e " 3   -  Download ghostwriter"
-    echo -e " 4   -  Install OSCP-Reporting"
-    echo -e " 5   -  Back"
+    echo -e " 1   -  Download pwndoc"
+    echo -e " 2   -  Download ghostwriter"
+    echo -e " 3   -  Install OSCP-Reporting"
+    echo ""
+    echo -e " A   -  Download/Install all Reporting tools"
+    echo ""
+    echo -e "${BLUE} 0    -  Back to Main Menu"${NC}
     echo ""
     echo -n "Choose an option: "
     read option
 
     case $option in
-        1) download_install_all_Reporting_tools; Reporting_Tools;;
-        2) download_pwndoc; Reporting_Tools;;
-        3) download_ghostwriter; Reporting_Tools;;
-        4) install_OSCP_Reporting; Reporting_Tools;;
-        5) main_menu;;
+        1) download_pwndoc; Reporting_Tools;;
+        2) download_ghostwriter; Reporting_Tools;;
+        3) install_OSCP_Reporting; Reporting_Tools;;
+        A) download_install_all_Reporting_tools; Reporting_Tools;;
+        0) main_menu;;
         *) echo "Invalid option"; Reporting_Tools;;
     esac
 }
 
-# --[ RedTeam Function to install from 2 through 9 tools ]
-function install_from_2_through_9() {
+function install_all_redteamtools() {
     install_all_recon_tools
     install_all_vulnerability_scanners
     install_all_file_trasfer_tools
@@ -1704,15 +1731,13 @@ function install_from_2_through_9() {
     download_install_all_Linux_Privilege_Escalation_tools
 }
 
-# --[ Appsec - Function to install from 10 through 12 tools ]
-function install_from_10_through_12() {
+function install_all_appsectools() {
     Bug_Bounty_Tools
     download_install_all_API_tools
     download_install_all_Mobile_App_tools
     install_ProjectDiscovery_Toolkit
 }
 
-# Function to install all Project Discovery Tools
 function install_ProjectDiscovery_Toolkit() {
     if ! command -v pdtm &> /dev/null; then
         echo -e "${RED}Installing ProjectDiscovery's Open Source Tool Manager.${NC}"
@@ -1737,6 +1762,44 @@ function run_pimpmykali() {
     sudo rm -rf /opt/evilkali/pimpmykali
 }
 
+function install_vscode() {
+    if command -v code &> /dev/null; then
+        echo -e "${GREEN}Visual Studio Code is already installed${NC}"
+        sleep 2
+    else
+        echo -e "${YELLOW}Downloading Visual Studio Code${NC}"
+        wget -O vscode.deb 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64'
+        echo -e "${GREEN}Installing Visual Studio Code${NC}"
+        sudo dpkg -i vscode.deb
+        sudo apt-get install -f # This line is to fix any missing dependencies if dpkg couldn't handle them
+        rm vscode.deb
+        echo -e "${GREEN}Visual Studio Code installed successfully.${NC}"
+        sleep 2
+    fi
+}
+
+function install_kali_clean() {
+    # Create a temporary directory
+    TEMP_DIR=$(mktemp -d)
+
+    # Clone the git repository
+    echo "${YELLOW}Cloning kali-clean repository...${NC}"
+    git clone https://github.com/xct/kali-clean.git "$TEMP_DIR/kali-clean"
+
+    # Change the permissions of install.sh to make it executable
+    echo "${YELLOW}Changing permissions of install.sh...${NC}"
+    chmod +x "$TEMP_DIR/kali-clean/install.sh"
+
+    # Run install.sh
+    echo "${YELLOW}Running install.sh...${NC}"
+    "$TEMP_DIR/kali-clean/install.sh"
+
+    # Remove the temporary directory
+    rm -rf "$TEMP_DIR"
+
+    echo "${GREEN}Installation of kali-clean is complete. Please Reboot your kali machine${NC}"
+}
+
 function main_menu() {
     clear
     echo -e ""
@@ -1751,56 +1814,140 @@ ___________     .__.__   ____  __.      .__  .__
 EOF
     echo -e ""
     echo -e "Menu options marked with * do not have submenus (direct installation)"
-    echo -e "\n Select an option from menu:"
+    echo -e "\n Select an option from the menu:"
     echo ""
     echo -e "\nKey      Menu Option:"
     echo -e "---      -------------------------"
-    echo -e " 1    -  Command and Control Frameworks"
-    echo -e " 2    -  Reconnaissance"
-    echo -e " 3    -  Phishing"
-    echo -e " 4    -  Vulnerability Scanners"
-    echo -e " 5    -  File Trasferer tools"
-    echo -e " 6*   -  Ghostpack Compiled Binaries"
-    echo -e " 7    -  Evasion Tools"
-    echo -e " 8    -  Windows Privilege Escaltion Tools"
-    echo -e " 9    -  Linux Privilege Escaltion Tools"
-    echo -e " 10*  -  Web Application / Bug Bounty Tools"
-    echo -e " 11   -  API Penenetration Testing Tools"
-    echo -e " 12   -  Mobile Application Penetration Testing Tools"
-    echo -e " 13   -  Reporting"
+    echo -e " 1    -  ${RED}Red Team Operations${NC}"
+    echo -e " 2    -  ${YELLOW}Application Security${NC}"
+    echo -e " 3    -  ${GREEN}Reporting${NC}"
+    echo -e " 4    -  Miscellaneous"
     echo ""
-    echo -e " A*   -  ${GREEN}Everything${NC}         Install all tools provided by the script"
-    echo -e " B*   -  ${RED}RedTeam${NC}            Install all tools from  2 -> 9"
-    echo -e " C*   -  ${YELLOW}AppSec${NC}             Install all tools from 10 -> 12"
-    echo -e " D*   -  ${BLUE}Project Discovery${NC}  Install/Update all Project Discovery Tools"
-    echo -e " E*   -  ${PURPLE}Run Pimpmykali${NC}"
-    echo ""
-    echo -e "${BLUE} 99  -  Quit"${NC}
+    echo -e "${BLUE} 0  -  Quit"${NC}
     echo ""
     echo -n "Choose an option: "
     read option
 
     case $option in
+        1) red_team_menu;;
+        2) appsec_menu;;
+        3) Reporting_Tools;;
+        4) miscellaneous_menu;;
+        0) exit;;
+        *) echo "Invalid option"; main_menu;;
+    esac
+}
+
+function red_team_menu() {
+    clear
+    echo -e ""
+    cat << "EOF"
+__________           .___ ___________                     ________               
+\______   \ ____   __| _/ \__    ___/___ _____    _____   \_____  \ ______  ______
+ |       _// __ \ / __ |    |    |_/ __ \\__  \  /     \   /   |   \\____ \/  ___/
+ |    |   \  ___// /_/ |    |    |\  ___/ / __ \|  Y Y  \ /    |    \  |_> >___ \ 
+ |____|_  /\___  >____ |    |____| \___  >____  /__|_|  / \_______  /   __/____  >
+        \/     \/     \/               \/     \/      \/          \/|__|       \/ 
+EOF
+    echo -e "Key      Menu Option:"
+    echo -e "---      -------------------------"
+    echo -e " 1    -  C2 Frameworks"
+    echo -e " 2    -  Reconnaissance"
+    echo -e " 3    -  Phishing"
+    echo -e " 4    -  Vulnerability Scanners"
+    echo -e " 5    -  File Transfer Tools"
+    echo -e " 6    -  Evasion Tools"
+    echo -e " 7    -  Windows Privilege Escalation Tools"
+    echo -e " 8    -  Linux Privilege Escalation Tools"
+    echo -e " 9    -  Ghostpack Compiled Binaries"
+    echo ""
+    echo -e " A    -  Download/Install all Red Team Operation Tools"
+    echo ""
+    echo -e "${BLUE} 0    -  Back to Main Menu"${NC}
+    echo ""
+    echo -n "Choose an option: "
+    read option
+
+    case $option in
+        0) main_menu;;
         1) command_and_control;;
         2) reconnaissance;;
         3) phishing;;
         4) vulnerability_scanners;;
         5) File_Trasfer_Tools;;
-        6) download_Ghostpack; main_menu;;
-        7) Evasion_Tools;;
-        8) Windows_Privilege_Escalation_Tools;;
-        9) Linux_Privilege_Escalation_Tools;;
-        10) Bug_Bounty_Tools; main_menu;;
-        11) API_Tools;;
-        12) Mobile_App_Tools;;
-        13) Reporting_Tools;;
-        99) exit;;
-        A) download_install_all_c2_tools; install_all_recon_tools; install_all_vulnerability_scanners; install_all_file_trasfer_tools; download_install_all_phishing_tools; download_Ghostpack; install_all_Evasion_tools; download_install_all_Windows_Privilege_Escalation_tools; download_install_all_Linux_Privilege_Escalation_tools; Bug_Bounty_Tools; download_install_all_API_tools; install_ProjectDiscovery_Toolkit; download_install_all_Mobile_App_tools; download_install_all_Reporting_tools; main_menu;;
-        B) install_from_2_through_9; main_menu;;
-        C) install_from_10_through_12; main_menu;;
-        D) install_ProjectDiscovery_Toolkit; main_menu;;
-        E) run_pimpmykali;main_menu;;
-        *) echo "Invalid option"; main_menu;;
+        6) Evasion_Tools;;
+        7) Windows_Privilege_Escalation_Tools;;
+        8) Linux_Privilege_Escalation_Tools;;
+        9) download_Ghostpack; red_team_menu;;
+        A) install_all_redteamtools; red_team_menu;;
+        *) echo "Invalid option"; red_team_menu;;
+    esac
+}
+
+function appsec_menu() {
+    clear
+    echo -e ""
+    cat << "EOF"
+   _____                .__  .__               __  .__                  _________                          .__  __          
+  /  _  \ ______ ______ |  | |__| ____ _____ _/  |_|__| ____   ____    /   _____/ ____   ____  __ _________|__|/  |_ ___.__.
+ /  /_\  \\____ \\____ \|  | |  |/ ___\\__  \\   __\  |/  _ \ /    \   \_____  \_/ __ \_/ ___\|  |  \_  __ \  \   __<   |  |
+/    |    \  |_> >  |_> >  |_|  \  \___ / __ \|  | |  (  <_> )   |  \  /        \  ___/\  \___|  |  /|  | \/  ||  |  \___  |
+\____|__  /   __/|   __/|____/__|\___  >____  /__| |__|\____/|___|  / /_______  /\___  >\___  >____/ |__|  |__||__|  / ____|
+        \/|__|   |__|                \/     \/                    \/          \/     \/     \/                       \/     
+EOF
+    echo -e "Key      Menu Option:"
+    echo -e "---      -------------------------"
+    echo -e " 1    -  Bug Bounty Tools"
+    echo -e " 2    -  API Penetration Testing Tools"
+    echo -e " 3    -  Mobile Application Penetration Testing Tools"
+    echo -e " 4    -  Install/Update Project Discovery Tools via PDTM"
+    echo ""
+    echo -e " A    -  Download/Install all Appsec tools"
+    echo ""
+    echo -e "${BLUE} 0    -  Back to Main Menu"${NC}
+    echo ""
+    echo -n "Choose an option: "
+    read option
+
+    case $option in
+        0) main_menu;;
+        1) Bug_Bounty_Tools;;
+        2) API_Tools;;
+        3) Mobile_App_Tools;;
+        4) install_ProjectDiscovery_Toolkit;;
+        A) install_all_appsectools; appsec_menu;;
+        *) echo "Invalid option"; appsec_menu;;
+    esac
+}
+
+function miscellaneous_menu() {
+    clear
+    echo -e ""
+    cat << "EOF"
+   _____  .__                    .__  .__                                           
+  /     \ |__| ______ ____  ____ |  | |  | _____    ____   ____  ____  __ __  ______
+ /  \ /  \|  |/  ___// ___\/ __ \|  | |  | \__  \  /    \_/ __ \/  _ \|  |  \/  ___/
+/    Y    \  |\___ \\  \__\  ___/|  |_|  |__/ __ \|   |  \  ___(  <_> )  |  /\___ \ 
+\____|__  /__/____  >\___  >___  >____/____(____  /___|  /\___  >____/|____//____  >
+        \/        \/     \/    \/               \/     \/     \/                 \/ 
+EOF
+    echo -e "Key      Menu Option:"
+    echo -e "---      -------------------------"
+    echo -e " 1    -  Run PimpMyKali"
+    echo -e " 2    -  Install Visual Studio Code"
+    echo -e " 3    -  Install xct/kali-clean"
+    echo ""
+    echo -e "${BLUE} 0    -  Back to Main Menu"${NC}
+    echo ""
+    echo -n "Choose an option: "
+    read option
+
+    case $option in
+        0) main_menu;;
+        1) run_pimpmykali; miscellaneous_menu;;
+        2) install_vscode; miscellaneous_menu;;
+        3) install_kali_clean; miscellaneous_menu;;
+        *) echo "Invalid option"; miscellaneous_menu;;
     esac
 }
 
