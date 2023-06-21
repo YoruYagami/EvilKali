@@ -5,6 +5,7 @@ GREEN='\033[1;32m'
 BLUE='\033[1;34m'
 CYAN="\e[0;36m"
 YELLOW="\033[0;33m"
+PURPLE='\033[0;35m'
 NC='\033[0m'
 
 clear
@@ -87,18 +88,11 @@ declare -A essentials=(
     ["dnsrecon"]="dnsrecon"
     ["enum4linux"]="enum4linux"
     ["feroxbuster"]="feroxbuster"
-    ["impacket-scripts"]="impacket-scripts"
     ["nbtscan"]="nbtscan"
-    ["nikto"]="nikto"
-    ["nmap"]="nmap"
     ["onesixtyone"]="onesixtyone"
     ["oscanner"]="oscanner"
-    ["redis-tools"]="redis-tools"
     ["smbclient"]="smbclient"
-    ["smbmap"]="smbmap"
-    ["snmp"]="snmp"
     ["sslscan"]="sslscan"
-    ["sipvicious"]="sipvicious"
     ["tnscmd10g"]="tnscmd10g"
     ["whatweb"]="whatweb"
 )
@@ -331,7 +325,6 @@ function download_SharpHound() {
     fi
     sleep 2
 }
-
 
 function install_all_recon_tools() {
     get_powerview
@@ -1735,6 +1728,14 @@ function install_ProjectDiscovery_Toolkit() {
     fi
 }
 
+function run_pimpmykali() {
+    echo -e "${RED}Downloading pimpmykali${NC}"
+    sudo git clone 'https://github.com/Dewalt-arch/pimpmykali.git' '/opt/evilkali/pimpmykali'
+    cd /opt/evilkali/pimpmykali
+    sudo chmod +x pimpmykali.sh
+    exec sudo ./pimpmykali.sh
+    sudo rm -rf /opt/evilkali/pimpmykali
+}
 
 function main_menu() {
     clear
@@ -1772,6 +1773,7 @@ EOF
     echo -e " B*   -  ${RED}RedTeam${NC}            Install all tools from  2 -> 9"
     echo -e " C*   -  ${YELLOW}AppSec${NC}             Install all tools from 10 -> 12"
     echo -e " D*   -  ${BLUE}Project Discovery${NC}  Install/Update all Project Discovery Tools"
+    echo -e " E*   -  ${PURPLE}Run Pimpmykali${NC}"
     echo ""
     echo -e "${BLUE} 99  -  Quit"${NC}
     echo ""
@@ -1797,6 +1799,7 @@ EOF
         B) install_from_2_through_9; main_menu;;
         C) install_from_10_through_12; main_menu;;
         D) install_ProjectDiscovery_Toolkit; main_menu;;
+        E) run_pimpmykali;main_menu;;
         *) echo "Invalid option"; main_menu;;
     esac
 }
