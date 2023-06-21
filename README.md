@@ -4,7 +4,7 @@
   <br>
   <img src="https://img.shields.io/badge/Maintained%3F-Yes-23a82c">
   <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/YoruYagami/Evilkali">
-  <img src="https://img.shields.io/badge/Developed%20for-kali%20linux/BlackArch-blueviolet">
+  <img src="https://img.shields.io/badge/Developed%20for-kali%20linux-blueviolet">
 </h1>
 
 ⚠️ EvilKali is currently in its early release stage. Numerous additional tools will be incorporated in the future, along with enhancements to the user interface and the introduction of compatibility for arch-based environments.
@@ -49,6 +49,7 @@ Key      Menu Option:
  B*   -  RedTeam            Install all tools from  2 -> 9
  C*   -  AppSec             Install all tools from 10 -> 12
  D*   -  Project Discovery  Install/Update all Project Discovery Tools
+ E*   -  Run Pimpmykali
 
  99  -  Quit
 
