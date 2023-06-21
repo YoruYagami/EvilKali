@@ -16,6 +16,7 @@ The purpose of the script is to create an environment with all the necessary too
 ## Usage
 ```
 sudo ./evilkali.sh
+
 ___________     .__.__   ____  __.      .__  .__ 
 \_   _____/__  _|__|  | |    |/ _|____  |  | |__|
  |    __)_\  \/ /  |  | |      < \__  \ |  | |  |
@@ -26,32 +27,17 @@ ___________     .__.__   ____  __.      .__  .__
 
 Menu options marked with * do not have submenus (direct installation)
 
- Select an option from menu:
+ Select an option from the menu:
 
 
 Key      Menu Option:
 ---      -------------------------
- 1    -  Command and Control Frameworks
- 2    -  Reconnaissance
- 3    -  Phishing
- 4    -  Vulnerability Scanners
- 5    -  File Trasferer tools
- 6*   -  Ghostpack Compiled Binaries
- 7    -  Evasion Tools
- 8    -  Windows Privilege Escaltion Tools
- 9    -  Linux Privilege Escaltion Tools
- 10*  -  Web Application / Bug Bounty Tools
- 11   -  API Penenetration Testing Tools
- 12   -  Mobile Application Penetration Testing Tools
- 13   -  Reporting
+ 1    -  Red Team Operations
+ 2    -  Application Security
+ 3    -  Reporting
+ 4    -  Miscellaneous
 
- A*   -  Everything         Install all tools provided by the script
- B*   -  RedTeam            Install all tools from  2 -> 9
- C*   -  AppSec             Install all tools from 10 -> 12
- D*   -  Project Discovery  Install/Update all Project Discovery Tools
- E*   -  Run Pimpmykali
-
- 99  -  Quit
+ 0  -  Quit
 
 Choose an option:
 ```
