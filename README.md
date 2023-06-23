@@ -142,7 +142,6 @@ Choose an option:
 │   │   ├─ gau 
 │   │   ├─ qsreplace
 │   │   ├─ smap
-│   │   ├─ NucleiFuzzer
 │   │   ├─ SSTImap
 │   │   ├─ paramspider
 │   │   └─ XSStrike
