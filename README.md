@@ -53,7 +53,6 @@ Choose an option:
 Following the list of tools that can be installed:
 
 ```
-- scan/
   ├─ C2 Framework/
   │   ├─ Villain
   │   ├─ Covenant
