@@ -50,7 +50,7 @@ Choose an option:
   sudo ./evilkali.sh
 ```
 
-Following the list of tools that can be installed:
+## Tools List:
 
 ```
 ├─ Red Team Operations
