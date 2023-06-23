@@ -53,41 +53,41 @@ Choose an option:
 Following the list of tools that can be installed:
 
 ```
-  ├─ C2 Framework/
+  ├─ C2 Framework
   │   ├─ Villain
   │   ├─ Covenant
   │   ├─ AM0N-Eye
   │   ├─ Havoc Framework
   │   ├─ Sliver Framework
   │   └─ pwncat-cs
-  ├─ Reconnaisance/
+  ├─ Reconnaisance
   │   ├─ PowerView
   │   ├─ PowerView-Dev
   │   ├─ ADModule
   │   ├─ bloodhound
   │   ├─ Invoke-Portscan
   │   └─ SharpHound
-  ├─ Vulnerability scanners/
+  ├─ Vulnerability scanners
   │   └─ linwinpwn
-  ├─ Phishing/
+  ├─ Phishing
   │   ├─ evilginx2
   │   ├─ gophish
   │   └─ PyPhisher
-  ├─ File Transfer/
+  ├─ File Transfer
   │   ├─ HFS
   │   ├─ netcat (nc.exe)
   │   └─ updog
-  ├─ Evasion/
+  ├─ Evasion
   │   ├─ freeze
   │   ├─ Shellter
   │   └─ invisi_shell
-  ├─ Windows Privilege Escalation Tools/
+  ├─ Windows Privilege Escalation Tools
   │   ├─ PowerUp
   │   ├─ PowerUpSQL
   │   ├─ Get-System
   │   ├─ PrivescCheck
   │   └─ winPEASany_ofs
-  ├─ Ghostpack-CompiledBinaries/
+  ├─ Ghostpack-CompiledBinaries
   │   ├─ Certify.exe
   │   ├─ Koh.exe
   │   ├─ LockLess.exe
@@ -101,11 +101,11 @@ Following the list of tools that can be installed:
   │   ├─ SharpRoast.exe
   │   ├─ SharpUp.exe
   │   └─ SharpWMI.exe
-  ├─ Linux Privilege Escalation Tools/
+  ├─ Linux Privilege Escalation Tools
   │   ├─ LinEnum
   │   ├─ linPEAS
   │   └─ lse (Linux Smart Enumeration)
-  ├─ Web Application / Bug Bounty Tools/
+  ├─ Web Application / Bug Bounty Tools
   │   ├─ httprobe
   │   ├─ amass
   │   ├─ gobuster
@@ -144,12 +144,12 @@ Following the list of tools that can be installed:
   │   ├─ SSTImap
   │   ├─ paramspider
   │   └─ XSStrike
-  ├─ API Penetration Testing Tools/
+  ├─ API Penetration Testing Tools
   │   ├─ mitmproxy2swagger
   │   ├─ postman
   │   ├─ jwt tool
   │   └─ kiterunner
-  ├─ Mobile App Penetration Testing Tools/
+  ├─ Mobile App Penetration Testing Tools
   │   ├─ aapt
   │   ├─ apktool
   │   ├─ adb
@@ -160,11 +160,11 @@ Following the list of tools that can be installed:
   │   ├─ jadx
   │   ├─ apkleaks
   │   └─ Mobile-Security-Framework-MobSF
-  ├─ Reporting/
+  ├─ Reporting
   │   ├─ pwndoc
   │   ├─ ghostwriter
   │   └─ OSCP-Reporting
-  └─ Miscellaneous/
+  └─ Miscellaneous
       ├─ Pimpmykali
       ├─ Visual Studio Code
       └─ xct/kali-clean
