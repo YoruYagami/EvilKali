@@ -60,12 +60,13 @@ Choose an option:
 │   │   ├─ Havoc Framework
 │   │   ├─ Sliver Framework
 │   │   └─ pwncat-cs
-│   ├─ Reconnaisance
+│   ├─ Windows-Resources
 │   │   ├─ PowerView
 │   │   ├─ PowerView-Dev
 │   │   ├─ ADModule
 │   │   ├─ bloodhound
 │   │   ├─ Invoke-Portscan
+│   │   ├─ Invoke-ADEnum
 │   │   └─ SharpHound
 │   ├─ Vulnerability scanners
 │   │   └─ linwinpwn
