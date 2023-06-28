@@ -57,7 +57,6 @@ Choose an option:
 │   ├─ C2 Framework
 │   │   ├─ Villain
 │   │   ├─ Covenant
-│   │   ├─ AM0N-Eye
 │   │   ├─ Havoc Framework
 │   │   ├─ Sliver Framework
 │   │   └─ pwncat-cs
