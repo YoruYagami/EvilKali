@@ -84,7 +84,6 @@ declare -A essentials=(
     ["curl"]="curl"
     ["openssl"]="openssl"
     ["uuid-runtime"]="uuidgen"
-    ["seclists"]="seclists"
     ["dnsrecon"]="dnsrecon"
     ["enum4linux"]="enum4linux"
     ["feroxbuster"]="feroxbuster"
@@ -313,24 +312,36 @@ function download_SharpHound() {
     sleep 2
 }
 
+function download_ADEnum() {
+    sudo mkdir -p '/opt/evilkali/windows/'
+    if [ -f "/opt/evilkali/windows/ADEnum.ps1" ]; then
+        echo -e "${RED}ADEnum is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Downloading ADEnum${NC}"
+        sudo wget -q 'https://raw.githubusercontent.com/Leo4j/Invoke-ADEnum/main/Invoke-ADEnum.ps1' -O '/opt/evilkali/windows/Invoke-ADEnum.ps1' 
+        echo -e "${GREEN}ADEnum downloaded successfully.${NC}"
+    fi
+}
+
 function install_all_recon_tools() {
     get_powerview
     download_ADModule
+    download_ADEnum
     install_bloodhound
     get_Invoke_Portscan.ps1
     download_SharpHound
 }
 
-function reconnaissance() {
+function windows-resource() {
     clear
     echo -e ""
     cat << "EOF"
-__________                                         .__                                    
-\______   \ ____   ____  ____   ____   ____ _____  |__| ___________    ____   ____  ____  
- |       _// __ \_/ ___\/  _ \ /    \ /    \\__  \ |  |/  ___/\__  \  /    \_/ ___\/ __ \ 
- |    |   \  ___/\  \__(  <_> )   |  \   |  \/ __ \|  |\___ \  / __ \|   |  \  \__\  ___/ 
- |____|_  /\___  >\___  >____/|___|  /___|  (____  /__/____  >(____  /___|  /\___  >___  >
-        \/     \/     \/           \/     \/     \/        \/      \/     \/     \/    \/ 
+ __      __.__            .___                    __________                                                       
+/  \    /  \__| ____    __| _/______  _  ________ \______   \ ____   __________  __ _________   ____  ____   ______
+\   \/\/   /  |/    \  / __ |/  _ \ \/ \/ /  ___/  |       _// __ \ /  ___/  _ \|  |  \_  __ \_/ ___\/ __ \ /  ___/
+ \        /|  |   |  \/ /_/ (  <_> )     /\___ \   |    |   \  ___/ \___ (  <_> )  |  /|  | \/\  \__\  ___/ \___ \ 
+  \__/\  / |__|___|  /\____ |\____/ \/\_//____  >  |____|_  /\___  >____  >____/|____/ |__|    \___  >___  >____  >
+       \/          \/      \/                 \/          \/     \/     \/                         \/    \/     \/ 
 EOF
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
@@ -338,8 +349,10 @@ EOF
     echo -e " 1   -  Get PowerView"
     echo -e " 2   -  Download SharpHound"
     echo -e " 3   -  Download ADModule"
-    echo -e " 4   -  Install BloodHound"
-    echo -e " 5   -  Get Invoke_Portscan.ps1"
+    echo -e " 4   -  Download ADEnum"
+    echo -e " 5   -  Install BloodHound"
+    echo -e " 6   -  Get Invoke_Portscan.ps1"
+
     echo ""
     echo -e " A   -  Download/Install All Tools"
     echo ""
@@ -349,14 +362,15 @@ EOF
     read option
 
     case $option in
-        1) get_powerview; reconnaissance;;
-        2) download_SharpHound; reconnaissance;;
-        3) download_ADModule; reconnaissance;;
-        4) install_bloodhound; reconnaissance;;
-        5) get_Invoke_Portscan.ps1; reconnaissance;;
-        A) install_all_recon_tools; reconnaissance;;
+        1) get_powerview; windows-resource;;
+        2) download_SharpHound; windows-resource;;
+        3) download_ADModule; windows-resource;;
+        4) download_ADEnum; windows-resource;;
+        5) install_bloodhound; windows-resource;;
+        6) get_Invoke_Portscan.ps1; windows-resource;;
+        A) install_all_recon_tools; windows-resource;;
         0) red_team_menu;;
-        *) echo "Invalid option"; reconnaissance;;
+        *) echo "Invalid option"; windows-resource;;
     esac
 }
 
@@ -1829,7 +1843,7 @@ EOF
     echo -e "Key      Menu Option:"
     echo -e "---      -------------------------"
     echo -e " 1    -  C2 Frameworks"
-    echo -e " 2    -  Reconnaissance"
+    echo -e " 2    -  windows-resource"
     echo -e " 3    -  Phishing"
     echo -e " 4    -  Vulnerability Scanners"
     echo -e " 5    -  File Transfer Tools"
@@ -1848,7 +1862,7 @@ EOF
     case $option in
         0) main_menu;;
         1) command_and_control;;
-        2) reconnaissance;;
+        2) windows-resource;;
         3) phishing;;
         4) vulnerability_scanners;;
         5) File_Trasfer_Tools;;
