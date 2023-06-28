@@ -162,18 +162,6 @@ function download_covenant() {
     sleep 2
 }
 
-function download_AM0N_Eye() {
-    sudo mkdir -p '/opt/evilkali/C2'
-    if [ -d "/opt/evilkali/C2/AM0N-Eye" ]; then
-        echo -e "${RED}AM0N-Eye is already installed.${NC}"
-    else
-        echo -e "${YELLOW}Downloading AM0N_Eye${NC}"
-        sudo git clone 'https://github.com/YoruYagami/AM0N-Eye.git' '/opt/evilkali/C2/AM0N-Eye' 
-        echo -e "${GREEN}AM0N_Eye downloaded successfully.${NC}"
-    fi
-    sleep 2
-}
-
 function download_Havoc() {
     sudo mkdir -p '/opt/evilkali/C2'
     if [ -d "/opt/evilkali/C2/Havoc" ]; then
@@ -211,7 +199,6 @@ function install_pwncat() {
 function download_install_all_c2_tools() {
     download_villain
     download_covenant
-    download_AM0N_Eye
     download_Havoc
     install_sliver
     install_pwncat
@@ -234,10 +221,9 @@ EOF
     echo -e "---     -------------------------"
     echo -e " 1   -  Download Villain"
     echo -e " 2   -  Download Covenant"
-    echo -e " 3   -  Download AM0N_Eye"
-    echo -e " 4   -  Download Havoc"
-    echo -e " 5   -  Install Sliver"
-    echo -e " 6   -  Install pwncat-cs"
+    echo -e " 3   -  Download Havoc"
+    echo -e " 4   -  Install Sliver"
+    echo -e " 5   -  Install pwncat-cs"
     echo ""
     echo -e " A   -  Download/Install All Tools"
     echo ""
@@ -249,10 +235,9 @@ EOF
     case $option in
         1) download_villain; command_and_control;;
         2) download_covenant; command_and_control;;
-        3) download_AM0N_Eye; command_and_control;;
-        4) download_Havoc; command_and_control;;
-        5) install_Sliver; command_and_control;;
-        6) install_pwncat; command_and_control;;
+        3) download_Havoc; command_and_control;;
+        4) install_Sliver; command_and_control;;
+        5) install_pwncat; command_and_control;;
         A) download_install_all_c2_tools; command_and_control;;
         0) red_team_menu;;
         *) echo "Invalid option"; command_and_control;;
