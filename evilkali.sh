@@ -1791,6 +1791,18 @@ function install_kali_clean() {
     echo "${GREEN}Installation of kali-clean is complete. Please Reboot your kali machine${NC}"
 }
 
+function install_arsenal() {
+    if ! pip3 list 2>/dev/null | grep -q arsenal-cli; then
+        echo -e "${YELLOW}Installing arsenal-cli.${NC}"
+        python3 -m pip install arsenal-cli
+        echo -e "${GREEN}arsenal-cli installed successfully.${NC}"
+    else
+        echo -e "${RED}arsenal-cli is already installed.${NC}"
+    fi
+    sleep 2
+}
+
+
 function main_menu() {
     clear
     echo -e ""
@@ -1927,6 +1939,7 @@ EOF
     echo -e " 1    -  Run PimpMyKali"
     echo -e " 2    -  Install Visual Studio Code"
     echo -e " 3    -  Install xct/kali-clean"
+    echo -e " 4    -  Orange-Cyberdefense/arsenal"
     echo ""
     echo -e "${BLUE} 0    -  Back to Main Menu"${NC}
     echo ""
@@ -1938,6 +1951,7 @@ EOF
         1) run_pimpmykali; miscellaneous_menu;;
         2) install_vscode; miscellaneous_menu;;
         3) install_kali_clean; miscellaneous_menu;;
+        4) install_arsenal; miscellaneous_menu;;
         *) echo "Invalid option"; miscellaneous_menu;;
     esac
 }
