@@ -105,6 +105,7 @@ Choose an option:
 │   └─ Linux Privilege Escalation Tools
 │       ├─ LinEnum
 │       ├─ linPEAS
+│       ├─ AutoSUID
 │       └─ lse (Linux Smart Enumeration)
 ├─ Application Security
 │   ├─ Web Application / Bug Bounty Tools

@@ -857,6 +857,18 @@ function download_LinPeas() {
     sleep 2
 }
 
+function download_AutoSUID() {
+    sudo mkdir -p '/opt/evilkali/linux/'
+    if [ -f "/opt/evilkali/linux/AutoSUID.sh" ]; then
+        echo -e "${RED}AutoSUID is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Downloading AutoSUID${NC}"
+        sudo wget -q 'https://raw.githubusercontent.com/IvanGlinkin/AutoSUID/main/AutoSUID.sh' -O '/opt/evilkali/linux/AutoSUID.sh' 
+        echo -e "${GREEN}AutoSUID.sh downloaded successfully.${NC}"
+    fi
+    sleep 2
+}
+
 function download_linuxsmartenumeration() {
     sudo mkdir -p '/opt/evilkali/linux/'
     if [ -f "/opt/evilkali/linux/lse.sh" ]; then
@@ -873,6 +885,7 @@ function download_install_all_Linux_Privilege_Escalation_tools() {
     download_LinEnum
     download_LinPeas
     download_linuxsmartenumeration
+    download_autoSUID
 }
 
 function Linux_Privilege_Escalation_Tools() {
@@ -892,6 +905,7 @@ EOF
     echo -e " 1   -  Download LinEnum"
     echo -e " 2   -  Download linPEAS"
     echo -e " 3   -  Download LinuxSmartEnumeration"
+    echo -e " 4   .  Download AutoSUID"
     echo ""
     echo -e " A   -  Download/Install All Tools"
     echo ""
@@ -904,6 +918,7 @@ EOF
         1) download_LinEnum; Linux_Privilege_Escalation_Tools;;
         2) download_LinPeas; Linux_Privilege_Escalation_Tools;;
         3) download_linuxsmartenumeration; Linux_Privilege_Escalation_Tools;;
+        4) download_autoSUID; Linux_Privilege_Escalation_Tools;;
         A) download_install_all_Linux_Privilege_Escalation_tools; Linux_Privilege_Escalation_Tools;;
         0) red_team_menu;;
         *) echo "Invalid option"; Linux_Privilege_Escalation_Tools;;
