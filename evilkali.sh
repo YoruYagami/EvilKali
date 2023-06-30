@@ -857,7 +857,7 @@ function download_LinPeas() {
     sleep 2
 }
 
-function download_AutoSUID() {
+function download_autoSUID() {
     sudo mkdir -p '/opt/evilkali/linux/'
     if [ -f "/opt/evilkali/linux/AutoSUID.sh" ]; then
         echo -e "${RED}AutoSUID is already downloaded.${NC}"
