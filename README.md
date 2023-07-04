@@ -87,7 +87,7 @@ Choose an option:
 │   │   ├─ PowerUpSQL
 │   │   ├─ Get-System
 │   │   ├─ PrivescCheck
-│   │   └─ winPEASany_ofs
+│   │   └─ winPEAS (All Versions)
 │   ├─ Ghostpack-CompiledBinaries
 │   │   ├─ Certify.exe
 │   │   ├─ Koh.exe
