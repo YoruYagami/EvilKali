@@ -720,6 +720,7 @@ function get_PowerUp_ps1() {
         sudo cp '/usr/share/windows-resources/powersploit/Privesc/PowerUp.ps1' '/opt/evilkali/windows/PowerUp.ps1'
         echo -e "${GREEN}PowerUp has been copied successfully.${NC}"
     fi
+    sleep 2
 }
 
 function download_PowerUpSQL() {
@@ -733,6 +734,7 @@ function download_PowerUpSQL() {
         sudo wget -q 'https://raw.githubusercontent.com/NetSPI/PowerUpSQL/master/PowerUpSQL.psm1' -O '/opt/evilkali/windows/PowerUpSQL.psm1' 
         echo -e "${GREEN}PowerUpSQL downloaded successfully.${NC}"
     fi
+    sleep 2
 }
 
 function get_system() {
@@ -744,6 +746,7 @@ function get_system() {
         cp '/usr/share/windows-resources/powersploit/Privesc/Get-System.ps1' '/opt/evilkali/windows/Get-System.ps1'
         echo -e "${GREEN}Get-System.ps1 has been copied successfully.${NC}"
     fi
+    sleep 2
 }
 
 function download_PrivescCheck() {
@@ -755,17 +758,24 @@ function download_PrivescCheck() {
         sudo wget -q 'https://raw.githubusercontent.com/itm4n/PrivescCheck/master/PrivescCheck.ps1' -O '/opt/evilkali/windows/PrivescCheck.ps1' 
         echo -e "${GREEN}PrivEscCheck.ps1 downloaded successfully.${NC}"
     fi
+    sleep 2
 }
 
 function download_WinPEAS() {
     sudo mkdir -p '/opt/evilkali/windows/'
-    if [ -f "/opt/evilkali/windows/winPEASany_ofs.exe" ]; then
-        echo -e "${RED}WinPEASany_ofs.exe is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading WinPEAS${NC}"
-        sudo wget -q 'https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany_ofs.exe' -O '/opt/evilkali/windows/winPEASany_ofs.exe' 
-        echo -e "${GREEN}WinPEASany_ofs.exe downloaded successfully.${NC}"
-    fi
+    declare -a winPEAS_Versions=("winPEAS.bat" "winPEASany.exe" "winPEASany_ofs.exe" "winPEASx64.exe" "winPEASx64_ofs.exe" "winPEASx86.exe" "winPEASx86_ofs.exe")
+
+    for i in "${winPEAS_Versions[@]}";
+    do
+        if [ -f "/opt/evilkali/windows/$i" ]; then
+            echo -e "${RED}$i is already downloaded.${NC}"
+        else
+            echo -e "${YELLOW}Downloading $i${NC}"
+            sudo wget -q "https://github.com/carlospolop/PEASS-ng/releases/latest/download/$i" -O "/opt/evilkali/windows/$i"
+            echo -e "${GREEN}$i downloaded successfully.${NC}"
+        fi
+    done
+    sleep 2
 }
 
 function download_install_all_Windows_Privilege_Escalation_tools() {
@@ -795,7 +805,7 @@ EOF
     echo -e " 2   -  Download PowerUpSQL"
     echo -e " 3   -  Get GetSystem.ps1"
     echo -e " 4   -  Download PrivescCheck.ps1"
-    echo -e " 5   -  Download WinPEASany_ofs.exe"
+    echo -e " 5   -  Download All Version of WinPEAS"
     echo ""
     echo -e " A   -  Download/Install All Tools"
     echo ""
