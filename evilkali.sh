@@ -1251,6 +1251,7 @@ function Bug_Bounty_Tools() {
         echo -e "${YELLOW}Installing SSRFmap${NC}"
         sudo git clone 'https://github.com/swisskyrepo/SSRFmap.git' '/opt/evilkali/web_app/SSRFmap'
         echo -e "${GREEN}SSRFmap installed successfully${NC}"
+    fi
 }
 
 # --[ API Pentesting tools ]--
