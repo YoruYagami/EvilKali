@@ -144,8 +144,9 @@ Choose an option:
 │   │   ├─ qsreplace
 │   │   ├─ smap
 │   │   ├─ SSTImap
-│   │   ├─ paramspider
-│   │   └─ XSStrike
+│   │   ├─ SSRFmap
+│   │   ├─ XSStrike
+│   │   └─ paramspider
 │   ├─ API Penetration Testing Tools
 │   │   ├─ mitmproxy2swagger
 │   │   ├─ postman
