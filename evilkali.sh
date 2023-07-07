@@ -1244,6 +1244,13 @@ function Bug_Bounty_Tools() {
         sudo git clone 'https://github.com/s0md3v/XSStrike.git' '/opt/evilkali/web_app/XSStrike'
         echo -e "${GREEN}XSStrike installed successfully${NC}"
     fi
+
+    if [ -d "/opt/evilkali/web_app/SSRFmap" ]; then
+        echo -e "${RED}SSRFmap is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing SSRFmap${NC}"
+        sudo git clone 'https://github.com/swisskyrepo/SSRFmap.git' '/opt/evilkali/web_app/SSRFmap'
+        echo -e "${GREEN}SSRFmap installed successfully${NC}"
 }
 
 # --[ API Pentesting tools ]--
