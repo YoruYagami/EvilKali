@@ -69,6 +69,7 @@ fi
 
 # Map of essentials packages to check to their corresponding commands
 declare -A essentials=(
+    ["jq"]="jq"
     ["python3"]="python3"
     ["git"]="git"
     ["gobuster"]="gobuster"
@@ -138,36 +139,36 @@ fi
 
 # --[ Command and Control ]--
 function download_villain() {
-    sudo mkdir -p '/opt/evilkali/C2'
-    if [ -d "/opt/evilkali/C2/Villain" ]; then
+    sudo mkdir -p '/opt/tools/C2'
+    if [ -d "/opt/tools/C2/Villain" ]; then
         echo -e "${RED}Villain is already installed.${NC}"
     else
         echo -e "${YELLOW}Downloading Villain${NC}"
-        sudo git clone 'https://github.com/t3l3machus/Villain.git' '/opt/evilkali/C2/Villain' 
+        sudo git clone 'https://github.com/t3l3machus/Villain.git' '/opt/tools/C2/Villain' 
         echo -e "${GREEN}Villain downloaded successfully.${NC}"
     fi
     sleep 2
 }
 
 function download_covenant() {
-    sudo mkdir -p '/opt/evilkali/C2'
-    if [ -d "/opt/evilkali/C2/Covenant" ]; then
+    sudo mkdir -p '/opt/tools/C2'
+    if [ -d "/opt/tools/C2/Covenant" ]; then
         echo -e "${RED}Covenant is already installed.${NC}"
     else
         echo -e "${YELLOW}Downloading Covenant${NC}"
-        sudo git clone --recurse-submodules https://github.com/cobbr/Covenant '/opt/evilkali/C2/Covenant' 
+        sudo git clone --recurse-submodules https://github.com/cobbr/Covenant '/opt/tools/C2/Covenant' 
         echo -e "${GREEN}Covenant downloaded successfully.${NC}"
     fi
     sleep 2
 }
 
 function download_Havoc() {
-    sudo mkdir -p '/opt/evilkali/C2'
-    if [ -d "/opt/evilkali/C2/Havoc" ]; then
+    sudo mkdir -p '/opt/tools/C2'
+    if [ -d "/opt/tools/C2/Havoc" ]; then
         echo -e "${RED}Havoc Framework is already installed.${NC}"
     else
         echo -e "${YELLOW}Downloading Havoc Framework${NC}"
-        sudo git clone 'https://github.com/HavocFramework/Havoc.git' '/opt/evilkali/C2/Havoc' 
+        sudo git clone 'https://github.com/HavocFramework/Havoc.git' '/opt/tools/C2/Havoc' 
         echo -e "${GREEN}Havoc Framework downloaded successfully.${NC}"
     fi
     sleep 2
@@ -245,23 +246,23 @@ EOF
 
 # --[ Reconnaissance ]--
 function get_powerview() {
-    sudo mkdir -p '/opt/evilkali/windows'
-    if [ -f "/opt/evilkali/windows/PowerView.ps1" ]; then
+    sudo mkdir -p '/opt/tools/windows'
+    if [ -f "/opt/tools/windows/PowerView.ps1" ]; then
         echo -e "${RED}PowerView has already been copied.${NC}"
     else
-        sudo cp '/usr/share/windows-resources/powersploit/Recon/PowerView.ps1' '/opt/evilkali/windows/PowerView.ps1'
-        sudo wget -q 'https://raw.githubusercontent.com/lucky-luk3/ActiveDirectory/master/PowerView-Dev.ps1' -O '/opt/evilkali/windows/PowerView-Dev.ps1' 
-        echo -e "${GREEN}PowerView has been copied successfully.${NC}"
+        sudo curl -sS 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1' -o '/opt/tools/windows/PowerView.ps1'
+        sudo curl -sS 'https://raw.githubusercontent.com/lucky-luk3/ActiveDirectory/master/PowerView-Dev.ps1' -o '/opt/tools/windows/PowerView-Dev.ps1'
+        echo -e "${GREEN}PowerView has been downloaded successfully.${NC}"
     fi
     sleep 2
 }
 
 function download_ADModule() {
-    sudo mkdir -p '/opt/evilkali/windows'
-    if [ -d "/opt/evilkali/windows/ADModule" ]; then
+    sudo mkdir -p '/opt/tools/windows'
+    if [ -d "/opt/tools/windows/ADModule" ]; then
         echo -e "${RED}ADModule is already downloaded.${NC}"
     else
-        sudo git clone 'https://github.com/samratashok/ADModule.git' '/opt/evilkali/windows/ADModule' 
+        sudo git clone 'https://github.com/samratashok/ADModule.git' '/opt/tools/windows/ADModule'
         echo -e "${GREEN}ADModule downloaded successfully.${NC}"
     fi
     sleep 2
@@ -286,39 +287,61 @@ function install_bloodhound() {
     sleep 2
 }
 
-function get_Invoke_Portscan_ps1() {
-    sudo mkdir -p '/opt/evilkali/windows'
-    if [ -f "/opt/evilkali/windows/Invoke-Portscan.ps1" ]; then
+function get_Invoke_Portscan.ps1() {
+    sudo mkdir -p '/opt/tools/windows'
+    if [ -f "/opt/tools/windows/Invoke-Portscan.ps1" ]; then
         echo -e "${RED}Invoke_PortScan has already been copied.${NC}"
     else
-        sudo cp '/usr/share/windows-resources/powersploit/Recon/Invoke-Portscan.ps1' '/opt/evilkali/windows/Invoke-Portscan.ps1'
-        echo -e "${GREEN}Invoke_PortScan has been copied successfully.${NC}"
+        sudo curl -sS 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/Invoke-Portscan.ps1' -o '/opt/tools/windows/Invoke-Portscan.ps1'
+        echo -e "${GREEN}Invoke_PortScan has been downloaded successfully.${NC}"
     fi
     sleep 2
 }
 
 function download_SharpHound() {
-    sudo mkdir -p '/opt/evilkali/windows'
-    if [ -d "/opt/evilkali/windows/SharpHound" ]; then
+    # Check if jq is installed
+    if ! command -v jq >/dev/null 2>&1; then
+        echo -e "${YELLOW}jq is not installed. Installing...${NC}"
+
+        # Check the Linux distribution
+        if command -v pacman &> /dev/null; then
+            echo -e "${YELLOW}Installing jq${NC}"
+            sudo pacman -Sy jq --noconfirm
+            echo -e "${GREEN}jq has been successfully installed.${NC}"
+        elif command -v apt-get &> /dev/null; then
+            echo -e "${YELLOW}Installing jq${NC}"
+            sudo apt-get install jq -y
+            echo -e "${GREEN}jq has been successfully installed.${NC}"
+        else
+            echo -e "${RED}Unsupported package manager. Please manually install jq.${NC}"
+            return 1
+        fi
+    fi
+
+    sudo mkdir -p '/opt/tools/windows'
+    if [ -d "/opt/tools/windows/SharpHound" ]; then
         echo -e "${RED}SharpHound is already downloaded and unzipped.${NC}"
     else
-        echo -e "${YELLOW}Downloading SharpHound${NC}"
-        sudo wget -q 'https://github.com/BloodHoundAD/SharpHound/releases/download/v1.1.0/SharpHound-v1.1.0.zip' -O '/opt/evilkali/windows/SharpHound.zip' 
+        echo -e "${YELLOW}Checking latest release of SharpHound${NC}"
+        json=$(curl -s https://api.github.com/repos/BloodHoundAD/SharpHound/releases/latest)
+        download_url=$(echo "$json" | jq -r '.assets[] | select((.name | startswith("SharpHound")) and (.name | contains("debug") | not)) | .browser_download_url')
+        echo -e "${YELLOW}Downloading latest release... please wait...${NC}"
+        curl -L -o /opt/tools/windows/SharpHound.zip "$download_url"
         echo -e "${GREEN}SharpHound downloaded successfully.${NC}"
-        sudo unzip -q '/opt/evilkali/windows/SharpHound.zip' -d '/opt/evilkali/windows/SharpHound'
-        sudo rm -rf '/opt/evilkali/windows/SharpHound.zip'
+        sudo unzip -q '/opt/tools/windows/SharpHound.zip' -d '/opt/tools/windows/SharpHound'
+        sudo rm -rf '/opt/tools/windows/SharpHound.zip'
         echo -e "${GREEN}SharpHound unzipped successfully.${NC}"
     fi
     sleep 2
 }
 
 function download_ADEnum() {
-    sudo mkdir -p '/opt/evilkali/windows/'
-    if [ -f "/opt/evilkali/windows/ADEnum.ps1" ]; then
+    sudo mkdir -p '/opt/tools/windows/'
+    if [ -f "/opt/tools/windows/ADEnum.ps1" ]; then
         echo -e "${RED}ADEnum is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading ADEnum${NC}"
-        sudo wget -q 'https://raw.githubusercontent.com/Leo4j/Invoke-ADEnum/main/Invoke-ADEnum.ps1' -O '/opt/evilkali/windows/Invoke-ADEnum.ps1' 
+        sudo curl -sS 'https://raw.githubusercontent.com/Leo4j/Invoke-ADEnum/main/Invoke-ADEnum.ps1' -o '/opt/tools/windows/Invoke-ADEnum.ps1'
         echo -e "${GREEN}ADEnum downloaded successfully.${NC}"
     fi
 }
@@ -376,11 +399,11 @@ EOF
 
 # --[ Vulnerabilities Scanners ]--
 function download_linwinpwn() {
-    if [ -d "/opt/evilkali/linWinPwn" ]; then
+    if [ -d "/opt/tools/linWinPwn" ]; then
         echo -e "${RED}linwinpwn is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading linwinpwn${NC}"
-        sudo git clone 'https://github.com/lefayjey/linWinPwn.git' '/opt/evilkali/linWinPwn' 
+        sudo git clone 'https://github.com/lefayjey/linWinPwn.git' '/opt/tools/linWinPwn' 
         echo -e "${GREEN}linwinpwn downloaded successfully.${NC}"
     fi
     sleep 2
@@ -440,19 +463,19 @@ function install_evilginx2() {
 }
 
 function download_gophish() {
-    sudo mkdir -p '/opt/evilkali/phishing/'
-    if [ -d "/opt/evilkali/phishing/gophish" ]; then
+    sudo mkdir -p '/opt/tools/phishing/'
+    if [ -d "/opt/tools/phishing/gophish" ]; then
         echo -e "${RED}gophish is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading gophish${NC}"
-        sudo git clone 'https://github.com/gophish/gophish.git' '/opt/evilkali/phishing/gophish'
+        sudo git clone 'https://github.com/gophish/gophish.git' '/opt/tools/phishing/gophish'
         echo -e "${GREEN}gophish downloaded successfully.${NC}"
     fi
 
-    if [ -f "/opt/evilkali/phishing/gophish/gophish" ]; then
+    if [ -f "/opt/tools/phishing/gophish/gophish" ]; then
         echo -e "${RED}gophish is already built.${NC}"
     else
-        cd '/opt/evilkali/phishing/gophish'
+        cd '/opt/tools/phishing/gophish'
         echo -e "${YELLOW}Building gophish${NC}"
         sudo go build
         echo -e "${GREEN}gophish built successfully.${NC}"
@@ -461,20 +484,20 @@ function download_gophish() {
 }
 
 function download_PyPhisher() {
-    sudo mkdir -p '/opt/evilkali/phishing/'
-    if [ -d "/opt/evilkali/phishing/PyPhisher" ]; then
+    sudo mkdir -p '/opt/tools/phishing/'
+    if [ -d "/opt/tools/phishing/PyPhisher" ]; then
         echo -e "${RED}PyPhisher is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading PyPhisher${NC}"
-        sudo git clone 'https://github.com/KasRoudra/PyPhisher.git' '/opt/evilkali/phishing/PyPhisher'
+        sudo git clone 'https://github.com/KasRoudra/PyPhisher.git' '/opt/tools/phishing/PyPhisher'
         echo -e "${GREEN}PyPhisher downloaded successfully.${NC}"
     fi
     
-    if [ -f "/opt/evilkali/phishing/PyPhisher/files/requirements.txt" ]; then
+    if [ -f "/opt/tools/phishing/PyPhisher/files/requirements.txt" ]; then
         echo -e "${RED}Requirements of PyPhisher are already installed.${NC}"
     else
         echo -e "${YELLOW}Installing PyPhisher requirements${NC}"
-        cd  '/opt/evilkali/phishing/PyPhisher/files/'
+        cd  '/opt/tools/phishing/PyPhisher/files/'
         pip3 install -r requirements.txt
         echo -e "${GREEN}Requirements of PyPhisher installed successfully.${NC}"
     fi
@@ -526,29 +549,49 @@ EOF
 
 # --[ File Trasfer ]--
 function download_hfs() {
-    sudo mkdir -p '/opt/evilkali/windows'
-    if [ -d "/opt/evilkali/windows/hfs-windows" ]; then
+    # Check if jq is installed
+    if ! command -v jq >/dev/null 2>&1; then
+        echo -e "${YELLOW}jq is not installed. Installing...${NC}"
+
+        # Check the Linux distribution
+        if command -v pacman &> /dev/null; then
+            echo -e "${YELLOW}Installing jq${NC}"
+            sudo pacman -Sy jq --noconfirm
+            echo -e "${GREEN}jq has been successfully installed.${NC}"
+        elif command -v apt-get &> /dev/null; then
+            echo -e "${YELLOW}Installing jq${NC}"
+            sudo apt-get install jq -y
+            echo -e "${GREEN}jq has been successfully installed.${NC}"
+        else
+            echo -e "${RED}Unsupported package manager. Please manually install jq.${NC}"
+            return 1
+        fi
+    fi
+
+    sudo mkdir -p '/opt/tools/windows'
+    if [ -d "/opt/tools/windows/hfs-windows" ]; then
         echo -e "${RED}HFS is already downloaded.${NC}"
 
-        if [ -d "/opt/evilkali/windows/hfs-windows/plugins/" ]; then
+        if [ -d "/opt/tools/windows/hfs-windows/plugins/" ]; then
             echo -e "${GREEN}HFS plugins folder removed successfully.${NC}"
         else
             echo -e "${RED}HFS plugins folder does not exist or has already been removed.${NC}"
         fi
     else
         echo -e "${YELLOW}Downloading HFS${NC}"
-        sudo wget -q 'https://github.com/rejetto/hfs/releases/download/v0.44.0/hfs-windows.zip' -O '/opt/evilkali/windows/hfs-windows.zip' 
+        json=$(curl -s https://api.github.com/repos/rejetto/hfs/releases/latest)
+        download_url=$(echo "$json" | jq -r '.assets[] | select(.name | contains("hfs-windows.zip")) | .browser_download_url')
+        curl -L -o '/opt/tools/windows/hfs-windows.zip' "$download_url"
         echo -e "${GREEN}HFS downloaded successfully.${NC}"
         echo -e "${YELLOW}Unzipping HFS${NC}"
-        sudo rm -rf 
-        sudo unzip '/opt/evilkali/windows/hfs-windows.zip' -d '/opt/evilkali/windows/hfs-windows' 
-        sudo cp '/opt/evilkali/windows/hfs-windows/hfs.exe' '/opt/evilkali/windows/'
-        sudo rm -rf '/opt/evilkali/windows/hfs-windows'
-        sudo rm -rf '/opt/evilkali/windows/hfs-windows.zip'
+        sudo unzip -q '/opt/tools/windows/hfs-windows.zip' -d '/opt/tools/windows/hfs-windows'
+        sudo cp '/opt/tools/windows/hfs-windows/hfs.exe' '/opt/tools/windows/'
+        sudo rm -rf '/opt/tools/windows/hfs-windows'
+        sudo rm -rf '/opt/tools/windows/hfs-windows.zip'
         echo -e "${GREEN}HFS unzipped successfully.${NC}"
 
-        if [ -d "/opt/evilkali/windows/hfs-windows/plugins/" ]; then
-            sudo rm -rf '/opt/evilkali/windows/hfs-windows/plugins/'
+        if [ -d "/opt/tools/windows/hfs-windows/plugins/" ]; then
+            sudo rm -rf '/opt/tools/windows/hfs-windows/plugins/'
             echo -e "${GREEN}HFS plugins folder removed successfully.${NC}"
         fi
     fi
@@ -556,12 +599,12 @@ function download_hfs() {
 }
 
 function get_netcat_binary() {
-    sudo mkdir -p '/opt/evilkali/windows/'
-    if [ -f "/opt/evilkali/windows/nc.exe" ]; then
+    sudo mkdir -p '/opt/tools/windows/'
+    if [ -f "/opt/tools/windows/nc.exe" ]; then
         echo -e "${RED}nc.exe is already copied.${NC}"
     else
         echo -e "${YELLOW}copying nc.exe${NC}"
-        sudo cp '/usr/share/windows-binaries/nc.exe' '/opt/evilkali/windows/nc.exe'
+        sudo cp '/usr/share/windows-binaries/nc.exe' '/opt/tools/windows/nc.exe'
     fi
     sleep 2
 }
@@ -609,9 +652,9 @@ EOF
     read option
 
     case $option in
-        1) download_hfs; File_Trasfer_Tools;;
-        2) get_netcat_binary;;
-        3) install_updog;;
+        1) download_hfs; File_Trasfer_Tools;File_Trasfer_Tools;;
+        2) get_netcat_binary;File_Trasfer_Tools;;
+        3) install_updog;File_Trasfer_Tools;;
         A) install_all_file_trasfer_tools; File_Trasfer_Tools;;
         0) red_team_menu;;
         *) echo "Invalid option"; File_Trasfer_Tools;;
@@ -620,16 +663,16 @@ EOF
 
 # --[ Evasion Tools ]--
 function download_Freeze() {
-    sudo mkdir -p '/opt/evilkali/windows/'
-    if [ -d "/opt/evilkali/windows/Freeze" ]; then
+    sudo mkdir -p '/opt/tools/windows/'
+    if [ -d "/opt/tools/windows/Freeze" ]; then
         echo -e "${RED}Freeze is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading Freeze${NC}"
-        sudo git clone 'https://github.com/optiv/Freeze' '/opt/evilkali/windows/Freeze' 
+        sudo git clone 'https://github.com/optiv/Freeze' '/opt/tools/windows/Freeze' 
         echo -e "${GREEN}Freeze downloaded successfully.${NC}"
     fi
 
-    cd '/opt/evilkali/windows/Freeze'
+    cd '/opt/tools/windows/Freeze'
     if [ ! -f "./Freeze" ]; then
         sudo go build Freeze.go 
         echo -e "${GREEN}Freeze built successfully.${NC}"
@@ -658,12 +701,12 @@ function install_Shellter() {
 }
 
 function download_Invisi_Shell() {
-    sudo mkdir -p '/opt/evilkali/windows/'
-    if [ -d "/opt/evilkali/windows/Invisi-Shell" ]; then
+    sudo mkdir -p '/opt/tools/windows/'
+    if [ -d "/opt/tools/windows/Invisi-Shell" ]; then
         echo -e "${RED}Invisi-Shell is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading Invisi-Shell${NC}"
-        sudo git clone 'https://github.com/OmerYa/Invisi-Shell.git' '/opt/evilkali/windows/Invisi-Shell' 
+        sudo git clone 'https://github.com/OmerYa/Invisi-Shell.git' '/opt/tools/windows/Invisi-Shell' 
         echo -e "${GREEN}Invisi-Shell downloaded successfully.${NC}"
     fi
 }
@@ -712,66 +755,64 @@ EOF
 
 # --[ Windows Privilege Escalation ]--
 function get_PowerUp_ps1() {
-    sudo mkdir -p '/opt/evilkali/windows/'
-    if [ -f "/opt/evilkali/windows/PowerUp.ps1" ]; then
+    sudo mkdir -p '/opt/tools/windows/'
+    if [ -f "/opt/tools/windows/PowerUp.ps1" ]; then
         echo -e "${YELLOW}PowerUp.ps1 is already copied.${NC}"
     else
         echo -e "${YELLOW}copying PowerUp.ps1${NC}"
-        sudo cp '/usr/share/windows-resources/powersploit/Privesc/PowerUp.ps1' '/opt/evilkali/windows/PowerUp.ps1'
+        sudo cp '/usr/share/windows-resources/powersploit/Privesc/PowerUp.ps1' '/opt/tools/windows/PowerUp.ps1'
         echo -e "${GREEN}PowerUp has been copied successfully.${NC}"
     fi
     sleep 2
 }
 
 function download_PowerUpSQL() {
-    sudo mkdir -p '/opt/evilkali/windows/'
-    if [ -f "/opt/evilkali/windows/PowerUpSQL.ps1" ] && [ -f "/opt/evilkali/windows/PowerUpSQL.psd1" ] && [ -f "/opt/evilkali/windows/PowerUpSQL.psm1" ]; then
+    sudo mkdir -p '/opt/tools/windows/' 
+    if [ -f "/opt/tools/windows/PowerUpSQL" ]; then
         echo -e "${RED}PowerUpSQL is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading PowerUpSQL${NC}"
-        sudo wget -q 'https://raw.githubusercontent.com/NetSPI/PowerUpSQL/master/PowerUpSQL.ps1' -O '/opt/evilkali/windows/PowerUpSQL.ps1' 
-        sudo wget -q 'https://raw.githubusercontent.com/NetSPI/PowerUpSQL/master/PowerUpSQL.psd1' -O '/opt/evilkali/windows/PowerUpSQL.psd1' 
-        sudo wget -q 'https://raw.githubusercontent.com/NetSPI/PowerUpSQL/master/PowerUpSQL.psm1' -O '/opt/evilkali/windows/PowerUpSQL.psm1' 
+        sudo git clone 'https://github.com/NetSPI/PowerUpSQL.git' '/opt/tools/windows/PowerUpSQL'
         echo -e "${GREEN}PowerUpSQL downloaded successfully.${NC}"
     fi
     sleep 2
 }
 
 function get_system() {
-    sudo mkdir -p '/opt/evilkali/windows/'
-    if [ -f "/opt/evilkali/windows/Get-System.ps1" ]; then
+    sudo mkdir -p '/opt/tools/windows/'
+    if [ -f "/opt/tools/windows/Get-System.ps1" ]; then
         echo -e "${RED}Get-System.ps1 is already copied.${NC}"
     else
         echo -e "${YELLOW}copying Get_System.ps1${NC}"
-        cp '/usr/share/windows-resources/powersploit/Privesc/Get-System.ps1' '/opt/evilkali/windows/Get-System.ps1'
+        cp '/usr/share/windows-resources/powersploit/Privesc/Get-System.ps1' '/opt/tools/windows/Get-System.ps1'
         echo -e "${GREEN}Get-System.ps1 has been copied successfully.${NC}"
     fi
     sleep 2
 }
 
 function download_PrivescCheck() {
-    sudo mkdir -p '/opt/evilkali/windows/'
-    if [ -f "/opt/evilkali/windows/PrivescCheck.ps1" ]; then
+    sudo mkdir -p '/opt/tools/windows/'
+    if [ -f "/opt/tools/windows/PrivescCheck.ps1" ]; then
         echo -e "${RED}PrivEscCheck.ps1 is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading PrivescCheck.ps1${NC}"
-        sudo wget -q 'https://raw.githubusercontent.com/itm4n/PrivescCheck/master/PrivescCheck.ps1' -O '/opt/evilkali/windows/PrivescCheck.ps1' 
+        sudo curl -sS 'https://raw.githubusercontent.com/itm4n/PrivescCheck/master/PrivescCheck.ps1' -o '/opt/tools/windows/PrivescCheck.ps1'
         echo -e "${GREEN}PrivEscCheck.ps1 downloaded successfully.${NC}"
     fi
     sleep 2
 }
 
 function download_WinPEAS() {
-    sudo mkdir -p '/opt/evilkali/windows/'
+    sudo mkdir -p '/opt/tools/windows/'
     declare -a winPEAS_Versions=("winPEAS.bat" "winPEASany.exe" "winPEASany_ofs.exe" "winPEASx64.exe" "winPEASx64_ofs.exe" "winPEASx86.exe" "winPEASx86_ofs.exe")
 
     for i in "${winPEAS_Versions[@]}";
     do
-        if [ -f "/opt/evilkali/windows/$i" ]; then
+        if [ -f "/opt/tools/windows/$i" ]; then
             echo -e "${RED}$i is already downloaded.${NC}"
         else
             echo -e "${YELLOW}Downloading $i${NC}"
-            sudo wget -q "https://github.com/carlospolop/PEASS-ng/releases/latest/download/$i" -O "/opt/evilkali/windows/$i"
+            sudo wget -q "https://github.com/carlospolop/PEASS-ng/releases/latest/download/$i" -O "/opt/tools/windows/$i"
             echo -e "${GREEN}$i downloaded successfully.${NC}"
         fi
     done
@@ -828,15 +869,15 @@ EOF
 
 # --[ GhostPack Compiled Binaries ]--
 function download_Ghostpack() {
-    sudo mkdir -p '/opt/evilkali/windows/'
-    if [ -d "/opt/evilkali/windows/Ghostpack-CompiledBinaries" ]; then
+    sudo mkdir -p '/opt/tools/windows/'
+    if [ -d "/opt/tools/windows/Ghostpack-CompiledBinaries" ]; then
         echo -e "${RED}Ghostpack Compiled Binaries is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading Compiled GhostPack Binaries${NC}"
-        sudo git clone 'https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git' '/opt/evilkali/Ghostpack/'
-        sudo cp -r /opt/evilkali/Ghostpack/* /opt/evilkali/windows/
-        sudo rm -r '/opt/evilkali/Ghostpack'
-        sudo rm -rf '/opt/evilkali/windows/README.md'
+        sudo git clone 'https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git' '/opt/tools/Ghostpack/'
+        sudo cp -r /opt/tools/Ghostpack/* /opt/tools/windows/
+        sudo rm -r '/opt/tools/Ghostpack'
+        sudo rm -rf '/opt/tools/windows/README.md'
         echo -e "${GREEN}Ghostpack downloaded successfully.${NC}"
     fi
     sleep 2
@@ -844,48 +885,48 @@ function download_Ghostpack() {
 
 # --[ Linux Privilege Escalation ]--
 function download_LinEnum() {
-    sudo mkdir -p '/opt/evilkali/linux/'
-    if [ -f "/opt/evilkali/linux/LinEnum.sh" ]; then
+    sudo mkdir -p '/opt/tools/linux/'
+    if [ -f "/opt/tools/linux/LinEnum.sh" ]; then
         echo -e "${RED}LinEnum.sh is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading LinEnum.sh${NC}"
-        sudo wget -q 'https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh' -O '/opt/evilkali/linux/LinEnum.sh' 
+        sudo curl -sS 'https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh' -o '/opt/tools/linux/LinEnum.sh'
         echo -e "${GREEN}LinEnum.sh downloaded successfully.${NC}"
     fi
     sleep 2
 }
 
 function download_LinPeas() {
-    sudo mkdir -p '/opt/evilkali/linux/'
-    if [ -f "/opt/evilkali/linux/linpeas.sh" ]; then
+    sudo mkdir -p '/opt/tools/linux/'
+    if [ -f "/opt/tools/linux/linpeas.sh" ]; then
         echo -e "${RED}linpeas.sh is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading linpeas.sh${NC}"
-        sudo wget -q 'https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh' -O '/opt/evilkali/linux/linpeas.sh' 
+        sudo curl -sS 'https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh' -o '/opt/tools/linux/linpeas.sh'
         echo -e "${GREEN}linpeas.sh downloaded successfully.${NC}"
     fi
     sleep 2
 }
 
 function download_autoSUID() {
-    sudo mkdir -p '/opt/evilkali/linux/'
-    if [ -f "/opt/evilkali/linux/AutoSUID.sh" ]; then
+    sudo mkdir -p '/opt/tools/linux/'
+    if [ -f "/opt/tools/linux/AutoSUID.sh" ]; then
         echo -e "${RED}AutoSUID is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading AutoSUID${NC}"
-        sudo wget -q 'https://raw.githubusercontent.com/IvanGlinkin/AutoSUID/main/AutoSUID.sh' -O '/opt/evilkali/linux/AutoSUID.sh' 
+        sudo curl -sS 'https://raw.githubusercontent.com/IvanGlinkin/AutoSUID/main/AutoSUID.sh' -o '/opt/tools/linux/AutoSUID.sh'
         echo -e "${GREEN}AutoSUID.sh downloaded successfully.${NC}"
     fi
     sleep 2
 }
 
 function download_linuxsmartenumeration() {
-    sudo mkdir -p '/opt/evilkali/linux/'
-    if [ -f "/opt/evilkali/linux/lse.sh" ]; then
+    sudo mkdir -p '/opt/tools/linux/'
+    if [ -f "/opt/tools/linux/lse.sh" ]; then
         echo -e "${RED}lse.sh is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading lse.sh${NC}"
-        sudo wget -q 'https://raw.githubusercontent.com/diego-treitos/linux-smart-enumeration/master/lse.sh' -O '/opt/evilkali/linux/lse.sh' 
+        sudo curl -sS 'https://raw.githubusercontent.com/diego-treitos/linux-smart-enumeration/master/lse.sh' -o '/opt/tools/linux/lse.sh'
         echo -e "${GREEN}lse.sh downloaded successfully.${NC}"
     fi
     sleep 2
@@ -1217,39 +1258,39 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}smap is already installed${NC}"
     fi
 
-    if [ -d "/opt/evilkali/web_app/SSTImap" ]; then
+    if [ -d "/opt/tools/web_app/SSTImap" ]; then
         echo -e "${RED}SSTImap is already installed.${NC}"
     else
         echo -e "${YELLOW}Installing SSTImap${NC}"
-        sudo git clone 'https://github.com/vladko312/SSTImap.git' '/opt/evilkali/web_app/SSTImap'
-        sudo pip install -r /opt/evilkali/web_app/SSTImap/requirements.txt
-        sudo chmod +x /opt/evilkali/web_app/SSTImap/sstimap.py
+        sudo git clone 'https://github.com/vladko312/SSTImap.git' '/opt/tools/web_app/SSTImap'
+        sudo pip install -r /opt/tools/web_app/SSTImap/requirements.txt
+        sudo chmod +x /opt/tools/web_app/SSTImap/sstimap.py
         echo -e "${GREEN}SSTImap installed successfully${NC}"
     fi
 
-    if [ -d "/opt/evilkali/web_app/paramspider" ]; then
+    if [ -d "/opt/tools/web_app/paramspider" ]; then
         echo -e "${RED}ParamSpider is already installed.${NC}"
     else
         echo -e "${YELLOW}Installing ParamSpider${NC}"
-        sudo git clone 'https://github.com/devanshbatham/ParamSpider.git' '/opt/evilkali/web_app/paramspider'
-        pip3 install -r /opt/evilkali/web_app/paramspider/requirements.txt
-        sudo chmod +x /opt/evilkali/web_app/paramspider/paramspider.py
+        sudo git clone 'https://github.com/devanshbatham/ParamSpider.git' '/opt/tools/web_app/paramspider'
+        pip3 install -r /opt/tools/web_app/paramspider/requirements.txt
+        sudo chmod +x /opt/tools/web_app/paramspider/paramspider.py
         echo -e "${GREEN}paramspider installed successfully${NC}"
     fi
 
-    if [ -d "/opt/evilkali/web_app/XSStrike" ]; then
+    if [ -d "/opt/tools/web_app/XSStrike" ]; then
         echo -e "${RED}XSStrike is already installed.${NC}"
     else
         echo -e "${YELLOW}Installing XSStrike${NC}"
-        sudo git clone 'https://github.com/s0md3v/XSStrike.git' '/opt/evilkali/web_app/XSStrike'
+        sudo git clone 'https://github.com/s0md3v/XSStrike.git' '/opt/tools/web_app/XSStrike'
         echo -e "${GREEN}XSStrike installed successfully${NC}"
     fi
 
-    if [ -d "/opt/evilkali/web_app/SSRFmap" ]; then
+    if [ -d "/opt/tools/web_app/SSRFmap" ]; then
         echo -e "${RED}SSRFmap is already installed.${NC}"
     else
         echo -e "${YELLOW}Installing SSRFmap${NC}"
-        sudo git clone 'https://github.com/swisskyrepo/SSRFmap.git' '/opt/evilkali/web_app/SSRFmap'
+        sudo git clone 'https://github.com/swisskyrepo/SSRFmap.git' '/opt/tools/web_app/SSRFmap'
         echo -e "${GREEN}SSRFmap installed successfully${NC}"
     fi
 }
@@ -1267,57 +1308,57 @@ function install_mitmproxy2swagger() {
 }
 
 function install_postman() {
-    sudo mkdir -p '/opt/evilkali/api'
-    if [ -d "/opt/evilkali/api/Postman" ]; then
+    sudo mkdir -p '/opt/tools/api'
+    if [ -d "/opt/tools/api/Postman" ]; then
         echo -e "${RED}Postman is already installed.${NC}"
     else
         echo -e "${YELLOW}Downloading and installing latest Postman${NC}"
         sudo wget https://dl.pstmn.io/download/latest/linux64 -O postman-linux-x64.tar.gz
-        sudo tar -zxvf postman-linux-x64.tar.gz -C /opt/evilkali/api
+        sudo tar -zxvf postman-linux-x64.tar.gz -C /opt/tools/api
         sudo rm -rf postman-linux-x64.tar.gz
-        sudo ln -sf /opt/evilkali/api/Postman/Postman /usr/bin/postman
+        sudo ln -sf /opt/tools/api/Postman/Postman /usr/bin/postman
         echo -e "${GREEN}Postman installed successfully.${NC}"
     fi
     sleep 2
 }
 
 function install_jwt_tool() {
-    sudo mkdir -p '/opt/evilkali/api'
-    if [ -d "/opt/evilkali/api/jwt_tool" ]; then
+    sudo mkdir -p '/opt/tools/api'
+    if [ -d "/opt/tools/api/jwt_tool" ]; then
         echo -e "${RED}jwt_tool is already installed.${NC}"
     else
         echo -e "${YELLOW}Installing jwt_tool${NC}"
-        sudo git clone https://github.com/ticarpi/jwt_tool.git /opt/evilkali/api/jwt_tool
-        pip3 install -r /opt/evilkali/api/jwt_tool/requirements.txt
-        sudo chmod +x /opt/evilkali/api/jwt_tool/jwt_tool.py
-        sudo ln -sf /opt/evilkali/api/jwt_tool/jwt_tool.py /usr/bin/jwt_tool
+        sudo git clone https://github.com/ticarpi/jwt_tool.git /opt/tools/api/jwt_tool
+        pip3 install -r /opt/tools/api/jwt_tool/requirements.txt
+        sudo chmod +x /opt/tools/api/jwt_tool/jwt_tool.py
+        sudo ln -sf /opt/tools/api/jwt_tool/jwt_tool.py /usr/bin/jwt_tool
         echo -e "${GREEN}jwt_tool installed successfully.${NC}"
     fi
     sleep 2
 }
 
 function install_kiterunner() {
-    sudo mkdir -p '/opt/evilkali/api'
-    if [ -d "/opt/evilkali/api/kiterunner" ]; then
+    sudo mkdir -p '/opt/tools/api'
+    if [ -d "/opt/tools/api/kiterunner" ]; then
         echo -e "${RED}kiterunner is already installed.${NC}"
     else
         echo -e "${YELLOW}Installing kiterunner${NC}"
-        sudo git clone https://github.com/assetnote/kiterunner.git /opt/evilkali/api/kiterunner
-        sudo make -C /opt/evilkali/api/kiterunner build
-        sudo ln -sf /opt/evilkali/api/kiterunner/dist/kr /usr/bin/kr
+        sudo git clone https://github.com/assetnote/kiterunner.git /opt/tools/api/kiterunner
+        sudo make -C /opt/tools/api/kiterunner build
+        sudo ln -sf /opt/tools/api/kiterunner/dist/kr /usr/bin/kr
         echo -e "${GREEN}kiterunner installed successfully.${NC}"
     fi
     sleep 2
 }
 
 function install_arjun() {
-    sudo mkdir -p '/opt/evilkali/api'
-    if [ -d "/opt/evilkali/api/Arjun" ]; then
+    sudo mkdir -p '/opt/tools/api'
+    if [ -d "/opt/tools/api/Arjun" ]; then
         echo -e "${RED}Arjun is already installed.${NC}"
     else
         echo -e "${YELLOW}Installing Arjun${NC}"
-        sudo git clone https://github.com/s0md3v/Arjun.git /opt/evilkali/api/Arjun
-        cd /opt/evilkali/api/Arjun && sudo python3 setup.py install
+        sudo git clone https://github.com/s0md3v/Arjun.git /opt/tools/api/Arjun
+        cd /opt/tools/api/Arjun && sudo python3 setup.py install
         echo -e "${GREEN}Arjun installed successfully.${NC}"
     fi
     sleep 2
@@ -1533,16 +1574,16 @@ function install_jadx() {
     fi
 
 function install_MobSF() {
-    sudo mkdir -p '/opt/evilkali/mobile_app'
+    sudo mkdir -p '/opt/tools/mobile_app'
 
     # Check if MobSF is already installed
-    if [ -d "/opt/evilkali/mobile_app/MobSF" ]; then
+    if [ -d "/opt/tools/mobile_app/MobSF" ]; then
         echo -e "${RED}Mobile-Security-Framework-MobSF is already installed via GitHub.${NC}"
     elif sudo docker images | grep -q 'opensecurity/mobile-security-framework-mobsf'; then
         echo -e "${RED}Mobile-Security-Framework-MobSF Docker image is already present.${NC}"
 
         # Ask for creating run script if not already there
-        if [ ! -f "/opt/evilkali/mobile_app/run_mobsf.sh" ]; then
+        if [ ! -f "/opt/tools/mobile_app/run_mobsf.sh" ]; then
             echo ""
             echo -e "${YELLOW}Would you like to have the following script to run MobSF Docker container?:${NC}"
             echo -e "${GREEN}
@@ -1555,11 +1596,11 @@ else
     echo \"MobSF will not be started. Run this script again if you change your mind.\"
 fi
 ${NC}"
-            read -p "I will save it under this path "/opt/evilkali/mobile_app" choose [Y/n] " response
+            read -p "I will save it under this path "/opt/tools/mobile_app" choose [Y/n] " response
             if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
             then
                 echo -e "${YELLOW}Creating script to run MobSF Docker container${NC}"
-                cat << EOF > /opt/evilkali/mobile_app/run_mobsf.sh
+                cat << EOF > /opt/tools/mobile_app/run_mobsf.sh
 #!/bin/bash
 read -p "Would you like to start MobSF? [Y/n] " response
 if [[ "\$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
@@ -1569,8 +1610,8 @@ else
     echo "MobSF will not be started. Run this script again if you change your mind."
 fi
 EOF
-                sudo chmod +x /opt/evilkali/mobile_app/run_mobsf.sh
-                echo -e "${GREEN}Script created successfully. Run /opt/evilkali/mobile_app/run_mobsf.sh to start MobSF.${NC}"
+                sudo chmod +x /opt/tools/mobile_app/run_mobsf.sh
+                echo -e "${GREEN}Script created successfully. Run /opt/tools/mobile_app/run_mobsf.sh to start MobSF.${NC}"
             fi
         fi
 
@@ -1585,9 +1626,9 @@ EOF
         case $choice in
             1)
                 echo -e "${YELLOW}Downloading and installing Mobile-Security-Framework-MobSF${NC}"
-                sudo git clone https://github.com/MobSF/Mobile-Security-Framework-MobSF '/opt/evilkali/mobile_app/MobSF'
-                sudo chmod +x /opt/evilkali/mobile_app/MobSF/*.sh
-                cd /opt/evilkali/mobile_app/MobSF/
+                sudo git clone https://github.com/MobSF/Mobile-Security-Framework-MobSF '/opt/tools/mobile_app/MobSF'
+                sudo chmod +x /opt/tools/mobile_app/MobSF/*.sh
+                cd /opt/tools/mobile_app/MobSF/
                 ./setup.sh
                 echo -e "${GREEN}Mobile-Security-Framework-MobSF installed successfully.${NC}"
                 ;;
@@ -1666,32 +1707,32 @@ EOF
 
 # --[ Reporting tools ]--
 function download_pwndoc() {
-    sudo mkdir -p '/opt/evilkali/reporting/'
-    if [ -d "/opt/evilkali/reporting/pwndoc" ]; then
+    sudo mkdir -p '/opt/tools/reporting/'
+    if [ -d "/opt/tools/reporting/pwndoc" ]; then
         echo -e "${RED}pwndoc is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading pwndoc${NC}"
-        sudo git clone 'https://github.com/pwndoc/pwndoc.git' '/opt/evilkali/reporting/pwndoc' 
+        sudo git clone 'https://github.com/pwndoc/pwndoc.git' '/opt/tools/reporting/pwndoc' 
         echo -e "${GREEN}pwndoc downloaded successfully.${NC}"
     fi
     sleep 2
 }
 
 function download_ghostwriter() {
-    sudo mkdir -p '/opt/evilkali/reporting/'
-    if [ -d "/opt/evilkali/reporting/ghostwriter" ]; then
+    sudo mkdir -p '/opt/tools/reporting/'
+    if [ -d "/opt/tools/reporting/ghostwriter" ]; then
         echo -e "${RED}ghostwriter is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading ghostwriter${NC}"
-        sudo git clone 'https://github.com/GhostManager/Ghostwriter.git' '/opt/evilkali/reporting/ghostwriter' 
+        sudo git clone 'https://github.com/GhostManager/Ghostwriter.git' '/opt/tools/reporting/ghostwriter' 
         echo -e "${GREEN}ghostwriter downloaded successfully.${NC}"
     fi
     sleep 2
 }
 
 function install_OSCP_Reporting() {
-    sudo mkdir -p '/opt/evilkali/reporting/'
-    if [ -d "/opt/evilkali/reporting/OSCP-Reporting" ]; then
+    sudo mkdir -p '/opt/tools/reporting/'
+    if [ -d "/opt/tools/reporting/OSCP-Reporting" ]; then
         echo -e "${RED}OSCP-Reporting is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Installing OSCP-Reporting${NC}"
@@ -1779,11 +1820,11 @@ function install_ProjectDiscovery_Toolkit() {
 
 function run_pimpmykali() {
     echo -e "${RED}Downloading pimpmykali${NC}"
-    sudo git clone 'https://github.com/Dewalt-arch/pimpmykali.git' '/opt/evilkali/pimpmykali'
-    cd /opt/evilkali/pimpmykali
+    sudo git clone 'https://github.com/Dewalt-arch/pimpmykali.git' '/opt/tools/pimpmykali'
+    cd /opt/tools/pimpmykali
     sudo chmod +x pimpmykali.sh
     exec sudo ./pimpmykali.sh
-    sudo rm -rf /opt/evilkali/pimpmykali
+    sudo rm -rf /opt/tools/pimpmykali
 }
 
 function install_vscode() {
