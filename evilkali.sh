@@ -804,7 +804,7 @@ function download_PrivescCheck() {
 
 function download_WinPEAS() {
     sudo mkdir -p '/opt/tools/windows/'
-    declare -a winPEAS_Versions=("winPEAS.bat" "winPEASany.exe" "winPEASany_ofs.exe" "winPEASx64.exe" "winPEASx64_ofs.exe" "winPEASx86.exe" "winPEASx86_ofs.exe")
+    declare -a winPEAS_Versions=("winPEAS.bat" "winPEASany.exe" "winPEASany_ofs.exe" "winPEASx64.exe" "winPEASx64_ofs.exe" "winPEASx86.exe" "winPEASx86_ofs.exe" "winPEAS.ps1")
 
     for i in "${winPEAS_Versions[@]}";
     do
@@ -812,7 +812,11 @@ function download_WinPEAS() {
             echo -e "${RED}$i is already downloaded.${NC}"
         else
             echo -e "${YELLOW}Downloading $i${NC}"
-            sudo wget -q "https://github.com/carlospolop/PEASS-ng/releases/latest/download/$i" -O "/opt/tools/windows/$i"
+            if [ "$i" == "winPEAS.ps1" ]; then
+                sudo curl -sS 'https://raw.githubusercontent.com/carlospolop/PEASS-ng/master/winPEAS/winPEASps1/winPEAS.ps1' -o '/opt/tools/windows/winPEAS.ps1'
+            else
+                sudo wget -q "https://github.com/carlospolop/PEASS-ng/releases/latest/download/$i" -O "/opt/tools/windows/$i"
+            fi
             echo -e "${GREEN}$i downloaded successfully.${NC}"
         fi
     done
