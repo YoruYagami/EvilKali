@@ -106,7 +106,8 @@ Choose an option:
 │       ├─ LinEnum
 │       ├─ linPEAS
 │       ├─ AutoSUID
-│       └─ lse (Linux Smart Enumeration)
+│       ├─ lse (Linux Smart Enumeration)
+│       └─ pspy32/64
 ├─ Application Security
 │   ├─ Web Application / Bug Bounty Tools
 │   │   ├─ httprobe
