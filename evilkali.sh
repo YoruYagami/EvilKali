@@ -932,11 +932,29 @@ function download_linuxsmartenumeration() {
     sleep 2
 }
 
+function download_pspy() {
+    sudo mkdir -p '/opt/tools/linux/'
+    declare -a pspy_Versions=("pspy32" "pspy64")
+
+    for version in "${pspy_Versions[@]}";
+    do
+        if [ -f "/opt/tools/linux/$version" ]; then
+            echo -e "${RED}$version is already downloaded.${NC}"
+        else
+            echo -e "${YELLOW}Downloading $version${NC}"
+            sudo wget -q "https://github.com/DominicBreuker/pspy/releases/latest/download/$version" -O "/opt/tools/linux/$version"
+            echo -e "${GREEN}$version downloaded successfully.${NC}"
+        fi
+    done
+    sleep 2
+}
+
 function download_install_all_Linux_Privilege_Escalation_tools() {
     download_LinEnum
     download_LinPeas
     download_linuxsmartenumeration
     download_autoSUID
+    download_pspy
 }
 
 function Linux_Privilege_Escalation_Tools() {
@@ -956,7 +974,8 @@ EOF
     echo -e " 1   -  Download LinEnum"
     echo -e " 2   -  Download linPEAS"
     echo -e " 3   -  Download LinuxSmartEnumeration"
-    echo -e " 4   .  Download AutoSUID"
+    echo -e " 4   -  Download AutoSUID"
+    echo -e " 5   -  Download pspy32/pspy64"
     echo ""
     echo -e " A   -  Download/Install All Tools"
     echo ""
@@ -970,6 +989,7 @@ EOF
         2) download_LinPeas; Linux_Privilege_Escalation_Tools;;
         3) download_linuxsmartenumeration; Linux_Privilege_Escalation_Tools;;
         4) download_autoSUID; Linux_Privilege_Escalation_Tools;;
+        5) download_pspy; Linux_Privilege_Escalation_Tools;;
         A) download_install_all_Linux_Privilege_Escalation_tools; Linux_Privilege_Escalation_Tools;;
         0) red_team_menu;;
         *) echo "Invalid option"; Linux_Privilege_Escalation_Tools;;
