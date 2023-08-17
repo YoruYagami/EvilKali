@@ -174,6 +174,18 @@ function download_Havoc() {
     sleep 2
 }
 
+function download_AM0N-Eye() {
+    sudo mkdir -p '/opt/tools/C2'
+    if [ -d "/opt/tools/C2/AM0N-Eye" ]; then
+        echo -e "${RED}AM0N-Eye Framework is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Downloading AM0N-Eye${NC}"
+        sudo git clone 'https://github.com/YoruYagami/AM0N-Eye.git' '/opt/tools/C2/AM0N-Eye' 
+        echo -e "${GREEN}AM0N-Eye downloaded successfully.${NC}"
+    fi
+    sleep 2
+}
+
 function install_sliver() {
     if command -v sliver &> /dev/null; then
         echo -e "${RED}Sliver is already installed.${NC}"
@@ -200,6 +212,7 @@ function download_install_all_c2_tools() {
     download_villain
     download_covenant
     download_Havoc
+    download_AM0N-Eye
     install_sliver
     install_pwncat
 }
@@ -222,8 +235,9 @@ EOF
     echo -e " 1   -  Download Villain"
     echo -e " 2   -  Download Covenant"
     echo -e " 3   -  Download Havoc"
-    echo -e " 4   -  Install Sliver"
-    echo -e " 5   -  Install pwncat-cs"
+    echo -e " 4   -  Download AM0N-Eye"
+    echo -e " 5   -  Install Sliver"
+    echo -e " 6   -  Install pwncat-cs"
     echo ""
     echo -e " A   -  Download/Install All Tools"
     echo ""
@@ -236,8 +250,9 @@ EOF
         1) download_villain; command_and_control;;
         2) download_covenant; command_and_control;;
         3) download_Havoc; command_and_control;;
-        4) install_Sliver; command_and_control;;
-        5) install_pwncat; command_and_control;;
+        4) download_AM0N-Eye; command_and_control;;
+        5) install_Sliver; command_and_control;;
+        6) install_pwncat; command_and_control;;
         A) download_install_all_c2_tools; command_and_control;;
         0) red_team_menu;;
         *) echo "Invalid option"; command_and_control;;
