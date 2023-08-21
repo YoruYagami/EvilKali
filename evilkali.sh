@@ -1307,15 +1307,15 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}SSTImap installed successfully${NC}"
     fi
 
-	if ! command -v paramspider &> /dev/null; then 
-		echo -e "${YELLOW}Installing ParamSpider${NC}"
-		git clone https://github.com/devanshbatham/paramspider.git "$home_dir/paramspider" 
-		cd "$home_dir/paramspider" || exit 
-		pip install . 
-		echo -e "${GREEN}paramspider installed successfully${NC}"
-	else
-		echo -e "${RED}ParamSpider is already installed.${NC}"
-	fi 
+    if ! command -v paramspider &> /dev/null; then 
+	echo -e "${YELLOW}Installing ParamSpider${NC}"
+	git clone https://github.com/devanshbatham/paramspider.git "$home_dir/paramspider" 
+	cd "$home_dir/paramspider" || exit 
+	pip install . 
+	echo -e "${GREEN}paramspider installed successfully${NC}"
+    else
+	echo -e "${RED}ParamSpider is already installed.${NC}"
+    fi 
 
     if ! command -v headerpwn &> /dev/null; then
         echo -e "${RED}Installing headerpwn now${NC}"
