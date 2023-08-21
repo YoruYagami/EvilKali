@@ -147,7 +147,7 @@ Choose an option:
 │   │   ├─ smap
 │   │   ├─ SSTImap
 │   │   ├─ SSRFmap
-│   │   ├─ XSStrike
+│   │   ├─ headerpwn
 │   │   └─ paramspider
 │   ├─ API Penetration Testing Tools
 │   │   ├─ mitmproxy2swagger
