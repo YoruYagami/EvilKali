@@ -1307,22 +1307,23 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}SSTImap installed successfully${NC}"
     fi
 
-    if [ -d "/opt/tools/web_app/paramspider" ]; then
-        echo -e "${RED}ParamSpider is already installed.${NC}"
-    else
-        echo -e "${YELLOW}Installing ParamSpider${NC}"
-        sudo git clone 'https://github.com/devanshbatham/ParamSpider.git' '/opt/tools/web_app/paramspider'
-        pip3 install -r /opt/tools/web_app/paramspider/requirements.txt
-        sudo chmod +x /opt/tools/web_app/paramspider/paramspider.py
-        echo -e "${GREEN}paramspider installed successfully${NC}"
-    fi
+	if ! command -v paramspider &> /dev/null; then 
+		echo -e "${YELLOW}Installing ParamSpider${NC}"
+		git clone https://github.com/devanshbatham/paramspider.git "$home_dir/paramspider" 
+		cd "$home_dir/paramspider" || exit 
+		pip install . 
+		echo -e "${GREEN}paramspider installed successfully${NC}"
+	else
+		echo -e "${RED}ParamSpider is already installed.${NC}"
+	fi 
 
-    if [ -d "/opt/tools/web_app/XSStrike" ]; then
-        echo -e "${RED}XSStrike is already installed.${NC}"
+    if ! command -v headerpwn &> /dev/null; then
+        echo -e "${RED}Installing headerpwn now${NC}"
+        go install github.com/devanshbatham/headerpwn@latest
+		sudo mv ~/go/bin/headerpwn /usr/local/bin/
+        echo -e "${GREEN}headerpwn has been installed${NC}"
     else
-        echo -e "${YELLOW}Installing XSStrike${NC}"
-        sudo git clone 'https://github.com/s0md3v/XSStrike.git' '/opt/tools/web_app/XSStrike'
-        echo -e "${GREEN}XSStrike installed successfully${NC}"
+        echo -e "${GREEN}headerpwn is already installed${NC}"
     fi
 
     if [ -d "/opt/tools/web_app/SSRFmap" ]; then
