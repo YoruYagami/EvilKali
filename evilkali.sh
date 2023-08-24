@@ -302,6 +302,17 @@ function install_bloodhound() {
     sleep 2
 }
 
+function install_knowsmore() {
+    if command -v knowsmore &> /dev/null; then
+        echo -e "${RED}knowsmore is already installed.${NC}"
+    else
+        echo -e "${YELLOW}installing knowsmore${NC}"
+        pip3 install --upgrade knowsmore
+        echo -e "${GREEN}knowsmore installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
 function get_Invoke_Portscan.ps1() {
     sudo mkdir -p '/opt/tools/windows'
     if [ -f "/opt/tools/windows/Invoke-Portscan.ps1" ]; then
@@ -366,6 +377,7 @@ function install_all_recon_tools() {
     download_ADModule
     download_ADEnum
     install_bloodhound
+    install_knowsmore
     get_Invoke_Portscan.ps1
     download_SharpHound
 }
@@ -389,7 +401,8 @@ EOF
     echo -e " 3   -  Download ADModule"
     echo -e " 4   -  Download ADEnum"
     echo -e " 5   -  Install BloodHound"
-    echo -e " 6   -  Get Invoke_Portscan.ps1"
+    echo -e " 6   -  Install knowsmore"
+    echo -e " 7   -  Get Invoke_Portscan.ps1"
 
     echo ""
     echo -e " A   -  Download/Install All Tools"
@@ -405,7 +418,8 @@ EOF
         3) download_ADModule; windows-resource;;
         4) download_ADEnum; windows-resource;;
         5) install_bloodhound; windows-resource;;
-        6) get_Invoke_Portscan.ps1; windows-resource;;
+	6) install_knowsmore; windows-resource;;
+        7) get_Invoke_Portscan.ps1; windows-resource;;
         A) install_all_recon_tools; windows-resource;;
         0) red_team_menu;;
         *) echo "Invalid option"; windows-resource;;
