@@ -66,6 +66,7 @@ Choose an option:
 │   │   ├─ PowerView-Dev
 │   │   ├─ ADModule
 │   │   ├─ bloodhound
+│   │   ├─ knwosmore
 │   │   ├─ Invoke-Portscan
 │   │   ├─ Invoke-ADEnum
 │   │   └─ SharpHound
