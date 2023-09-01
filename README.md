@@ -149,6 +149,7 @@ Choose an option:
 │   │   ├─ SSTImap
 │   │   ├─ SSRFmap
 │   │   ├─ headerpwn
+│   │   ├─ ryder
 │   │   └─ paramspider
 │   ├─ API Penetration Testing Tools
 │   │   ├─ mitmproxy2swagger
