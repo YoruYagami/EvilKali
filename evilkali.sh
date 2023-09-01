@@ -1321,6 +1321,14 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}SSTImap installed successfully${NC}"
     fi
 
+    if [ -d "/opt/tools/web_app/SSRFmap" ]; then
+        echo -e "${RED}SSRFmap is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing SSRFmap${NC}"
+        sudo git clone 'https://github.com/swisskyrepo/SSRFmap.git' '/opt/tools/web_app/SSRFmap'
+        echo -e "${GREEN}SSRFmap installed successfully${NC}"
+    fi
+
     if ! command -v paramspider &> /dev/null; then 
 	echo -e "${YELLOW}Installing ParamSpider${NC}"
 	git clone https://github.com/devanshbatham/paramspider.git "$home_dir/paramspider" 
@@ -1340,12 +1348,13 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}headerpwn is already installed${NC}"
     fi
 
-    if [ -d "/opt/tools/web_app/SSRFmap" ]; then
-        echo -e "${RED}SSRFmap is already installed.${NC}"
+    if ! command -v rayder &> /dev/null; then
+        echo -e "${RED}Installing rayder now${NC}"
+        go install github.com/devanshbatham/rayder@latest
+		sudo mv ~/go/bin/rayder /usr/local/bin/
+        echo -e "${GREEN}rayder has been installed${NC}"
     else
-        echo -e "${YELLOW}Installing SSRFmap${NC}"
-        sudo git clone 'https://github.com/swisskyrepo/SSRFmap.git' '/opt/tools/web_app/SSRFmap'
-        echo -e "${GREEN}SSRFmap installed successfully${NC}"
+        echo -e "${GREEN}rayder is already installed${NC}"
     fi
 }
 
