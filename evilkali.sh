@@ -219,7 +219,7 @@ function download_install_all_c2_tools() {
 
 function command_and_control() {
     clear
-    echo -e ""
+    echo
     cat << "EOF"
 _________  ________   ___________                                                __    
 \_   ___ \ \_____  \  \_   _____/___________    _____   ______  _  _____________|  | __
@@ -229,6 +229,7 @@ _________  ________   ___________                                               
         \/         \/      \/               \/      \/     \/                        \/
 
 EOF
+echo
         echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
@@ -393,6 +394,7 @@ function windows-resource() {
   \__/\  / |__|___|  /\____ |\____/ \/\_//____  >  |____|_  /\___  >____  >____/|____/ |__|    \___  >___  >____  >
        \/          \/      \/                 \/          \/     \/     \/                         \/    \/     \/ 
 EOF
+echo
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
@@ -453,6 +455,7 @@ ____   ____    .__             _________
    \___/ |____/|____/___|  / /_______  /\___  >____  /___|  /___|  /\___  >__|   
                          \/          \/     \/     \/     \/     \/     \/       
 EOF
+echo
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
@@ -552,6 +555,7 @@ __________.__    .__       .__    .__                 ___________           .__
                \/        \/     \/        \//_____/                                   \/ 
 
 EOF
+echo
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
@@ -666,6 +670,7 @@ ___________.__.__           ___________                       _____
  \___  /   |__|____/\___  >   |____|   |__|  (____  /____  > |__|  \___  >__|   
      \/                 \/                        \/     \/            \/       
 EOF
+echo
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
@@ -758,6 +763,7 @@ ___________                    .__
         \/            \/     \/               \/ 
 
 EOF
+echo
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
@@ -872,6 +878,7 @@ function Windows_Privilege_Escalation_Tools() {
        \/          \/      \/                 \/                                       \/     \/     \/ 
 
 EOF
+echo
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
@@ -1001,6 +1008,7 @@ function Linux_Privilege_Escalation_Tools() {
 |_______ \__|___|  /____//__/\_ \  |____|     |__|  |__| \_/   /_______  /____  >\___  >
         \/       \/            \/                                      \/     \/     \/ 
 EOF
+echo
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
@@ -1446,6 +1454,7 @@ function API_Tools() {
 \____|__  /____|   |___|  |____|    \___  >___|  /__|  \___  >____  > |__| |__|___|  /\___  / 
         \/                              \/     \/          \/     \/               \//_____/  
 EOF
+echo
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
@@ -1732,6 +1741,7 @@ function Mobile_App_Tools() {
 \____|__  /\____/|___  /__|____/\___  > \____|__  /   __/|   __/    |____| \____/ \____/|____/____  >
         \/           \/             \/          \/|__|   |__|                                     \/ 
 EOF
+echo
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
@@ -1823,6 +1833,7 @@ __________                             __  .__
  |____|_  /\___  >   __/ \____/|__|   |__| |__|___|  /\___  / 
         \/     \/|__|                              \//_____/  
 EOF
+echo
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
@@ -1989,6 +2000,7 @@ __________           .___ ___________                     ________
  |____|_  /\___  >____ |    |____| \___  >____  /__|_|  / \_______  /   __/____  >
         \/     \/     \/               \/     \/      \/          \/|__|       \/ 
 EOF
+echo
     echo -e "Key      Menu Option:"
     echo -e "---      -------------------------"
     echo -e " 1    -  C2 Frameworks"
@@ -2035,6 +2047,7 @@ function appsec_menu() {
 \____|__  /   __/|   __/|____/__|\___  >____  /__| |__|\____/|___|  / /_______  /\___  >\___  >____/ |__|  |__||__|  / ____|
         \/|__|   |__|                \/     \/                    \/          \/     \/     \/                       \/     
 EOF
+echo
     echo -e "Key      Menu Option:"
     echo -e "---      -------------------------"
     echo -e " 1    -  Bug Bounty Tools"
@@ -2071,6 +2084,7 @@ function miscellaneous_menu() {
 \____|__  /__/____  >\___  >___  >____/____(____  /___|  /\___  >____/|____//____  >
         \/        \/     \/    \/               \/     \/     \/                 \/ 
 EOF
+echo
     echo -e "Key      Menu Option:"
     echo -e "---      -------------------------"
     echo -e " 1    -  Run PimpMyKali"
