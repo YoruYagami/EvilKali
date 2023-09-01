@@ -1034,7 +1034,7 @@ function Bug_Bounty_Tools() {
     if ! command -v httprobe &> /dev/null; then
         echo -e "${RED}Installing httprobe now${NC}"
         go install github.com/tomnomnom/httprobe@latest
-        sudo cp $HOME/go/bin/httprobe /usr/local/bin
+        sudo mv ~/go/bin/httprobe /usr/local/bin
         echo -e "${GREEN}httprobe has been installed${NC}"
     else
         echo -e "${GREEN}httprobe is already installed${NC}"
@@ -1043,7 +1043,7 @@ function Bug_Bounty_Tools() {
     if ! command -v amass &> /dev/null; then
         echo -e "${RED}Installing amass now${NC}"
         go install -v github.com/OWASP/Amass/v3/...@master &> /dev/null
-        sudo cp $HOME/go/bin/amass /usr/local/bin
+        sudo mv ~/go/bin/amass /usr/local/bin
         echo -e "${GREEN}amass has been installed${NC}"
     else
         echo -e "${GREEN}amass is already installed${NC}"
@@ -1052,7 +1052,7 @@ function Bug_Bounty_Tools() {
     if ! command -v gobuster &> /dev/null; then
         echo -e "${RED}Installing gobuster now${NC}"
         go install github.com/OJ/gobuster/v3@latest &> /dev/null
-        sudo cp $HOME/go/bin/gobuster /usr/local/bin
+        sudo mv ~/go/bin/gobuster /usr/local/bin
         echo -e "${GREEN}GoBuster has been installed${NC}"
     else
         echo -e "${GREEN}Gobuster is already installed${NC}"
@@ -1061,7 +1061,7 @@ function Bug_Bounty_Tools() {
     if ! command -v subfinder &> /dev/null; then
         echo -e "${RED}Installing subfinder now${NC}"
         go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest &> /dev/null
-        sudo cp $HOME/go/bin/subfinder /usr/local/bin
+        sudo mv ~/go/bin/subfinder /usr/local/bin
         echo -e "${GREEN}subfinder installation is done${NC}"
     else
         echo -e "${GREEN}subfinder is already installed${NC}"
@@ -1113,7 +1113,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v subzy &> /dev/null; then
         go install -v github.com/LukaSikic/subzy@latest &> /dev/null
-        sudo cp $HOME/go/bin/subzy /usr/local/bin
+        sudo mv ~/go/bin/subzy /usr/local/bin
         echo -e "${GREEN}subzy has been installed${NC}"
     else
         echo -e "${GREEN}subzy is already installed${NC}"
@@ -1146,7 +1146,7 @@ function Bug_Bounty_Tools() {
     if ! command -v dnsx &> /dev/null; then
         echo -e "${RED}Installing dnsx now${NC}"
         go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest &> /dev/null
-        sudo cp $HOME/go/bin/dnsx /usr/local/bin
+        sudo mv ~/go/bin/dnsx /usr/local/bin
         echo -e "${GREEN}dnsx has been installed${NC}"
     else
         echo -e "${GREEN}dnsx is already installed${NC}"
@@ -1155,7 +1155,7 @@ function Bug_Bounty_Tools() {
     if ! command -v gospider &> /dev/null; then
         echo -e "${RED}Installing gospider now${NC}"
         go install github.com/jaeles-project/gospider@latest &> /dev/null
-        sudo cp $HOME/go/bin/gospider /usr/local/bin
+        sudo mv ~/go/bin/gospider /usr/local/bin
         echo -e "${GREEN}gospider has been installed${NC}"
     else
         echo -e "${GREEN}gospider is already installed${NC}"
@@ -1164,7 +1164,7 @@ function Bug_Bounty_Tools() {
     if ! command -v CRLFuzz &> /dev/null; then
         echo -e "${RED}Installing CRLFuzz now${NC}"
         go install github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest &> /dev/null
-        sudo cp $HOME/go/bin/crlfuzz /usr/local/bin
+        sudo mv ~/go/bin/crlfuzz /usr/local/bin
         echo -e "${GREEN}CRLFuzz has been installed${NC}"
     else
         echo -e "${GREEN}CRLFuzz is already installed${NC}"
@@ -1173,7 +1173,7 @@ function Bug_Bounty_Tools() {
     if ! command -v uncover &> /dev/null; then
         echo -e "${RED}Installing uncover now${NC}"
         go install -v github.com/projectdiscovery/uncover/cmd/uncover@latest &> /dev/null
-        sudo cp $HOME/go/bin/uncover /usr/local/bin
+        sudo mv ~/go/bin/uncover /usr/local/bin
         echo -e "${GREEN}uncover has been installed${NC}"
     else
         echo -e "${GREEN}uncover is already installed${NC}"
@@ -1870,7 +1870,7 @@ function install_ProjectDiscovery_Toolkit() {
     if ! command -v pdtm &> /dev/null; then
         echo -e "${RED}Installing ProjectDiscovery's Open Source Tool Manager.${NC}"
         go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
-        sudo cp $HOME/go/bin/pdtm /usr/local/bin
+        sudo mv ~/go/bin/pdtm /usr/local/bin
         pdtm -install-all
         pdtm -update-all
     else
