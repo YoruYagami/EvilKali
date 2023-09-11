@@ -163,6 +163,10 @@ function download_covenant() {
 }
 
 function download_Havoc() {
+    # Install required packages
+    sudo apt update
+    sudo apt install -y git build-essential apt-utils cmake libfontconfig1 libglu1-mesa-dev libgtest-dev libspdlog-dev libboost-all-dev libncurses5-dev libgdbm-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev libbz2-dev mesa-common-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libqt5websockets5 libqt5websockets5-dev qtdeclarative5-dev golang-go qtbase5-dev libqt5websockets5-dev python3-dev libboost-all-dev mingw-w64 nasm python3-dev python3.10-dev libpython3.10 libpython3.10-dev python3.10
+
     sudo mkdir -p '/opt/tools/C2'
     if [ -d "/opt/tools/C2/Havoc" ]; then
         echo -e "${RED}Havoc Framework is already installed.${NC}"
@@ -171,6 +175,17 @@ function download_Havoc() {
         sudo git clone 'https://github.com/HavocFramework/Havoc.git' '/opt/tools/C2/Havoc' 
         echo -e "${GREEN}Havoc Framework downloaded successfully.${NC}"
     fi
+
+    # Build the Teamserver
+    cd /opt/tools/C2/Havoc/teamserver
+    sudo go mod download golang.org/x/sys
+    sudo go mod download github.com/ugorji/go
+    cd /opt/tools/C2/Havoc
+    sudo make ts-build
+
+    # Build the client
+    sudo make client-build
+
     sleep 2
 }
 
