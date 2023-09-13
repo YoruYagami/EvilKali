@@ -71,7 +71,6 @@ fi
 declare -A essentials=(
     ["jq"]="jq"
     ["python3"]="python3"
-    ["git"]="git"
     ["docker-compose"]="docker-compose"
     ["docker.io"]="docker"
     ["neovim"]="nvim"
