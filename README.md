@@ -129,6 +129,7 @@ Choose an option:
 │   │   ├─ gospider
 │   │   ├─ wpscan
 │   │   ├─ CRLFuzz
+│   │   ├─ corscanner
 │   │   ├─ uncover
 │   │   ├─ dalfox
 │   │   ├─ GoLinkFinder
