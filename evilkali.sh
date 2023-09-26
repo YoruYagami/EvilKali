@@ -1267,6 +1267,14 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}parshu installed successfully.${NC}"
     fi
 
+    if command -v corscanner &> /dev/null; then
+        echo -e "${RED}corscanner is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing corscanner${NC}"
+        pip3 install corscanner
+        echo -e "${GREEN}corscanner installed successfully.${NC}"
+    fi
+
     if ! command -v kxss &> /dev/null; then
         echo -e "${RED}Installing kxss now${NC}"
         go install github.com/Emoe/kxss@latest
