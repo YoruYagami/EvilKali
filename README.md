@@ -69,6 +69,7 @@ Choose an option:
 │   │   ├─ knwosmore
 │   │   ├─ Invoke-Portscan
 │   │   ├─ Invoke-ADEnum
+│   │   ├─ adPEAS
 │   │   └─ SharpHound
 │   ├─ Vulnerability scanners
 │   │   └─ linwinpwn
@@ -151,7 +152,8 @@ Choose an option:
 │   │   ├─ SSRFmap
 │   │   ├─ headerpwn
 │   │   ├─ ryder
-│   │   └─ paramspider
+│   │   ├─ paramspider
+│   │   └─ userefuzz
 │   ├─ API Penetration Testing Tools
 │   │   ├─ mitmproxy2swagger
 │   │   ├─ postman
