@@ -369,6 +369,20 @@ function download_ADEnum() {
     fi
 }
 
+
+function download_adPEAS() {
+    sudo mkdir -p '/opt/tools/windows/'
+    if [ -f "/opt/tools/windows/adPEAS.ps1" ]; then
+        echo -e "${RED}adPEAS is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Downloading adPEAS${NC}"
+        sudo curl -sS 'https://raw.githubusercontent.com/61106960/adPEAS/main/adPEAS.ps1' -o '/opt/tools/windows/adPEAS.ps1'
+        echo -e "${GREEN}adPEAS downloaded successfully.${NC}"
+    fi
+}
+	
+
+
 function install_all_recon_tools() {
     get_powerview
     download_ADModule
@@ -377,6 +391,7 @@ function install_all_recon_tools() {
     install_knowsmore
     get_Invoke_Portscan.ps1
     download_SharpHound
+    download_adPEAS
 }
 
 function windows-resource() {
@@ -401,6 +416,7 @@ echo
     echo -e " 5   -  Install BloodHound"
     echo -e " 6   -  Install knowsmore"
     echo -e " 7   -  Get Invoke_Portscan.ps1"
+    echo -e " 8   -  Downlaod adPEAS"
 
     echo ""
     echo -e " A   -  Download/Install All Tools"
@@ -418,6 +434,7 @@ echo
         5) install_bloodhound; windows-resource;;
 	6) install_knowsmore; windows-resource;;
         7) get_Invoke_Portscan.ps1; windows-resource;;
+	8) download_adPEAS; windows-resource;;
         A) install_all_recon_tools; windows-resource;;
         0) red_team_menu;;
         *) echo "Invalid option"; windows-resource;;
@@ -1367,6 +1384,14 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}rayder has been installed${NC}"
     else
         echo -e "${GREEN}rayder is already installed${NC}"
+    fi
+    
+    if command -v userefuzz &> /dev/null; then
+        echo -e "${RED}userefuzz is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing userefuzz${NC}"
+        pip3 install userefuzz
+        echo -e "${GREEN}userefuzz installed successfully.${NC}"
     fi
 }
 
