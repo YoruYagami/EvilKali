@@ -1393,6 +1393,15 @@ function Bug_Bounty_Tools() {
         pip3 install userefuzz
         echo -e "${GREEN}userefuzz installed successfully.${NC}"
     fi
+
+    if command -v smap &> /dev/null; then
+    	echo -e "${RED}smap is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing smap${NC}"
+        go install -v github.com/s0md3v/smap/cmd/smap@latest
+	sudo mv ~/go/bin/smap /usr/local/bin/
+        echo -e "${GREEN}smap installed successfully.${NC}"
+    fi
 }
 
 # --[ API Pentesting tools ]--
