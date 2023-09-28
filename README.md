@@ -147,7 +147,6 @@ Choose an option:
 │   │   ├─ anew 
 │   │   ├─ gau 
 │   │   ├─ qsreplace
-│   │   ├─ smap
 │   │   ├─ SSTImap
 │   │   ├─ SSRFmap
 │   │   ├─ headerpwn
