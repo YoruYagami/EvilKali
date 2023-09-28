@@ -153,6 +153,7 @@ Choose an option:
 │   │   ├─ headerpwn
 │   │   ├─ ryder
 │   │   ├─ paramspider
+│   │   ├─ smap
 │   │   └─ userefuzz
 │   ├─ API Penetration Testing Tools
 │   │   ├─ mitmproxy2swagger
