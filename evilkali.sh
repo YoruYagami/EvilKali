@@ -1402,6 +1402,20 @@ function Bug_Bounty_Tools() {
 	sudo mv ~/go/bin/smap /usr/local/bin/
         echo -e "${GREEN}smap installed successfully.${NC}"
     fi
+    
+    if [ -f "/opt/tools/web_app/dontgo403_linux_amd64" ]; then
+        echo -e "${RED}dontgo403 is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Downloading dontgo403${NC}"
+        
+        # Get the latest release URL
+        RELEASE_URL=$(curl -s https://api.github.com/repos/devploit/dontgo403/releases/latest | grep 'browser_' | cut -d\" -f4 | grep 'dontgo403_linux_amd64')
+        
+        sudo wget -q "$RELEASE_URL" -O '/opt/tools/web_app/dontgo403'
+	sudo chmod +x '/opt/tools/web_app/dontgo403'
+        echo -e "${GREEN}dontgo403 downloaded successfully.${NC}"
+    fi
+    sleep 2
 }
 
 # --[ API Pentesting tools ]--
