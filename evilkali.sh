@@ -16,7 +16,6 @@ if [ $(id -u) -ne 0 ]; then
     exit 1
 fi
 
-# Detect user's default shell
 DEFAULT_SHELL=$(basename "$SHELL")
 
 # Select the configuration file based on the default shell
@@ -256,7 +255,19 @@ echo
     esac
 }
 
-# --[ Reconnaissance ]--
+# --[ Windows Resource ]--
+
+function download_linwinpwn() {
+    if [ -d "/opt/tools/linWinPwn" ]; then
+        echo -e "${RED}linwinpwn is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Downloading linwinpwn${NC}"
+        sudo git clone 'https://github.com/lefayjey/linWinPwn.git' '/opt/tools/linWinPwn' 
+        echo -e "${GREEN}linwinpwn downloaded successfully.${NC}"
+    fi
+    sleep 2
+}
+
 function get_powerview() {
     sudo mkdir -p '/opt/tools/windows'
     if [ -f "/opt/tools/windows/PowerView.ps1" ]; then
@@ -369,7 +380,6 @@ function download_ADEnum() {
     fi
 }
 
-
 function download_adPEAS() {
     sudo mkdir -p '/opt/tools/windows/'
     if [ -f "/opt/tools/windows/adPEAS.ps1" ]; then
@@ -381,9 +391,8 @@ function download_adPEAS() {
     fi
 }
 	
-
-
 function install_all_recon_tools() {
+    download_linwinpwn
     get_powerview
     download_ADModule
     download_ADEnum
@@ -409,14 +418,15 @@ echo
     echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
-    echo -e " 1   -  Get PowerView"
-    echo -e " 2   -  Download SharpHound"
-    echo -e " 3   -  Download ADModule"
-    echo -e " 4   -  Download ADEnum"
-    echo -e " 5   -  Install BloodHound"
-    echo -e " 6   -  Install knowsmore"
-    echo -e " 7   -  Get Invoke_Portscan.ps1"
-    echo -e " 8   -  Downlaod adPEAS"
+    echo -e " 1   -  Install linwinpwn"
+    echo -e " 2   -  Get PowerView"
+    echo -e " 3   -  Download SharpHound"
+    echo -e " 4   -  Download ADModule"
+    echo -e " 5   -  Download ADEnum"
+    echo -e " 6   -  Install BloodHound"
+    echo -e " 7   -  Install knowsmore"
+    echo -e " 8   -  Get Invoke_Portscan.ps1"
+    echo -e " 9   -  Downlaod adPEAS"
 
     echo ""
     echo -e " A   -  Download/Install All Tools"
@@ -427,63 +437,18 @@ echo
     read option
 
     case $option in
-        1) get_powerview; windows-resource;;
-        2) download_SharpHound; windows-resource;;
-        3) download_ADModule; windows-resource;;
-        4) download_ADEnum; windows-resource;;
-        5) install_bloodhound; windows-resource;;
-	6) install_knowsmore; windows-resource;;
-        7) get_Invoke_Portscan.ps1; windows-resource;;
-	8) download_adPEAS; windows-resource;;
+        1) download_linwinpwn; windows-resource;;
+        2) get_powerview; windows-resource;;
+        3) download_SharpHound; windows-resource;;
+        4) download_ADModule; windows-resource;;
+        5) download_ADEnum; windows-resource;;
+        6) install_bloodhound; windows-resource;;
+	    7) install_knowsmore; windows-resource;;
+        8) get_Invoke_Portscan.ps1; windows-resource;;
+	    9) download_adPEAS; windows-resource;;
         A) install_all_recon_tools; windows-resource;;
         0) red_team_menu;;
         *) echo "Invalid option"; windows-resource;;
-    esac
-}
-
-# --[ Vulnerabilities Scanners ]--
-function download_linwinpwn() {
-    if [ -d "/opt/tools/linWinPwn" ]; then
-        echo -e "${RED}linwinpwn is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading linwinpwn${NC}"
-        sudo git clone 'https://github.com/lefayjey/linWinPwn.git' '/opt/tools/linWinPwn' 
-        echo -e "${GREEN}linwinpwn downloaded successfully.${NC}"
-    fi
-    sleep 2
-}
-
-function install_all_vulnerability_scanners() {
-    download_linwinpwn
-}
-
-function vulnerability_scanners() {
-    clear
-    echo -e ""
-    cat << "EOF"
-____   ____    .__             _________                                         
-\   \ /   /_ __|  |   ____    /   _____/ ____ _____    ____   ____   ___________ 
- \   Y   /  |  \  |  /    \   \_____  \_/ ___\\__  \  /    \ /    \_/ __ \_  __ \
-  \     /|  |  /  |_|   |  \  /        \  \___ / __ \|   |  \   |  \  ___/|  | \/
-   \___/ |____/|____/___|  / /_______  /\___  >____  /___|  /___|  /\___  >__|   
-                         \/          \/     \/     \/     \/     \/     \/       
-EOF
-echo
-    echo -e "\n Select an option from menu:"
-    echo -e "\nKey     Menu Option:"
-    echo -e "---     -------------------------"
-    echo -e " 1   -  Download linwinpwn"
-    echo ""
-    echo -e "${BLUE} 0    -  Back to Red Team Menu"${NC}
-    echo ""
-    echo -n "Choose an option: "
-    read option
-
-    case $option in
-        #1) install_all_vulnerability_scanners; vulnerability_scanners;;
-        1) download_linwinpwn; vulnerability_scanners;;
-        0) red_team_menu;;
-        *) echo "Invalid option"; vulnerability_scanners;;
     esac
 }
 
@@ -705,99 +670,6 @@ echo
         A) install_all_file_trasfer_tools; File_Trasfer_Tools;;
         0) red_team_menu;;
         *) echo "Invalid option"; File_Trasfer_Tools;;
-    esac
-}
-
-# --[ Evasion Tools ]--
-function download_Freeze() {
-    sudo mkdir -p '/opt/tools/windows/'
-    if [ -d "/opt/tools/windows/Freeze" ]; then
-        echo -e "${RED}Freeze is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading Freeze${NC}"
-        sudo git clone 'https://github.com/optiv/Freeze' '/opt/tools/windows/Freeze' 
-        echo -e "${GREEN}Freeze downloaded successfully.${NC}"
-    fi
-
-    cd '/opt/tools/windows/Freeze'
-    if [ ! -f "./Freeze" ]; then
-        sudo go build Freeze.go 
-        echo -e "${GREEN}Freeze built successfully.${NC}"
-    else
-        echo -e "${YELLOW}Freeze is already built.${NC}"
-    fi
-}
-
-function install_Shellter() {
-    if dpkg -s shellter &> /dev/null; then
-        echo -e "${RED}Shellter is already installed.${NC}"
-    else
-        if command -v pacman &> /dev/null; then
-            echo -e "${YELLOW}Installing Shellter${NC}"
-            sudo pacman -Sy shellter --noconfirm
-            echo -e "${GREEN}Shellter installed successfully.${NC}"
-        elif command -v apt-get &> /dev/null; then
-            echo -e "${YELLOW}Installing Shellter${NC}"
-            sudo apt-get install shellter -y
-            echo -e "${GREEN}Shellter installed successfully.${NC}"
-        else
-            echo -e "${RED}Unable to install Shellter. Please install it manually.${NC}"
-        fi
-    fi
-    sleep 2
-}
-
-function download_Invisi_Shell() {
-    sudo mkdir -p '/opt/tools/windows/'
-    if [ -d "/opt/tools/windows/Invisi-Shell" ]; then
-        echo -e "${RED}Invisi-Shell is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading Invisi-Shell${NC}"
-        sudo git clone 'https://github.com/OmerYa/Invisi-Shell.git' '/opt/tools/windows/Invisi-Shell' 
-        echo -e "${GREEN}Invisi-Shell downloaded successfully.${NC}"
-    fi
-}
-
-function install_all_Evasion_tools() {
-    download_Freeze
-    install_Shellter
-    download_Invisi_Shell
-}
-
-function Evasion_Tools() {
-    clear
-    echo -e ""
-    cat << "EOF"
-___________                    .__               
-\_   _____/__  _______    _____|__| ____   ____  
- |    __)_\  \/ /\__  \  /  ___/  |/  _ \ /    \ 
- |        \\   /  / __ \_\___ \|  (  <_> )   |  \
-/_______  / \_/  (____  /____  >__|\____/|___|  /
-        \/            \/     \/               \/ 
-
-EOF
-echo
-    echo -e "\n Select an option from menu:"
-    echo -e "\nKey     Menu Option:"
-    echo -e "---     -------------------------"
-    echo -e " 1   -  Download Freeze"
-    echo -e " 2   -  Install Shellter"
-    echo -e " 3   -  Download Invisi_Shell"
-    echo ""
-    echo -e " A   -  Download/Install All Tools"
-    echo ""
-    echo -e "${BLUE} 0    -  Back to Red Team Menu"${NC}
-    echo ""
-    echo -n "Choose an option: "
-    read option
-
-    case $option in
-        1) download_Freeze; Evasion_Tools;;
-        2) install_Shellter; Evasion_Tools;;
-        3) download_Invisi_Shell; Evasion_Tools;;
-        A) install_all_Evasion_tools; Evasion_Tools;;
-        0) red_team_menu;;
-        *) echo "Invalid option"; Evasion_Tools;;
     esac
 }
 
@@ -1052,6 +924,50 @@ echo
 
 # --[ Web Application - Bug Bounty Tools ]--
 function Bug_Bounty_Tools() {
+    if ! command -v pdtm &> /dev/null; then
+        echo -e "${RED}Installing ProjectDiscovery's Open Source Tool Manager.${NC}"
+        go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
+        sudo mv ~/go/bin/pdtm /usr/local/bin
+        pdtm -install-all
+        pdtm -update-all
+    else
+        echo -e "${GREEN}ProjectDiscovery's Open Source Tool Manager is already installed.${NC}"
+        sleep 2
+        echo -e "${GREEN}Updating all the tools${NC}"
+        pdtm -update-all
+    fi
+
+    if ! command -v Axiom &> /dev/null; then
+        echo -e "${RED}Installing Axiom now${NC}"
+        
+        PS3='Please enter your choice: '
+        options=("Install via Docker" "Install via Bash Script" "Cancel")
+        select opt in "${options[@]}"
+        do
+            case $opt in
+                "Install via Docker")
+                    echo "Installing Axiom via Docker..."
+                    docker exec -it $(docker run -d -it --platform linux/amd64 ubuntu:20.04) sh -c "apt update && apt install git -y && git clone https://github.com/pry0cc/axiom ~/.axiom/ && cd && .axiom/interact/axiom-configure"
+                    break
+                    ;;
+                "Install via Bash Script")
+                    echo "Installing Axiom via Bash Script..."
+                    bash <(curl -s https://raw.githubusercontent.com/pry0cc/axiom/master/interact/axiom-configure)
+                    break
+                    ;;
+                "Cancel")
+                    echo "Installation cancelled."
+                    break
+                    ;;
+                *) echo "Invalid option $REPLY";;
+            esac
+        done
+
+        echo -e "${GREEN}Axiom has been installed${NC}"
+    else
+        echo -e "${GREEN}Axiom is already installed${NC}"
+    fi
+
     if ! command -v httprobe &> /dev/null; then
         echo -e "${RED}Installing httprobe now${NC}"
         go install github.com/tomnomnom/httprobe@latest
@@ -1689,14 +1605,6 @@ function install_jadx() {
     sleep 2
 }
 
-    if command -v apkleaks &> /dev/null; then
-        echo -e "${RED}apkleaks is already installed.${NC}"
-    else
-        echo -e "${YELLOW}Installing apkleaks${NC}"
-        pip3 install apkleaks
-        echo -e "${GREEN}apkleaks installed successfully.${NC}"
-    fi
-
 function install_MobSF() {
     sudo mkdir -p '/opt/tools/mobile_app'
 
@@ -1855,7 +1763,7 @@ function download_ghostwriter() {
     sleep 2
 }
 
-function install_OSCP_Reporting() {
+function install_Sysreptor() {
     sudo mkdir -p '/opt/tools/reporting/'
     if [ -d "/opt/tools/reporting/OSCP-Reporting" ]; then
         echo -e "${RED}OSCP-Reporting is already downloaded.${NC}"
@@ -1871,7 +1779,7 @@ function install_OSCP_Reporting() {
 function download_install_all_Reporting_tools() {
     download_pwndoc
     download_ghostwriter
-    install_OSCP_Reporting
+    install_Sysreptor
 }
 
 function Reporting_Tools() {
@@ -1891,7 +1799,7 @@ echo
     echo -e "---     -------------------------"
     echo -e " 1   -  Download pwndoc"
     echo -e " 2   -  Download ghostwriter"
-    echo -e " 3   -  Install OSCP-Reporting"
+    echo -e " 3   -  Install Sysreport"
     echo ""
     echo -e " A   -  Download/Install all Reporting tools"
     echo ""
@@ -1903,7 +1811,7 @@ echo
     case $option in
         1) download_pwndoc; Reporting_Tools;;
         2) download_ghostwriter; Reporting_Tools;;
-        3) install_OSCP_Reporting; Reporting_Tools;;
+        3) install_Sysreptor; Reporting_Tools;;
         A) download_install_all_Reporting_tools; Reporting_Tools;;
         0) main_menu;;
         *) echo "Invalid option"; Reporting_Tools;;
@@ -1913,11 +1821,9 @@ echo
 function install_all_redteamtools() {
     download_install_all_c2_tools
     install_all_recon_tools
-    install_all_vulnerability_scanners
     install_all_file_trasfer_tools
     download_install_all_phishing_tools
     download_Ghostpack
-    install_all_Evasion_tools
     download_install_all_Windows_Privilege_Escalation_tools
     download_install_all_Linux_Privilege_Escalation_tools
 }
@@ -1926,22 +1832,6 @@ function install_all_appsectools() {
     Bug_Bounty_Tools
     download_install_all_API_tools
     download_install_all_Mobile_App_tools
-    install_ProjectDiscovery_Toolkit
-}
-
-function install_ProjectDiscovery_Toolkit() {
-    if ! command -v pdtm &> /dev/null; then
-        echo -e "${RED}Installing ProjectDiscovery's Open Source Tool Manager.${NC}"
-        go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
-        sudo mv ~/go/bin/pdtm /usr/local/bin
-        pdtm -install-all
-        pdtm -update-all
-    else
-        echo -e "${GREEN}ProjectDiscovery's Open Source Tool Manager is already installed.${NC}"
-        sleep 2
-        echo -e "${GREEN}Updating all the tools${NC}"
-        pdtm -update-all
-    fi
 }
 
 function run_pimpmykali() {
@@ -2058,12 +1948,10 @@ echo
     echo -e " 1    -  C2 Frameworks"
     echo -e " 2    -  windows-resource"
     echo -e " 3    -  Phishing"
-    echo -e " 4    -  Vulnerability Scanners"
-    echo -e " 5    -  File Transfer Tools"
-    echo -e " 6    -  Evasion Tools"
-    echo -e " 7    -  Windows Privilege Escalation Tools"
-    echo -e " 8    -  Linux Privilege Escalation Tools"
-    echo -e " 9    -  Ghostpack Compiled Binaries"
+    echo -e " 4    -  File Transfer Tools"
+    echo -e " 5    -  Windows Privilege Escalation Tools"
+    echo -e " 6    -  Linux Privilege Escalation Tools"
+    echo -e " 7    -  Ghostpack Compiled Binaries"
     echo ""
     echo -e " A    -  Download/Install all Red Team Operation Tools"
     echo ""
@@ -2077,12 +1965,10 @@ echo
         1) command_and_control;;
         2) windows-resource;;
         3) phishing;;
-        4) vulnerability_scanners;;
-        5) File_Trasfer_Tools;;
-        6) Evasion_Tools;;
-        7) Windows_Privilege_Escalation_Tools;;
-        8) Linux_Privilege_Escalation_Tools;;
-        9) download_Ghostpack; red_team_menu;;
+        4) File_Trasfer_Tools;;
+        5) Windows_Privilege_Escalation_Tools;;
+        6) Linux_Privilege_Escalation_Tools;;
+        7) download_Ghostpack; red_team_menu;;
         A) install_all_redteamtools; red_team_menu;;
         *) echo "Invalid option"; red_team_menu;;
     esac
@@ -2105,7 +1991,6 @@ echo
     echo -e " 1    -  Bug Bounty Tools"
     echo -e " 2    -  API Penetration Testing Tools"
     echo -e " 3    -  Mobile Application Penetration Testing Tools"
-    echo -e " 4    -  Install/Update Project Discovery Tools via PDTM"
     echo ""
     echo -e " A    -  Download/Install all Appsec tools"
     echo ""
@@ -2119,7 +2004,6 @@ echo
         1) Bug_Bounty_Tools;;
         2) API_Tools;;
         3) Mobile_App_Tools;;
-        4) install_ProjectDiscovery_Toolkit;;
         A) install_all_appsectools; appsec_menu;;
         *) echo "Invalid option"; appsec_menu;;
     esac
