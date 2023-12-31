@@ -156,15 +156,23 @@ function download_Havoc() {
         echo -e "${GREEN}Havoc Framework downloaded successfully.${NC}"
     fi
 
-    # Build the Teamserver
-    cd /opt/tools/C2/Havoc/teamserver
-    sudo go mod download golang.org/x/sys
-    sudo go mod download github.com/ugorji/go
-    cd /opt/tools/C2/Havoc
-    sudo make ts-build
+    # Ask the user if they want to build the teamserver and client
+    read -p "Do you want to build the teamserver and client? (y/n) " yn
+    case $yn in
+        [Yy]* ) 
+            # Build the Teamserver
+            cd /opt/tools/C2/Havoc/teamserver
+            sudo go mod download golang.org/x/sys
+            sudo go mod download github.com/ugorji/go
+            cd /opt/tools/C2/Havoc
+            sudo make ts-build
 
-    # Build the client
-    sudo make client-build
+            # Build the client
+            sudo make client-build
+            ;;
+        [Nn]* ) ;;
+        * ) echo "Invalid input. Skipping building the teamserver and client.";;
+    esac
 
     sleep 2
 }
