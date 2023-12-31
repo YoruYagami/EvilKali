@@ -51,7 +51,6 @@ Choose an option:
 ```
 
 ## Tools List:
-
 ```
 ├─ Red Team Operations
 │   ├─ C2 Framework
@@ -62,8 +61,8 @@ Choose an option:
 │   │   ├─ Sliver Framework
 │   │   └─ pwncat-cs
 │   ├─ Windows-Resources
-│   │   ├─ PowerView
-│   │   ├─ PowerView-Dev
+│   │   ├─ linwinpwn (Vuln Scanner)
+│   │   ├─ PowerView / PowerView-Dev
 │   │   ├─ ADModule
 │   │   ├─ bloodhound
 │   │   ├─ knwosmore
@@ -71,8 +70,6 @@ Choose an option:
 │   │   ├─ Invoke-ADEnum
 │   │   ├─ adPEAS
 │   │   └─ SharpHound
-│   ├─ Vulnerability scanners
-│   │   └─ linwinpwn
 │   ├─ Phishing
 │   │   ├─ evilginx2
 │   │   ├─ gophish
@@ -113,6 +110,8 @@ Choose an option:
 │       └─ pspy32/64
 ├─ Application Security
 │   ├─ Web Application / Bug Bounty Tools
+│   │   ├─ PDTM (Install all Project Discovery Tools)
+│   │   ├─ Axiom
 │   │   ├─ httprobe
 │   │   ├─ amass
 │   │   ├─ gobuster
@@ -154,7 +153,8 @@ Choose an option:
 │   │   ├─ paramspider
 │   │   ├─ smap
 │   │   ├─ userefuzz
-│   │   └─ dontgo403
+│   │   ├─ dontgo403
+│   │   └─ apkleaks
 │   ├─ API Penetration Testing Tools
 │   │   ├─ mitmproxy2swagger
 │   │   ├─ postman
@@ -174,7 +174,7 @@ Choose an option:
 ├─ Reporting
 │   ├─ pwndoc
 │   ├─ ghostwriter
-│   └─ OSCP-Reporting
+│   └─ Sysreport
 └─ Miscellaneous
     ├─ Pimpmykali
     ├─ Visual Studio Code
