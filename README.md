@@ -7,8 +7,6 @@
   <img src="https://img.shields.io/badge/Developed%20for-kali%20linux-blueviolet">
 </h1>
 
-⚠️ EvilKali is currently in its early release stage. Numerous additional tools will be incorporated in the future, along with enhancements to the user interface and the introduction of compatibility for arch-based environments.
-
 # EvilKali
 EvilKali is a Bash script that automates the download and installation of various penetration testing tools. 
 The purpose of the script is to create an environment with all the necessary tools for Red Teaming and Application Security.
