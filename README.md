@@ -15,7 +15,7 @@ The purpose of the script is to create an environment with all the necessary too
 
 ## Usage
 ```
-sudo ./evilkali.sh
+./evilkali.sh
 
 ___________     .__.__   ____  __.      .__  .__ 
 \_   _____/__  _|__|  | |    |/ _|____  |  | |__|
