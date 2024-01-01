@@ -47,7 +47,7 @@ Choose an option:
   git clone https://github.com/YoruYagami/Evilkali.git
   cd Evilkali
   chmod +x ./evilkali.sh
-  sudo ./evilkali.sh
+  ./evilkali.sh
 ```
 
 ## Tools List:
