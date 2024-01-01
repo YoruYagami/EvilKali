@@ -1097,7 +1097,6 @@ function Bug_Bounty_Tools() {
     if ! command -v CRLFuzz &> /dev/null; then
         echo -e "${RED}Installing CRLFuzz now${NC}"
         go install github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest &> /dev/null
-        mv ~/go/bin/crlfuzz /usr/local/bin
         echo -e "${GREEN}CRLFuzz has been installed${NC}"
     else
         echo -e "${GREEN}CRLFuzz is already installed${NC}"
@@ -1268,13 +1267,23 @@ function Bug_Bounty_Tools() {
     fi
 
     if ! command -v paramspider &> /dev/null; then 
-    echo -e "${YELLOW}Installing ParamSpider${NC}"
-    git clone https://github.com/devanshbatham/paramspider.git $home_dir/paramspider &> /dev/null
-    cd "$home_dir/paramspider" || exit 
-    pip install . &> /dev/null
-    echo -e "${GREEN}paramspider installed successfully${NC}"
+        echo -e "${YELLOW}Installing ParamSpider${NC}"
+        git clone https://github.com/devanshbatham/paramspider.git ~/tools/web_app/paramspider &> /dev/null
+        cd ~/tools/web_app/paramspider || exit 
+        pip install . &> /dev/null
+        echo -e "${GREEN}ParamSpider installed successfully${NC}"
     else
-    echo -e "${RED}ParamSpider is already installed.${NC}"
+        echo -e "${RED}ParamSpider is already installed.${NC}"
+    fi 
+
+    if ! command -v openredirex &> /dev/null; then 
+        echo -e "${YELLOW}Installing OpenRedireX${NC}"
+        git clone https://github.com/devanshbatham/openredirex.git ~/tools/web_app/openredirex &> /dev/null
+        cd ~/tools/web_app/openredirex 
+        chmod +x setup.sh && ./setup.sh &> /dev/null
+        echo -e "${GREEN}OpenRedireX installed successfully${NC}"
+    else
+        echo -e "${RED}OpenRedireX is already installed.${NC}"
     fi 
 
     if ! command -v headerpwn &> /dev/null; then
