@@ -1248,6 +1248,14 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}smap is already installed${NC}"
     fi
 
+    if ! command -v qsreplace &> /dev/null; then
+        echo -e "${RED}Installing qsreplace now${NC}"
+        go install github.com/tomnomnom/qsreplace@latest
+        echo -e "${GREEN}qsreplace has been installed${NC}"
+    else
+        echo -e "${GREEN}qsreplace is already installed${NC}"
+    fi
+
     if [ -d ~/tools/web_app/SSTImap ]; then
         echo -e "${RED}SSTImap is already installed.${NC}"
     else
