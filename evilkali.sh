@@ -1518,6 +1518,17 @@ function install_adb() {
     sleep 2
 }
 
+function insall_apkleaks() {
+    if command -v apkleaks &> /dev/null; then
+	echo -e "${RED}apkleaks is already installed.${NC}"
+    else
+	echo -e "${YELLOW}Installing apkleaks${NC}"
+	pip3 install apkleaks
+	echo -e "${GREEN}apkleaks installed successfully.${NC}"
+    fi
+    sleep 2
+}
+
 function install_apksigner() {
     if command -v apksigner &> /dev/null; then
         echo -e "${RED}apksigner is already installed.${NC}"
@@ -1691,6 +1702,7 @@ function download_install_all_Mobile_App_tools() {
     install_apktool
     install_adb
     install_apksigner
+    install_apkleaks
     install_zipalign
     install_wkhtmltopdf
     install_default_jdk
@@ -1717,11 +1729,12 @@ echo
     echo -e " 2   -  Install apktool "
     echo -e " 3   -  install adb"
     echo -e " 4   -  Install apksigner"
-    echo -e " 5   -  Install zipalign"
-    echo -e " 6   -  Install wkhtmltopdf"
-    echo -e " 7   -  Install default-jdk"
-    echo -e " 8   -  Install jadx"
-    echo -e " 9   -  Install MobFS"
+    echo -e " 5   -  Install apkleaks"
+    echo -e " 6   -  Install zipalign"
+    echo -e " 7   -  Install wkhtmltopdf"
+    echo -e " 8   -  Install default-jdk"
+    echo -e " 9   -  Install jadx"
+    echo -e " 10   -  Install MobFS"
     echo ""
     echo -e " A   -  Download/Install All Tools"
     echo ""
@@ -1735,11 +1748,12 @@ echo
         2) install_apktool; Mobile_App_Tools;;
         3) install_adb; Mobile_App_Tools;;
         4) install_apksigner; Mobile_App_Tools;;
-        5) install_zipalign; Mobile_App_Tools;;
-        6) install_wkhtmltopdf; Mobile_App_Tools;;
-        7) install_default_jdk; Mobile_App_Tools;;
-        8) install_jadx; Mobile_App_Tools;;
-        9) install_MobSF; Mobile_App_Tools;;
+	5) install_apkleaks; Mobile_App_Tools;;
+        6) install_zipalign; Mobile_App_Tools;;
+        7) install_wkhtmltopdf; Mobile_App_Tools;;
+        8) install_default_jdk; Mobile_App_Tools;;
+        9) install_jadx; Mobile_App_Tools;;
+        10) install_MobSF; Mobile_App_Tools;;
         A) download_install_all_Mobile_App_tools; Mobile_App_Tools;;
         0) appsec_menu;;
         *) echo "Invalid option"; Mobile_App_Tools;;
