@@ -1337,8 +1337,9 @@ function Bug_Bounty_Tools() {
         chmod +x ~/tools/web_app/dontgo403
         echo -e "${GREEN}dontgo403 downloaded successfully.${NC}"
     fi
+    
     sleep 2
-    }
+}
 
     # --[ API Pentesting tools ]--
 function install_mitmproxy2swagger() {
