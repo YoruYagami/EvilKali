@@ -147,12 +147,12 @@ Choose an option:
 │   │   ├─ SSTImap
 │   │   ├─ SSRFmap
 │   │   ├─ headerpwn
+│   │   ├─ OpenRedireX
 │   │   ├─ ryder
 │   │   ├─ paramspider
 │   │   ├─ smap
 │   │   ├─ userefuzz
-│   │   ├─ dontgo403
-│   │   └─ apkleaks
+│   │   └─ dontgo403
 │   ├─ API Penetration Testing Tools
 │   │   ├─ mitmproxy2swagger
 │   │   ├─ postman
