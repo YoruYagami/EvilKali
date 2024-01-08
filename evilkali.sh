@@ -362,7 +362,7 @@ function download_SharpHound() {
         echo -e "${YELLOW}Downloading latest release... please wait...${NC}"
         curl -L -o ~/tools/windows/SharpHound.zip "$download_url"
         echo -e "${GREEN}SharpHound downloaded successfully.${NC}"
-        sudo unzip -q ~/tools/windows/SharpHound.zip -d ~/tools/windows/SharpHound
+        unzip -q ~/tools/windows/SharpHound.zip -d ~/tools/windows/SharpHound
         rm -rf ~/tools/windows/SharpHound.zip
         echo -e "${GREEN}SharpHound unzipped successfully.${NC}"
     fi
@@ -595,8 +595,8 @@ function download_hfs() {
         curl -L -o ~/tools/windows/hfs-windows.zip "$download_url"
         echo -e "${GREEN}HFS downloaded successfully.${NC}"
         echo -e "${YELLOW}Unzipping HFS${NC}"
-        sudo unzip -q ~/tools/windows/hfs-windows.zip -d ~/tools/windows/hfs-windows
-        sudo cp ~/tools/windows/hfs-windows/hfs.exe ~/tools/windows/
+        unzip -q ~/tools/windows/hfs-windows.zip -d ~/tools/windows/hfs-windows
+        cp ~/tools/windows/hfs-windows/hfs.exe ~/tools/windows/
         rm -rf ~/tools/windows/hfs-windows
         rm -rf ~/tools/windows/hfs-windows.zip
         echo -e "${GREEN}HFS unzipped successfully.${NC}"
@@ -615,7 +615,7 @@ function get_netcat_binary() {
         echo -e "${RED}nc.exe is already copied.${NC}"
     else
         echo -e "${YELLOW}copying nc.exe${NC}"
-        sudo cp /usr/share/windows-binaries/nc.exe ~/tools/windows/nc.exe
+        cp /usr/share/windows-binaries/nc.exe ~/tools/windows/nc.exe
     fi
     sleep 2
 }
@@ -680,7 +680,7 @@ function get_PowerUp_ps1() {
         echo -e "${YELLOW}PowerUp.ps1 is already copied.${NC}"
     else
         echo -e "${YELLOW}copying PowerUp.ps1${NC}"
-        sudo cp /usr/share/windows-resources/powersploit/Privesc/PowerUp.ps1 ~/tools/windows/PowerUp.ps1
+        cp /usr/share/windows-resources/powersploit/Privesc/PowerUp.ps1 ~/tools/windows/PowerUp.ps1
         echo -e "${GREEN}PowerUp has been copied successfully.${NC}"
     fi
     sleep 2
@@ -800,7 +800,7 @@ function download_Ghostpack() {
     else
         echo -e "${YELLOW}Downloading Compiled GhostPack Binaries${NC}"
         git clone https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git ~/tools/Ghostpack/
-        sudo cp -r ~/tools/Ghostpack/* ~/tools/windows/
+        cp -r ~/tools/Ghostpack/* ~/tools/windows/
         rm -rf ~/tools/Ghostpack
         rm -rf ~/tools/windows/README.md
         echo -e "${GREEN}Ghostpack downloaded successfully.${NC}"
@@ -1390,7 +1390,7 @@ function install_kiterunner() {
     else
         echo -e "${YELLOW}Installing kiterunner${NC}"
         git clone https://github.com/assetnote/kiterunner.git ~/tools/api/kiterunner &> /dev/null
-        sudo make -C ~/tools/api/kiterunner build &> /dev/null
+        make -C ~/tools/api/kiterunner build &> /dev/null
         ln -sf ~/tools/api/kiterunner/dist/kr /usr/bin/kr
         echo -e "${GREEN}kiterunner installed successfully.${NC}"
     fi
