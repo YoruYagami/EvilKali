@@ -256,42 +256,66 @@ echo
 }
 
 # --[ Windows Resource ]--
+function download_Install_windows-resource() {
+    # Creating Windows Directory
+    mkdir -p ~/tools/windows
 
-function download_linwinpwn() {
+    # Get latest release data from GitHub
+    echo -e "${YELLOW}Retrieving WinPwn latest release information${NC}"
+    json=$(curl -s https://api.github.com/repos/S3cur3Th1sSh1t/WinPwn/releases/latest)
+
+    # Extract download URLs for WinPwn.exe and WinPwn.ps1
+    winpwn_exe_url=$(echo "$json" | jq -r '.assets[] | select(.name | contains("WinPwn.exe")) | .browser_download_url')
+    winpwn_ps1_url=$(echo "$json" | jq -r '.assets[] | select(.name | contains("WinPwn.ps1")) | .browser_download_url')
+
+    # Download WinPwn.exe
+    if [ ! -z "$winpwn_exe_url" ]; then
+        echo -e "${YELLOW}Downloading WinPwn.exe${NC}"
+        curl -L "$winpwn_exe_url" -o ~/tools/windows/WinPwn.exe
+    else
+        echo -e "${RED}WinPwn.exe URL not found in the latest release.${NC}"
+    fi
+
+    # Download WinPwn.ps1
+    if [ ! -z "$winpwn_ps1_url" ]; then
+        echo -e "${YELLOW}Downloading WinPwn.ps1${NC}"
+        curl -L "$winpwn_ps1_url" -o ~/tools/windows/WinPwn.ps1
+    else
+        echo -e "${RED}WinPwn.ps1 URL not found in the latest release.${NC}"
+    fi
+
+    echo -e "${GREEN}WinPwn files downloaded successfully.${NC}"
+    sleep 2
+
+    # Download linwinpwn
     if [ -d ~/tools/linWinPwn ]; then
         echo -e "${RED}linwinpwn is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading linwinpwn${NC}"
         git clone 'https://github.com/lefayjey/linWinPwn.git' ~/tools/linWinPwn 
         echo -e "${GREEN}linwinpwn downloaded successfully.${NC}"
+        sleep 2 
     fi
-    sleep 2
-}
 
-function get_powerview() {
-    mkdir -p ~/tools/windows
+    # Download PowerView
     if [ -f ~/tools/windows/PowerView.ps1 ]; then
         echo -e "${RED}PowerView has already been copied.${NC}"
     else
         curl -sS 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1' -o ~/tools/windows/PowerView.ps1
         curl -sS 'https://raw.githubusercontent.com/lucky-luk3/ActiveDirectory/master/PowerView-Dev.ps1' -o ~/tools/windows/PowerView-Dev.ps1
         echo -e "${GREEN}PowerView has been downloaded successfully.${NC}"
+        sleep 2 
     fi
-    sleep 2
-}
 
-function download_ADModule() {
-    mkdir -p ~/tools/windows
+    # Download ADModule
     if [ -d ~/tools/windows/ADModule ]; then
         echo -e "${RED}ADModule is already downloaded.${NC}"
     else
         git clone 'https://github.com/samratashok/ADModule.git' ~/tools/windows/ADModule
         echo -e "${GREEN}ADModule downloaded successfully.${NC}"
     fi
-    sleep 2
-}
 
-function install_bloodhound() {
+    # Install Bloodhound
     if dpkg -s bloodhound &> /dev/null; then
         echo -e "${RED}bloodhound is already installed.${NC}"
     else
@@ -307,10 +331,8 @@ function install_bloodhound() {
             echo -e "${RED}Unable to install bloodhound. Please install it manually.${NC}"
         fi
     fi
-    sleep 2
-}
 
-function install_knowsmore() {
+    # Installing knwosmore
     if command -v knowsmore &> /dev/null; then
         echo -e "${RED}knowsmore is already installed.${NC}"
     else
@@ -318,21 +340,15 @@ function install_knowsmore() {
         pip3 install --upgrade knowsmore
         echo -e "${GREEN}knowsmore installed successfully.${NC}"
     fi
-    sleep 2
-}
 
-function get_Invoke_Portscan.ps1() {
-    mkdir -p ~/tools/windows
     if [ -f ~/tools/windows/Invoke-Portscan.ps1 ]; then
         echo -e "${RED}Invoke_PortScan has already been copied.${NC}"
     else
         curl -sS 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/Invoke-Portscan.ps1' -o ~/tools/windows/Invoke-Portscan.ps1
         echo -e "${GREEN}Invoke_PortScan has been downloaded successfully.${NC}"
     fi
-    sleep 2
-}
 
-function download_SharpHound() {
+    # Installing SharpHounds
     # Check if jq is installed
     if ! command -v jq >/dev/null 2>&1; then
         echo -e "${YELLOW}jq is not installed. Installing...${NC}"
@@ -352,7 +368,6 @@ function download_SharpHound() {
         fi
     fi
 
-    mkdir -p ~/tools/windows
     if [ -d ~/tools/windows/SharpHound ]; then
         echo -e "${RED}SharpHound is already downloaded and unzipped.${NC}"
     else
@@ -366,89 +381,129 @@ function download_SharpHound() {
         rm -rf ~/tools/windows/SharpHound.zip
         echo -e "${GREEN}SharpHound unzipped successfully.${NC}"
     fi
-    sleep 2
-}
 
-function download_ADEnum() {
-    mkdir -p ~/tools/windows/
+    # Downloading ADEnum
     if [ -f ~/tools/windows/ADEnum.ps1 ]; then
         echo -e "${RED}ADEnum is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading ADEnum${NC}"
         curl -sS 'https://raw.githubusercontent.com/Leo4j/Invoke-ADEnum/main/Invoke-ADEnum.ps1' -o ~/tools/windows/Invoke-ADEnum.ps1
         echo -e "${GREEN}ADEnum downloaded successfully.${NC}"
-    fi
-}
 
-function download_adPEAS() {
-    mkdir -p ~/tools/windows/
+
+    # Downloading adPEAS
     if [ -f ~/tools/windows/adPEAS.ps1 ]; then
         echo -e "${RED}adPEAS is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading adPEAS${NC}"
         curl -sS 'https://raw.githubusercontent.com/61106960/adPEAS/main/adPEAS.ps1' -o ~/tools/windows/adPEAS.ps1
         echo -e "${GREEN}adPEAS downloaded successfully.${NC}"
+        sleep 2
     fi
-}
-	
-function install_all_recon_tools() {
-    download_linwinpwn
-    get_powerview
-    download_ADModule
-    download_ADEnum
-    install_bloodhound
-    install_knowsmore
-    get_Invoke_Portscan.ps1
-    download_SharpHound
-    download_adPEAS
+
+    # Downloading netcat (binary)
+    if [ -f ~/tools/windows/nc.exe ]; then
+        echo -e "${RED}nc.exe is already copied.${NC}"
+    else
+        echo -e "${YELLOW}copying nc.exe${NC}"
+        cp /usr/share/windows-binaries/nc.exe ~/tools/windows/nc.exe
+        sleep 2
+    fi
+
+    # installing updog
+    if command -v updog &> /dev/null; then
+        echo -e "${RED}updog is already installed.${NC}"
+    else
+        echo -e "${YELLOW}installing updog${NC}"
+        pip3 install updog
+        echo -e "${GREEN}updog installed successfully.${NC}"
+        sleep 2
+    fi
+
+    if ! command -v jq >/dev/null 2>&1; then
+        echo -e "${YELLOW}jq is not installed. Installing...${NC}"
+
+        # Check the Linux distribution
+        if command -v pacman &> /dev/null; then
+            echo -e "${YELLOW}Installing jq${NC}"
+            sudo pacman -Sy jq --noconfirm
+            echo -e "${GREEN}jq has been successfully installed.${NC}"
+        elif command -v apt-get &> /dev/null; then
+            echo -e "${YELLOW}Installing jq${NC}"
+            sudo apt-get install jq -y
+            echo -e "${GREEN}jq has been successfully installed.${NC}"
+        else
+            echo -e "${RED}Unsupported package manager. Please manually install jq.${NC}"
+            return 1
+        fi
+        sleep 2
+    fi
+
+    # Download HFS (binary)
+    if [ -d ~/tools/windows/hfs-windows ]; then
+        echo -e "${RED}HFS is already downloaded.${NC}"
+
+        if [ -d ~/tools/windows/hfs-windows/plugins/ ]; then
+            echo -e "${GREEN}HFS plugins folder removed successfully.${NC}"
+        else
+            echo -e "${RED}HFS plugins folder does not exist or has already been removed.${NC}"
+        fi
+    else
+        echo -e "${YELLOW}Downloading HFS${NC}"
+        json=$(curl -s https://api.github.com/repos/rejetto/hfs/releases/latest)
+        download_url=$(echo "$json" | jq -r '.assets[] | select(.name | contains("hfs-windows.zip")) | .browser_download_url')
+        curl -L -o ~/tools/windows/hfs-windows.zip "$download_url"
+        echo -e "${GREEN}HFS downloaded successfully.${NC}"
+        echo -e "${YELLOW}Unzipping HFS${NC}"
+        unzip -q ~/tools/windows/hfs-windows.zip -d ~/tools/windows/hfs-windows
+        cp ~/tools/windows/hfs-windows/hfs.exe ~/tools/windows/
+        rm -rf ~/tools/windows/hfs-windows
+        rm -rf ~/tools/windows/hfs-windows.zip
+        echo -e "${GREEN}HFS unzipped successfully.${NC}"
+
+        if [ -d ~/tools/windows/hfs-windows/plugins/ ]; then
+            rm -rf ~/tools/windows/hfs-windows/plugins/
+            echo -e "${GREEN}HFS plugins folder removed successfully.${NC}"
+        fi
+    fi
+    
+    sleep 2
+fi
 }
 
-function windows-resource() {
+function red_team_menu() {
     clear
     echo -e ""
     cat << "EOF"
- __      __.__            .___                    __________                                                       
-/  \    /  \__| ____    __| _/______  _  ________ \______   \ ____   __________  __ _________   ____  ____   ______
-\   \/\/   /  |/    \  / __ |/  _ \ \/ \/ /  ___/  |       _// __ \ /  ___/  _ \|  |  \_  __ \_/ ___\/ __ \ /  ___/
- \        /|  |   |  \/ /_/ (  <_> )     /\___ \   |    |   \  ___/ \___ (  <_> )  |  /|  | \/\  \__\  ___/ \___ \ 
-  \__/\  / |__|___|  /\____ |\____/ \/\_//____  >  |____|_  /\___  >____  >____/|____/ |__|    \___  >___  >____  >
-       \/          \/      \/                 \/          \/     \/     \/                         \/    \/     \/ 
+__________           .___ ___________                     ________               
+\______   \ ____   __| _/ \__    ___/___ _____    _____   \_____  \ ______  ______
+ |       _// __ \ / __ |    |    |_/ __ \\__  \  /     \   /   |   \\____ \/  ___/
+ |    |   \  ___// /_/ |    |    |\  ___/ / __ \|  Y Y  \ /    |    \  |_> >___ \ 
+ |____|_  /\___  >____ |    |____| \___  >____  /__|_|  / \_______  /   __/____  >
+        \/     \/     \/               \/     \/      \/          \/|__|       \/ 
 EOF
 echo
-    echo -e "\n Select an option from menu:"
-    echo -e "\nKey     Menu Option:"
-    echo -e "---     -------------------------"
-    echo -e " 1   -  Install linwinpwn"
-    echo -e " 2   -  Get PowerView"
-    echo -e " 3   -  Download SharpHound"
-    echo -e " 4   -  Download ADModule"
-    echo -e " 5   -  Download ADEnum"
-    echo -e " 6   -  Install BloodHound"
-    echo -e " 7   -  Install knowsmore"
-    echo -e " 8   -  Get Invoke_Portscan.ps1"
-    echo -e " 9   -  Downlaod adPEAS"
-
+    echo -e "Key      Menu Option:"
+    echo -e "---      -------------------------"
+    echo -e " 1    -  C2 Frameworks"
+    echo -e " 2    -  Download/Install Windows Red Teaming Arsenal"
+    echo -e " 3    -  Phishing"
+    echo -e " 4    -  Windows Privilege Escalation Tools"
+    echo -e " 5    -  Linux Privilege Escalation Tools"
     echo ""
-    echo -e " A   -  Download/Install All Tools"
-    echo ""
-    echo -e "${BLUE} 0    -  Back to Red Team Menu"${NC}
+    echo -e "${BLUE} 0    -  Back to Main Menu"${NC}
     echo ""
     echo -n "Choose an option: "
     read option
 
     case $option in
-        1) download_linwinpwn; windows-resource;;
-        2) get_powerview; windows-resource;;
-        3) download_SharpHound; windows-resource;;
-        4) download_ADModule; windows-resource;;
-        5) download_ADEnum; windows-resource;;
-        6) install_bloodhound; windows-resource;;
-	    7) install_knowsmore; windows-resource;;
-        8) get_Invoke_Portscan.ps1; windows-resource;;
-	    9) download_adPEAS; windows-resource;;
-        A) install_all_recon_tools; windows-resource;;
-        0) red_team_menu;;
-        *) echo "Invalid option"; windows-resource;;
+        0) main_menu;;
+        1) command_and_control;;
+        2) download_Install_windows-resource;red_team_menu;;
+        3) phishing;;
+        5) Windows_Privilege_Escalation_Tools;;
+        6) Linux_Privilege_Escalation_Tools;;
+        *) echo "Invalid option"; red_team_menu;;
     esac
 }
 
@@ -555,121 +610,6 @@ echo
         A) download_install_all_phishing_tools; phishing;;
         0) red_team_menu;;
         *) echo "Invalid option"; phishing;;
-    esac
-}
-
-# --[ File Trasfer ]--
-function download_hfs() {
-    # Check if jq is installed
-    if ! command -v jq >/dev/null 2>&1; then
-        echo -e "${YELLOW}jq is not installed. Installing...${NC}"
-
-        # Check the Linux distribution
-        if command -v pacman &> /dev/null; then
-            echo -e "${YELLOW}Installing jq${NC}"
-            sudo pacman -Sy jq --noconfirm
-            echo -e "${GREEN}jq has been successfully installed.${NC}"
-        elif command -v apt-get &> /dev/null; then
-            echo -e "${YELLOW}Installing jq${NC}"
-            sudo apt-get install jq -y
-            echo -e "${GREEN}jq has been successfully installed.${NC}"
-        else
-            echo -e "${RED}Unsupported package manager. Please manually install jq.${NC}"
-            return 1
-        fi
-    fi
-
-    mkdir -p ~/tools/windows
-    if [ -d ~/tools/windows/hfs-windows ]; then
-        echo -e "${RED}HFS is already downloaded.${NC}"
-
-        if [ -d ~/tools/windows/hfs-windows/plugins/ ]; then
-            echo -e "${GREEN}HFS plugins folder removed successfully.${NC}"
-        else
-            echo -e "${RED}HFS plugins folder does not exist or has already been removed.${NC}"
-        fi
-    else
-        echo -e "${YELLOW}Downloading HFS${NC}"
-        json=$(curl -s https://api.github.com/repos/rejetto/hfs/releases/latest)
-        download_url=$(echo "$json" | jq -r '.assets[] | select(.name | contains("hfs-windows.zip")) | .browser_download_url')
-        curl -L -o ~/tools/windows/hfs-windows.zip "$download_url"
-        echo -e "${GREEN}HFS downloaded successfully.${NC}"
-        echo -e "${YELLOW}Unzipping HFS${NC}"
-        unzip -q ~/tools/windows/hfs-windows.zip -d ~/tools/windows/hfs-windows
-        cp ~/tools/windows/hfs-windows/hfs.exe ~/tools/windows/
-        rm -rf ~/tools/windows/hfs-windows
-        rm -rf ~/tools/windows/hfs-windows.zip
-        echo -e "${GREEN}HFS unzipped successfully.${NC}"
-
-        if [ -d ~/tools/windows/hfs-windows/plugins/ ]; then
-            rm -rf ~/tools/windows/hfs-windows/plugins/
-            echo -e "${GREEN}HFS plugins folder removed successfully.${NC}"
-        fi
-    fi
-    sleep 2
-}
-
-function get_netcat_binary() {
-    mkdir -p ~/tools/windows/
-    if [ -f ~/tools/windows/nc.exe ]; then
-        echo -e "${RED}nc.exe is already copied.${NC}"
-    else
-        echo -e "${YELLOW}copying nc.exe${NC}"
-        cp /usr/share/windows-binaries/nc.exe ~/tools/windows/nc.exe
-    fi
-    sleep 2
-}
-
-function install_updog() {
-    if command -v updog &> /dev/null; then
-        echo -e "${RED}updog is already installed.${NC}"
-    else
-        echo -e "${YELLOW}installing updog${NC}"
-        pip3 install updog
-        echo -e "${GREEN}updog installed successfully.${NC}"
-    fi
-    sleep 2
-}
-
-function install_all_file_trasfer_tools() {
-    download_hfs
-    get_netcat_binary
-    install_updog
-}
-
-function File_Trasfer_Tools() {
-    clear
-    echo -e ""
-    cat << "EOF"
-___________.__.__           ___________                       _____             
-\_   _____/|__|  |   ____   \__    ___/___________    _______/ ____\___________ 
- |    __)  |  |  | _/ __ \    |    |  \_  __ \__  \  /  ___/\   __\/ __ \_  __ \
- |     \   |  |  |_\  ___/    |    |   |  | \// __ \_\___ \  |  | \  ___/|  | \/
- \___  /   |__|____/\___  >   |____|   |__|  (____  /____  > |__|  \___  >__|   
-     \/                 \/                        \/     \/            \/       
-EOF
-echo
-    echo -e "\n Select an option from menu:"
-    echo -e "\nKey     Menu Option:"
-    echo -e "---     -------------------------"
-    echo -e " 1   -  Download HFS"
-    echo -e " 2   -  Get nc.exe"
-    echo -e " 3   -  Install Updog"
-    echo ""
-    echo -e " A   -  Download/Install All Tools"
-    echo ""
-    echo -e "${BLUE} 0    -  Back to Red Team Menu"${NC}
-    echo ""
-    echo -n "Choose an option: "
-    read option
-
-    case $option in
-        1) download_hfs; File_Trasfer_Tools;File_Trasfer_Tools;;
-        2) get_netcat_binary;File_Trasfer_Tools;;
-        3) install_updog;File_Trasfer_Tools;;
-        A) install_all_file_trasfer_tools; File_Trasfer_Tools;;
-        0) red_team_menu;;
-        *) echo "Invalid option"; File_Trasfer_Tools;;
     esac
 }
 
@@ -946,12 +886,12 @@ function Bug_Bounty_Tools() {
         do
             case $opt in
                 "Install via Docker")
-                    echo "Installing Axiom via Docker..."
+                    echo -e "${YELLOW}Installing Axiom via Docker...${NC}"
                     docker exec -it $(docker run -d -it --platform linux/amd64 ubuntu:20.04) sh -c "apt update && apt install git -y && git clone https://github.com/pry0cc/axiom ~/.axiom/ && cd && .axiom/interact/axiom-configure"
                     break
                     ;;
                 "Install via Bash Script")
-                    echo "Installing Axiom via Bash Script..."
+                    echo -e "${YELLOW}Installing Axiom via Bash Script...${NC}"
                     bash <(curl -s https://raw.githubusercontent.com/pry0cc/axiom/master/interact/axiom-configure)
                     break
                     ;;
@@ -965,12 +905,12 @@ function Bug_Bounty_Tools() {
 
         echo -e "${GREEN}Axiom has been installed${NC}"
     else
-        echo -e "${GREEN}Axiom is already installed${NC}"
+        echo -e "${YELLOW}Axiom is already installed${NC}"
     fi
 
     if ! command -v httprobe &> /dev/null; then
         echo -e "${RED}Installing httprobe now${NC}"
-        go install github.com/tomnomnom/httprobe@latest
+        go install github.com/tomnomnom/httprobe@latest &> /dev/null
         mv ~/go/bin/httprobe /usr/local/bin
         echo -e "${GREEN}httprobe has been installed${NC}"
     else
@@ -979,8 +919,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v amass &> /dev/null; then
         echo -e "${RED}Installing amass now${NC}"
-        go install -v github.com/OWASP/Amass/v3/...@master &> /dev/null
-        mv ~/go/bin/amass /usr/local/bin
+        sudo apt install amass -y &> /dev/null
         echo -e "${GREEN}amass has been installed${NC}"
     else
         echo -e "${GREEN}amass is already installed${NC}"
@@ -988,20 +927,10 @@ function Bug_Bounty_Tools() {
 
     if ! command -v gobuster &> /dev/null; then
         echo -e "${RED}Installing gobuster now${NC}"
-        go install github.com/OJ/gobuster/v3@latest &> /dev/null
-        mv ~/go/bin/gobuster /usr/local/bin
+        sudo apt install gobuster -y &> /dev/null
         echo -e "${GREEN}GoBuster has been installed${NC}"
     else
         echo -e "${GREEN}Gobuster is already installed${NC}"
-    fi
-
-    if ! command -v subfinder &> /dev/null; then
-        echo -e "${RED}Installing subfinder now${NC}"
-        go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest &> /dev/null
-        mv ~/go/bin/subfinder /usr/local/bin
-        echo -e "${GREEN}subfinder installation is done${NC}"
-    else
-        echo -e "${GREEN}subfinder is already installed${NC}"
     fi
 
     if ! command -v assetfinder &> /dev/null; then
@@ -1014,8 +943,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v ffuf &> /dev/null; then
         echo -e "${RED}Installing ffuf now${NC}"
-        go install github.com/ffuf/ffuf@latest
-        cp $HOME/go/bin/ffuf /usr/local/bin
+        go install github.com/ffuf/ffuf@latest &> /dev/null
         echo -e "${GREEN}ffuf has been installed${NC}"
     else
         echo -e "${GREEN}ffuf is already installed${NC}"
@@ -1024,7 +952,6 @@ function Bug_Bounty_Tools() {
     if ! command -v gf &> /dev/null; then
         echo -e "${RED}Installing gf now${NC}"
         go install github.com/tomnomnom/gf@latest &> /dev/null
-        cp $HOME/go/bin/gf /usr/local/bin
         echo -e "${GREEN}gf has been installed${NC}"
     else
         echo -e "${GREEN}gf is already installed${NC}"
@@ -1033,7 +960,6 @@ function Bug_Bounty_Tools() {
     if ! command -v meg &> /dev/null; then
         echo -e "${RED}Installing meg now${NC}"
         go install github.com/tomnomnom/meg@latest &> /dev/null
-        cp $HOME/go/bin/meg /usr/local/bin
         echo -e "${GREEN}meg has been installed${NC}"
     else
         echo -e "${GREEN}meg is already installed${NC}"
@@ -1338,7 +1264,45 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}dontgo403 downloaded successfully.${NC}"
     fi
     
+    # Moving every go binary in /usr/local/bin
+    mv ~/go/bin/* /usr/local/bin
+
     sleep 2
+}
+
+function appsec_menu() {
+    clear
+    echo -e ""
+    cat << "EOF"
+   _____                .__  .__               __  .__                  _________                          .__  __          
+  /  _  \ ______ ______ |  | |__| ____ _____ _/  |_|__| ____   ____    /   _____/ ____   ____  __ _________|__|/  |_ ___.__.
+ /  /_\  \\____ \\____ \|  | |  |/ ___\\__  \\   __\  |/  _ \ /    \   \_____  \_/ __ \_/ ___\|  |  \_  __ \  \   __<   |  |
+/    |    \  |_> >  |_> >  |_|  \  \___ / __ \|  | |  (  <_> )   |  \  /        \  ___/\  \___|  |  /|  | \/  ||  |  \___  |
+\____|__  /   __/|   __/|____/__|\___  >____  /__| |__|\____/|___|  / /_______  /\___  >\___  >____/ |__|  |__||__|  / ____|
+        \/|__|   |__|                \/     \/                    \/          \/     \/     \/                       \/     
+EOF
+echo
+    echo -e "Key      Menu Option:"
+    echo -e "---      -------------------------"
+    echo -e " 1    -  Bug Bounty Tools"
+    echo -e " 2    -  API Penetration Testing Tools"
+    echo -e " 3    -  Mobile Application Penetration Testing Tools"
+    echo ""
+    echo -e " A    -  Download/Install all Appsec tools"
+    echo ""
+    echo -e "${BLUE} 0    -  Back to Main Menu"${NC}
+    echo ""
+    echo -n "Choose an option: "
+    read option
+
+    case $option in
+        0) main_menu;;
+        1) Bug_Bounty_Tools;;
+        2) API_Tools;;
+        3) Mobile_App_Tools;;
+        A) install_all_appsectools; appsec_menu;;
+        *) echo "Invalid option"; appsec_menu;;
+    esac
 }
 
     # --[ API Pentesting tools ]--
@@ -1840,16 +1804,6 @@ echo
     esac
 }
 
-function install_all_redteamtools() {
-    download_install_all_c2_tools
-    install_all_recon_tools
-    install_all_file_trasfer_tools
-    download_install_all_phishing_tools
-    download_Ghostpack
-    download_install_all_Windows_Privilege_Escalation_tools
-    download_install_all_Linux_Privilege_Escalation_tools
-}
-
 function install_all_appsectools() {
     Bug_Bounty_Tools
     download_install_all_API_tools
@@ -1950,84 +1904,6 @@ EOF
         4) miscellaneous_menu;;
         0) exit;;
         *) echo "Invalid option"; main_menu;;
-    esac
-}
-
-function red_team_menu() {
-    clear
-    echo -e ""
-    cat << "EOF"
-__________           .___ ___________                     ________               
-\______   \ ____   __| _/ \__    ___/___ _____    _____   \_____  \ ______  ______
- |       _// __ \ / __ |    |    |_/ __ \\__  \  /     \   /   |   \\____ \/  ___/
- |    |   \  ___// /_/ |    |    |\  ___/ / __ \|  Y Y  \ /    |    \  |_> >___ \ 
- |____|_  /\___  >____ |    |____| \___  >____  /__|_|  / \_______  /   __/____  >
-        \/     \/     \/               \/     \/      \/          \/|__|       \/ 
-EOF
-echo
-    echo -e "Key      Menu Option:"
-    echo -e "---      -------------------------"
-    echo -e " 1    -  C2 Frameworks"
-    echo -e " 2    -  windows-resource"
-    echo -e " 3    -  Phishing"
-    echo -e " 4    -  File Transfer Tools"
-    echo -e " 5    -  Windows Privilege Escalation Tools"
-    echo -e " 6    -  Linux Privilege Escalation Tools"
-    echo -e " 7    -  Ghostpack Compiled Binaries"
-    echo ""
-    echo -e " A    -  Download/Install all Red Team Operation Tools"
-    echo ""
-    echo -e "${BLUE} 0    -  Back to Main Menu"${NC}
-    echo ""
-    echo -n "Choose an option: "
-    read option
-
-    case $option in
-        0) main_menu;;
-        1) command_and_control;;
-        2) windows-resource;;
-        3) phishing;;
-        4) File_Trasfer_Tools;;
-        5) Windows_Privilege_Escalation_Tools;;
-        6) Linux_Privilege_Escalation_Tools;;
-        7) download_Ghostpack; red_team_menu;;
-        A) install_all_redteamtools; red_team_menu;;
-        *) echo "Invalid option"; red_team_menu;;
-    esac
-}
-
-function appsec_menu() {
-    clear
-    echo -e ""
-    cat << "EOF"
-   _____                .__  .__               __  .__                  _________                          .__  __          
-  /  _  \ ______ ______ |  | |__| ____ _____ _/  |_|__| ____   ____    /   _____/ ____   ____  __ _________|__|/  |_ ___.__.
- /  /_\  \\____ \\____ \|  | |  |/ ___\\__  \\   __\  |/  _ \ /    \   \_____  \_/ __ \_/ ___\|  |  \_  __ \  \   __<   |  |
-/    |    \  |_> >  |_> >  |_|  \  \___ / __ \|  | |  (  <_> )   |  \  /        \  ___/\  \___|  |  /|  | \/  ||  |  \___  |
-\____|__  /   __/|   __/|____/__|\___  >____  /__| |__|\____/|___|  / /_______  /\___  >\___  >____/ |__|  |__||__|  / ____|
-        \/|__|   |__|                \/     \/                    \/          \/     \/     \/                       \/     
-EOF
-echo
-    echo -e "Key      Menu Option:"
-    echo -e "---      -------------------------"
-    echo -e " 1    -  Bug Bounty Tools"
-    echo -e " 2    -  API Penetration Testing Tools"
-    echo -e " 3    -  Mobile Application Penetration Testing Tools"
-    echo ""
-    echo -e " A    -  Download/Install all Appsec tools"
-    echo ""
-    echo -e "${BLUE} 0    -  Back to Main Menu"${NC}
-    echo ""
-    echo -n "Choose an option: "
-    read option
-
-    case $option in
-        0) main_menu;;
-        1) Bug_Bounty_Tools;;
-        2) API_Tools;;
-        3) Mobile_App_Tools;;
-        A) install_all_appsectools; appsec_menu;;
-        *) echo "Invalid option"; appsec_menu;;
     esac
 }
 
