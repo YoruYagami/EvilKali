@@ -268,6 +268,13 @@ function download_Install_windows-resource() {
 
     pip3 install --user pipx PyYAML alive-progress xlsxwriter sectools typer --upgrade &> /dev/null
 
+    if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+        echo "Adding $HOME/.local/bin to PATH"
+        pipx ensurepath
+    else
+        echo "$HOME/.local/bin is already in PATH"
+    fi
+
     if ! command -v ldapdomaindump &> /dev/null; then
         echo -e "${YELLOW}Installing ldapdomaindump${NC}"
         pipx install git+https://github.com/dirkjanm/ldapdomaindump.git --force &> /dev/null
@@ -621,7 +628,7 @@ function download_Install_windows-resource() {
         if [ ! -z "$winpwn_exe_url" ]; then
             echo -e "${YELLOW}Downloading WinPwn.exe${NC}"
             curl -L "$winpwn_exe_url" -o "$download_dir/WinPwn.exe" &> /dev/null
-            sleep
+            sleep 2
         else
             echo -e "${RED}WinPwn.exe URL not found in the latest release.${NC}"
         fi
@@ -802,6 +809,7 @@ function download_Install_windows-resource() {
         unzip -q $HOME/tools/windows/hfs-windows.zip -d $HOME/tools/windows/
         rm -rf $HOME/tools/windows/hfs-windows
         rm -rf $HOME/tools/windows/hfs-windows.zip
+        rm -rf $HOME/tools/windows/plugins
         echo -e "${GREEN}HFS unzipped successfully.${NC}"
 
         if [ -d $HOME/tools/windows/hfs-windows/plugins/ ]; then
