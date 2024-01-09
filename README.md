@@ -59,34 +59,57 @@ Choose an option:
 │   │   ├─ Sliver Framework
 │   │   └─ pwncat-cs
 │   ├─ Windows-Resources
-│   │   ├─ linwinpwn (Vuln Scanner)
-│   │   ├─ PowerView / PowerView-Dev
+│   │   ├─ rustup
+│   │   ├─ pipx
+│   │   ├─ ldapdomaindump
+│   │   ├─ NetExec
+│   │   ├─ impacket
+│   │   ├─ adidnsdump
+│   │   ├─ certi
+│   │   ├─ Certipy
+│   │   ├─ bloodhound.py
+│   │   ├─ ldeep
+│   │   ├─ pre2k
+│   │   ├─ certsync
+│   │   ├─ hekatomb
+│   │   ├─ MANSPIDER
+│   │   ├─ Coercer
+│   │   ├─ bloodyAD
+│   │   ├─ DonPAPI
+│   │   ├─ rdwatool
+│   │   ├─ krbjack
+│   │   ├─ windapsearch
+│   │   ├─ kerbrute
+│   │   ├─ enum4linux-ng.py
+│   │   ├─ CVE-2022-33679.py
+│   │   ├─ silenthound.py
+│   │   ├─ targetedKerberoast.py
+│   │   ├─ FindUncommonShares.py
+│   │   ├─ ExtractBitlockerKeys.py
+│   │   ├─ ldapconsole.py
+│   │   ├─ pyLDAPmonitor.py
+│   │   ├─ LDAPWordlistHarvester.py
+│   │   ├─ aced.zip
+│   │   ├─ sccmhunter.zip
+│   │   ├─ ldapper.py
+│   │   ├─ utilities.py
+│   │   ├─ queries.py
+│   │   ├─ ldap_connector.py
+│   │   ├─ WinPwn.exe
+│   │   ├─ WinPwn.ps1
+│   │   ├─ linWinPwn
+│   │   ├─ PowerView.ps1
 │   │   ├─ ADModule
 │   │   ├─ bloodhound
-│   │   ├─ knwosmore
-│   │   ├─ Invoke-Portscan
-│   │   ├─ Invoke-ADEnum
-│   │   ├─ adPEAS
-│   │   └─ SharpHound
-│   ├─ Phishing
-│   │   ├─ evilginx2
-│   │   ├─ gophish
-│   │   └─ PyPhisher
-│   ├─ File Transfer
-│   │   ├─ HFS
-│   │   ├─ netcat (nc.exe)
-│   │   └─ updog
-│   ├─ Evasion
-│   │   ├─ freeze
-│   │   ├─ Shellter
-│   │   └─ invisi_shell
-│   ├─ Windows Privilege Escalation Tools
-│   │   ├─ PowerUp
-│   │   ├─ PowerUpSQL
-│   │   ├─ Get-System
-│   │   ├─ PrivescCheck
-│   │   └─ winPEAS (All Versions)
-│   ├─ Ghostpack-CompiledBinaries
+│   │   ├─ knowsmore
+│   │   ├─ Invoke-Portscan.ps1
+│   │   ├─ SharpHound
+│   │   ├─ Invoke-ADEnum.ps1
+│   │   ├─ adPEAS.ps1
+│   │   ├─ nc.exe (copiato)
+│   │   ├─ updog
+│   │   ├─ jq
+│   │   └─ HFS.exe
 │   │   ├─ Certify.exe
 │   │   ├─ Koh.exe
 │   │   ├─ LockLess.exe
@@ -99,7 +122,18 @@ Choose an option:
 │   │   ├─ SharpDump.exe
 │   │   ├─ SharpRoast.exe
 │   │   ├─ SharpUp.exe
-│   │   └─ SharpWMI.exe
+│   │   ├─ SharpWMI.exe
+│   │   └─ LaZagne.exe
+│   ├─ Phishing
+│   │   ├─ evilginx2
+│   │   ├─ gophish
+│   │   └─ PyPhisher
+│   ├─ Windows Privilege Escalation Tools
+│   │   ├─ PowerUp
+│   │   ├─ PowerUpSQL
+│   │   ├─ Get-System
+│   │   ├─ PrivescCheck
+│   │   └─ winPEAS (All Versions)
 │   └─ Linux Privilege Escalation Tools
 │       ├─ LinEnum
 │       ├─ linPEAS
