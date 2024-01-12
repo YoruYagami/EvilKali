@@ -108,7 +108,6 @@ Choose an option:
 │   │   ├─ adPEAS.ps1
 │   │   ├─ nc.exe (copiato)
 │   │   ├─ updog
-│   │   ├─ jq
 │   │   ├─ HFS.exe
 │   │   ├─ Certify.exe
 │   │   ├─ Koh.exe
