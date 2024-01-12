@@ -138,6 +138,7 @@ Choose an option:
 │       ├─ LinEnum
 │       ├─ linPEAS
 │       ├─ AutoSUID
+│       ├─ GTFONow
 │       ├─ lse (Linux Smart Enumeration)
 │       └─ pspy32/64
 ├─ Application Security

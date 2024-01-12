@@ -1156,6 +1156,18 @@ function download_autoSUID() {
     sleep 2
 }
 
+function download_GTFONow() {
+    mkdir -p $HOME/tools/linux/
+    if [ -f $HOME/tools/linux/gtfonow.py ]; then
+        echo -e "${RED}GTFONow is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Downloading GTFONow${NC}"
+        curl -sS https://github.com/Frissi0n/GTFONow/releases/latest/download/gtfonow.py -o $HOME/tools/linux/gtfonow.py
+        echo -e "${GREEN}GTFONow downloaded successfully.${NC}"
+    fi
+    sleep 2
+}
+
 function download_linuxsmartenumeration() {
     mkdir -p $HOME/tools/linux/
     if [ -f $HOME/tools/linux/lse.sh ]; then
@@ -1190,6 +1202,7 @@ function download_install_all_Linux_Privilege_Escalation_tools() {
     download_LinPeas
     download_linuxsmartenumeration
     download_autoSUID
+    download_GTFONow
     download_pspy
 }
 
@@ -1226,7 +1239,8 @@ echo
         2) download_LinPeas; Linux_Privilege_Escalation_Tools;;
         3) download_linuxsmartenumeration; Linux_Privilege_Escalation_Tools;;
         4) download_autoSUID; Linux_Privilege_Escalation_Tools;;
-        5) download_pspy; Linux_Privilege_Escalation_Tools;;
+        5) download_GTFONow; Linux_Privilege_Escalation_Tools;;
+        6) download_pspy; Linux_Privilege_Escalation_Tools;;
         A) download_install_all_Linux_Privilege_Escalation_tools; Linux_Privilege_Escalation_Tools;;
         0) red_team_menu;;
         *) echo "Invalid option"; Linux_Privilege_Escalation_Tools;;
