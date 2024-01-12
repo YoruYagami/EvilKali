@@ -664,10 +664,10 @@ function download_Install_windows-resource() {
 
     # Download PowerView
     if [ -f $HOME/tools/windows/PowerView.ps1 ]; then
-        echo -e "${RED}PowerView has already been copied.${NC}"
+        echo -e "${RED}PowerView has already been downloaded.${NC}"
     else
-        curl -sS 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1' -o $HOME/tools/windows/PowerView.ps1 &> /dev/null
-        curl -sS 'https://raw.githubusercontent.com/lucky-luk3/ActiveDirectory/master/PowerView-Dev.ps1' -o $HOME/tools/windows/PowerView-Dev.ps1 &> /dev/null
+        wget -q -O $HOME/tools/windows/PowerView.ps1 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1'
+        wget -q -O $HOME/tools/windows/PowerView-Dev.ps1 'https://raw.githubusercontent.com/lucky-luk3/ActiveDirectory/master/PowerView-Dev.ps1'
         echo -e "${GREEN}PowerView has been downloaded successfully.${NC}"
         sleep 2 
     fi
@@ -679,7 +679,6 @@ function download_Install_windows-resource() {
         git clone 'https://github.com/samratashok/ADModule.git' $HOME/tools/windows/ADModule &> /dev/null
         echo -e "${GREEN}ADModule downloaded successfully.${NC}"
         sleep 2
-    fi
 
     # Install Bloodhound
     if dpkg -s bloodhound &> /dev/null; then
@@ -711,9 +710,11 @@ function download_Install_windows-resource() {
     if [ -f $HOME/tools/windows/Invoke-Portscan.ps1 ]; then
         echo -e "${RED}Invoke_PortScan has already been copied.${NC}"
     else
-        curl -sS 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/Invoke-Portscan.ps1' -o $HOME/tools/windows/Invoke-Portscan.ps1 &> /dev/null
+        wget -q -O $HOME/tools/windows/Invoke-Portscan.ps1 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/Invoke-Portscan.ps1'
         echo -e "${GREEN}Invoke_PortScan has been downloaded successfully.${NC}"
         sleep 2
+    fi
+
     fi
 
     # Installing SharpHounds
@@ -737,17 +738,16 @@ function download_Install_windows-resource() {
         echo -e "${RED}ADEnum is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading ADEnum${NC}"
-        curl -sS 'https://raw.githubusercontent.com/Leo4j/Invoke-ADEnum/main/Invoke-ADEnum.ps1' -o $HOME/tools/windows/Invoke-ADEnum.ps1 &> /dev/null
+        wget -q -O $HOME/tools/windows/Invoke-ADEnum.ps1 'https://raw.githubusercontent.com/Leo4j/Invoke-ADEnum/main/Invoke-ADEnum.ps1'
         echo -e "${GREEN}ADEnum downloaded successfully.${NC}"
         sleep 2
-
 
     # Downloading adPEAS
     if [ -f $HOME/tools/windows/adPEAS.ps1 ]; then
         echo -e "${RED}adPEAS is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading adPEAS${NC}"
-        curl -sS 'https://raw.githubusercontent.com/61106960/adPEAS/main/adPEAS.ps1' -o $HOME/tools/windows/adPEAS.ps1 &> /dev/null
+        wget -q -O $HOME/tools/windows/adPEAS.ps1 'https://raw.githubusercontent.com/61106960/adPEAS/main/adPEAS.ps1'
         echo -e "${GREEN}adPEAS downloaded successfully.${NC}"
         sleep 2
     fi
@@ -888,8 +888,8 @@ echo
         1) command_and_control;;
         2) download_Install_windows-resource;red_team_menu;;
         3) phishing;;
-        5) Windows_Privilege_Escalation_Tools;;
-        6) Linux_Privilege_Escalation_Tools;;
+        4) Windows_Privilege_Escalation_Tools;;
+        5) Linux_Privilege_Escalation_Tools;;
         *) echo "Invalid option"; red_team_menu;;
     esac
 }
@@ -1043,7 +1043,7 @@ function download_PrivescCheck() {
         echo -e "${RED}PrivEscCheck.ps1 is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading PrivescCheck.ps1${NC}"
-        curl -sS https://raw.githubusercontent.com/itm4n/PrivescCheck/master/PrivescCheck.ps1 -o $HOME/tools/windows/PrivescCheck.ps1
+        wget -q -O $HOME/tools/windows/PrivescCheck.ps1 https://raw.githubusercontent.com/itm4n/PrivescCheck/master/PrivescCheck.ps1
         echo -e "${GREEN}PrivEscCheck.ps1 downloaded successfully.${NC}"
     fi
     sleep 2
@@ -1060,9 +1060,9 @@ function download_WinPEAS() {
         else
             echo -e "${YELLOW}Downloading $i${NC}"
             if [ "$i" == "winPEAS.ps1" ]; then
-                curl -sS https://raw.githubusercontent.com/carlospolop/PEASS-ng/master/winPEAS/winPEASps1/winPEAS.ps1 -o $HOME/tools/windows/winPEAS.ps1
+                wget -q -O $HOME/tools/windows/winPEAS.ps1 https://raw.githubusercontent.com/carlospolop/PEASS-ng/master/winPEAS/winPEASps1/winPEAS.ps1
             else
-                wget -q "https://github.com/carlospolop/PEASS-ng/releases/latest/download/$i" -O $HOME/tools/windows/$i
+                wget -q -O $HOME/tools/windows/$i "https://github.com/carlospolop/PEASS-ng/releases/latest/download/$i"
             fi
             echo -e "${GREEN}$i downloaded successfully.${NC}"
         fi
@@ -1126,7 +1126,7 @@ function download_LinEnum() {
         echo -e "${RED}LinEnum.sh is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading LinEnum.sh${NC}"
-        curl -sS https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh -o $HOME/tools/linux/LinEnum.sh
+        wget -q -O $HOME/tools/linux/LinEnum.sh https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
         echo -e "${GREEN}LinEnum.sh downloaded successfully.${NC}"
     fi
     sleep 2
@@ -1138,7 +1138,7 @@ function download_LinPeas() {
         echo -e "${RED}linpeas.sh is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading linpeas.sh${NC}"
-        curl -sS https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh -o $HOME/tools/linux/linpeas.sh
+        wget -q -O $HOME/tools/linux/linpeas.sh https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh
         echo -e "${GREEN}linpeas.sh downloaded successfully.${NC}"
     fi
     sleep 2
@@ -1150,7 +1150,7 @@ function download_autoSUID() {
         echo -e "${RED}AutoSUID is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading AutoSUID${NC}"
-        curl -sS https://raw.githubusercontent.com/IvanGlinkin/AutoSUID/main/AutoSUID.sh -o $HOME/tools/linux/AutoSUID.sh
+        wget -q -O $HOME/tools/linux/AutoSUID.sh https://raw.githubusercontent.com/IvanGlinkin/AutoSUID/main/AutoSUID.sh
         echo -e "${GREEN}AutoSUID.sh downloaded successfully.${NC}"
     fi
     sleep 2
@@ -1162,11 +1162,13 @@ function download_GTFONow() {
         echo -e "${RED}GTFONow is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading GTFONow${NC}"
-        curl -sS https://github.com/Frissi0n/GTFONow/releases/latest/download/gtfonow.py -o $HOME/tools/linux/gtfonow.py
+        local file_url=$(curl -s https://api.github.com/repos/Frissi0n/GTFONow/releases/latest | jq -r '.assets[] | select(.name == "gtfonow.py") | .browser_download_url')
+        wget -q -O $HOME/tools/linux/gtfonow.py "$file_url"
         echo -e "${GREEN}GTFONow downloaded successfully.${NC}"
     fi
     sleep 2
 }
+
 
 function download_linuxsmartenumeration() {
     mkdir -p $HOME/tools/linux/
@@ -1174,7 +1176,7 @@ function download_linuxsmartenumeration() {
         echo -e "${RED}lse.sh is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading lse.sh${NC}"
-        curl -sS https://raw.githubusercontent.com/diego-treitos/linux-smart-enumeration/master/lse.sh -o $HOME/tools/linux/lse.sh
+        wget -q -O $HOME/tools/linux/lse.sh https://raw.githubusercontent.com/diego-treitos/linux-smart-enumeration/master/lse.sh
         echo -e "${GREEN}lse.sh downloaded successfully.${NC}"
     fi
     sleep 2
@@ -1190,7 +1192,7 @@ function download_pspy() {
             echo -e "${RED}$version is already downloaded.${NC}"
         else
             echo -e "${YELLOW}Downloading $version${NC}"
-            wget -q "https://github.com/DominicBreuker/pspy/releases/latest/download/$version" -O $HOME/tools/linux/$version
+            wget -q -O $HOME/tools/linux/$version "https://github.com/DominicBreuker/pspy/releases/latest/download/$version"
             echo -e "${GREEN}$version downloaded successfully.${NC}"
         fi
     done
@@ -1225,7 +1227,8 @@ echo
     echo -e " 2   -  Download linPEAS"
     echo -e " 3   -  Download LinuxSmartEnumeration"
     echo -e " 4   -  Download AutoSUID"
-    echo -e " 5   -  Download pspy32/pspy64"
+    echo -e " 5   -  Download GTFONow"
+    echo -e " 6   -  Download pspy32/pspy64"
     echo ""
     echo -e " A   -  Download/Install All Tools"
     echo ""
