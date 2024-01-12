@@ -1237,16 +1237,17 @@ function Bug_Bounty_Tools() {
         echo -e "${RED}Installing ProjectDiscovery's Open Source Tool Manager.${NC}"
         go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
         mv $HOME/go/bin/pdtm /usr/local/bin
-        pdtm -install-all
-        pdtm -update-all
+        pdtm -ia
+        pdtm -ua
     else
         echo -e "${GREEN}ProjectDiscovery's Open Source Tool Manager is already installed.${NC}"
         sleep 2
         echo -e "${GREEN}Updating all the tools${NC}"
-        pdtm -update-all
+        pdtm -ia
+        pdtm -ua
     fi
 
-    if ! command -v Axiom &> /dev/null; then
+    if ! command -v axiom-scan &> /dev/null; then
         echo -e "${RED}Installing Axiom now${NC}"
         
         PS3='Please enter your choice: '
@@ -1633,7 +1634,7 @@ function Bug_Bounty_Tools() {
     fi
     
     # Moving every go binary in /usr/local/bin
-    mv $HOME/go/bin/* /usr/local/bin
+    sudo mv $HOME/go/bin/* /usr/local/bin
 
     sleep 2
 }
@@ -1665,7 +1666,7 @@ echo
 
     case $option in
         0) main_menu;;
-        1) Bug_Bounty_Tools;;
+        1) Bug_Bounty_Tools; appsec_menu;;
         2) API_Tools;;
         3) Mobile_App_Tools;;
         A) install_all_appsectools; appsec_menu;;
