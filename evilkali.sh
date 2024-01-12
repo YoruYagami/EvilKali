@@ -771,25 +771,6 @@ function download_Install_windows-resource() {
         sleep 2
     fi
 
-    if ! command -v jq >/dev/null 2>&1; then
-        echo -e "${YELLOW}jq is not installed. Installing...${NC}"
-
-        # Check the Linux distribution
-        if command -v pacman &> /dev/null; then
-            echo -e "${YELLOW}Installing jq${NC}"
-            sudo pacman -Sy jq --noconfirm
-            echo -e "${GREEN}jq has been successfully installed.${NC}"
-        elif command -v apt-get &> /dev/null; then
-            echo -e "${YELLOW}Installing jq${NC}"
-            sudo apt-get install jq -y
-            echo -e "${GREEN}jq has been successfully installed.${NC}"
-        else
-            echo -e "${RED}Unsupported package manager. Please manually install jq.${NC}"
-            return 1
-        fi
-        sleep 2
-    fi
-
     # Download HFS (binary)
     if [ -f $HOME/tools/windows/hfs.exe ]; then
         echo -e "${RED}HFS is already downloaded.${NC}"
