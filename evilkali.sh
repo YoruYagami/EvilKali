@@ -1569,6 +1569,17 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}SSRFmap installed successfully${NC}"
     fi
 
+    if [ -d $HOME/tools/web_app/EyeWitness ]; then
+        echo -e "${RED}EyeWitness is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Downloading EyeWitness${NC}"
+        git clone https://github.com/RedSiege/EyeWitness.git $HOME/tools/web_app/EyeWitness &> /dev/null
+        echo -e "${GREEN}EyeWitness downloaded successfully.${NC}"
+        echo -e "${YELLOW}Installing EyeWitness${NC}"
+        HOME/tools/web_app/EyeWitness/Python/setup/setup.sh &> /dev/null
+        echo -e "${GREEN}EyeWitness installed successfully.${NC}"
+    fi
+
     if ! command -v paramspider &> /dev/null; then 
         echo -e "${YELLOW}Installing ParamSpider${NC}"
         git clone https://github.com/devanshbatham/paramspider.git $HOME/tools/web_app/paramspider &> /dev/null

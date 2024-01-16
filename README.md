@@ -180,6 +180,7 @@ Choose an option:
 │   │   ├─ qsreplace
 │   │   ├─ SSTImap
 │   │   ├─ SSRFmap
+│   │   ├─ EyeWitness
 │   │   ├─ headerpwn
 │   │   ├─ OpenRedireX
 │   │   ├─ ryder
