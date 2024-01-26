@@ -1577,7 +1577,7 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}EyeWitness downloaded successfully.${NC}"
         echo -e "${YELLOW}Installing EyeWitness${NC}"
         HOME/tools/web_app/EyeWitness/Python/setup/setup.sh &> /dev/null
-        
+        echo -e "${GREEN}EyeWitness installed successfully.${NC}"
     fi
 
     if ! command -v paramspider &> /dev/null; then 
