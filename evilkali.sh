@@ -1577,7 +1577,7 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}EyeWitness downloaded successfully.${NC}"
         echo -e "${YELLOW}Installing EyeWitness${NC}"
         HOME/tools/web_app/EyeWitness/Python/setup/setup.sh &> /dev/null
-        echo -e "${GREEN}EyeWitness installed successfully.${NC}"
+        
     fi
 
     if ! command -v paramspider &> /dev/null; then 
@@ -2029,7 +2029,7 @@ EOF
                 ;;
             2)
                 echo -e "${YELLOW}Pulling Mobile-Security-Framework-MobSF from Docker${NC}"
-                docker pull opensecurity/mobile-security-framework-mobsf:latest
+                sudo docker pull opensecurity/mobile-security-framework-mobsf:latest
                 echo -e "${GREEN}Mobile-Security-Framework-MobSF Docker image pulled successfully.${NC}"
                 ;;
             *)
