@@ -1986,7 +1986,7 @@ function install_MobSF() {
 read -p \"Would you like to start MobSF? [Y/n] \" response
 if [[ \"\$response\" =$~ ^([yY][eE][sS]|[yY])+$ ]]
 then
-    docker run -it --rm -p 8000:8000 opensecurity/mobile-security-framework-mobsf:latest
+    sudo docker run -it --rm -p 8000:8000 opensecurity/mobile-security-framework-mobsf:latest
 else
     echo \"MobSF will not be started. Run this script again if you change your mind.\"
 fi
@@ -2000,7 +2000,7 @@ ${NC}"
 read -p "Would you like to start MobSF? [Y/n] " response
 if [[ "\$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
-    docker run -it --rm -p 8000:8000 opensecurity/mobile-security-framework-mobsf:latest
+    sudo docker run -it --rm -p 8000:8000 opensecurity/mobile-security-framework-mobsf:latest
 else
     echo "MobSF will not be started. Run this script again if you change your mind."
 fi
