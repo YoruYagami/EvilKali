@@ -835,7 +835,16 @@ function download_Install_windows-resource() {
         echo -e "${RED}LaZagne.exe URL not found in the latest release.${NC}"
     sleep 2
     fi
-    
+
+    # Download PsMapExec
+    if [ -f $HOME/tools/windows/PsMapExec.ps1 ]; then
+        echo -e "${RED}PsMapExec is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Downloading PsMapExec${NC}"
+        wget -q -O $HOME/tools/windows/PsMapExec.ps1 'https://raw.githubusercontent.com/The-Viper-One/PsMapExec/main/PsMapExec.ps1'
+        echo -e "${GREEN}PsMapExec downloaded successfully.${NC}"
+        sleep 2
+    fi
 fi
 }
 

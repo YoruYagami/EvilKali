@@ -122,7 +122,8 @@ Choose an option:
 │   │   ├─ SharpRoast.exe
 │   │   ├─ SharpUp.exe
 │   │   ├─ SharpWMI.exe
-│   │   └─ LaZagne.exe
+│   │   ├─ LaZagne.exe
+│   │   └─ PsMapExec.ps1
 │   ├─ Phishing
 │   │   ├─ evilginx2
 │   │   ├─ gophish
