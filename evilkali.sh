@@ -752,6 +752,16 @@ function download_Install_windows-resource() {
         sleep 2
     fi
 
+    # Download adPEAS-Light.ps1
+    if [ -f $HOME/tools/windows/adPEAS-Light.ps1 ]; then
+        echo -e "${RED}adPEAS-Light is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Downloading adPEAS-Light${NC}"
+        wget -q -O $HOME/tools/windows/adPEAS-Light.ps1 'https://raw.githubusercontent.com/61106960/adPEAS/main/adPEAS-Light.ps1'
+        echo -e "${GREEN}adPEAS-Light downloaded successfully.${NC}"
+        sleep 2
+    fi
+
     # Downloading netcat (binary)
     if [ -f $HOME/tools/windows/nc.exe ]; then
         echo -e "${RED}nc.exe is already copied.${NC}"

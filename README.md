@@ -106,6 +106,7 @@ Choose an option:
 │   │   ├─ SharpHound
 │   │   ├─ Invoke-ADEnum.ps1
 │   │   ├─ adPEAS.ps1
+│   │   ├─ adPEAS-Light.ps1
 │   │   ├─ nc.exe (copiato)
 │   │   ├─ updog
 │   │   ├─ HFS.exe
