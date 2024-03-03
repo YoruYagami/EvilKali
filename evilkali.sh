@@ -118,7 +118,7 @@ function download_empire() {
     if [ -d $HOME/tools/C2/Empire ]; then
         echo -e "${RED}Empire is already installed.${NC}"
     else
-        echo -e "${YELLOW}Do you want to download Empire from GitHub or install it via 'sudo apt install powershell-empire'? (github/apt)"
+        echo -e "${YELLOW}Do you want to download Empire from GitHub or install it via apt? (github/apt)"
         read -p "Enter your choice: " choice
         case $choice in
             "github")
@@ -130,7 +130,7 @@ function download_empire() {
                 ./setup/install.sh
                 ;;
             "apt")
-                echo -e "${YELLOW}Installing Empire via 'sudo apt install powershell-empire'${NC}"
+                echo -e "${YELLOW}Installing Empire via 'apt'${NC}"
                 sudo apt install powershell-empire
                 echo -e "${GREEN}Empire installed successfully.${NC}"
                 ;;
@@ -140,21 +140,24 @@ function download_empire() {
         esac
     fi
 
-    # Ask the user if they want to install Starkiller
-    read -p "Do you want to install Starkiller? (y/n) " yn
-    case $yn in
-        [Yy]* )
-            echo -e "${YELLOW}Installing Starkiller from GitHub${NC}"
+    # Ask the user if they want to download/install Starkiller
+    echo -e "${YELLOW}Do you want to download/install Starkiller from GitHub or install it via 'apt'? (github/apt)"
+    read -p "Enter your choice: " starkiller_choice
+    case $starkiller_choice in
+        "github")
+            echo -e "${YELLOW}Downloading Starkiller from GitHub${NC}"
             git clone 'https://github.com/BC-SECURITY/Starkiller.git' $HOME/tools/C2/Starkiller
             echo -e "${GREEN}Starkiller downloaded successfully.${NC}"
             echo -e "${YELLOW}Installing yarn and nodejs dependencies${NC}"
             sudo apt install yarn -y
             sudo apt install nodejs -y
             ;;
-        [Nn]* )
-            echo -e "${GREEN}Skipping Starkiller installation.${NC}"
+        "apt")
+            echo -e "${YELLOW}Installing Starkiller via 'apt'${NC}"
+            sudo apt install starkiller
+            echo -e "${GREEN}Starkiller installed successfully.${NC}"
             ;;
-        * )
+        *)
             echo -e "${RED}Invalid choice. Skipping Starkiller installation.${NC}"
             ;;
     esac
