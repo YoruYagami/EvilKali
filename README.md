@@ -52,8 +52,7 @@ Choose an option:
 ```
 ├─ Red Team Operations
 │   ├─ C2 Framework
-│   │   ├─ Villain
-│   │   ├─ Covenant
+│   │   ├─ Powershell-Empire + Starkiller
 │   │   ├─ Havoc Framework
 │   │   ├─ AM0N-Eye
 │   │   ├─ Sliver Framework
@@ -61,6 +60,9 @@ Choose an option:
 │   ├─ Windows-Resources
 │   │   ├─ rustup
 │   │   ├─ pipx
+│   │   ├─ nmap-formatter
+│   │   ├─ AD-Miner
+│   │   ├─ sprayhound
 │   │   ├─ ldapdomaindump
 │   │   ├─ NetExec
 │   │   ├─ impacket
@@ -99,6 +101,7 @@ Choose an option:
 │   │   ├─ WinPwn.ps1
 │   │   ├─ linWinPwn
 │   │   ├─ PowerView.ps1
+│   │   ├─ InvokeSessionHunter.ps1
 │   │   ├─ ADModule
 │   │   ├─ bloodhound
 │   │   ├─ knowsmore
@@ -189,7 +192,9 @@ Choose an option:
 │   │   ├─ paramspider
 │   │   ├─ smap
 │   │   ├─ userefuzz
-│   │   └─ dontgo403
+│   │   ├─ dontgo403
+│   │   ├─ pphack
+│   │   └─ apachetomcatscanner
 │   ├─ API Penetration Testing Tools
 │   │   ├─ mitmproxy2swagger
 │   │   ├─ postman

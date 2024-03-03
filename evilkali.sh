@@ -69,6 +69,7 @@ declare -A essentials=(
     ["neovim"]="nvim"
     ["golang-go"]="go"
     ["uuid-runtime"]="uuidgen"
+    ["gcc"]="gcc"
 )
 
 # Function to ask user confirmation
@@ -111,27 +112,52 @@ if [ ${#missing[@]} -gt 0 ]; then
 fi
 
 # --[ Command and Control ]--
-function download_villain() {
-    mkdir -p $HOME/tools/C2
-    if [ -d $HOME/tools/C2/Villain ]; then
-        echo -e "${RED}Villain is already installed.${NC}"
-    else
-        echo -e "${YELLOW}Downloading Villain${NC}"
-        git clone 'https://github.com/t3l3machus/Villain.git' $HOME/tools/C2/Villain 
-    fi
-    sleep 2
-}
 
-function download_covenant() {
+function download_empire() {
     mkdir -p $HOME/tools/C2
-    if [ -d $HOME/tools/C2/Covenant ]; then
-        echo -e "${RED}Covenant is already installed.${NC}"
+    if [ -d $HOME/tools/C2/Empire ]; then
+        echo -e "${RED}Empire is already installed.${NC}"
     else
-        echo -e "${YELLOW}Downloading Covenant${NC}"
-        git clone --recurse-submodules https://github.com/cobbr/Covenant $HOME/tools/C2/Covenant 
-        echo -e "${GREEN}Covenant downloaded successfully.${NC}"
+        echo -e "${YELLOW}Do you want to download Empire from GitHub or install it via 'sudo apt install powershell-empire'? (github/apt)"
+        read -p "Enter your choice: " choice
+        case $choice in
+            "github")
+                echo -e "${YELLOW}Downloading Empire from GitHub${NC}"
+                git clone --recursive 'https://github.com/BC-SECURITY/Empire.git' $HOME/tools/C2/Empire
+                echo -e "${GREEN}Empire downloaded successfully.${NC}"
+                cd $HOME/tools/C2/Empire
+                ./setup/checkout-latest-tag.sh
+                ./setup/install.sh
+                ;;
+            "apt")
+                echo -e "${YELLOW}Installing Empire via 'sudo apt install powershell-empire'${NC}"
+                sudo apt install powershell-empire
+                echo -e "${GREEN}Empire installed successfully.${NC}"
+                ;;
+            *)
+                echo -e "${RED}Invalid choice. Skipping Empire installation.${NC}"
+                ;;
+        esac
     fi
-    sleep 2
+
+    # Ask the user if they want to install Starkiller
+    read -p "Do you want to install Starkiller? (y/n) " yn
+    case $yn in
+        [Yy]* )
+            echo -e "${YELLOW}Installing Starkiller from GitHub${NC}"
+            git clone 'https://github.com/BC-SECURITY/Starkiller.git' $HOME/tools/C2/Starkiller
+            echo -e "${GREEN}Starkiller downloaded successfully.${NC}"
+            echo -e "${YELLOW}Installing yarn and nodejs dependencies${NC}"
+            sudo apt install yarn -y
+            sudo apt install nodejs -y
+            ;;
+        [Nn]* )
+            echo -e "${GREEN}Skipping Starkiller installation.${NC}"
+            ;;
+        * )
+            echo -e "${RED}Invalid choice. Skipping Starkiller installation.${NC}"
+            ;;
+    esac
 }
 
 function download_Havoc() {
@@ -204,8 +230,7 @@ function install_pwncat() {
 }
 
 function download_install_all_c2_tools() {
-    download_villain
-    download_covenant
+    download_empire
     download_Havoc
     download_AM0N-Eye
     install_sliver
@@ -228,12 +253,11 @@ echo
         echo -e "\n Select an option from menu:"
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
-    echo -e " 1   -  Download Villain"
-    echo -e " 2   -  Download Covenant"
-    echo -e " 3   -  Download Havoc"
-    echo -e " 4   -  Download AM0N-Eye"
-    echo -e " 5   -  Install Sliver"
-    echo -e " 6   -  Install pwncat-cs"
+    echo -e " 1   -  Powershell-Empire + Starkiller"
+    echo -e " 2   -  Download Havoc"
+    echo -e " 3   -  Download AM0N-Eye"
+    echo -e " 4   -  Install Sliver"
+    echo -e " 5   -  Install pwncat-cs"
     echo ""
     echo -e " A   -  Download/Install All Tools"
     echo ""
@@ -243,12 +267,11 @@ echo
     read option
 
     case $option in
-        1) download_villain; command_and_control;;
-        2) download_covenant; command_and_control;;
-        3) download_Havoc; command_and_control;;
-        4) download_AM0N-Eye; command_and_control;;
-        5) install_Sliver; command_and_control;;
-        6) install_pwncat; command_and_control;;
+        1) download_empire; command_and_control;;
+        2) download_Havoc; command_and_control;;
+        3) download_AM0N-Eye; command_and_control;;
+        4) install_Sliver; command_and_control;;
+        5) install_pwncat; command_and_control;;
         A) download_install_all_c2_tools; command_and_control;;
         0) red_team_menu;;
         *) echo "Invalid option"; command_and_control;;
@@ -275,6 +298,30 @@ function download_Install_windows-resource() {
         echo "$HOME/.local/bin is already in PATH"
     fi
 
+    if ! command -v nmap-formatter &> /dev/null; then
+        echo -e "${YELLOW}Installing nmap-formatter${NC}"
+        go install github.com/vdjagilev/nmap-formatter@latest
+        echo -e "${GREEN}nmap-formatter installed successfully.${NC}"
+    else
+        echo -e "${RED}nmap-formatter is already installed.${NC}"
+    fi
+
+    if ! command -v AD-miner &> /dev/null; then
+        echo -e "${YELLOW}Installing AD_Miner${NC}" 
+        pipx install 'git+https://github.com/Mazars-Tech/AD_Miner.git'
+        echo -e "${GREEN}AD_Miner installed successfully"
+    else
+        echo -e "${RED}AD_Miner is already installed"
+    fi
+
+    if ! command -v sprayhound &> /dev/null; then
+        echo -e "${YELLOW}Installing sprayhound${NC}"
+        python3 -m pip install sprayhound
+        echo -e "${GREEN}sprayhound installed successfully"
+    else
+        echo -e "${RED}sprayhound is already installed"
+    fi
+
     if ! command -v ldapdomaindump &> /dev/null; then
         echo -e "${YELLOW}Installing ldapdomaindump${NC}"
         pipx install git+https://github.com/dirkjanm/ldapdomaindump.git --force &> /dev/null
@@ -291,12 +338,16 @@ function download_Install_windows-resource() {
         echo -e "${RED}NetExec is already installed.${NC}"
     fi
 
-    if ! command -v impacket &> /dev/null; then
-        echo -e "${YELLOW}Installing impacket${NC}"
-        pipx install git+https://github.com/fortra/impacket.git --force &> /dev/null
-        echo -e "${GREEN}impacket installed successfully.${NC}"
+    if pipx list | grep -i 'impacket' &> /dev/null; then
+        echo -e "${RED}impacket is already installed via pipx.${NC}"
     else
-        echo -e "${RED}impacket is already installed.${NC}"
+        echo -e "${YELLOW}Installing impacket via pipx${NC}"
+        pipx install git+https://github.com/fortra/impacket.git --force &> /dev/null
+        if [ $? -eq 0 ]; then
+            echo -e "${GREEN}impacket installed successfully via pipx.${NC}"
+        else
+            echo -e "${RED}Failed to install impacket via pipx.${NC}"
+        fi
     fi
 
     if ! command -v adidnsdump &> /dev/null; then
@@ -422,7 +473,7 @@ function download_Install_windows-resource() {
         sleep 2
     fi
 
-    if [ -f $HOME/tools/windows/impacket-scripts//kerbrute ]; then
+    if [ -f $HOME/tools/windows/impacket-scripts/kerbrute ]; then
         echo -e "${RED}kerbrute is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading kerbrute${NC}"
@@ -672,6 +723,16 @@ function download_Install_windows-resource() {
         sleep 2 
     fi
 
+    # Invoke-SessionHunter
+    if [ -f $HOME/tools/windows/Invoke-SessionHunter.ps1 ]; then
+        echo -e "${RED}Invoke-SessionHunter.ps1 is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Downloading Invoke-SessionHunter.ps1${NC}"
+        wget -q -O $HOME/tools/windows/adPEAS.ps1 'https://raw.githubusercontent.com/Leo4j/Invoke-SessionHunter/main/Invoke-SessionHunter.ps1'
+        echo -e "${GREEN}Invoke-SessionHunter.ps1 downloaded successfully.${NC}"
+        sleep 2
+    fi
+
     # Download ADModule
     if [ -d $HOME/tools/windows/ADModule ]; then
         echo -e "${RED}ADModule is already downloaded.${NC}"
@@ -708,7 +769,7 @@ function download_Install_windows-resource() {
     fi
 
     if [ -f $HOME/tools/windows/Invoke-Portscan.ps1 ]; then
-        echo -e "${RED}Invoke_PortScan has already been copied.${NC}"
+        echo -e "${RED}Invoke_PortScan has already been downloaded.${NC}"
     else
         wget -q -O $HOME/tools/windows/Invoke-Portscan.ps1 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/Invoke-Portscan.ps1'
         echo -e "${GREEN}Invoke_PortScan has been downloaded successfully.${NC}"
@@ -1661,6 +1722,20 @@ function Bug_Bounty_Tools() {
         wget -q "$RELEASE_URL" -O $HOME/tools/web_app/dontgo403 &> /dev/null
         chmod +x $HOME/tools/web_app/dontgo403
         echo -e "${GREEN}dontgo403 downloaded successfully.${NC}"
+    fi
+
+    if command -v pphack &> /dev/null; then
+        echo -e "${RED}pphack is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing pphack${NC}"
+        go install github.com/edoardottt/pphack/cmd/pphack@latest &> /dev/null
+        echo -e "${GREEN}pphack installed successfully.${NC}"
+    fi
+
+    if command -v apachetomcatscanner $> /dev/null; then
+        echo -e "${RED}apachetomcatscanner is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing apachetomcatscanner"
     fi
     
     # Moving every go binary in /usr/local/bin
