@@ -2326,6 +2326,8 @@ function install_sploitscan() {
         sudo chmod +x /usr/local/bin/sploitscan
         echo -e "${GREEN}sploitscan installed successfully.${NC}"
         echo -e "To run sploitscan, use the following command: sploitscan \"CVE-XXX-XXX\""
+        echo -e "${RED}Removing previous SploitScan folder${NC}"
+        rm -rf SploitScan
     fi
 }
 
