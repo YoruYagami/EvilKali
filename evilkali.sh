@@ -2312,26 +2312,21 @@ function install_vscode() {
     fi
 }
 
-function install_kali_clean() {
-    # Create a temporary directory
-    TEMP_DIR=$(mktemp -d)
-
-    # Clone the git repository
-    echo "${YELLOW}Cloning kali-clean repository...${NC}"
-    git clone https://github.com/xct/kali-clean.git $TEMP_DIR/kali-clean
-
-    # Change the permissions of install.sh to make it executable
-    echo "${YELLOW}Changing permissions of install.sh...${NC}"
-    chmod +x $TEMP_DIR/kali-clean/install.sh
-
-    # Run install.sh
-    echo "${YELLOW}Running install.sh...${NC}"
-    $TEMP_DIR/kali-clean/install.sh
-
-    # Remove the temporary directory
-    rm -rf $TEMP_DIR
-
-    echo "${GREEN}Installation of kali-clean is complete. Please Reboot your kali machine${NC}"
+function install_sploitscan() {
+    if [ -x "/usr/local/bin/sploitscan" ]; then
+        echo -e "${RED}sploitscan is already installed.${NC}"
+    else
+        echo -e "${RED}Downloading SploitScan${NC}"
+        git clone 'https://github.com/xaitax/SploitScan.git'
+        echo -e "${GREEN}Installing requirements${NC}"
+        pip3 install -r SploitScan/requirements.txt
+        echo -e "${GREEN}Moving sploitscan.py${NC}"
+        mv SploitScan/sploitscan.py /usr/local/bin/sploitscan
+        echo -e "${GREEN}Setting execution permissions${NC}"
+        sudo chmod +x /usr/local/bin/sploitscan
+        echo -e "${GREEN}sploitscan installed successfully.${NC}"
+        echo -e "To run sploitscan, use the following command: sploitscan \"CVE-XXX-XXX\""
+    fi
 }
 
 function install_arsenal() {
@@ -2400,7 +2395,7 @@ echo
     echo -e "---      -------------------------"
     echo -e " 1    -  Run PimpMyKali"
     echo -e " 2    -  Install Visual Studio Code"
-    echo -e " 3    -  Install xct/kali-clean"
+    echo -e " 3    -  Install SploitScan"
     echo -e " 4    -  Orange-Cyberdefense/arsenal"
     echo ""
     echo -e "${BLUE} 0    -  Back to Main Menu"${NC}
@@ -2412,7 +2407,7 @@ echo
         0) main_menu;;
         1) run_pimpmykali; miscellaneous_menu;;
         2) install_vscode; miscellaneous_menu;;
-        3) install_kali_clean; miscellaneous_menu;;
+        3) install_sploitscan; miscellaneous_menu;;
         4) install_arsenal; miscellaneous_menu;;
         *) echo "Invalid option"; miscellaneous_menu;;
     esac

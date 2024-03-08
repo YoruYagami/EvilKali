@@ -218,7 +218,7 @@ Choose an option:
 └─ Miscellaneous
     ├─ Pimpmykali
     ├─ Visual Studio Code
-    ├─ xct/kali-clean
+    ├─ SploitScan
     └─ Orange-Cyberdefense/arsenal
 
 ```
