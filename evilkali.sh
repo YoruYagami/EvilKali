@@ -276,7 +276,7 @@ echo
         4) install_Sliver; command_and_control;;
         5) install_pwncat; command_and_control;;
         A) download_install_all_c2_tools; command_and_control;;
-        0) red_team_menu;;
+        0) active_directory_menu;;
         *) echo "Invalid option"; command_and_control;;
     esac
 }
@@ -761,16 +761,6 @@ function download_Install_windows-resource() {
         fi
     fi
 
-    # Installing knwosmore
-    if command -v knowsmore &> /dev/null; then
-        echo -e "${RED}knowsmore is already installed.${NC}"
-    else
-        echo -e "${YELLOW}installing knowsmore${NC}"
-        pip3 install knowsmore &> /dev/null
-        echo -e "${GREEN}knowsmore installed successfully.${NC}"
-        sleep 2
-    fi
-
     if [ -f $HOME/tools/windows/Invoke-Portscan.ps1 ]; then
         echo -e "${RED}Invoke_PortScan has already been downloaded.${NC}"
     else
@@ -919,25 +909,34 @@ function download_Install_windows-resource() {
         echo -e "${GREEN}PsMapExec downloaded successfully.${NC}"
         sleep 2
     fi
+
+    if command -v lsassy &> /dev/null; then
+        echo -e "${RED}lsassy is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing lsassy${NC}"
+        pip3 install lsassy &> /dev/null
+        echo -e "${GREEN}lsassy installed successfully.${NC}"
+        sleep 2
+    fi 
 fi
 }
 
-function red_team_menu() {
+function active_directory_menu() {
     clear
     echo -e ""
     cat << "EOF"
-__________           .___ ___________                     ________               
-\______   \ ____   __| _/ \__    ___/___ _____    _____   \_____  \ ______  ______
- |       _// __ \ / __ |    |    |_/ __ \\__  \  /     \   /   |   \\____ \/  ___/
- |    |   \  ___// /_/ |    |    |\  ___/ / __ \|  Y Y  \ /    |    \  |_> >___ \ 
- |____|_  /\___  >____ |    |____| \___  >____  /__|_|  / \_______  /   __/____  >
-        \/     \/     \/               \/     \/      \/          \/|__|       \/ 
+   _____          __  .__               ________  .__                       __                       
+  /  _  \   _____/  |_|__|__  __ ____   \______ \ |__|______   ____   _____/  |_  ___________ ___.__.
+ /  /_\  \_/ ___\   __\  \  \/ // __ \   |    |  \|  \_  __ \_/ __ \_/ ___\   __\/  _ \_  __ <   |  |
+/    |    \  \___|  | |  |\   /\  ___/   |    `   \  ||  | \/\  ___/\  \___|  | (  <_> )  | \/\___  |
+\____|__  /\___  >__| |__| \_/  \___  > /_______  /__||__|    \___  >\___  >__|  \____/|__|   / ____|
+        \/     \/                   \/          \/                \/     \/                   \/     
 EOF
 echo
     echo -e "Key      Menu Option:"
     echo -e "---      -------------------------"
     echo -e " 1    -  C2 Frameworks"
-    echo -e " 2    -  Download/Install Windows Red Teaming Arsenal"
+    echo -e " 2    -  Windows Active Directory Arsenal (direct install)"
     echo -e " 3    -  Phishing"
     echo -e " 4    -  Windows Privilege Escalation Tools"
     echo -e " 5    -  Linux Privilege Escalation Tools"
@@ -950,11 +949,11 @@ echo
     case $option in
         0) main_menu;;
         1) command_and_control;;
-        2) download_Install_windows-resource;red_team_menu;;
+        2) download_Install_windows-resource;active_directory_menu;;
         3) phishing;;
         4) Windows_Privilege_Escalation_Tools;;
         5) Linux_Privilege_Escalation_Tools;;
-        *) echo "Invalid option"; red_team_menu;;
+        *) echo "Invalid option"; active_directory_menu;;
     esac
 }
 
@@ -1059,7 +1058,7 @@ echo
         2) download_gophish; phishing;;
         3) download_PyPhisher; phishing;;
         A) download_install_all_phishing_tools; phishing;;
-        0) red_team_menu;;
+        0) active_directory_menu;;
         *) echo "Invalid option"; phishing;;
     esac
 }
@@ -1178,7 +1177,7 @@ echo
         4) download_PrivescCheck; Windows_Privilege_Escalation_Tools;;
         5) download_WinPEAS; Windows_Privilege_Escalation_Tools;;
         A) download_install_all_Windows_Privilege_Escalation_tools; Windows_Privilege_Escalation_Tools;;
-        0) red_team_menu;;
+        0) active_directory_menu;;
         *) echo "Invalid option"; Windows_Privilege_Escalation_Tools;;
     esac
 }
@@ -1309,7 +1308,7 @@ echo
         5) download_GTFONow; Linux_Privilege_Escalation_Tools;;
         6) download_pspy; Linux_Privilege_Escalation_Tools;;
         A) download_install_all_Linux_Privilege_Escalation_tools; Linux_Privilege_Escalation_Tools;;
-        0) red_team_menu;;
+        0) active_directory_menu;;
         *) echo "Invalid option"; Linux_Privilege_Escalation_Tools;;
     esac
 }
@@ -1740,9 +1739,29 @@ function Bug_Bounty_Tools() {
     else
         echo -e "${YELLOW}Installing apachetomcatscanner"
     fi
-    
+
+    if [ -f $HOME/tools/web_app/Upload_Bypass ]; then
+        echo -e "${RED}Upload Bypass is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Downloading Upload Bypass${NC}"
+        git clone https://github.com/sAjibuu/Upload_Bypass.git $HOME/tools/web_app/Upload_Bypass &> /dev/null
+        echo -e "${GREEN}Upload Bypass downloaded successfully.${NC}"
+        echo -e "${YELLOW}Installing Upload Bypass requirements${NC}"
+        cd $HOME/tools/web_app/Upload_Bypass
+        pip3 install -r requirements.txt &> /dev/null
+        echo -e "${GREEN}Requirements of Upload Bypass installed successfully.${NC}"
+    fi
+
+    if command -v toxicache &> /dev/null; then
+        echo -e "${RED}toxicache is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing toxicache${NC}"
+        go install github.com/xhzeem/toxicache@latest &> /dev/null
+        echo -e "${GREEN}toxicache installed successfully.${NC}"
+    fi
+
     # Moving every go binary in /usr/local/bin
-    sudo mv $HOME/go/bin/* /usr/local/bin
+    sudo mv $HOME/go/bin/* /usr/local/bin/
 
     sleep 2
 }
@@ -2210,19 +2229,20 @@ function download_pwndoc() {
         echo -e "${YELLOW}Downloading pwndoc${NC}"
         git clone 'https://github.com/pwndoc/pwndoc.git' $HOME/tools/reporting/pwndoc 
         echo -e "${GREEN}pwndoc downloaded successfully.${NC}"
+        
+        echo -e "${BLUE}Do you want to download the vulnerability lists as well? (y/n)${NC}"
+        read choice
+        if [ "$choice" == "y" ]; then
+            if [ -d $HOME/tools/reporting/pwndoc/PwnDoc-Vulns ]; then
+                echo -e "${RED}PwnDoc-Vulns is already downloaded.${NC}"
+            else
+                echo -e "${YELLOW}Downloading PwnDoc-Vulns${NC}"
+                git clone 'https://github.com/LuemmelSec/PwnDoc-Vulns.git' $HOME/tools/reporting/pwndoc/PwnDoc-Vulns
+                echo -e "${GREEN}PwnDoc-Vulns downloaded successfully.${NC}"
+            fi
+        fi
     fi
-    sleep 2
-}
-
-function download_ghostwriter() {
-    mkdir -p $HOME/tools/reporting/
-    if [ -d $HOME/tools/reporting/ghostwriter ]; then
-        echo -e "${RED}ghostwriter is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading ghostwriter${NC}"
-        git clone 'https://github.com/GhostManager/Ghostwriter.git' $HOME/tools/reporting/ghostwriter 
-        echo -e "${GREEN}ghostwriter downloaded successfully.${NC}"
-    fi
+    
     sleep 2
 }
 
@@ -2233,16 +2253,9 @@ function install_Sysreptor() {
     else
         echo -e "${YELLOW}Installing OSCP-Reporting${NC}"
         curl -s https://docs.sysreptor.com/install.sh | bash
-        rm -rf /opt/sysreptor.tar.gz
         echo -e "${GREEN}OSCP-Reporting installed successfully.${NC}"
     fi
     sleep 2
-}
-
-function download_install_all_Reporting_tools() {
-    download_pwndoc
-    download_ghostwriter
-    install_Sysreptor
 }
 
 function Reporting_Tools() {
@@ -2261,10 +2274,7 @@ echo
     echo -e "\nKey     Menu Option:"
     echo -e "---     -------------------------"
     echo -e " 1   -  Download pwndoc"
-    echo -e " 2   -  Download ghostwriter"
-    echo -e " 3   -  Install Sysreport"
-    echo ""
-    echo -e " A   -  Download/Install all Reporting tools"
+    echo -e " 2   -  Install Sysreport"
     echo ""
     echo -e "${BLUE} 0    -  Back to Main Menu"${NC}
     echo ""
@@ -2273,9 +2283,7 @@ echo
 
     case $option in
         1) download_pwndoc; Reporting_Tools;;
-        2) download_ghostwriter; Reporting_Tools;;
-        3) install_Sysreptor; Reporting_Tools;;
-        A) download_install_all_Reporting_tools; Reporting_Tools;;
+        2) install_Sysreptor; Reporting_Tools;;
         0) main_menu;;
         *) echo "Invalid option"; Reporting_Tools;;
     esac
@@ -2342,7 +2350,6 @@ function install_arsenal() {
     sleep 2
 }
 
-
 function main_menu() {
     clear
     echo -e ""
@@ -2361,7 +2368,7 @@ EOF
     echo ""
     echo -e "\nKey      Menu Option:"
     echo -e "---      -------------------------"
-    echo -e " 1    -  ${RED}Red Team Operations${NC}"
+    echo -e " 1    -  ${RED}Active Directory${NC}"
     echo -e " 2    -  ${YELLOW}Application Security${NC}"
     echo -e " 3    -  ${GREEN}Reporting${NC}"
     echo -e " 4    -  Miscellaneous"
@@ -2372,7 +2379,7 @@ EOF
     read option
 
     case $option in
-        1) red_team_menu;;
+        1) active_directory_menu;;
         2) appsec_menu;;
         3) Reporting_Tools;;
         4) miscellaneous_menu;;

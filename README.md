@@ -50,14 +50,14 @@ Choose an option:
 
 ## Tools List:
 ```
-├─ Red Team Operations
+├─ Active Directory
 │   ├─ C2 Framework
 │   │   ├─ Powershell-Empire + Starkiller
 │   │   ├─ Havoc Framework
 │   │   ├─ AM0N-Eye
 │   │   ├─ Sliver Framework
 │   │   └─ pwncat-cs
-│   ├─ Windows-Resources
+│   ├─ Windows Active Directory Arsenal (direct install)
 │   │   ├─ rustup
 │   │   ├─ pipx
 │   │   ├─ nmap-formatter
@@ -104,7 +104,6 @@ Choose an option:
 │   │   ├─ InvokeSessionHunter.ps1
 │   │   ├─ ADModule
 │   │   ├─ bloodhound
-│   │   ├─ knowsmore
 │   │   ├─ Invoke-Portscan.ps1
 │   │   ├─ SharpHound
 │   │   ├─ Invoke-ADEnum.ps1
@@ -127,7 +126,8 @@ Choose an option:
 │   │   ├─ SharpUp.exe
 │   │   ├─ SharpWMI.exe
 │   │   ├─ LaZagne.exe
-│   │   └─ PsMapExec.ps1
+│   │   ├─ PsMapExec.ps1
+│   │   └─ EyeSpy.ps1
 │   ├─ Phishing
 │   │   ├─ evilginx2
 │   │   ├─ gophish
@@ -194,7 +194,9 @@ Choose an option:
 │   │   ├─ userefuzz
 │   │   ├─ dontgo403
 │   │   ├─ pphack
-│   │   └─ apachetomcatscanner
+│   │   ├─ apachetomcatscanner
+│   │   ├─ Upload_Bypass
+│   │   └─ toxicache
 │   ├─ API Penetration Testing Tools
 │   │   ├─ mitmproxy2swagger
 │   │   ├─ postman
