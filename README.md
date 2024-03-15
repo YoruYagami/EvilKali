@@ -192,7 +192,7 @@ Choose an option:
 │   │   ├─ paramspider
 │   │   ├─ smap
 │   │   ├─ userefuzz
-│   │   ├─ dontgo403
+│   │   ├─ nomore403
 │   │   ├─ pphack
 │   │   ├─ apachetomcatscanner
 │   │   ├─ Upload_Bypass

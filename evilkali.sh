@@ -221,6 +221,18 @@ function install_sliver() {
     sleep 2
 }
 
+function download_amnesiac() {
+    if [ -f $HOME/tools/amnesiac.ps1 ]; then
+        echo -e "${RED}Amnesiac is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Downloading Amnesiac${NC}"
+        LATEST_VERSION=$(curl -s https://api.github.com/repos/Leo4j/Amnesiac/releases/latest | grep "tag_name" | cut -d '"' -f 4)
+        wget -O $HOME/tools/amnesiac.ps1 "https://github.com/Leo4j/Amnesiac/releases/download/$LATEST_VERSION/Amnesiac.ps1"
+        echo -e "${GREEN}Amnesiac downloaded successfully.${NC}"
+    fi
+    sleep 2
+}
+
 function install_pwncat() {
     if ! pip3 list 2>/dev/null | grep -q pwncat-cs; then
         echo -e "${YELLOW}Installing pwncat-cs.${NC}"
@@ -237,6 +249,7 @@ function download_install_all_c2_tools() {
     download_Havoc
     download_AM0N-Eye
     install_sliver
+    download_amnesiac
     install_pwncat
 }
 
@@ -260,7 +273,8 @@ echo
     echo -e " 2   -  Download Havoc"
     echo -e " 3   -  Download AM0N-Eye"
     echo -e " 4   -  Install Sliver"
-    echo -e " 5   -  Install pwncat-cs"
+    echo -e " 5   -  Download Amnesiac.ps1"
+    echo -e " 6   -  Install pwncat-cs"
     echo ""
     echo -e " A   -  Download/Install All Tools"
     echo ""
@@ -274,9 +288,10 @@ echo
         2) download_Havoc; command_and_control;;
         3) download_AM0N-Eye; command_and_control;;
         4) install_Sliver; command_and_control;;
-        5) install_pwncat; command_and_control;;
+        5) download_amnesiac; command_and_control;;
+        6) install_pwncat; command_and_control;;
         A) download_install_all_c2_tools; command_and_control;;
-        0) active_directory_menu;;
+        0) red_teaming_menu;;
         *) echo "Invalid option"; command_and_control;;
     esac
 }
@@ -921,16 +936,16 @@ function download_Install_windows-resource() {
 fi
 }
 
-function active_directory_menu() {
+function red_teaming_menu() {
     clear
     echo -e ""
     cat << "EOF"
-   _____          __  .__               ________  .__                       __                       
-  /  _  \   _____/  |_|__|__  __ ____   \______ \ |__|______   ____   _____/  |_  ___________ ___.__.
- /  /_\  \_/ ___\   __\  \  \/ // __ \   |    |  \|  \_  __ \_/ __ \_/ ___\   __\/  _ \_  __ <   |  |
-/    |    \  \___|  | |  |\   /\  ___/   |    `   \  ||  | \/\  ___/\  \___|  | (  <_> )  | \/\___  |
-\____|__  /\___  >__| |__| \_/  \___  > /_______  /__||__|    \___  >\___  >__|  \____/|__|   / ____|
-        \/     \/                   \/          \/                \/     \/                   \/     
+__________           .___ ___________   
+\______   \ ____   __| _/ \__    ___/___ _____    _____ |__| ____    ____  
+ |       _// __ \ / __ |    |    |_/ __ \\__  \  /     \|  |/    \  / ___\ 
+ |    |   \  ___// /_/ |    |    |\  ___/ / __ \|  Y Y  \  |   |  \/ /_/  >
+ |____|_  /\___  >____ |    |____| \___  >____  /__|_|  /__|___|  /\___  / 
+        \/     \/     \/               \/     \/      \/        \//_____/  
 EOF
 echo
     echo -e "Key      Menu Option:"
@@ -949,11 +964,11 @@ echo
     case $option in
         0) main_menu;;
         1) command_and_control;;
-        2) download_Install_windows-resource;active_directory_menu;;
+        2) download_Install_windows-resource;red_teaming_menu;;
         3) phishing;;
         4) Windows_Privilege_Escalation_Tools;;
         5) Linux_Privilege_Escalation_Tools;;
-        *) echo "Invalid option"; active_directory_menu;;
+        *) echo "Invalid option"; red_teaming_menu;;
     esac
 }
 
@@ -1058,7 +1073,7 @@ echo
         2) download_gophish; phishing;;
         3) download_PyPhisher; phishing;;
         A) download_install_all_phishing_tools; phishing;;
-        0) active_directory_menu;;
+        0) red_teaming_menu;;
         *) echo "Invalid option"; phishing;;
     esac
 }
@@ -1177,7 +1192,7 @@ echo
         4) download_PrivescCheck; Windows_Privilege_Escalation_Tools;;
         5) download_WinPEAS; Windows_Privilege_Escalation_Tools;;
         A) download_install_all_Windows_Privilege_Escalation_tools; Windows_Privilege_Escalation_Tools;;
-        0) active_directory_menu;;
+        0) red_teaming_menu;;
         *) echo "Invalid option"; Windows_Privilege_Escalation_Tools;;
     esac
 }
@@ -1308,7 +1323,7 @@ echo
         5) download_GTFONow; Linux_Privilege_Escalation_Tools;;
         6) download_pspy; Linux_Privilege_Escalation_Tools;;
         A) download_install_all_Linux_Privilege_Escalation_tools; Linux_Privilege_Escalation_Tools;;
-        0) active_directory_menu;;
+        0) red_teaming_menu;;
         *) echo "Invalid option"; Linux_Privilege_Escalation_Tools;;
     esac
 }
@@ -1358,6 +1373,14 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}Axiom has been installed${NC}"
     else
         echo -e "${YELLOW}Axiom is already installed${NC}"
+    fi
+
+    if [ -d $HOME/tools/web_app/reconftw ]; then
+        echo -e "${RED}reconftw is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Downloading reconftw${NC}"
+        git clone https://github.com/six2dez/reconftw.git $HOME/tools/web_app/reconftw
+        echo -e "${GREEN}reconftw downloaded successfully.${NC}"
     fi
 
     if ! command -v httprobe &> /dev/null; then
@@ -1714,16 +1737,17 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}smap installed successfully.${NC}"
     fi
     
-    if [ -f $HOME/tools/web_app/dontgo403_linux_amd64 ]; then
-        echo -e "${RED}dontgo403 is already downloaded.${NC}"
+    if [ -f $HOME/tools/web_app/nomore403 ]; then
+        echo -e "${RED}nomore403 is already downloaded.${NC}"
     else
-        echo -e "${YELLOW}Downloading dontgo403${NC}"
-        # Get the latest release URL
-        RELEASE_URL=$(curl -s https://api.github.com/repos/devploit/dontgo403/releases/latest | grep 'browser_' | cut -d\" -f4 | grep 'dontgo403_linux_amd64')
-        
-        wget -q "$RELEASE_URL" -O $HOME/tools/web_app/dontgo403 &> /dev/null
-        chmod +x $HOME/tools/web_app/dontgo403
-        echo -e "${GREEN}dontgo403 downloaded successfully.${NC}"
+        echo -e "${YELLOW}Downloading nomore403${NC}"
+        git clone https://github.com/devploit/nomore403.git $HOME/tools/web_app/nomore403 &> /dev/null
+        echo -e "${GREEN}nomore403 downloaded successfully.${NC}"
+        cd $HOME/tools/web_app/nomore403
+        echo -e "${YELLOW}Building nomore403${NC}"
+        go get
+        go build
+        echo -e "${GREEN}nomore403 builded successfully.${NC}"
     fi
 
     if command -v pphack &> /dev/null; then
@@ -2379,7 +2403,7 @@ EOF
     read option
 
     case $option in
-        1) active_directory_menu;;
+        1) red_teaming_menu;;
         2) appsec_menu;;
         3) Reporting_Tools;;
         4) miscellaneous_menu;;
