@@ -222,12 +222,13 @@ function install_sliver() {
 }
 
 function download_amnesiac() {
-    if [ -f $HOME/tools/amnesiac.ps1 ]; then
+    mkdir -p $HOME/tools/C2
+    if [ -f $HOME/tools/C2/amnesiac.ps1 ]; then
         echo -e "${RED}Amnesiac is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading Amnesiac${NC}"
         LATEST_VERSION=$(curl -s https://api.github.com/repos/Leo4j/Amnesiac/releases/latest | grep "tag_name" | cut -d '"' -f 4)
-        wget -O $HOME/tools/amnesiac.ps1 "https://github.com/Leo4j/Amnesiac/releases/download/$LATEST_VERSION/Amnesiac.ps1"
+        wget -O $HOME/tools/C2/amnesiac.ps1 "https://github.com/Leo4j/Amnesiac/releases/download/$LATEST_VERSION/Amnesiac.ps1"
         echo -e "${GREEN}Amnesiac downloaded successfully.${NC}"
     fi
     sleep 2
