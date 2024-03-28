@@ -222,13 +222,12 @@ function install_sliver() {
 }
 
 function download_amnesiac() {
-    mkdir -p $HOME/tools/C2
-    if [ -f $HOME/tools/C2/amnesiac.ps1 ]; then
+    if [ -f $HOME/tools/amnesiac.ps1 ]; then
         echo -e "${RED}Amnesiac is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading Amnesiac${NC}"
         LATEST_VERSION=$(curl -s https://api.github.com/repos/Leo4j/Amnesiac/releases/latest | grep "tag_name" | cut -d '"' -f 4)
-        wget -O $HOME/tools/C2/amnesiac.ps1 "https://github.com/Leo4j/Amnesiac/releases/download/$LATEST_VERSION/Amnesiac.ps1"
+        wget -O $HOME/tools/amnesiac.ps1 "https://github.com/Leo4j/Amnesiac/releases/download/$LATEST_VERSION/Amnesiac.ps1"
         echo -e "${GREEN}Amnesiac downloaded successfully.${NC}"
     fi
     sleep 2
@@ -302,13 +301,13 @@ function download_Install_windows-resource() {
     # Creating Windows Directory
     mkdir -p $HOME/tools/windows
 
-    if ! command -v rustc &> /dev/null; then
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    if ! command -v pipx &> /dev/null; then
+        echo -e "${YELLOW}Installing pipx${NC}"
+        sudo apt install pipx -y &> /dev/null
+        echo -e "${GREEN}pipx installed successfully.${NC}"
     else
-        echo -e "${RED}Rust is already installed.${NC}"
+        echo -e "${RED}pipx is already installed.${NC}"
     fi
-
-    pip3 install --user pipx PyYAML alive-progress xlsxwriter sectools typer --upgrade &> /dev/null
 
     if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
         echo "Adding $HOME/.local/bin to PATH"
@@ -933,7 +932,7 @@ function download_Install_windows-resource() {
         pip3 install lsassy &> /dev/null
         echo -e "${GREEN}lsassy installed successfully.${NC}"
         sleep 2
-    fi 
+    fi
 fi
 }
 
@@ -1601,38 +1600,6 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}corscanner installed successfully.${NC}"
     fi
 
-    if ! command -v kxss &> /dev/null; then
-        echo -e "${RED}Installing kxss now${NC}"
-        go install github.com/Emoe/kxss@latest &> /dev/null
-        echo -e "${GREEN}kxss has been installed${NC}"
-    else
-        echo -e "${GREEN}kxss is already installed${NC}"
-    fi
-
-    if ! command -v Gxss &> /dev/null; then
-        echo -e "${RED}Installing Gxss now${NC}"
-        go install github.com/KathanP19/Gxss@latest &> /dev/null
-        echo -e "${GREEN}Gxss has been installed${NC}"
-    else
-        echo -e "${GREEN}Gxss is already installed${NC}"
-    fi
-
-    if ! command -v anew &> /dev/null; then
-        echo -e "${RED}Installing anew now${NC}"
-        go install -v github.com/tomnomnom/anew@latest &> /dev/null
-        echo -e "${GREEN}anew has been installed${NC}"
-    else
-        echo -e "${GREEN}anew is already installed${NC}"
-    fi
-
-    if ! command -v qsreplace &> /dev/null; then
-        echo -e "${RED}Installing qsreplace now${NC}"
-        go install github.com/tomnomnom/qsreplace@latest &> /dev/null
-        echo -e "${GREEN}qsreplace has been installed${NC}"
-    else
-        echo -e "${GREEN}qsreplace is already installed${NC}"
-    fi
-
     if ! command -v gau &> /dev/null; then
         echo -e "${RED}Installing gau now${NC}"
         go install github.com/lc/gau/v2/cmd/gau@latest &> /dev/null
@@ -1713,14 +1680,6 @@ function Bug_Bounty_Tools() {
     else
         echo -e "${GREEN}headerpwn is already installed${NC}"
     fi
-
-    if ! command -v rayder &> /dev/null; then
-        echo -e "${RED}Installing rayder now${NC}"
-        go install github.com/devanshbatham/rayder@latest &> /dev/null
-        echo -e "${GREEN}rayder has been installed${NC}"
-    else
-        echo -e "${GREEN}rayder is already installed${NC}"
-    fi
     
     if command -v userefuzz &> /dev/null; then
         echo -e "${RED}userefuzz is already installed.${NC}"
@@ -1749,40 +1708,6 @@ function Bug_Bounty_Tools() {
         go get
         go build
         echo -e "${GREEN}nomore403 builded successfully.${NC}"
-    fi
-
-    if command -v pphack &> /dev/null; then
-        echo -e "${RED}pphack is already installed.${NC}"
-    else
-        echo -e "${YELLOW}Installing pphack${NC}"
-        go install github.com/edoardottt/pphack/cmd/pphack@latest &> /dev/null
-        echo -e "${GREEN}pphack installed successfully.${NC}"
-    fi
-
-    if command -v apachetomcatscanner $> /dev/null; then
-        echo -e "${RED}apachetomcatscanner is already installed.${NC}"
-    else
-        echo -e "${YELLOW}Installing apachetomcatscanner"
-    fi
-
-    if [ -f $HOME/tools/web_app/Upload_Bypass ]; then
-        echo -e "${RED}Upload Bypass is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading Upload Bypass${NC}"
-        git clone https://github.com/sAjibuu/Upload_Bypass.git $HOME/tools/web_app/Upload_Bypass &> /dev/null
-        echo -e "${GREEN}Upload Bypass downloaded successfully.${NC}"
-        echo -e "${YELLOW}Installing Upload Bypass requirements${NC}"
-        cd $HOME/tools/web_app/Upload_Bypass
-        pip3 install -r requirements.txt &> /dev/null
-        echo -e "${GREEN}Requirements of Upload Bypass installed successfully.${NC}"
-    fi
-
-    if command -v toxicache &> /dev/null; then
-        echo -e "${RED}toxicache is already installed.${NC}"
-    else
-        echo -e "${YELLOW}Installing toxicache${NC}"
-        go install github.com/xhzeem/toxicache@latest &> /dev/null
-        echo -e "${GREEN}toxicache installed successfully.${NC}"
     fi
 
     # Moving every go binary in /usr/local/bin
