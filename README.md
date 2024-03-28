@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href=""><img src="https://github.com/YoruYagami/EvilKali/assets/70035442/569bafd8-a412-43ed-a875-02dbdced5347" alt="" width="500" height="500"></a>
+  <a href=""><img src="https://github.com/YoruYagami/EvilKali/assets/70035442/3d755c49-17fd-42a0-9d9c-8302556c8fbc" alt="" width="500" height="500"></a>
   <br>
   <img src="https://img.shields.io/badge/Maintained%3F-Yes-23a82c">
   <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/YoruYagami/Evilkali">
@@ -58,7 +58,6 @@ Choose an option:
 │   │   ├─ Sliver Framework
 │   │   └─ pwncat-cs
 │   ├─ Windows Active Directory Arsenal (direct install)
-│   │   ├─ rustup
 │   │   ├─ pipx
 │   │   ├─ nmap-formatter
 │   │   ├─ AD-Miner
@@ -127,7 +126,7 @@ Choose an option:
 │   │   ├─ SharpWMI.exe
 │   │   ├─ LaZagne.exe
 │   │   ├─ PsMapExec.ps1
-│   │   └─ EyeSpy.ps1
+│   │   └─ lsassy
 │   ├─ Phishing
 │   │   ├─ evilginx2
 │   │   ├─ gophish
@@ -178,8 +177,6 @@ Choose an option:
 │   │   ├─ socialhunter
 │   │   ├─ getJS
 │   │   ├─ parshu
-│   │   ├─ kxss
-│   │   ├─ Gxss
 │   │   ├─ anew 
 │   │   ├─ gau 
 │   │   ├─ qsreplace
@@ -188,15 +185,10 @@ Choose an option:
 │   │   ├─ EyeWitness
 │   │   ├─ headerpwn
 │   │   ├─ OpenRedireX
-│   │   ├─ ryder
 │   │   ├─ paramspider
 │   │   ├─ smap
 │   │   ├─ userefuzz
-│   │   ├─ nomore403
-│   │   ├─ pphack
-│   │   ├─ apachetomcatscanner
-│   │   ├─ Upload_Bypass
-│   │   └─ toxicache
+│   │   └─ nomore403
 │   ├─ API Penetration Testing Tools
 │   │   ├─ mitmproxy2swagger
 │   │   ├─ postman
