@@ -1148,12 +1148,26 @@ function download_WinPEAS() {
     sleep 2
 }
 
+function download_moriarty() {
+    mkdir -p $HOME/tools/windows/
+    if [ -f $HOME/tools/windows/Moriarty.exe ]; then
+        echo -e "${RED}Moriarty.exe is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Downloading Moriarty.exe${NC}"
+        LATEST_RELEASE=$(curl -s https://api.github.com/repos/BC-SECURITY/Moriarty/releases/latest | grep "browser_download_url" | cut -d '"' -f 4)
+        wget -q -O $HOME/tools/windows/Moriarty.exe "$LATEST_RELEASE"
+        echo -e "${GREEN}Moriarty.exe downloaded successfully.${NC}"
+        sleep 2
+    fi
+}
+
 function download_install_all_Windows_Privilege_Escalation_tools() {
     get_PowerUp_ps1
     download_PowerUpSQL
     get_system
     download_PrivescCheck
     download_WinPEAS
+    download_moriarty
 }
 
 function Windows_Privilege_Escalation_Tools() {
@@ -1177,6 +1191,7 @@ echo
     echo -e " 3   -  Get GetSystem.ps1"
     echo -e " 4   -  Download PrivescCheck.ps1"
     echo -e " 5   -  Download All Version of WinPEAS"
+    echo -e " 6   -  Download Moriarty.exe"
     echo ""
     echo -e " A   -  Download/Install All Tools"
     echo ""
@@ -1191,6 +1206,7 @@ echo
         3) get_system; Windows_Privilege_Escalation_Tools;;
         4) download_PrivescCheck; Windows_Privilege_Escalation_Tools;;
         5) download_WinPEAS; Windows_Privilege_Escalation_Tools;;
+        6) download_moriarty; Windows_Privilege_Escalation_Tools;;
         A) download_install_all_Windows_Privilege_Escalation_tools; Windows_Privilege_Escalation_Tools;;
         0) red_teaming_menu;;
         *) echo "Invalid option"; Windows_Privilege_Escalation_Tools;;
