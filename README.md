@@ -136,7 +136,8 @@ Choose an option:
 │   │   ├─ PowerUpSQL
 │   │   ├─ Get-System
 │   │   ├─ PrivescCheck
-│   │   └─ winPEAS (All Versions)
+│   │   ├─ winPEAS (All Versions)
+│   │   └─ Moriarty.exe
 │   └─ Linux Privilege Escalation Tools
 │       ├─ LinEnum
 │       ├─ linPEAS
