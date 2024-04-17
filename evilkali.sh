@@ -1726,9 +1726,6 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}nomore403 builded successfully.${NC}"
     fi
 
-    # Moving every go binary in /usr/local/bin
-    sudo mv $HOME/go/bin/* /usr/local/bin/
-
     sleep 2
 }
 
