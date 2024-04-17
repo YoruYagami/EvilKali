@@ -189,7 +189,8 @@ Choose an option:
 │   │   ├─ paramspider
 │   │   ├─ smap
 │   │   ├─ userefuzz
-│   │   └─ nomore403
+│   │   ├─ nomore403
+│   │   └─ cariddi
 │   ├─ API Penetration Testing Tools
 │   │   ├─ mitmproxy2swagger
 │   │   ├─ postman

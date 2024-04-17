@@ -1726,6 +1726,14 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}nomore403 builded successfully.${NC}"
     fi
 
+    if command -v cariddi %> /dev/null; then
+        echo -e "${RED}cariddi is already installed.${NC}"
+    else
+        echo -e "${YELLOW}Installing cariddi${NC}"
+        go install -v github.com/edoardottt/cariddi/cmd/cariddi@latest &> /dev/null
+        echo -e "${GREEN}cariddi installed successfully.${NC}"
+    fi
+
     sleep 2
 }
 
