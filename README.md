@@ -58,72 +58,42 @@ Choose an option:
 │   │   ├─ Sliver Framework
 │   │   └─ pwncat-cs
 │   ├─ Windows Active Directory Arsenal (direct install)
-│   │   ├─ pipx
+│   │   ├─ impacket (fortra)
 │   │   ├─ nmap-formatter
-│   │   ├─ AD-Miner
+│   │   ├─ AD_Miner
 │   │   ├─ sprayhound
 │   │   ├─ ldapdomaindump
 │   │   ├─ NetExec
-│   │   ├─ impacket
 │   │   ├─ adidnsdump
 │   │   ├─ certi
-│   │   ├─ Certipy
+│   │   ├─ certipy
 │   │   ├─ bloodhound.py
 │   │   ├─ ldeep
 │   │   ├─ pre2k
 │   │   ├─ certsync
 │   │   ├─ hekatomb
-│   │   ├─ MANSPIDER
-│   │   ├─ Coercer
+│   │   ├─ manspider
+│   │   ├─ coercer
 │   │   ├─ bloodyAD
 │   │   ├─ DonPAPI
 │   │   ├─ rdwatool
 │   │   ├─ krbjack
-│   │   ├─ windapsearch
-│   │   ├─ kerbrute
-│   │   ├─ enum4linux-ng.py
-│   │   ├─ CVE-2022-33679.py
-│   │   ├─ silenthound.py
-│   │   ├─ targetedKerberoast.py
-│   │   ├─ FindUncommonShares.py
-│   │   ├─ ExtractBitlockerKeys.py
-│   │   ├─ ldapconsole.py
-│   │   ├─ pyLDAPmonitor.py
-│   │   ├─ LDAPWordlistHarvester.py
-│   │   ├─ aced.zip
-│   │   ├─ sccmhunter.zip
-│   │   ├─ ldapper.py
-│   │   ├─ utilities.py
-│   │   ├─ queries.py
-│   │   ├─ ldap_connector.py
-│   │   ├─ WinPwn.exe
-│   │   ├─ WinPwn.ps1
+│   │   ├─ WinPwn.exe (copied)
+│   │   ├─ WinPwn.ps1 (copied)
 │   │   ├─ linWinPwn
 │   │   ├─ PowerView.ps1
-│   │   ├─ InvokeSessionHunter.ps1
+│   │   ├─ PowerView-Dev.ps1
+│   │   ├─ Invoke-SessionHunter.ps1
 │   │   ├─ ADModule
-│   │   ├─ bloodhound
+│   │   ├─ bloodhound (via package manager)
 │   │   ├─ Invoke-Portscan.ps1
 │   │   ├─ SharpHound
 │   │   ├─ Invoke-ADEnum.ps1
 │   │   ├─ adPEAS.ps1
 │   │   ├─ adPEAS-Light.ps1
-│   │   ├─ nc.exe (copiato)
+│   │   ├─ nc.exe (copied)
 │   │   ├─ updog
-│   │   ├─ HFS.exe
-│   │   ├─ Certify.exe
-│   │   ├─ Koh.exe
-│   │   ├─ LockLess.exe
-│   │   ├─ RestrictedAdmin.exe
-│   │   ├─ Rubeus.exe
-│   │   ├─ SafetyKatz.exe
-│   │   ├─ Seatbelt.exe
-│   │   ├─ SharpChrome.exe
-│   │   ├─ SharpDPAPI.exe
-│   │   ├─ SharpDump.exe
-│   │   ├─ SharpRoast.exe
-│   │   ├─ SharpUp.exe
-│   │   ├─ SharpWMI.exe
+│   │   ├─ HFS (binary)
 │   │   ├─ LaZagne.exe
 │   │   ├─ PsMapExec.ps1
 │   │   ├─ lsassy

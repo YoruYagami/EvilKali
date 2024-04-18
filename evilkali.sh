@@ -301,12 +301,17 @@ function download_Install_windows-resource() {
     # Creating Windows Directory
     mkdir -p $HOME/tools/windows
 
-    if ! command -v pipx &> /dev/null; then
-        echo -e "${YELLOW}Installing pipx${NC}"
-        sudo apt install pipx -y &> /dev/null
-        echo -e "${GREEN}pipx installed successfully.${NC}"
+    # Ask user if they want to install impacket
+    if pipx list | grep -i 'impacket' &> /dev/null; then
+        echo -e "${RED}impacket is already installed via pipx.${NC}"
     else
-        echo -e "${RED}pipx is already installed.${NC}"
+        echo -e "${YELLOW}Installing impacket via pipx${NC}"
+        pipx install git+https://github.com/fortra/impacket.git --force &> /dev/null
+        if [ $? -eq 0 ]; then
+            echo -e "${GREEN}impacket installed successfully via pipx.${NC}"
+        else
+            echo -e "${RED}Failed to install impacket via pipx.${NC}"
+        fi
     fi
 
     if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
@@ -354,18 +359,6 @@ function download_Install_windows-resource() {
         echo -e "${GREEN}NetExec installed successfully.${NC}"
     else
         echo -e "${RED}NetExec is already installed.${NC}"
-    fi
-
-    if pipx list | grep -i 'impacket' &> /dev/null; then
-        echo -e "${RED}impacket is already installed via pipx.${NC}"
-    else
-        echo -e "${YELLOW}Installing impacket via pipx${NC}"
-        pipx install git+https://github.com/fortra/impacket.git --force &> /dev/null
-        if [ $? -eq 0 ]; then
-            echo -e "${GREEN}impacket installed successfully via pipx.${NC}"
-        else
-            echo -e "${RED}Failed to install impacket via pipx.${NC}"
-        fi
     fi
 
     if ! command -v adidnsdump &> /dev/null; then
@@ -479,210 +472,8 @@ function download_Install_windows-resource() {
         echo -e "${RED}krbjack is already installed.${NC}"
     fi
 
-    #Creating impacket script folder
-    mkdir -p $HOME/tools/windows/impacket-scripts/
-
-    if [ -f $HOME/tools/windows/impacket-scripts/windapsearch ]; then
-        echo -e "${RED}windapsearch is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading windapsearch${NC}"
-        wget -q "https://github.com/ropnop/go-windapsearch/releases/latest/download/windapsearch-linux-amd64" -O $HOME/tools/windows/impacket-scripts/windapsearch &> /dev/null
-        echo -e "${GREEN}windapsearch downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/impacket-scripts/kerbrute ]; then
-        echo -e "${RED}kerbrute is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading kerbrute${NC}"
-        wget -q "https://github.com/ropnop/kerbrute/releases/latest/download/kerbrute_linux_amd64" -O $HOME/tools/windows/impacket-scripts/kerbrute &> /dev/null
-        echo -e "${GREEN}kerbrute downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/impacket-scripts/enum4linux-ng.py ]; then
-        echo -e "${RED}enum4linux-ng.py is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading enum4linux-ng.py${NC}"
-        wget -q "https://raw.githubusercontent.com/cddmp/enum4linux-ng/master/enum4linux-ng.py" -O $HOME/tools/windows/impacket-scripts/enum4linux-ng.py &> /dev/null
-        echo -e "${GREEN}enum4linux-ng.py downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/impacket-scripts/CVE-2022-33679.py ]; then
-        echo -e "${RED}CVE-2022-33679.py is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading CVE-2022-33679.py${NC}"
-        wget -q "https://raw.githubusercontent.com/Bdenneu/CVE-2022-33679/main/CVE-2022-33679.py" -O $HOME/tools/windows/impacket-scripts/CVE-2022-33679.py &> /dev/null
-        echo -e "${GREEN}CVE-2022-33679.py downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/impacket-scripts/silenthound.py ]; then
-        echo -e "${RED}silenthound.py is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading silenthound.py${NC}"
-        wget -q "https://raw.githubusercontent.com/layer8secure/SilentHound/main/silenthound.py" -O $HOME/tools/windows/impacket-scripts/silenthound.py &> /dev/null
-        echo -e "${GREEN}silenthound.py downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/impacket-scripts/targetedKerberoast.py ]; then
-        echo -e "${RED}targetedKerberoast.py is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading targetedKerberoast.py${NC}"
-        wget -q "https://raw.githubusercontent.com/ShutdownRepo/targetedKerberoast/main/targetedKerberoast.py" -O $HOME/tools/windows/impacket-scripts/targetedKerberoast.py &> /dev/null
-        echo -e "${GREEN}targetedKerberoast.py downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/impacket-scripts/targetedKerberoast.py ]; then
-        echo -e "${RED}targetedKerberoast.py is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading targetedKerberoast.py${NC}"
-        wget -q "https://raw.githubusercontent.com/ShutdownRepo/targetedKerberoast/main/targetedKerberoast.py" -O $HOME/tools/windows/impacket-scripts/targetedKerberoast.py &> /dev/null
-        echo -e "${GREEN}targetedKerberoast.py downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/impacket-scripts/FindUncommonShares.py ]; then
-        echo -e "${RED}FindUncommonShares.py is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading FindUncommonShares.py${NC}"
-        wget -q "https://raw.githubusercontent.com/p0dalirius/FindUncommonShares/main/FindUncommonShares.py" -O $HOME/tools/windows/impacket-scripts/FindUncommonShares.py &> /dev/null
-        echo -e "${GREEN}FindUncommonShares.py downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    
-    if [ -f $HOME/tools/windows/impacket-scripts/ExtractBitlockerKeys.py ]; then
-        echo -e "${RED}ExtractBitlockerKeys.py is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading ExtractBitlockerKeys.py${NC}"
-        wget -q "https://raw.githubusercontent.com/p0dalirius/ExtractBitlockerKeys/main/ExtractBitlockerKeys.py" -O $HOME/tools/windows/impacket-scripts/ExtractBitlockerKeys.py &> /dev/null
-        echo -e "${GREEN}ExtractBitlockerKeys.py downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/impacket-scripts/ldapconsole.py ]; then
-        echo -e "${RED}ldapconsole.py is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading ldapconsole.py${NC}"
-        wget -q "https://raw.githubusercontent.com/p0dalirius/ldapconsole/master/ldapconsole.py" -O $HOME/tools/windows/impacket-scripts/ldapconsole.py &> /dev/null
-        echo -e "${GREEN}ldapconsole.py downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/impacket-scripts/pyLDAPmonitor.py ]; then
-        echo -e "${RED}pyLDAPmonitor.py is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading pyLDAPmonitor.py${NC}"
-        wget -q "https://raw.githubusercontent.com/p0dalirius/LDAPmonitor/master/python/pyLDAPmonitor.py" -O $HOME/tools/windows/impacket-scripts/pyLDAPmonitor.py &> /dev/null
-        echo -e "${GREEN}pyLDAPmonitor.py downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/impacket-scripts/LDAPWordlistHarvester.py ]; then
-        echo -e "${RED}LDAPWordlistHarvester.py is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading LDAPWordlistHarvester.py${NC}"
-        wget -q "https://raw.githubusercontent.com/p0dalirius/LDAPWordlistHarvester/main/LDAPWordlistHarvester.py" -O $HOME/tools/windows/impacket-scripts/LDAPWordlistHarvester.py &> /dev/null
-        echo -e "${GREEN}LDAPWordlistHarvester.py downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/impacket-scripts/aced.zip ]; then
-        echo -e "${RED}aced.zip is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading aced.zip${NC}"
-        wget -q "https://github.com/garrettfoster13/aced/archive/refs/heads/main.zip" -O $HOME/tools/windows/impacket-scripts/aced.zip &> /dev/null
-        echo -e "${GREEN}aced.zip downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -d $HOME/tools/windows/impacket-scripts/aced-main ]; then
-        echo -e "${RED}aced-main directory already exists.${NC}"
-    else
-        echo -e "${YELLOW}Extracting aced.zip${NC}"
-        unzip $HOME/tools/windows/impacket-scripts/aced.zip -d $HOME/tools/windows/impacket-scripts/ &> /dev/null
-        echo -e "${GREEN}aced.zip extracted successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/impacket-scripts/sccmhunter.zip ]; then
-        echo -e "${RED}sccmhunter.zip is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading sccmhunter.zip${NC}"
-        wget -q "https://github.com/garrettfoster13/sccmhunter/archive/refs/heads/main.zip" -O $HOME/tools/windows/impacket-scripts/sccmhunter.zip &> /dev/null
-        echo -e "${GREEN}sccmhunter.zip downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -d $HOME/tools/windows/impacket-scripts/sccmhunter-main ]; then
-        echo -e "${RED}sccmhunter-main directory already exists.${NC}"
-    else
-        echo -e "${YELLOW}Extracting sccmhunter.zip${NC}"
-        unzip $HOME/tools/windows/impacket-scripts/sccmhunter.zip -d $HOME/tools/windows/impacket-scripts/ &> /dev/null
-        echo -e "${GREEN}sccmhunter.zip extracted successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/impacket-scripts/ldapper.py ]; then
-        echo -e "${RED}ldapper.py is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading ldapper.py${NC}"
-        wget -q "https://raw.githubusercontent.com/shellster/LDAPPER/master/ldapper.py" -O $HOME/tools/windows/impacket-scripts/ldapper.py &> /dev/null
-        echo -e "${GREEN}ldapper.py downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/impacket-scripts/utilities.py ]; then
-        echo -e "${RED}utilities.py is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading utilities.py${NC}"
-        wget -q "https://raw.githubusercontent.com/shellster/LDAPPER/master/utilities.py" -O $HOME/tools/windows/impacket-scripts/utilities.py &> /dev/null
-        echo -e "${GREEN}utilities.py downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/impacket-scripts/queries.py ]; then
-        echo -e "${RED}queries.py is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading queries.py${NC}"
-        wget -q "https://raw.githubusercontent.com/shellster/LDAPPER/master/queries.py" -O $HOME/tools/windows/impacket-scripts/queries.py &> /dev/null
-        echo -e "${GREEN}queries.py downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/impacket-scripts/ldap_connector.py ]; then
-        echo -e "${RED}ldap_connector.py is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading ldap_connector.py${NC}"
-        wget -q "https://raw.githubusercontent.com/shellster/LDAPPER/master/ldap_connector.py" -O $HOME/tools/windows/impacket-scripts/ldap_connector.py &> /dev/null
-        echo -e "${GREEN}ldap_connector.py downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    chmod +x $HOME/tools/windows/impacket-scripts/aced-main/aced.py
-    chmod +x $HOME/tools/windows/impacket-scripts/sccmhunter-main/sccmhunter.py
-    chmod +x $HOME/tools/windows/impacket-scripts/windapsearch
-    chmod +x $HOME/tools/windows/impacket-scripts/kerbrute
-    chmod +x $HOME/tools/windows/impacket-scripts/enum4linux-ng.py
-    chmod +x $HOME/tools/windows/impacket-scripts/CVE-2022-33679.py
-    chmod +x $HOME/tools/windows/impacket-scripts/silenthound.py
-    chmod +x $HOME/tools/windows/impacket-scripts/targetedKerberoast.py
-    chmod +x $HOME/tools/windows/impacket-scripts/FindUncommonShares.py
-    chmod +x $HOME/tools/windows/impacket-scripts/ExtractBitlockerKeys.py
-    chmod +x $HOME/tools/windows/impacket-scripts/ldapconsole.py
-    chmod +x $HOME/tools/windows/impacket-scripts/pyLDAPmonitor.py
-    chmod +x $HOME/tools/windows/impacket-scripts/LDAPWordlistHarvester.py
-    chmod +x $HOME/tools/windows/impacket-scripts/ldapper.py
-    chmod +x $HOME/tools/windows/impacket-scripts/ldap_connector.py
-    chmod +x $HOME/tools/windows/impacket-scripts/queries.py
-    chmod +x $HOME/tools/windows/impacket-scripts/utilities.py
-
     # Check if WinPwn.exe or WinPwn.ps1 needs to be downloaded
-    if [ ! -f "$download_dir/WinPwn.exe" ] || [ ! -f "$download_dir/WinPwn.ps1" ]; then
+    if [ ! -f "$HOME/tools/windows/WinPwn.exe" ] || [ ! -f "$HOME/tools/windows/WinPwn.ps1" ]; then
         # Get latest release data from GitHub
         echo -e "${YELLOW}Retrieving WinPwn latest release information${NC}"
         json=$(curl -s https://api.github.com/repos/S3cur3Th1sSh1t/WinPwn/releases/latest)
@@ -692,10 +483,10 @@ function download_Install_windows-resource() {
         winpwn_ps1_url=$(echo "$json" | jq -r '.assets[] | select(.name | contains("WinPwn.ps1")) | .browser_download_url')
 
         # Download WinPwn.exe if not present
-        if [ ! -f "$download_dir/WinPwn.exe" ]; then
+        if [ ! -f "$HOME/tools/windows/WinPwn.exe" ]; then
             if [ ! -z "$winpwn_exe_url" ]; then
                 echo -e "${YELLOW}Downloading WinPwn.exe${NC}"
-                curl -L "$winpwn_exe_url" -o "$download_dir/WinPwn.exe" &> /dev/null
+                curl -L "$winpwn_exe_url" -o "$HOME/tools/windows/WinPwn.exe" &> /dev/null
             else
                 echo -e "${RED}WinPwn.exe URL not found in the latest release.${NC}"
             fi
@@ -704,10 +495,10 @@ function download_Install_windows-resource() {
         fi
 
         # Download WinPwn.ps1 if not present
-        if [ ! -f "$download_dir/WinPwn.ps1" ]; then
+        if [ ! -f "$HOME/tools/windows/WinPwn.ps1" ]; then
             if [ ! -z "$winpwn_ps1_url" ]; then
                 echo -e "${YELLOW}Downloading WinPwn.ps1${NC}"
-                curl -L "$winpwn_ps1_url" -o "$download_dir/WinPwn.ps1" &> /dev/null
+                curl -L "$winpwn_ps1_url" -o "$HOME/tools/windows/WinPwn.ps1" &> /dev/null
             else
                 echo -e "${RED}WinPwn.ps1 URL not found in the latest release.${NC}"
             fi
@@ -730,20 +521,16 @@ function download_Install_windows-resource() {
     if [ -f $HOME/tools/windows/PowerView.ps1 ]; then
         echo -e "${RED}PowerView has already been downloaded.${NC}"
     else
-        wget -q -O $HOME/tools/windows/PowerView.ps1 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1'
-        wget -q -O $HOME/tools/windows/PowerView-Dev.ps1 'https://raw.githubusercontent.com/lucky-luk3/ActiveDirectory/master/PowerView-Dev.ps1'
-        echo -e "${GREEN}PowerView has been downloaded successfully.${NC}"
-        sleep 2 
-    fi
+        wget -T 10 -q -O $HOME/tools/windows/PowerView.ps1 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1'
+        wget -T 10 -q -O $HOME/tools/windows/PowerView-Dev.ps1 'https://raw.githubusercontent.com/lucky-luk3/ActiveDirectory/master/PowerView-Dev.ps1'
+        
+        if [ ! -s $HOME/tools/windows/PowerView.ps1 ] || [ ! -s $HOME/tools/windows/PowerView-Dev.ps1 ]; then
+            echo -e "${RED}Download of PowerView failed, the file is empty.${NC}"
+        else
+            echo -e "${GREEN}PowerView has been downloaded successfully.${NC}"
+        fi
 
-    # Invoke-SessionHunter
-    if [ -f $HOME/tools/windows/Invoke-SessionHunter.ps1 ]; then
-        echo -e "${RED}Invoke-SessionHunter.ps1 is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading Invoke-SessionHunter.ps1${NC}"
-        wget -q -O $HOME/tools/windows/adPEAS.ps1 'https://raw.githubusercontent.com/Leo4j/Invoke-SessionHunter/main/Invoke-SessionHunter.ps1'
-        echo -e "${GREEN}Invoke-SessionHunter.ps1 downloaded successfully.${NC}"
-        sleep 2
+        sleep 2 
     fi
 
     # Download ADModule
@@ -774,7 +561,7 @@ function download_Install_windows-resource() {
     if [ -f $HOME/tools/windows/Invoke-Portscan.ps1 ]; then
         echo -e "${RED}Invoke_PortScan has already been downloaded.${NC}"
     else
-        wget -q -O $HOME/tools/windows/Invoke-Portscan.ps1 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/Invoke-Portscan.ps1'
+        wget -T 10 -v -O $HOME/tools/windows/Invoke-Portscan.ps1 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/Invoke-Portscan.ps1'
         echo -e "${GREEN}Invoke_PortScan has been downloaded successfully.${NC}"
         sleep 2
     fi
@@ -802,7 +589,7 @@ function download_Install_windows-resource() {
         echo -e "${RED}ADEnum is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading ADEnum${NC}"
-        wget -q -O $HOME/tools/windows/Invoke-ADEnum.ps1 'https://raw.githubusercontent.com/Leo4j/Invoke-ADEnum/main/Invoke-ADEnum.ps1'
+        wget -T 10 -v -O $HOME/tools/windows/Invoke-ADEnum.ps1 'https://raw.githubusercontent.com/Leo4j/Invoke-ADEnum/main/Invoke-ADEnum.ps1'
         echo -e "${GREEN}ADEnum downloaded successfully.${NC}"
         sleep 2
 
@@ -811,7 +598,7 @@ function download_Install_windows-resource() {
         echo -e "${RED}adPEAS is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading adPEAS${NC}"
-        wget -q -O $HOME/tools/windows/adPEAS.ps1 'https://raw.githubusercontent.com/61106960/adPEAS/main/adPEAS.ps1'
+        wget -T 10 -v -O $HOME/tools/windows/adPEAS.ps1 'https://raw.githubusercontent.com/61106960/adPEAS/main/adPEAS.ps1'
         echo -e "${GREEN}adPEAS downloaded successfully.${NC}"
         sleep 2
     fi
@@ -821,7 +608,7 @@ function download_Install_windows-resource() {
         echo -e "${RED}adPEAS-Light is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading adPEAS-Light${NC}"
-        wget -q -O $HOME/tools/windows/adPEAS-Light.ps1 'https://raw.githubusercontent.com/61106960/adPEAS/main/adPEAS-Light.ps1'
+        wget -T 10 -v -O $HOME/tools/windows/adPEAS-Light.ps1 'https://raw.githubusercontent.com/61106960/adPEAS/main/adPEAS-Light.ps1'
         echo -e "${GREEN}adPEAS-Light downloaded successfully.${NC}"
         sleep 2
     fi
@@ -895,7 +682,7 @@ function download_Install_windows-resource() {
     else
         # Get latest release data from GitHub for LaZagne
         echo -e "${YELLOW}Retrieving LaZagne latest release information${NC}"
-        json=$(curl -s https://api.github.com/repos/AlessandroZ/LaZagne/releases/latest)
+        json=$(wget -qO- https://api.github.com/repos/AlessandroZ/LaZagne/releases/latest)
 
         # Extract download URL for LaZagne.exe
         lazagne_exe_url=$(echo "$json" | jq -r '.assets[] | select(.name | endswith("LaZagne.exe")) | .browser_download_url')
@@ -903,7 +690,7 @@ function download_Install_windows-resource() {
         # Download LaZagne.exe if the URL is found
         if [ ! -z "$lazagne_exe_url" ]; then
             echo -e "${YELLOW}Downloading LaZagne.exe${NC}"
-            curl -L "$lazagne_exe_url" -o $HOME/tools/windows/LaZagne.exe &> /dev/null
+            wget -q "$lazagne_exe_url" -O $HOME/tools/windows/LaZagne.exe
         else
             echo -e "${RED}LaZagne.exe URL not found in the latest release.${NC}"
             sleep 2
@@ -915,7 +702,7 @@ function download_Install_windows-resource() {
         echo -e "${RED}PsMapExec is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading PsMapExec${NC}"
-        wget -q -O $HOME/tools/windows/PsMapExec.ps1 'https://raw.githubusercontent.com/The-Viper-One/PsMapExec/main/PsMapExec.ps1'
+        wget -T 10 -v -O $HOME/tools/windows/PsMapExec.ps1 'https://raw.githubusercontent.com/The-Viper-One/PsMapExec/main/PsMapExec.ps1'
         echo -e "${GREEN}PsMapExec downloaded successfully.${NC}"
         sleep 2
     fi
@@ -934,15 +721,34 @@ function download_Install_windows-resource() {
         return
     else
         echo -e "${YELLOW}Retrieving LACheck latest release information${NC}"
-        json=$(curl -s https://api.github.com/repos/mitchmoser/LACheck/releases/latest)
+        json=$(wget -qO- https://api.github.com/repos/mitchmoser/LACheck/releases/latest)
 
         LACheck_exe_url=$(echo "$json" | jq -r '.assets[] | select(.name | endswith("LACheck.exe")) | .browser_download_url')
 
         if [ ! -z "$LACheck_exe_url" ]; then
             echo -e "${YELLOW}Downloading LACheck.exe${NC}"
-            curl -L "$LACheck_exe_url" -o $HOME/tools/windows/LACheck.exe &> /dev/null
+            wget -q "$LACheck_exe_url" -O $HOME/tools/windows/LACheck.exe
         else
             echo -e "${RED}LACheck.exe URL not found in the latest release.${NC}"
+            sleep 2
+        fi
+    fi
+
+    # Download SharPersist
+    if [ -f $HOME/tools/windows/SharPersist.exe ]; then
+        echo -e "${RED}SharPersist is already downloaded.${NC}"
+        return
+    else
+        echo -e "${YELLOW}Retrieving SharPersist latest release information${NC}"
+        json=$(wget -qO- https://api.github.com/repos/mandiant/sharpersist/releases/latest)
+
+        sharpersist_exe_url=$(echo "$json" | jq -r '.assets[] | select(.name | endswith("SharPersist.exe")) | .browser_download_url')
+
+        if [ ! -z "$sharpersist_exe_url" ]; then
+            echo -e "${YELLOW}Downloading SharPersist.exe${NC}"
+            wget -q "$sharpersist_exe_url" -O $HOME/tools/windows/SharPersist.exe
+        else
+            echo -e "${RED}SharPersist.exe URL not found in the latest release.${NC}"
             sleep 2
         fi
     fi
