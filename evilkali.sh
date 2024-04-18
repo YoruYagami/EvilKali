@@ -681,45 +681,40 @@ function download_Install_windows-resource() {
     chmod +x $HOME/tools/windows/impacket-scripts/queries.py
     chmod +x $HOME/tools/windows/impacket-scripts/utilities.py
 
-    # Get latest release data from GitHub
-    echo -e "${YELLOW}Retrieving WinPwn latest release information${NC}"
-    json=$(curl -s https://api.github.com/repos/S3cur3Th1sSh1t/WinPwn/releases/latest)
+    # Check if WinPwn.exe or WinPwn.ps1 needs to be downloaded
+    if [ ! -f "$download_dir/WinPwn.exe" ] || [ ! -f "$download_dir/WinPwn.ps1" ]; then
+        # Get latest release data from GitHub
+        echo -e "${YELLOW}Retrieving WinPwn latest release information${NC}"
+        json=$(curl -s https://api.github.com/repos/S3cur3Th1sSh1t/WinPwn/releases/latest)
 
-    # Extract download URLs for WinPwn.exe and WinPwn.ps1
-    winpwn_exe_url=$(echo "$json" | jq -r '.assets[] | select(.name | contains("WinPwn.exe")) | .browser_download_url')
-    winpwn_ps1_url=$(echo "$json" | jq -r '.assets[] | select(.name | contains("WinPwn.ps1")) | .browser_download_url')
+        # Extract download URLs for WinPwn.exe and WinPwn.ps1
+        winpwn_exe_url=$(echo "$json" | jq -r '.assets[] | select(.name | contains("WinPwn.exe")) | .browser_download_url')
+        winpwn_ps1_url=$(echo "$json" | jq -r '.assets[] | select(.name | contains("WinPwn.ps1")) | .browser_download_url')
 
-    # Define download directory
-    download_dir=$HOME/tools/windows
-
-    # Download WinPwn.exe
-    if [ ! -f "$download_dir/WinPwn.exe" ]; then
-        if [ ! -z "$winpwn_exe_url" ]; then
-            echo -e "${YELLOW}Downloading WinPwn.exe${NC}"
-            curl -L "$winpwn_exe_url" -o "$download_dir/WinPwn.exe" &> /dev/null
-            sleep 2
+        # Download WinPwn.exe if not present
+        if [ ! -f "$download_dir/WinPwn.exe" ]; then
+            if [ ! -z "$winpwn_exe_url" ]; then
+                echo -e "${YELLOW}Downloading WinPwn.exe${NC}"
+                curl -L "$winpwn_exe_url" -o "$download_dir/WinPwn.exe" &> /dev/null
+            else
+                echo -e "${RED}WinPwn.exe URL not found in the latest release.${NC}"
+            fi
         else
-            echo -e "${RED}WinPwn.exe URL not found in the latest release.${NC}"
+            echo -e "${RED}WinPwn.exe is already downloaded.${NC}"
         fi
-    else
-        echo -e "${RED}WinPwn.exe is already downloaded.${NC}"
-    fi
 
-    # Download WinPwn.ps1
-    if [ ! -f "$download_dir/WinPwn.ps1" ]; then
-        if [ ! -z "$winpwn_ps1_url" ]; then
-            echo -e "${YELLOW}Downloading WinPwn.ps1${NC}"
-            curl -L "$winpwn_ps1_url" -o "$download_dir/WinPwn.ps1" &> /dev/null
-            sleep 2
+        # Download WinPwn.ps1 if not present
+        if [ ! -f "$download_dir/WinPwn.ps1" ]; then
+            if [ ! -z "$winpwn_ps1_url" ]; then
+                echo -e "${YELLOW}Downloading WinPwn.ps1${NC}"
+                curl -L "$winpwn_ps1_url" -o "$download_dir/WinPwn.ps1" &> /dev/null
+            else
+                echo -e "${RED}WinPwn.ps1 URL not found in the latest release.${NC}"
+            fi
         else
-            echo -e "${RED}WinPwn.ps1 URL not found in the latest release.${NC}"
+            echo -e "${RED}WinPwn.ps1 is already downloaded.${NC}"
         fi
-    else
-        echo -e "${RED}WinPwn.ps1 is already downloaded.${NC}"
     fi
-
-    echo -e "${GREEN}WinPwn files processing completed.${NC}"
-    sleep 2
 
     # Download linwinpwn
     if [ -d $HOME/tools/linWinPwn ]; then
@@ -897,22 +892,22 @@ function download_Install_windows-resource() {
     if [ -f "$HOME/tools/windows/LaZagne.exe" ]; then
         echo -e "${GREEN}LaZagne.exe already exists in $HOME/tools/windows/.${NC}"
         return
-    fi
-
-    # Get latest release data from GitHub for LaZagne
-    echo -e "${YELLOW}Retrieving LaZagne latest release information${NC}"
-    json=$(curl -s https://api.github.com/repos/AlessandroZ/LaZagne/releases/latest)
-
-    # Extract download URL for LaZagne.exe
-    lazagne_exe_url=$(echo "$json" | jq -r '.assets[] | select(.name | endswith("LaZagne.exe")) | .browser_download_url')
-
-    # Download LaZagne.exe
-    if [ ! -z "$lazagne_exe_url" ]; then
-        echo -e "${YELLOW}Downloading LaZagne.exe${NC}"
-        curl -L "$lazagne_exe_url" -o $HOME/tools/windows/LaZagne.exe &> /dev/null
     else
-        echo -e "${RED}LaZagne.exe URL not found in the latest release.${NC}"
-    sleep 2
+        # Get latest release data from GitHub for LaZagne
+        echo -e "${YELLOW}Retrieving LaZagne latest release information${NC}"
+        json=$(curl -s https://api.github.com/repos/AlessandroZ/LaZagne/releases/latest)
+
+        # Extract download URL for LaZagne.exe
+        lazagne_exe_url=$(echo "$json" | jq -r '.assets[] | select(.name | endswith("LaZagne.exe")) | .browser_download_url')
+
+        # Download LaZagne.exe if the URL is found
+        if [ ! -z "$lazagne_exe_url" ]; then
+            echo -e "${YELLOW}Downloading LaZagne.exe${NC}"
+            curl -L "$lazagne_exe_url" -o $HOME/tools/windows/LaZagne.exe &> /dev/null
+        else
+            echo -e "${RED}LaZagne.exe URL not found in the latest release.${NC}"
+            sleep 2
+        fi
     fi
 
     # Download PsMapExec
@@ -932,6 +927,24 @@ function download_Install_windows-resource() {
         pip3 install lsassy &> /dev/null
         echo -e "${GREEN}lsassy installed successfully.${NC}"
         sleep 2
+    fi
+
+    if [ -f $HOME/tools/windows/LACheck.exe ]; then
+        echo -e "${RED}LACheck is already downloaded.${NC}"
+        return
+    else
+        echo -e "${YELLOW}Retrieving LACheck latest release information${NC}"
+        json=$(curl -s https://api.github.com/repos/mitchmoser/LACheck/releases/latest)
+
+        LACheck_exe_url=$(echo "$json" | jq -r '.assets[] | select(.name | endswith("LACheck.exe")) | .browser_download_url')
+
+        if [ ! -z "$LACheck_exe_url" ]; then
+            echo -e "${YELLOW}Downloading LACheck.exe${NC}"
+            curl -L "$LACheck_exe_url" -o $HOME/tools/windows/LACheck.exe &> /dev/null
+        else
+            echo -e "${RED}LACheck.exe URL not found in the latest release.${NC}"
+            sleep 2
+        fi
     fi
 fi
 }

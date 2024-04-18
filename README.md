@@ -126,7 +126,8 @@ Choose an option:
 │   │   ├─ SharpWMI.exe
 │   │   ├─ LaZagne.exe
 │   │   ├─ PsMapExec.ps1
-│   │   └─ lsassy
+│   │   ├─ lsassy
+│   │   └─ LACheck.exe
 │   ├─ Phishing
 │   │   ├─ evilginx2
 │   │   ├─ gophish
