@@ -530,6 +530,14 @@ function download_Install_windows-resource() {
             echo -e "${GREEN}PowerView has been downloaded successfully.${NC}"
         fi
 
+        if ! command -v powerview.py &> /dev/null; then
+            echo -e "${YELLOW}Installing powerview.py${NC}"
+            pipx install 'git+https://github.com/aniqfakhrul/powerview.py' --force &> /dev/null
+            echo -e "${GREEN}powerview.py installed successfully.${NC}"
+        else
+            echo -e "${RED}powerview.py is already installed.${NC}"
+        fi
+
         sleep 2 
     fi
 
@@ -2158,7 +2166,7 @@ EOF
     echo ""
     echo -e "\nKey      Menu Option:"
     echo -e "---      -------------------------"
-    echo -e " 1    -  ${RED}Active Directory${NC}"
+    echo -e " 1    -  ${RED}Red Team Operations${NC}"
     echo -e " 2    -  ${YELLOW}Application Security${NC}"
     echo -e " 3    -  ${GREEN}Reporting${NC}"
     echo -e " 4    -  Miscellaneous"

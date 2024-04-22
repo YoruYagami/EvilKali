@@ -78,22 +78,24 @@ Choose an option:
 │   │   ├─ DonPAPI
 │   │   ├─ rdwatool
 │   │   ├─ krbjack
-│   │   ├─ WinPwn.exe (copied)
-│   │   ├─ WinPwn.ps1 (copied)
+│   │   ├─ WinPwn.exe
+│   │   ├─ WinPwn.ps1
 │   │   ├─ linWinPwn
 │   │   ├─ PowerView.ps1
+│   │   ├─ PowerView.py
 │   │   ├─ PowerView-Dev.ps1
+│   │   ├─ PowerView.py
 │   │   ├─ Invoke-SessionHunter.ps1
 │   │   ├─ ADModule
-│   │   ├─ bloodhound (via package manager)
+│   │   ├─ bloodhound
 │   │   ├─ Invoke-Portscan.ps1
 │   │   ├─ SharpHound
 │   │   ├─ Invoke-ADEnum.ps1
 │   │   ├─ adPEAS.ps1
 │   │   ├─ adPEAS-Light.ps1
-│   │   ├─ nc.exe (copied)
+│   │   ├─ nc.exe
 │   │   ├─ updog
-│   │   ├─ HFS (binary)
+│   │   ├─ HFS
 │   │   ├─ LaZagne.exe
 │   │   ├─ PsMapExec.ps1
 │   │   ├─ lsassy
