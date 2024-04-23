@@ -111,62 +111,97 @@ if [ ${#missing[@]} -gt 0 ]; then
     ask_user
 fi
 
+# Check if $HOME/go/bin is in PATH
+if [[ ":$PATH:" != *":$HOME/go/bin:"* ]]; then
+    echo -e "${RED}$HOME/go/bin is not in PATH. Adding it now.${NC}"
+    export PATH=$PATH:$HOME/go/bin
+fi
+
+
 # --[ Command and Control ]--
 
-function download_empire() {
+function download_empire_and_starkiller() {
     mkdir -p $HOME/tools/C2
     if [ -d $HOME/tools/C2/Empire ]; then
         echo -e "${RED}Empire is already installed.${NC}"
+        sleep 2
     else
-        echo -e "${YELLOW}Do you want to download Empire from GitHub or install it via apt? (github/apt)"
-        read -p "Enter your choice: " choice
-        case $choice in
-            "github")
-                echo -e "${YELLOW}Downloading Empire from GitHub${NC}"
-                git clone --recursive 'https://github.com/BC-SECURITY/Empire.git' $HOME/tools/C2/Empire
-                echo -e "${GREEN}Empire downloaded successfully.${NC}"
-                cd $HOME/tools/C2/Empire
-                ./setup/checkout-latest-tag.sh
-                ./setup/install.sh
-                ;;
-            "apt")
-                echo -e "${YELLOW}Installing Empire via 'apt'${NC}"
-                sudo apt install powershell-empire
-                echo -e "${GREEN}Empire installed successfully.${NC}"
-                ;;
-            *)
-                echo -e "${RED}Invalid choice. Skipping Empire installation.${NC}"
-                ;;
-        esac
+        if [[ "$(sudo docker images -q bcsecurity/empire:latest 2> /dev/null)" == "" ]]; then
+            echo -e "${YELLOW}Pulling Empire Docker image${NC}"
+            sudo docker pull bcsecurity/empire:latest
+            echo -e "${GREEN}Empire Docker image pulled successfully.${NC}"
+            sleep 2
+        else
+            echo -e "${GREEN}Empire Docker image is already present.${NC}"
+            sleep 2
+        fi
     fi
 
-    # Ask the user if they want to download/install Starkiller
-    echo -e "${YELLOW}Do you want to download/install Starkiller from GitHub or install it via 'apt'? (github/apt)"
-    read -p "Enter your choice: " starkiller_choice
-    case $starkiller_choice in
-        "github")
-            echo -e "${YELLOW}Downloading Starkiller from GitHub${NC}"
-            git clone 'https://github.com/BC-SECURITY/Starkiller.git' $HOME/tools/C2/Starkiller
-            echo -e "${GREEN}Starkiller downloaded successfully.${NC}"
-            echo -e "${YELLOW}Installing yarn and nodejs dependencies${NC}"
-            sudo apt install yarn -y
-            sudo apt install nodejs -y
-            ;;
-        "apt")
-            echo -e "${YELLOW}Installing Starkiller via 'apt'${NC}"
-            sudo apt install starkiller
-            echo -e "${GREEN}Starkiller installed successfully.${NC}"
-            ;;
-        *)
-            echo -e "${RED}Invalid choice. Skipping Starkiller installation.${NC}"
-            ;;
-    esac
+    echo -e "${YELLOW}Do you want to download/install Starkiller? (yes/no)"
+    read -p "Enter your choice: " download_starkiller
+    if [ "$download_starkiller" == "yes" ]; then
+        echo -e "${YELLOW}Do you want to download/install Starkiller from GitHub or install it via 'apt'? (github/apt)"
+        read -p "Enter your choice: " starkiller_choice
+        case $starkiller_choice in
+            "github")
+                echo -e "${YELLOW}Downloading Starkiller from GitHub${NC}"
+                git clone 'https://github.com/BC-SECURITY/Starkiller.git' $HOME/tools/C2/Starkiller
+                echo -e "${GREEN}Starkiller downloaded successfully.${NC}"
+                echo -e "${YELLOW}Installing yarn and nodejs dependencies${NC}"
+                sudo apt install yarn -y
+                sudo apt install nodejs -y
+                ;;
+            "apt")
+                echo -e "${YELLOW}Installing Starkiller via 'apt'${NC}"
+                sudo apt install starkiller
+                echo -e "${GREEN}Starkiller installed successfully.${NC}"
+                ;;
+            *)
+                echo -e "${RED}Invalid choice. Skipping Starkiller installation.${NC}"
+                ;;
+        esac
+    else
+        echo -e "${YELLOW}Returning to the menu.${NC}"
+    fi
 }
 
 function download_Havoc() {
+    # Detect package manager
+    if [ -x "$(command -v apt)" ]; then
+        PKG_MANAGER="apt"
+        PYTHON_PACKAGES="python3.10 python3.10-dev python3.10-venv"
+        OTHER_PACKAGES="git build-essential apt-utils cmake libfontconfig1 libglu1-mesa-dev libgtest-dev libspdlog-dev libboost-all-dev libncurses5-dev libgdbm-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev libbz2-dev mesa-common-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libqt5websockets5 libqt5websockets5-dev qtdeclarative5-dev golang-go qtbase5-dev libqt5websockets5-dev python3-dev libboost-all-dev mingw-w64 nasm python3-dev python3.10-dev libpython3.10 libpython3.10-dev python3.10"
+        # Check if Ubuntu
+        if [ "$(lsb_release -is)" = "Ubuntu" ]; then
+            sudo add-apt-repository ppa:deadsnakes/ppa
+            sudo apt update
+        fi
+    elif [ -x "$(command -v pacman)" ]; then
+        PKG_MANAGER="pacman -S"
+        PYTHON_PACKAGES="python3"
+        OTHER_PACKAGES="git gcc base-devel cmake make fontconfig glu gtest spdlog boost boost-libs ncurses gdbm openssl readline libffi sqlite bzip2 mesa qt5-base qt5-websockets nasm mingw-w64-gcc go"
+    elif [ -x "$(command -v brew)" ]; then
+        PKG_MANAGER="brew install"
+        PYTHON_PACKAGES="python@3.10"
+        OTHER_PACKAGES="cmake qt@5 spdlog golang"
+        brew link --overwrite qt@5
+    else
+        echo "Unsupported package manager. Only apt, pacman, and brew are supported."
+        exit 1
+    fi
+
     # Install required packages
-    sudo apt update
-    sudo apt install -y git build-essential apt-utils cmake libfontconfig1 libglu1-mesa-dev libgtest-dev libspdlog-dev libboost-all-dev libncurses5-dev libgdbm-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev libbz2-dev mesa-common-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libqt5websockets5 libqt5websockets5-dev qtdeclarative5-dev golang-go qtbase5-dev libqt5websockets5-dev python3-dev libboost-all-dev mingw-w64 nasm python3-dev python3.10-dev libpython3.10 libpython3.10-dev python3.10
+    if [ "$PKG_MANAGER" = "apt" ]; then
+        sudo $PKG_MANAGER update
+        sudo $PKG_MANAGER install $PYTHON_PACKAGES
+        sudo $PKG_MANAGER install -y $OTHER_PACKAGES
+    elif [ "$PKG_MANAGER" = "pacman -S" ]; then
+        sudo $PKG_MANAGER $PYTHON_PACKAGES
+        sudo $PKG_MANAGER $OTHER_PACKAGES
+    elif [ "$PKG_MANAGER" = "brew install" ]; then
+        $PKG_MANAGER $PYTHON_PACKAGES
+        $PKG_MANAGER $OTHER_PACKAGES
+    fi
 
     mkdir -p $HOME/tools/C2
     if [ -d $HOME/tools/C2/Havoc ]; then
@@ -284,7 +319,7 @@ echo
     read option
 
     case $option in
-        1) download_empire; command_and_control;;
+        1) download_empire_and_starkiller; command_and_control;;
         2) download_Havoc; command_and_control;;
         3) download_AM0N-Eye; command_and_control;;
         4) install_Sliver; command_and_control;;
@@ -320,6 +355,9 @@ function download_Install_windows-resource() {
     else
         echo "$HOME/.local/bin is already in PATH"
     fi
+
+    # All priv esc windows tools
+    download_install_all_Windows_Privilege_Escalation_tools
 
     if ! command -v nmap-formatter &> /dev/null; then
         echo -e "${YELLOW}Installing nmap-formatter${NC}"
@@ -530,12 +568,24 @@ function download_Install_windows-resource() {
             echo -e "${GREEN}PowerView has been downloaded successfully.${NC}"
         fi
 
-        if ! command -v powerview.py &> /dev/null; then
+        if ! command -v powerview &> /dev/null; then
             echo -e "${YELLOW}Installing powerview.py${NC}"
             pipx install 'git+https://github.com/aniqfakhrul/powerview.py' --force &> /dev/null
             echo -e "${GREEN}powerview.py installed successfully.${NC}"
         else
             echo -e "${RED}powerview.py is already installed.${NC}"
+        fi
+
+        # Download SharpView
+        if [ -f $HOME/tools/windows/SharpView.exe ]; then
+            echo -e "${RED}SharpView has already been downloaded.${NC}"
+        else
+            wget -T 10 -q -O $HOME/tools/windows/SharpView.exe 'https://github.com/tevora-threat/SharpView/raw/master/Compiled/SharpView.exe'
+            if [ ! -s $HOME/tools/windows/SharpView.exe ]; then
+                echo -e "${RED}Download of SharpView failed, the file is empty.${NC}"
+            else
+                echo -e "${GREEN}SharpView has been downloaded successfully.${NC}"
+            fi
         fi
 
         sleep 2 
@@ -760,6 +810,16 @@ function download_Install_windows-resource() {
             sleep 2
         fi
     fi
+
+    if [ -f $HOME/tools/windows/MailSniper.ps1 ]; then
+        echo -e "${RED}MailSniper.ps1 is already downloaded.${NC}"
+    else
+        wget -T 10 -q -O $HOME/tools/windows/MailSniper.ps1 'https://raw.githubusercontent.com/dafthack/MailSniper/master/MailSniper.ps1'
+        echo -e "${GREEN}MailSniper.ps1 downloaded successfully.${NC}"
+        sleep 2
+    fi
+
+
 fi
 }
 
@@ -920,12 +980,16 @@ function get_PowerUp_ps1() {
 
 function download_PowerUpSQL() {
     mkdir -p $HOME/tools/windows/ 
-    if [ -f $HOME/tools/windows/PowerUpSQL ]; then
+    if [ -d $HOME/tools/windows/PowerUpSQL ]; then
         echo -e "${RED}PowerUpSQL is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading PowerUpSQL${NC}"
-        git clone https://github.com/NetSPI/PowerUpSQL.git $HOME/tools/windows/PowerUpSQL
-        echo -e "${GREEN}PowerUpSQL downloaded successfully.${NC}"
+        git clone https://github.com/NetSPI/PowerUpSQL.git $HOME/tools/windows/PowerUpSQL >/dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            echo -e "${GREEN}PowerUpSQL downloaded successfully.${NC}"
+        else
+            echo -e "${RED}Failed to download PowerUpSQL.${NC}"
+        fi
     fi
     sleep 2
 }
@@ -1173,6 +1237,7 @@ echo
 
 # --[ Web Application - Bug Bounty Tools ]--
 function Bug_Bounty_Tools() {
+
     if ! command -v pdtm &> /dev/null; then
         echo -e "${RED}Installing ProjectDiscovery's Open Source Tool Manager.${NC}"
         go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
@@ -1620,7 +1685,7 @@ function install_postman() {
         wget https://dl.pstmn.io/download/latest/linux64 -O postman-linux-x64.tar.gz &> /dev/null
         tar -zxvf postman-linux-x64.tar.gz -C $HOME/tools/api &> /dev/null
         rm -rf postman-linux-x64.tar.gz
-        ln -sf $HOME/tools/api/Postman/Postman /usr/bin/postman
+        sudo ln -sf $HOME/tools/api/Postman/Postman /usr/local/bin/postman
         echo -e "${GREEN}Postman installed successfully.${NC}"
     fi
     sleep 2
@@ -1632,10 +1697,10 @@ function install_jwt_tool() {
         echo -e "${RED}jwt_tool is already installed.${NC}"
     else
         echo -e "${YELLOW}Installing jwt_tool${NC}"
-        git clone https://github.com/ticarpi/jwt_tool.git $HOME/tools/api/jwt_tool
+        git clone https://github.com/ticarpi/jwt_tool.git $HOME/tools/api/jwt_tool &> /dev/null
         pip3 install -r $HOME/tools/api/jwt_tool/requirements.txt &> /dev/null
         chmod +x $HOME/tools/api/jwt_tool/jwt_tool.py
-        ln -sf $HOME/tools/api/jwt_tool/jwt_tool.py /usr/bin/jwt_tool
+        sudo ln -sf $HOME/tools/api/jwt_tool/jwt_tool.py /usr/local/bin/jwt_tool
         echo -e "${GREEN}jwt_tool installed successfully.${NC}"
     fi
     sleep 2
@@ -1649,7 +1714,7 @@ function install_kiterunner() {
         echo -e "${YELLOW}Installing kiterunner${NC}"
         git clone https://github.com/assetnote/kiterunner.git $HOME/tools/api/kiterunner &> /dev/null
         make -C $HOME/tools/api/kiterunner build &> /dev/null
-        ln -sf $HOME/tools/api/kiterunner/dist/kr /usr/bin/kr
+        sudo ln -sf $HOME/tools/api/kiterunner/dist/kr /usr/local/bin/kr
         echo -e "${GREEN}kiterunner installed successfully.${NC}"
     fi
     sleep 2

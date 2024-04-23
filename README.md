@@ -82,9 +82,9 @@ Choose an option:
 │   │   ├─ WinPwn.ps1
 │   │   ├─ linWinPwn
 │   │   ├─ PowerView.ps1
-│   │   ├─ PowerView.py
 │   │   ├─ PowerView-Dev.ps1
 │   │   ├─ PowerView.py
+│   │   ├─ SharpView.exe
 │   │   ├─ Invoke-SessionHunter.ps1
 │   │   ├─ ADModule
 │   │   ├─ bloodhound
@@ -99,7 +99,8 @@ Choose an option:
 │   │   ├─ LaZagne.exe
 │   │   ├─ PsMapExec.ps1
 │   │   ├─ lsassy
-│   │   └─ LACheck.exe
+│   │   ├─ LACheck.exe
+│   │   └─ MailSniper.ps1
 │   ├─ Phishing
 │   │   ├─ evilginx2
 │   │   ├─ gophish
