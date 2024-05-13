@@ -60,15 +60,15 @@ Choose an option:
 │   ├─ Windows Active Directory Arsenal (direct install)
 │   │   ├─ impacket
 │   │   ├─ nmap-formatter
-│   │   ├─ AD_Miner
+│   │   ├─ AD-miner
 │   │   ├─ sprayhound
 │   │   ├─ ldapdomaindump
 │   │   ├─ NetExec
 │   │   ├─ adidnsdump
-│   │   ├─ certi
+│   │   ├─ certi.py
 │   │   ├─ Certipy
-│   │   ├─ Bloodhound
-│   │   ├─ bloodhound.py
+│   │   ├─ bloodhound
+│   │   ├─ bloodhound-python
 │   │   ├─ ldeep
 │   │   ├─ pre2k
 │   │   ├─ certsync
@@ -80,19 +80,24 @@ Choose an option:
 │   │   ├─ rdwatool
 │   │   ├─ krbjack
 │   │   ├─ powerview
+│   │   ├─ PowerView.ps1
+│   │   ├─ SharpView
+│   │   ├─ linwinpwn
 │   │   ├─ Ghostpack Compiled Binaries
-│   │   ├─ linWinPwn
+│   │   ├─ SharpHound
 │   │   ├─ ADModule
-│   │   ├─ Invoke-ADEnum.ps1
+│   │   ├─ ADEnum
 │   │   ├─ nc.exe
 │   │   ├─ HFS
 │   │   ├─ adPEAS
+│   │   ├─ adPEAS-Light
+│   │   ├─ LACheck
+│   │   ├─ SharPersist
 │   │   ├─ Invisi-Shell
-│   │   ├─ MailSniper.ps1
-│   │   ├─ Invoke-Portscan.ps1
+│   │   ├─ MailSniper
+│   │   ├─ Invoke-Portscan
 │   │   ├─ mimikatz
-│   │   ├─ LaZagne.exe
-│   │   └─ SharPersist.exe
+│   │   └─ LaZagne
 │   ├─ Phishing
 │   │   ├─ evilginx2
 │   │   ├─ gophish
