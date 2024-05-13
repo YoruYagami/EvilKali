@@ -117,6 +117,20 @@ if [[ ":$PATH:" != *":$HOME/go/bin:"* ]]; then
     export PATH=$PATH:$HOME/go/bin
 fi
 
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+    echo "Adding $HOME/.local/bin to PATH"
+    if ! command -v pipx &> /dev/null
+    then
+        echo "pipx could not be found"
+        echo "Installing pipx..."
+        python3 -m pip install --user pipx
+        pipx install pipx
+    fi
+    pipx ensurepath
+else
+    echo "$HOME/.local/bin is already in PATH"
+fi
+
 
 # --[ Command and Control ]--
 
@@ -338,10 +352,11 @@ function download_Install_windows-resource() {
 
     # Ask user if they want to install impacket
     if pipx list | grep -i 'impacket' &> /dev/null; then
-        echo -e "${RED}impacket is already installed via pipx.${NC}"
+        echo -e "${RED}impacket is already installed.${NC}"
+        sleep 1
     else
         echo -e "${YELLOW}Installing impacket via pipx${NC}"
-        pipx install git+https://github.com/fortra/impacket.git --force &> /dev/null
+        pipx install git+https://github.com/fortra/impacket.git --force
         if [ $? -eq 0 ]; then
             echo -e "${GREEN}impacket installed successfully via pipx.${NC}"
         else
@@ -349,22 +364,13 @@ function download_Install_windows-resource() {
         fi
     fi
 
-    if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
-        echo "Adding $HOME/.local/bin to PATH"
-        pipx ensurepath
-    else
-        echo "$HOME/.local/bin is already in PATH"
-    fi
-
-    # All priv esc windows tools
-    download_install_all_Windows_Privilege_Escalation_tools
-
     if ! command -v nmap-formatter &> /dev/null; then
         echo -e "${YELLOW}Installing nmap-formatter${NC}"
         go install github.com/vdjagilev/nmap-formatter@latest
         echo -e "${GREEN}nmap-formatter installed successfully.${NC}"
     else
         echo -e "${RED}nmap-formatter is already installed.${NC}"
+        sleep 1
     fi
 
     if ! command -v AD-miner &> /dev/null; then
@@ -373,6 +379,7 @@ function download_Install_windows-resource() {
         echo -e "${GREEN}AD_Miner installed successfully"
     else
         echo -e "${RED}AD_Miner is already installed"
+        sleep 1
     fi
 
     if ! command -v sprayhound &> /dev/null; then
@@ -381,227 +388,58 @@ function download_Install_windows-resource() {
         echo -e "${GREEN}sprayhound installed successfully"
     else
         echo -e "${RED}sprayhound is already installed"
+        sleep 1
     fi
 
     if ! command -v ldapdomaindump &> /dev/null; then
         echo -e "${YELLOW}Installing ldapdomaindump${NC}"
-        pipx install git+https://github.com/dirkjanm/ldapdomaindump.git --force &> /dev/null
+        pipx install git+https://github.com/dirkjanm/ldapdomaindump.git --force
         echo -e "${GREEN}ldapdomaindump installed successfully.${NC}"
     else
         echo -e "${RED}ldapdomaindump is already installed.${NC}"
+        sleep 1
     fi
 
     if ! command -v nxc &> /dev/null; then
         echo -e "${YELLOW}Installing NetExec${NC}"
-        pipx install git+https://github.com/Pennyw0rth/NetExec.git --force &> /dev/null
+        pipx install git+https://github.com/Pennyw0rth/NetExec.git --force
         echo -e "${GREEN}NetExec installed successfully.${NC}"
     else
         echo -e "${RED}NetExec is already installed.${NC}"
+        sleep 1
     fi
 
     if ! command -v adidnsdump &> /dev/null; then
         echo -e "${YELLOW}Installing adidnsdump${NC}"
-        pipx install git+https://github.com/dirkjanm/adidnsdump.git --force &> /dev/null
+        pipx install git+https://github.com/dirkjanm/adidnsdump.git --force
         echo -e "${GREEN}adidnsdump installed successfully.${NC}"
     else
         echo -e "${RED}adidnsdump is already installed.${NC}"
+        sleep 1
     fi
 
     if ! command -v certi.py &> /dev/null; then
         echo -e "${YELLOW}Installing certi${NC}"
-        pipx install git+https://github.com/zer1t0/certi.git --force &> /dev/null
+        pipx install git+https://github.com/zer1t0/certi.git --force
         echo -e "${GREEN}certi installed successfully.${NC}"
     else
         echo -e "${RED}certi is already installed.${NC}"
+        sleep 1
     fi
 
     if ! command -v certipy &> /dev/null; then
         echo -e "${YELLOW}Installing Certipy${NC}"
-        pipx install git+https://github.com/ly4k/Certipy.git --force &> /dev/null
+        pipx install git+https://github.com/ly4k/Certipy.git --force
         echo -e "${GREEN}Certipy installed successfully.${NC}"
     else
         echo -e "${RED}Certipy is already installed.${NC}"
+        sleep 1
     fi
-
-    if ! command -v bloodhound-python &> /dev/null; then
-        echo -e "${YELLOW}Installing bloodhound.py${NC}"
-        pipx install git+https://github.com/dirkjanm/bloodhound.py --force &> /dev/null
-    else
-        echo -e "${RED}bloodhound.py is already installed.${NC}"
-    fi
-
-    if ! command -v ldeep &> /dev/null; then
-        echo -e "${YELLOW}Installing ldeep${NC}"
-        pipx install git+https://github.com/franc-pentest/ldeep.git --force &> /dev/null
-        echo -e "${GREEN}ldeep installed successfully.${NC}"
-    else
-        echo -e "${RED}ldeep is already installed.${NC}"
-    fi
-
-    if ! command -v pre2k &> /dev/null; then
-        echo -e "${YELLOW}Installing pre2k${NC}"
-        pipx install git+https://github.com/garrettfoster13/pre2k.git --force &> /dev/null
-        echo -e "${GREEN}pre2k installed successfully.${NC}"
-    else
-        echo -e "${RED}pre2k is already installed.${NC}"
-    fi
-
-    if ! command -v certsync &> /dev/null; then
-        echo -e "${YELLOW}Installing certsync${NC}"
-        pipx install git+https://github.com/zblurx/certsync.git --force &> /dev/null
-        echo -e "${GREEN}certsync installed successfully.${NC}"
-    else
-        echo -e "${RED}certsync is already installed.${NC}"
-    fi
-
-    if ! command -v hekatomb &> /dev/null; then
-        echo -e "${YELLOW}Installing hekatomb${NC}"
-        pipx install hekatomb --force &> /dev/null
-        echo -e "${GREEN}hekatomb installed successfully.${NC}"
-    else
-        echo -e "${RED}hekatomb is already installed.${NC}"
-    fi
-
-    if ! command -v manspider &> /dev/null; then
-        echo -e "${YELLOW}Installing MANSPIDER${NC}"
-        pipx install git+https://github.com/blacklanternsecurity/MANSPIDER --force &> /dev/null
-        echo -e "${GREEN}MANSPIDER installed successfully.${NC}"
-    else
-        echo -e "${RED}MANSPIDER is already installed.${NC}"
-    fi
-
-    if ! command -v coercer &> /dev/null; then
-        echo -e "${YELLOW}Installing Coercer${NC}"
-        pipx install git+https://github.com/p0dalirius/Coercer --force &> /dev/null
-        echo -e "${GREEN}Coercer installed successfully.${NC}"
-    else
-        echo -e "${RED}Coercer is already installed.${NC}"
-    fi
-
-    if ! command -v bloodyAD &> /dev/null; then
-        echo -e "${YELLOW}Installing bloodyAD${NC}"
-        pipx install git+https://github.com/CravateRouge/bloodyAD --force &> /dev/null
-        echo -e "${GREEN}bloodyAD installed successfully.${NC}"
-    else
-        echo -e "${RED}bloodyAD is already installed.${NC}"
-    fi
-
-    if ! command -v DonPAPI &> /dev/null; then
-        echo -e "${YELLOW}Installing DonPAPI${NC}"
-        pipx install git+https://github.com/login-securite/DonPAPI --force &> /dev/null
-        echo -e "${GREEN}DonPAPI installed successfully.${NC}"
-    else
-        echo -e "${RED}DonPAPI is already installed.${NC}"
-    fi
-
-    if ! command -v rdwatool &> /dev/null; then
-        echo -e "${YELLOW}Installing rdwatool${NC}"
-        pipx install git+https://github.com/p0dalirius/RDWAtool --force &> /dev/null
-        echo -e "${GREEN}rdwatool installed successfully.${NC}"
-    else
-        echo -e "${RED}rdwatool is already installed.${NC}"
-    fi
-
-    if ! command -v krbjack &> /dev/null; then
-        echo -e "${YELLOW}Installing krbjack${NC}"
-        pipx install git+https://github.com/almandin/krbjack --force &> /dev/null
-        echo -e "${GREEN}krbjack installed successfully.${NC}"
-    else
-        echo -e "${RED}krbjack is already installed.${NC}"
-    fi
-
-    # Check if WinPwn.exe or WinPwn.ps1 needs to be downloaded
-    if [ ! -f "$HOME/tools/windows/WinPwn.exe" ] || [ ! -f "$HOME/tools/windows/WinPwn.ps1" ]; then
-        # Get latest release data from GitHub
-        echo -e "${YELLOW}Retrieving WinPwn latest release information${NC}"
-        json=$(curl -s https://api.github.com/repos/S3cur3Th1sSh1t/WinPwn/releases/latest)
-
-        # Extract download URLs for WinPwn.exe and WinPwn.ps1
-        winpwn_exe_url=$(echo "$json" | jq -r '.assets[] | select(.name | contains("WinPwn.exe")) | .browser_download_url')
-        winpwn_ps1_url=$(echo "$json" | jq -r '.assets[] | select(.name | contains("WinPwn.ps1")) | .browser_download_url')
-
-        # Download WinPwn.exe if not present
-        if [ ! -f "$HOME/tools/windows/WinPwn.exe" ]; then
-            if [ ! -z "$winpwn_exe_url" ]; then
-                echo -e "${YELLOW}Downloading WinPwn.exe${NC}"
-                curl -L "$winpwn_exe_url" -o "$HOME/tools/windows/WinPwn.exe" &> /dev/null
-            else
-                echo -e "${RED}WinPwn.exe URL not found in the latest release.${NC}"
-            fi
-        else
-            echo -e "${RED}WinPwn.exe is already downloaded.${NC}"
-        fi
-
-        # Download WinPwn.ps1 if not present
-        if [ ! -f "$HOME/tools/windows/WinPwn.ps1" ]; then
-            if [ ! -z "$winpwn_ps1_url" ]; then
-                echo -e "${YELLOW}Downloading WinPwn.ps1${NC}"
-                curl -L "$winpwn_ps1_url" -o "$HOME/tools/windows/WinPwn.ps1" &> /dev/null
-            else
-                echo -e "${RED}WinPwn.ps1 URL not found in the latest release.${NC}"
-            fi
-        else
-            echo -e "${RED}WinPwn.ps1 is already downloaded.${NC}"
-        fi
-    fi
-
-    # Download linwinpwn
-    if [ -d $HOME/tools/linWinPwn ]; then
-        echo -e "${RED}linwinpwn is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading linwinpwn${NC}"
-        git clone 'https://github.com/lefayjey/linWinPwn.git' $HOME/tools/linWinPwn &> /dev/null
-        echo -e "${GREEN}linwinpwn downloaded successfully.${NC}"
-        sleep 2 
-    fi
-
-    # Download PowerView
-    if [ -f $HOME/tools/windows/PowerView.ps1 ]; then
-        echo -e "${RED}PowerView has already been downloaded.${NC}"
-    else
-        wget -T 10 -q -O $HOME/tools/windows/PowerView.ps1 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1'
-        wget -T 10 -q -O $HOME/tools/windows/PowerView-Dev.ps1 'https://raw.githubusercontent.com/lucky-luk3/ActiveDirectory/master/PowerView-Dev.ps1'
-        
-        if [ ! -s $HOME/tools/windows/PowerView.ps1 ] || [ ! -s $HOME/tools/windows/PowerView-Dev.ps1 ]; then
-            echo -e "${RED}Download of PowerView failed, the file is empty.${NC}"
-        else
-            echo -e "${GREEN}PowerView has been downloaded successfully.${NC}"
-        fi
-
-        if ! command -v powerview &> /dev/null; then
-            echo -e "${YELLOW}Installing powerview.py${NC}"
-            pipx install 'git+https://github.com/aniqfakhrul/powerview.py' --force &> /dev/null
-            echo -e "${GREEN}powerview.py installed successfully.${NC}"
-        else
-            echo -e "${RED}powerview.py is already installed.${NC}"
-        fi
-
-        # Download SharpView
-        if [ -f $HOME/tools/windows/SharpView.exe ]; then
-            echo -e "${RED}SharpView has already been downloaded.${NC}"
-        else
-            wget -T 10 -q -O $HOME/tools/windows/SharpView.exe 'https://github.com/tevora-threat/SharpView/raw/master/Compiled/SharpView.exe'
-            if [ ! -s $HOME/tools/windows/SharpView.exe ]; then
-                echo -e "${RED}Download of SharpView failed, the file is empty.${NC}"
-            else
-                echo -e "${GREEN}SharpView has been downloaded successfully.${NC}"
-            fi
-        fi
-
-        sleep 2 
-    fi
-
-    # Download ADModule
-    if [ -d $HOME/tools/windows/ADModule ]; then
-        echo -e "${RED}ADModule is already downloaded.${NC}"
-    else
-        git clone 'https://github.com/samratashok/ADModule.git' $HOME/tools/windows/ADModule &> /dev/null
-        echo -e "${GREEN}ADModule downloaded successfully.${NC}"
-        sleep 2
 
     # Install Bloodhound
     if dpkg -s bloodhound &> /dev/null; then
         echo -e "${RED}bloodhound is already installed.${NC}"
+        sleep 1
     else
         if command -v pacman &> /dev/null; then
             echo -e "${YELLOW}Installing bloodhound${NC}"
@@ -616,19 +454,164 @@ function download_Install_windows-resource() {
         fi
     fi
 
-    if [ -f $HOME/tools/windows/Invoke-Portscan.ps1 ]; then
-        echo -e "${RED}Invoke_PortScan has already been downloaded.${NC}"
+    if ! command -v bloodhound-python &> /dev/null; then
+        echo -e "${YELLOW}Installing bloodhound.py${NC}"
+        pipx install git+https://github.com/dirkjanm/bloodhound.py --force
     else
-        wget -T 10 -v -O $HOME/tools/windows/Invoke-Portscan.ps1 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/Invoke-Portscan.ps1'
-        echo -e "${GREEN}Invoke_PortScan has been downloaded successfully.${NC}"
-        sleep 2
+        echo -e "${RED}bloodhound.py is already installed.${NC}"
+        sleep 1
     fi
 
+    if ! command -v ldeep &> /dev/null; then
+        echo -e "${YELLOW}Installing ldeep${NC}"
+        pipx install git+https://github.com/franc-pentest/ldeep.git --force
+        echo -e "${GREEN}ldeep installed successfully.${NC}"
+    else
+        echo -e "${RED}ldeep is already installed.${NC}"
+        sleep 1
+    fi
+
+    if ! command -v pre2k &> /dev/null; then
+        echo -e "${YELLOW}Installing pre2k${NC}"
+        pipx install git+https://github.com/garrettfoster13/pre2k.git --force
+        echo -e "${GREEN}pre2k installed successfully.${NC}"
+    else
+        echo -e "${RED}pre2k is already installed.${NC}"
+        sleep 1
+    fi
+
+    if ! command -v certsync &> /dev/null; then
+        echo -e "${YELLOW}Installing certsync${NC}"
+        pipx install git+https://github.com/zblurx/certsync.git --force
+        echo -e "${GREEN}certsync installed successfully.${NC}"
+    else
+        echo -e "${RED}certsync is already installed.${NC}"
+        sleep 1
+    fi
+
+    if ! command -v hekatomb &> /dev/null; then
+        echo -e "${YELLOW}Installing hekatomb${NC}"
+        pipx install hekatomb --force &> /dev/null
+        echo -e "${GREEN}hekatomb installed successfully.${NC}"
+    else
+        echo -e "${RED}hekatomb is already installed.${NC}"
+        sleep 1
+    fi
+
+    if ! command -v manspider &> /dev/null; then
+        echo -e "${YELLOW}Installing MANSPIDER${NC}"
+        pipx install git+https://github.com/blacklanternsecurity/MANSPIDER --force
+        echo -e "${GREEN}MANSPIDER installed successfully.${NC}"
+    else
+        echo -e "${RED}MANSPIDER is already installed.${NC}"
+        sleep 1
+    fi
+
+    if ! command -v coercer &> /dev/null; then
+        echo -e "${YELLOW}Installing Coercer${NC}"
+        pipx install git+https://github.com/p0dalirius/Coercer --force
+        echo -e "${GREEN}Coercer installed successfully.${NC}"
+    else
+        echo -e "${RED}Coercer is already installed.${NC}"
+        sleep 1
+    fi
+
+    if ! command -v bloodyAD &> /dev/null; then
+        echo -e "${YELLOW}Installing bloodyAD${NC}"
+        pipx install git+https://github.com/CravateRouge/bloodyAD --force
+        echo -e "${GREEN}bloodyAD installed successfully.${NC}"
+    else
+        echo -e "${RED}bloodyAD is already installed.${NC}"
+        sleep 1
+    fi
+
+    if ! command -v DonPAPI &> /dev/null; then
+        echo -e "${YELLOW}Installing DonPAPI${NC}"
+        pipx install git+https://github.com/login-securite/DonPAPI --force
+        echo -e "${GREEN}DonPAPI installed successfully.${NC}"
+    else
+        echo -e "${RED}DonPAPI is already installed.${NC}"
+        sleep 1
+    fi
+
+    if ! command -v rdwatool &> /dev/null; then
+        echo -e "${YELLOW}Installing rdwatool${NC}"
+        pipx install git+https://github.com/p0dalirius/RDWAtool --force
+        echo -e "${GREEN}rdwatool installed successfully.${NC}"
+    else
+        echo -e "${RED}rdwatool is already installed.${NC}"
+        sleep 1
+    fi
+
+    if ! command -v krbjack &> /dev/null; then
+        echo -e "${YELLOW}Installing krbjack${NC}"
+        pipx install git+https://github.com/almandin/krbjack --force
+        echo -e "${GREEN}krbjack installed successfully.${NC}"
+    else
+        echo -e "${RED}krbjack is already installed.${NC}"
+        sleep 1
+    fi
+
+    if ! command -v powerview &> /dev/null; then
+        echo -e "${YELLOW}Installing powerview${NC}"
+        pipx install 'git+https://github.com/aniqfakhrul/powerview.py' --force
+        echo -e "${GREEN}powerview installed successfully.${NC}"
+    else
+        echo -e "${RED}powerview is already installed.${NC}"
+        sleep 1
+    fi
+
+    if [ -f $HOME/tools/windows/PowerView.ps1 ]; then
+        echo -e "${RED}PowerView.ps1 has already been downloaded.${NC}"
+        sleep 1
+    else
+        wget -T 10 -q -O $HOME/tools/windows/PowerView.ps1 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1'
+        wget -T 10 -q -O $HOME/tools/windows/PowerView-Dev.ps1 'https://raw.githubusercontent.com/lucky-luk3/ActiveDirectory/master/PowerView-Dev.ps1'
+        
+        if [ ! -s $HOME/tools/windows/PowerView.ps1 ] || [ ! -s $HOME/tools/windows/PowerView-Dev.ps1 ]; then
+            echo -e "${RED}Download of PowerView.ps1 failed, the file is empty.${NC}"
+        else
+            echo -e "${GREEN}PowerView.ps1 has been downloaded successfully.${NC}"
+        fi
+
+        # Download SharpView
+        if [ -f $HOME/tools/windows/SharpView.exe ]; then
+            echo -e "${RED}SharpView has already been downloaded.${NC}"
+            sleep 1
+        else
+            wget -T 10 -q -O $HOME/tools/windows/SharpView.exe 'https://github.com/tevora-threat/SharpView/raw/master/Compiled/SharpView.exe'
+            if [ ! -s $HOME/tools/windows/SharpView.exe ]; then
+                echo -e "${RED}Download of SharpView failed, the file is empty.${NC}"
+            else
+                echo -e "${GREEN}SharpView has been downloaded successfully.${NC}"
+            fi
+        fi
+    fi
+
+    if [ -d $HOME/tools/linWinPwn ]; then
+        echo -e "${RED}linwinpwn is already downloaded.${NC}"
+        sleep 1
+    else
+        echo -e "${YELLOW}Downloading linwinpwn${NC}"
+        git clone 'https://github.com/lefayjey/linWinPwn.git' $HOME/tools/linWinPwn
+        echo -e "${GREEN}linwinpwn downloaded successfully.${NC}" 
+    fi
+
+    #Downloading Ghostpack Compiled Binaries
+    if [ -d $HOME/tools/windows/Ghostpack ]; then
+        echo -e "${RED}Ghostpack Compiled Binaries is already downloaded.${NC}"
+        sleep 1
+    else
+        echo -e "${YELLOW}Downloading Compiled GhostPack Binaries${NC}"
+        git clone https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git $HOME/tools/windows/Ghostpack/
+        rm -rf $HOME/tools/windows/Ghostpack/README.md
+        echo -e "${GREEN}Ghostpack downloaded successfully.${NC}"
     fi
 
     # Installing SharpHounds
     if [ -d $HOME/tools/windows/SharpHound ]; then
         echo -e "${RED}SharpHound is already downloaded and unzipped.${NC}"
+        sleep 1
     else
         echo -e "${YELLOW}Checking latest release of SharpHound${NC}"
         json=$(curl -s https://api.github.com/repos/BloodHoundAD/SharpHound/releases/latest)
@@ -639,60 +622,40 @@ function download_Install_windows-resource() {
         unzip -q $HOME/tools/windows/SharpHound.zip -d $HOME/tools/windows/SharpHound &> /dev/null
         rm -rf $HOME/tools/windows/SharpHound.zip
         echo -e "${GREEN}SharpHound unzipped successfully.${NC}"
-        sleep 2
+    fi
+
+    # Download ADModule
+    if [ -d $HOME/tools/windows/ADModule ]; then
+        echo -e "${RED}ADModule is already downloaded.${NC}"
+        sleep 1
+    else
+        git clone 'https://github.com/samratashok/ADModule.git' $HOME/tools/windows/ADModule
+        echo -e "${GREEN}ADModule downloaded successfully.${NC}"
     fi
 
     # Downloading ADEnum
     if [ -f $HOME/tools/windows/Invoke-ADEnum.ps1 ]; then
         echo -e "${RED}ADEnum is already downloaded.${NC}"
+        sleep 1
     else
         echo -e "${YELLOW}Downloading ADEnum${NC}"
         wget -T 10 -v -O $HOME/tools/windows/Invoke-ADEnum.ps1 'https://raw.githubusercontent.com/Leo4j/Invoke-ADEnum/main/Invoke-ADEnum.ps1'
         echo -e "${GREEN}ADEnum downloaded successfully.${NC}"
-        sleep 2
-
-    # Downloading adPEAS
-    if [ -f $HOME/tools/windows/adPEAS.ps1 ]; then
-        echo -e "${RED}adPEAS is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading adPEAS${NC}"
-        wget -T 10 -v -O $HOME/tools/windows/adPEAS.ps1 'https://raw.githubusercontent.com/61106960/adPEAS/main/adPEAS.ps1'
-        echo -e "${GREEN}adPEAS downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    # Download adPEAS-Light.ps1
-    if [ -f $HOME/tools/windows/adPEAS-Light.ps1 ]; then
-        echo -e "${RED}adPEAS-Light is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading adPEAS-Light${NC}"
-        wget -T 10 -v -O $HOME/tools/windows/adPEAS-Light.ps1 'https://raw.githubusercontent.com/61106960/adPEAS/main/adPEAS-Light.ps1'
-        echo -e "${GREEN}adPEAS-Light downloaded successfully.${NC}"
-        sleep 2
     fi
 
     # Downloading netcat (binary)
     if [ -f $HOME/tools/windows/nc.exe ]; then
         echo -e "${RED}nc.exe is already copied.${NC}"
+        sleep 1
     else
         echo -e "${YELLOW}copying nc.exe${NC}"
         cp /usr/share/windows-binaries/nc.exe $HOME/tools/windows/nc.exe
-        sleep 2
-    fi
-
-    # installing updog
-    if command -v updog &> /dev/null; then
-        echo -e "${RED}updog is already installed.${NC}"
-    else
-        echo -e "${YELLOW}installing updog${NC}"
-        pip3 install updog &> /dev/null
-        echo -e "${GREEN}updog installed successfully.${NC}"
-        sleep 2
     fi
 
     # Download HFS (binary)
     if [ -f $HOME/tools/windows/hfs.exe ]; then
         echo -e "${RED}HFS is already downloaded.${NC}"
+        sleep 1
 
         if [ -d $HOME/tools/windows/hfs-windows/plugins/ ]; then
             echo -e "${GREEN}HFS plugins folder removed successfully.${NC}"
@@ -717,20 +680,114 @@ function download_Install_windows-resource() {
             echo -e "${GREEN}HFS plugins folder removed successfully.${NC}"
         fi
     fi
-    
-    sleep 2
 
-    #Downloading Ghostpack Compiled Binaries
-    if [ -d $HOME/tools/windows/Ghostpack-CompiledBinaries ]; then
-        echo -e "${RED}Ghostpack Compiled Binaries is already downloaded.${NC}"
+    # Downloading adPEAS
+    if [ -f $HOME/tools/windows/adPEAS.ps1 ]; then
+        echo -e "${RED}adPEAS is already downloaded.${NC}"
+        sleep 1
     else
-        echo -e "${YELLOW}Downloading Compiled GhostPack Binaries${NC}"
-        git clone https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git $HOME/tools/Ghostpack/ &> /dev/null
-        cp -r $HOME/tools/Ghostpack/* $HOME/tools/windows/
-        rm -rf $HOME/tools/Ghostpack
-        rm -rf $HOME/tools/windows/README.md
-        echo -e "${GREEN}Ghostpack downloaded successfully.${NC}"
-        sleep 2
+        echo -e "${YELLOW}Downloading adPEAS${NC}"
+        wget -T 10 -v -O $HOME/tools/windows/adPEAS.ps1 'https://raw.githubusercontent.com/61106960/adPEAS/main/adPEAS.ps1'
+        echo -e "${GREEN}adPEAS downloaded successfully.${NC}"
+    fi
+
+    # Download adPEAS-Light.ps1
+    if [ -f $HOME/tools/windows/adPEAS-Light.ps1 ]; then
+        echo -e "${RED}adPEAS-Light is already downloaded.${NC}"
+        sleep 1
+    else
+        echo -e "${YELLOW}Downloading adPEAS-Light${NC}"
+        wget -T 10 -v -O $HOME/tools/windows/adPEAS-Light.ps1 'https://raw.githubusercontent.com/61106960/adPEAS/main/adPEAS-Light.ps1'
+        echo -e "${GREEN}adPEAS-Light downloaded successfully.${NC}"
+    fi
+
+    if [ -f $HOME/tools/windows/LACheck.exe ]; then
+        echo -e "${RED}LACheck is already downloaded.${NC}"
+        sleep 1
+        return
+    else
+        echo -e "${YELLOW}Retrieving LACheck latest release information${NC}"
+        json=$(wget -qO- https://api.github.com/repos/mitchmoser/LACheck/releases/latest)
+
+        LACheck_exe_url=$(echo "$json" | jq -r '.assets[] | select(.name | endswith("LACheck.exe")) | .browser_download_url')
+
+        if [ ! -z "$LACheck_exe_url" ]; then
+            echo -e "${YELLOW}Downloading LACheck.exe${NC}"
+            wget -q "$LACheck_exe_url" -O $HOME/tools/windows/LACheck.exe
+        else
+            echo -e "${RED}LACheck.exe URL not found in the latest release.${NC}"
+            sleep 1
+        fi
+    fi
+
+    # Download SharPersist
+    if [ -f $HOME/tools/windows/SharPersist.exe ]; then
+        echo -e "${RED}SharPersist is already downloaded.${NC}"
+        sleep 1
+        return
+    else
+        echo -e "${YELLOW}Retrieving SharPersist latest release information${NC}"
+        json=$(wget -qO- https://api.github.com/repos/mandiant/sharpersist/releases/latest)
+
+        sharpersist_exe_url=$(echo "$json" | jq -r '.assets[] | select(.name | endswith("SharPersist.exe")) | .browser_download_url')
+
+        if [ ! -z "$sharpersist_exe_url" ]; then
+            echo -e "${YELLOW}Downloading SharPersist.exe${NC}"
+            wget -q "$sharpersist_exe_url" -O $HOME/tools/windows/SharPersist.exe
+        else
+            echo -e "${RED}SharPersist.exe URL not found in the latest release.${NC}"
+            sleep 1
+        fi
+    fi
+
+    if [ -f $HOME/tools/windows/Invisi-Shell ]; then
+        echo -e "${RED}Invisi-Shell is already downloaded.${NC}"
+        sleep 1
+    else
+        git clone https://github.com/OmerYa/Invisi-Shell.git $HOME/tools/windows/Invisi-Shell &> /dev/null
+        echo -e "${GREEN}Invisi-Shell downloaded successfully.${NC}"
+    fi
+
+    if [ -f $HOME/tools/windows/MailSniper.ps1 ]; then
+        echo -e "${RED}MailSniper.ps1 is already downloaded.${NC}"
+        sleep 1
+    else
+        wget -T 10 -q -O $HOME/tools/windows/MailSniper.ps1 'https://raw.githubusercontent.com/dafthack/MailSniper/master/MailSniper.ps1'
+        echo -e "${GREEN}MailSniper.ps1 downloaded successfully.${NC}"
+    fi
+
+    if [ -f $HOME/tools/windows/Invoke-Portscan.ps1 ]; then
+        echo -e "${RED}Invoke_PortScan has already been downloaded.${NC}"
+        sleep 1
+    else
+        cp /usr/share/windows-resources/powersploit/Recon/Invoke-Portscan.ps1 $HOME/tools/windows/Invoke-Portscan.ps1
+        echo -e "${GREEN}Invoke_PortScan has been downloaded successfully.${NC}"
+    fi
+
+    # Download mimikatz
+    if [ -d $HOME/tools/windows/mimikatz ]; then
+        echo -e "${RED}mimikatz is already downloaded.${NC}"
+    else
+        echo -e "${YELLOW}Retrieving mimikatz latest release information${NC}"
+        json=$(wget -T 10 -qO- https://api.github.com/repos/gentilkiwi/mimikatz/releases/latest)
+
+        mimikatz_zip_url=$(echo "$json" | jq -r '.assets[] | select(.name | endswith("mimikatz_trunk.zip")) | .browser_download_url')
+
+        if [ ! -z "$mimikatz_zip_url" ]; then
+            echo -e "${YELLOW}Downloading mimikatz${NC}"
+            wget -T 10 -q "$mimikatz_zip_url" -O $HOME/tools/windows/mimikatz_trunk.zip
+            echo -e "${GREEN}mimikatz downloaded successfully.${NC}"
+            echo -e "${YELLOW}Unzipping mimikatz${NC}"
+            unzip $HOME/tools/windows/mimikatz_trunk.zip -d $HOME/tools/windows/mimikatz
+            echo -e "${GREEN}mimikatz unzipped successfully.${NC}"
+            echo -e "${YELLOW}Removing mimikatz zip file${NC}"
+            rm $HOME/tools/windows/mimikatz_trunk.zip
+            echo -e "${GREEN}mimikatz zip file removed successfully.${NC}"
+            sleep 1
+        else
+            echo -e "${RED}mimikatz zip URL not found in the latest release.${NC}"
+            sleep 1
+        fi
     fi
 
     # Downloading LaZagne binary
@@ -751,76 +808,11 @@ function download_Install_windows-resource() {
             wget -q "$lazagne_exe_url" -O $HOME/tools/windows/LaZagne.exe
         else
             echo -e "${RED}LaZagne.exe URL not found in the latest release.${NC}"
-            sleep 2
+            sleep 1
         fi
     fi
 
-    # Download PsMapExec
-    if [ -f $HOME/tools/windows/PsMapExec.ps1 ]; then
-        echo -e "${RED}PsMapExec is already downloaded.${NC}"
-    else
-        echo -e "${YELLOW}Downloading PsMapExec${NC}"
-        wget -T 10 -v -O $HOME/tools/windows/PsMapExec.ps1 'https://raw.githubusercontent.com/The-Viper-One/PsMapExec/main/PsMapExec.ps1'
-        echo -e "${GREEN}PsMapExec downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-    if command -v lsassy &> /dev/null; then
-        echo -e "${RED}lsassy is already installed.${NC}"
-    else
-        echo -e "${YELLOW}Installing lsassy${NC}"
-        pip3 install lsassy &> /dev/null
-        echo -e "${GREEN}lsassy installed successfully.${NC}"
-        sleep 2
-    fi
-
-    if [ -f $HOME/tools/windows/LACheck.exe ]; then
-        echo -e "${RED}LACheck is already downloaded.${NC}"
-        return
-    else
-        echo -e "${YELLOW}Retrieving LACheck latest release information${NC}"
-        json=$(wget -qO- https://api.github.com/repos/mitchmoser/LACheck/releases/latest)
-
-        LACheck_exe_url=$(echo "$json" | jq -r '.assets[] | select(.name | endswith("LACheck.exe")) | .browser_download_url')
-
-        if [ ! -z "$LACheck_exe_url" ]; then
-            echo -e "${YELLOW}Downloading LACheck.exe${NC}"
-            wget -q "$LACheck_exe_url" -O $HOME/tools/windows/LACheck.exe
-        else
-            echo -e "${RED}LACheck.exe URL not found in the latest release.${NC}"
-            sleep 2
-        fi
-    fi
-
-    # Download SharPersist
-    if [ -f $HOME/tools/windows/SharPersist.exe ]; then
-        echo -e "${RED}SharPersist is already downloaded.${NC}"
-        return
-    else
-        echo -e "${YELLOW}Retrieving SharPersist latest release information${NC}"
-        json=$(wget -qO- https://api.github.com/repos/mandiant/sharpersist/releases/latest)
-
-        sharpersist_exe_url=$(echo "$json" | jq -r '.assets[] | select(.name | endswith("SharPersist.exe")) | .browser_download_url')
-
-        if [ ! -z "$sharpersist_exe_url" ]; then
-            echo -e "${YELLOW}Downloading SharPersist.exe${NC}"
-            wget -q "$sharpersist_exe_url" -O $HOME/tools/windows/SharPersist.exe
-        else
-            echo -e "${RED}SharPersist.exe URL not found in the latest release.${NC}"
-            sleep 2
-        fi
-    fi
-
-    if [ -f $HOME/tools/windows/MailSniper.ps1 ]; then
-        echo -e "${RED}MailSniper.ps1 is already downloaded.${NC}"
-    else
-        wget -T 10 -q -O $HOME/tools/windows/MailSniper.ps1 'https://raw.githubusercontent.com/dafthack/MailSniper/master/MailSniper.ps1'
-        echo -e "${GREEN}MailSniper.ps1 downloaded successfully.${NC}"
-        sleep 2
-    fi
-
-
-fi
+    
 }
 
 function red_teaming_menu() {
@@ -1012,7 +1004,7 @@ function download_PrivescCheck() {
         echo -e "${RED}PrivEscCheck.ps1 is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading PrivescCheck.ps1${NC}"
-        wget -q -O $HOME/tools/windows/PrivescCheck.ps1 https://raw.githubusercontent.com/itm4n/PrivescCheck/master/PrivescCheck.ps1
+        wget -T 10 -v -O $HOME/tools/windows/PrivescCheck.ps1 https://raw.githubusercontent.com/itm4n/PrivescCheck/master/PrivescCheck.ps1
         echo -e "${GREEN}PrivEscCheck.ps1 downloaded successfully.${NC}"
     fi
     sleep 2

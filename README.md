@@ -58,7 +58,7 @@ Choose an option:
 │   │   ├─ Sliver Framework
 │   │   └─ pwncat-cs
 │   ├─ Windows Active Directory Arsenal (direct install)
-│   │   ├─ impacket (fortra)
+│   │   ├─ impacket
 │   │   ├─ nmap-formatter
 │   │   ├─ AD_Miner
 │   │   ├─ sprayhound
@@ -66,41 +66,33 @@ Choose an option:
 │   │   ├─ NetExec
 │   │   ├─ adidnsdump
 │   │   ├─ certi
-│   │   ├─ certipy
+│   │   ├─ Certipy
+│   │   ├─ Bloodhound
 │   │   ├─ bloodhound.py
 │   │   ├─ ldeep
 │   │   ├─ pre2k
 │   │   ├─ certsync
 │   │   ├─ hekatomb
-│   │   ├─ manspider
-│   │   ├─ coercer
+│   │   ├─ MANSPIDER
+│   │   ├─ Coercer
 │   │   ├─ bloodyAD
 │   │   ├─ DonPAPI
 │   │   ├─ rdwatool
 │   │   ├─ krbjack
-│   │   ├─ WinPwn.exe
-│   │   ├─ WinPwn.ps1
+│   │   ├─ powerview
+│   │   ├─ Ghostpack Compiled Binaries
 │   │   ├─ linWinPwn
-│   │   ├─ PowerView.ps1
-│   │   ├─ PowerView-Dev.ps1
-│   │   ├─ PowerView.py
-│   │   ├─ SharpView.exe
-│   │   ├─ Invoke-SessionHunter.ps1
 │   │   ├─ ADModule
-│   │   ├─ bloodhound
-│   │   ├─ Invoke-Portscan.ps1
-│   │   ├─ SharpHound
 │   │   ├─ Invoke-ADEnum.ps1
-│   │   ├─ adPEAS.ps1
-│   │   ├─ adPEAS-Light.ps1
 │   │   ├─ nc.exe
-│   │   ├─ updog
 │   │   ├─ HFS
+│   │   ├─ adPEAS
+│   │   ├─ Invisi-Shell
+│   │   ├─ MailSniper.ps1
+│   │   ├─ Invoke-Portscan.ps1
+│   │   ├─ mimikatz
 │   │   ├─ LaZagne.exe
-│   │   ├─ PsMapExec.ps1
-│   │   ├─ lsassy
-│   │   ├─ LACheck.exe
-│   │   └─ MailSniper.ps1
+│   │   └─ SharPersist.exe
 │   ├─ Phishing
 │   │   ├─ evilginx2
 │   │   ├─ gophish
