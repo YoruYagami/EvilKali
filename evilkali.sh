@@ -66,10 +66,10 @@ declare -A essentials=(
     ["python3"]="python3"
     ["docker-compose"]="docker-compose"
     ["docker.io"]="docker"
-    ["neovim"]="nvim"
     ["golang-go"]="go"
     ["uuid-runtime"]="uuidgen"
     ["gcc"]="gcc"
+    ["pipx"]="pipx"
 )
 
 # Function to ask user confirmation
@@ -111,29 +111,19 @@ if [ ${#missing[@]} -gt 0 ]; then
     ask_user
 fi
 
-# Check if $HOME/go/bin is in PATH
-if [[ ":$PATH:" != *":$HOME/go/bin:"* ]]; then
-    echo -e "${RED}$HOME/go/bin is not in PATH. Adding it now.${NC}"
-    export PATH=$PATH:$HOME/go/bin
+# Ensure pipx is added to the PATH
+pipx ensurepath
+
+# Add Go binary directory to the PATH if not already added
+if ! grep -q 'export PATH="$PATH:$HOME/go/bin"' ~/.zshrc; then
+    echo 'export PATH="$PATH:$HOME/go/bin"' >> ~/.zshrc
 fi
 
-if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
-    echo "Adding $HOME/.local/bin to PATH"
-    if ! command -v pipx &> /dev/null
-    then
-        echo "pipx could not be found"
-        echo "Installing pipx..."
-        python3 -m pip install --user pipx
-        pipx install pipx
-    fi
-    pipx ensurepath
-else
-    echo "$HOME/.local/bin is already in PATH"
-fi
+# Reload the shell configuration to apply changes
+source ~/.zshrc
 
 
 # --[ Command and Control ]--
-
 function download_empire_and_starkiller() {
     mkdir -p $HOME/tools/C2
     if [ -d $HOME/tools/C2/Empire ]; then
@@ -1233,7 +1223,6 @@ function Bug_Bounty_Tools() {
     if ! command -v pdtm &> /dev/null; then
         echo -e "${RED}Installing ProjectDiscovery's Open Source Tool Manager.${NC}"
         go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
-        mv $HOME/go/bin/pdtm /usr/local/bin
         pdtm -ia
         pdtm -ua
     else
@@ -1262,7 +1251,7 @@ function Bug_Bounty_Tools() {
                     bash <(curl -s https://raw.githubusercontent.com/pry0cc/axiom/master/interact/axiom-configure)
                     break
                     ;;
-                "Cancel")
+                "Skip")
                     echo "Installation cancelled."
                     break
                     ;;
@@ -1285,8 +1274,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v httprobe &> /dev/null; then
         echo -e "${RED}Installing httprobe now${NC}"
-        go install github.com/tomnomnom/httprobe@latest &> /dev/null
-        mv $HOME/go/bin/httprobe /usr/local/bin
+        go install github.com/tomnomnom/httprobe@latest
         echo -e "${GREEN}httprobe has been installed${NC}"
     else
         echo -e "${GREEN}httprobe is already installed${NC}"
@@ -1294,7 +1282,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v amass &> /dev/null; then
         echo -e "${RED}Installing amass now${NC}"
-        sudo apt install amass -y &> /dev/null
+        sudo apt install amass -y
         echo -e "${GREEN}amass has been installed${NC}"
     else
         echo -e "${GREEN}amass is already installed${NC}"
@@ -1302,7 +1290,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v gobuster &> /dev/null; then
         echo -e "${RED}Installing gobuster now${NC}"
-        sudo apt install gobuster -y &> /dev/null
+        sudo apt install gobuster -y
         echo -e "${GREEN}GoBuster has been installed${NC}"
     else
         echo -e "${GREEN}Gobuster is already installed${NC}"
@@ -1310,7 +1298,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v assetfinder &> /dev/null; then
         echo -e "${RED}Installing assetfinder now${NC}"
-        go install github.com/tomnomnom/assetfinder@latest &> /dev/null
+        go install github.com/tomnomnom/assetfinder@latest
         echo -e "${GREEN}assetfinder has been installed${NC}"
     else
         echo -e "${GREEN}assetfinder is installed${NC}"
@@ -1318,7 +1306,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v ffuf &> /dev/null; then
         echo -e "${RED}Installing ffuf now${NC}"
-        go install github.com/ffuf/ffuf@latest &> /dev/null
+        go install github.com/ffuf/ffuf@latest
         echo -e "${GREEN}ffuf has been installed${NC}"
     else
         echo -e "${GREEN}ffuf is already installed${NC}"
@@ -1326,7 +1314,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v gf &> /dev/null; then
         echo -e "${RED}Installing gf now${NC}"
-        go install github.com/tomnomnom/gf@latest &> /dev/null
+        go install github.com/tomnomnom/gf@latest
         echo -e "${GREEN}gf has been installed${NC}"
     else
         echo -e "${GREEN}gf is already installed${NC}"
@@ -1334,7 +1322,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v meg &> /dev/null; then
         echo -e "${RED}Installing meg now${NC}"
-        go install github.com/tomnomnom/meg@latest &> /dev/null
+        go install github.com/tomnomnom/meg@latest
         echo -e "${GREEN}meg has been installed${NC}"
     else
         echo -e "${GREEN}meg is already installed${NC}"
@@ -1342,14 +1330,14 @@ function Bug_Bounty_Tools() {
 
     if ! command -v waybackurls &> /dev/null; then
         echo -e "${RED}Installing waybackurls now${NC}"
-        go install github.com/tomnomnom/waybackurls@latest &> /dev/null
+        go install github.com/tomnomnom/waybackurls@latest
         echo -e "${GREEN}waybackurls has been installed${NC}"
     else
         echo -e "${GREEN}waybackurls is already installed${NC}"
     fi
 
     if ! command -v subzy &> /dev/null; then
-        go install -v github.com/LukaSikic/subzy@latest &> /dev/null
+        go install -v github.com/LukaSikic/subzy@latest
         echo -e "${GREEN}subzy has been installed${NC}"
     else
         echo -e "${GREEN}subzy is already installed${NC}"
@@ -1357,7 +1345,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v asnmap -h &> /dev/null; then
         echo -e "${RED}Installing asnmap now${NC}"
-        go install github.com/projectdiscovery/asnmap/cmd/asnmap@latest &> /dev/null
+        go install github.com/projectdiscovery/asnmap/cmd/asnmap@latest
         echo -e "${GREEN}asnmap has been installed${NC}"
     else
         echo -e "${GREEN}asnmap is already installed${NC}"
@@ -1365,7 +1353,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v jsleak -h &> /dev/null; then
         echo -e "${RED}Installing jsleak now${NC}"
-        go install github.com/channyein1337/jsleak@latest &> /dev/null
+        go install github.com/channyein1337/jsleak@latest
         echo -e "${GREEN}jsleak has been installed${NC}"
     else
         echo -e "${GREEN}jsleak is already installed${NC}"
@@ -1373,7 +1361,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v mapcidr -h &> /dev/null; then
         echo -e "${RED}Installing mapcidr now${NC}"
-        go install -v github.com/projectdiscovery/mapcidr/cmd/mapcidr@latest &> /dev/null
+        go install -v github.com/projectdiscovery/mapcidr/cmd/mapcidr@latest
         echo -e "${GREEN}mapcidr has been installed${NC}"
     else
         echo -e "${GREEN}mapcidr is already installed${NC}"
@@ -1381,7 +1369,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v dnsx &> /dev/null; then
         echo -e "${RED}Installing dnsx now${NC}"
-        go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest &> /dev/null
+        go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest
         echo -e "${GREEN}dnsx has been installed${NC}"
     else
         echo -e "${GREEN}dnsx is already installed${NC}"
@@ -1389,7 +1377,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v gospider &> /dev/null; then
         echo -e "${RED}Installing gospider now${NC}"
-        go install github.com/jaeles-project/gospider@latest &> /dev/null
+        go install github.com/jaeles-project/gospider@latest
         echo -e "${GREEN}gospider has been installed${NC}"
     else
         echo -e "${GREEN}gospider is already installed${NC}"
@@ -1397,7 +1385,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v CRLFuzz &> /dev/null; then
         echo -e "${RED}Installing CRLFuzz now${NC}"
-        go install github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest &> /dev/null
+        go install github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest
         echo -e "${GREEN}CRLFuzz has been installed${NC}"
     else
         echo -e "${GREEN}CRLFuzz is already installed${NC}"
@@ -1405,7 +1393,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v uncover &> /dev/null; then
         echo -e "${RED}Installing uncover now${NC}"
-        go install -v github.com/projectdiscovery/uncover/cmd/uncover@latest &> /dev/null
+        go install -v github.com/projectdiscovery/uncover/cmd/uncover@latest
         echo -e "${GREEN}uncover has been installed${NC}"
     else
         echo -e "${GREEN}uncover is already installed${NC}"
@@ -1413,7 +1401,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v dalfox &> /dev/null; then
         echo -e "${RED}Installing Dalfox now${NC}"
-        go install github.com/hahwul/dalfox/v2@latest &> /dev/null
+        go install github.com/hahwul/dalfox/v2@latest
         echo -e "${GREEN}dalfox has been installed${NC}"
     else
         echo -e "${GREEN}dalfox is already installed${NC}"
@@ -1421,7 +1409,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v GoLinkFinder &> /dev/null; then
         echo -e "${RED}Installing GoLinkFinder now${NC}"
-        go install github.com/0xsha/GoLinkFinder@latest &> /dev/null
+        go install github.com/0xsha/GoLinkFinder@latest
         echo -e "${GREEN}GoLinkFinder has been installed${NC}"
     else
         echo -e "${GREEN}GoLinkFinder is already installed${NC}"
@@ -1429,7 +1417,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v hakrawler &> /dev/null; then
         echo -e "${RED}Installing hakrawler now${NC}"
-        go install github.com/hakluke/hakrawler@latest &> /dev/null
+        go install github.com/hakluke/hakrawler@latest
         echo -e "${GREEN}Hakrawler has been installed${NC}"
     else
         echo -e "${GREEN}hakrawler is already installed${NC}"
@@ -1437,7 +1425,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v csprecon &> /dev/null; then
         echo -e "${RED}Installing csprecon now${NC}"
-        go install github.com/edoardottt/csprecon/cmd/csprecon@latest &> /dev/null
+        go install github.com/edoardottt/csprecon/cmd/csprecon@latest
         echo -e "${GREEN}csprecon has been installed${NC}"
     else
         echo -e "${GREEN}csprecon is already installed${NC}"
@@ -1446,7 +1434,7 @@ function Bug_Bounty_Tools() {
     if ! command -v gotator &> /dev/null; then
         echo -e "${RED}Installing gotator now${NC}"
         go env -w GO111MODULE="auto"
-        go install github.com/Josue87/gotator@latest &> /dev/null
+        go install github.com/Josue87/gotator@latest
         echo -e "${GREEN}gotator has been installed${NC}"
     else
         echo -e "${GREEN}gotator is already installed${NC}"
@@ -1454,7 +1442,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v osmedeus &> /dev/null; then
         echo -e "${RED}Installing osmedeus now${NC}"
-        go install -v github.com/j3ssie/osmedeus@latest &> /dev/null
+        go install -v github.com/j3ssie/osmedeus@latest
         echo -e "${GREEN}osmedeus has been installed${NC}"
     else
         echo -e "${GREEN}osmedeus is already installed${NC}"
@@ -1462,7 +1450,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v shuffledns &> /dev/null; then
         echo -e "${RED}Installing shuffledns now${NC}"
-        go install -v github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest &> /dev/null
+        go install -v github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest
         echo -e "${GREEN}shuffledns has been installed${NC}"
     else
         echo -e "${GREEN}shuffledns is already installed${NC}"
@@ -1470,7 +1458,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v socialhunter -h &> /dev/null; then
         echo -e "${RED}Installing socialhunter now${NC}"
-        go install github.com/utkusen/socialhunter@latest &> /dev/null
+        go install github.com/utkusen/socialhunter@latest
         echo -e "${GREEN}socialhunter has been installed${NC}"
     else
         echo -e "${GREEN}socialhunter is already installed${NC}"
@@ -1478,7 +1466,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v getJS &> /dev/null; then
         echo -e "${RED}Installing getJS now${NC}"
-        go install github.com/003random/getJS@latest &> /dev/null
+        go install github.com/003random/getJS@latest
         echo -e "${GREEN}getJS has been installed${NC}"
     else
         echo -e "${GREEN}getJS is already installed${NC}"
@@ -1502,7 +1490,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v gau &> /dev/null; then
         echo -e "${RED}Installing gau now${NC}"
-        go install github.com/lc/gau/v2/cmd/gau@latest &> /dev/null
+        go install github.com/lc/gau/v2/cmd/gau@latest
         echo -e "${GREEN}gau has been installed${NC}"
     else
         echo -e "${GREEN}gau is already installed${NC}"
@@ -1510,7 +1498,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v smap &> /dev/null; then
         echo -e "${RED}Installing smap now${NC}"
-        go install -v github.com/s0md3v/smap/cmd/smap@latest &> /dev/null
+        go install -v github.com/s0md3v/smap/cmd/smap@latest
         echo -e "${GREEN}smap has been installed${NC}"
     else
         echo -e "${GREEN}smap is already installed${NC}"
@@ -1528,8 +1516,8 @@ function Bug_Bounty_Tools() {
         echo -e "${RED}SSTImap is already installed.${NC}"
     else
         echo -e "${YELLOW}Installing SSTImap${NC}"
-        git clone 'https://github.com/vladko312/SSTImap.git' $HOME/tools/web_app/SSTImap &> /dev/null
-        pip install -r $HOME/tools/web_app/SSTImap/requirements.txt &> /dev/null
+        git clone 'https://github.com/vladko312/SSTImap.git' $HOME/tools/web_app/SSTImap
+        pip install -r $HOME/tools/web_app/SSTImap/requirements.txt
         chmod +x $HOME/tools/web_app/SSTImap/sstimap.py
         echo -e "${GREEN}SSTImap installed successfully${NC}"
     fi
@@ -1538,7 +1526,7 @@ function Bug_Bounty_Tools() {
         echo -e "${RED}SSRFmap is already installed.${NC}"
     else
         echo -e "${YELLOW}Installing SSRFmap${NC}"
-        git clone 'https://github.com/swisskyrepo/SSRFmap.git' $HOME/tools/web_app/SSRFmap &> /dev/null
+        git clone 'https://github.com/swisskyrepo/SSRFmap.git' $HOME/tools/web_app/SSRFmap
         echo -e "${GREEN}SSRFmap installed successfully${NC}"
     fi
 
@@ -1546,7 +1534,7 @@ function Bug_Bounty_Tools() {
         echo -e "${RED}EyeWitness is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading EyeWitness${NC}"
-        git clone https://github.com/RedSiege/EyeWitness.git $HOME/tools/web_app/EyeWitness &> /dev/null
+        git clone https://github.com/RedSiege/EyeWitness.git $HOME/tools/web_app/EyeWitness
         echo -e "${GREEN}EyeWitness downloaded successfully.${NC}"
         echo -e "${YELLOW}Installing EyeWitness${NC}"
         HOME/tools/web_app/EyeWitness/Python/setup/setup.sh &> /dev/null
@@ -1555,7 +1543,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v paramspider &> /dev/null; then 
         echo -e "${YELLOW}Installing ParamSpider${NC}"
-        git clone https://github.com/devanshbatham/paramspider.git $HOME/tools/web_app/paramspider &> /dev/null
+        git clone https://github.com/devanshbatham/paramspider.git $HOME/tools/web_app/paramspider
         cd $HOME/tools/web_app/paramspider || exit 
         pip install . &> /dev/null
         echo -e "${GREEN}ParamSpider installed successfully${NC}"
@@ -1565,7 +1553,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v openredirex &> /dev/null; then 
         echo -e "${YELLOW}Installing OpenRedireX${NC}"
-        git clone https://github.com/devanshbatham/openredirex.git $HOME/tools/web_app/openredirex &> /dev/null
+        git clone https://github.com/devanshbatham/openredirex.git $HOME/tools/web_app/openredirex
         cd $HOME/tools/web_app/openredirex 
         chmod +x setup.sh && ./setup.sh &> /dev/null
         echo -e "${GREEN}OpenRedireX installed successfully${NC}"
@@ -1575,7 +1563,7 @@ function Bug_Bounty_Tools() {
 
     if ! command -v headerpwn &> /dev/null; then
         echo -e "${RED}Installing headerpwn now${NC}"
-        go install github.com/devanshbatham/headerpwn@latest &> /dev/null
+        go install github.com/devanshbatham/headerpwn@latest
         echo -e "${GREEN}headerpwn has been installed${NC}"
     else
         echo -e "${GREEN}headerpwn is already installed${NC}"
@@ -1585,7 +1573,7 @@ function Bug_Bounty_Tools() {
         echo -e "${RED}userefuzz is already installed.${NC}"
     else
         echo -e "${YELLOW}Installing userefuzz${NC}"
-        pip3 install userefuzz &> /dev/null
+        pip3 install userefuzz
         echo -e "${GREEN}userefuzz installed successfully.${NC}"
     fi
 
@@ -1593,7 +1581,7 @@ function Bug_Bounty_Tools() {
         echo -e "${RED}smap is already installed.${NC}"
     else
         echo -e "${YELLOW}Installing smap${NC}"
-        go install -v github.com/s0md3v/smap/cmd/smap@latest &> /dev/null
+        go install -v github.com/s0md3v/smap/cmd/smap@latest
         echo -e "${GREEN}smap installed successfully.${NC}"
     fi
     
@@ -1601,7 +1589,7 @@ function Bug_Bounty_Tools() {
         echo -e "${RED}nomore403 is already downloaded.${NC}"
     else
         echo -e "${YELLOW}Downloading nomore403${NC}"
-        git clone https://github.com/devploit/nomore403.git $HOME/tools/web_app/nomore403 &> /dev/null
+        git clone https://github.com/devploit/nomore403.git $HOME/tools/web_app/nomore403
         echo -e "${GREEN}nomore403 downloaded successfully.${NC}"
         cd $HOME/tools/web_app/nomore403
         echo -e "${YELLOW}Building nomore403${NC}"
@@ -1614,7 +1602,7 @@ function Bug_Bounty_Tools() {
         echo -e "${RED}cariddi is already installed.${NC}"
     else
         echo -e "${YELLOW}Installing cariddi${NC}"
-        go install -v github.com/edoardottt/cariddi/cmd/cariddi@latest &> /dev/null
+        go install -v github.com/edoardottt/cariddi/cmd/cariddi@latest
         echo -e "${GREEN}cariddi installed successfully.${NC}"
     fi
 
@@ -2167,8 +2155,8 @@ function install_vscode() {
         echo -e "${YELLOW}Downloading Visual Studio Code${NC}"
         wget -O vscode.deb 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64'
         echo -e "${GREEN}Installing Visual Studio Code${NC}"
-        dpkg -i vscode.deb
-        sudo apt-get install -f # This line is to fix any missing dependencies if dpkg couldn't handle them
+        sudo dpkg -i vscode.deb
+        sudo apt-get install -f
         rm vscode.deb
         echo -e "${GREEN}Visual Studio Code installed successfully.${NC}"
         sleep 2
