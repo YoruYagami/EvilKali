@@ -112,7 +112,7 @@ if [ ${#missing[@]} -gt 0 ]; then
 fi
 
 # Ensure pipx is added to the PATH
-pipx ensurepath
+sudo pipx ensurepath
 
 # Add Go binary directory to the PATH if not already added
 if ! grep -q 'export PATH="$PATH:$HOME/go/bin"' ~/.zshrc; then
