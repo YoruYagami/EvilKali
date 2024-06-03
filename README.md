@@ -132,7 +132,6 @@ Choose an option:
 │   │   ├─ asnmap
 │   │   ├─ jsleak
 │   │   ├─ mapcidr
-│   │   ├─ dnsx
 │   │   ├─ gospider
 │   │   ├─ wpscan
 │   │   ├─ CRLFuzz

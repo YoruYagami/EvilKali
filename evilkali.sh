@@ -1382,14 +1382,6 @@ function Bug_Bounty_Tools() {
         echo -e "${GREEN}mapcidr is already installed${NC}"
     fi
 
-    if ! command -v dnsx &> /dev/null; then
-        echo -e "${RED}Installing dnsx now${NC}"
-        go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest
-        echo -e "${GREEN}dnsx has been installed${NC}"
-    else
-        echo -e "${GREEN}dnsx is already installed${NC}"
-    fi
-
     if ! command -v gospider &> /dev/null; then
         echo -e "${RED}Installing gospider now${NC}"
         go install github.com/jaeles-project/gospider@latest
