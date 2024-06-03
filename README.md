@@ -61,7 +61,6 @@ Choose an option:
 │   │   ├─ impacket
 │   │   ├─ nmap-formatter
 │   │   ├─ AD-miner
-│   │   ├─ sprayhound
 │   │   ├─ ldapdomaindump
 │   │   ├─ NetExec
 │   │   ├─ adidnsdump

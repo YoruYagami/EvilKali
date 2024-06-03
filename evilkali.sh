@@ -396,15 +396,6 @@ function download_Install_windows-resource() {
         sleep 1
     fi
 
-    if ! command -v sprayhound &> /dev/null; then
-        echo -e "${YELLOW}Installing sprayhound${NC}"
-        python3 -m pip install sprayhound
-        echo -e "${GREEN}sprayhound installed successfully"
-    else
-        echo -e "${RED}sprayhound is already installed"
-        sleep 1
-    fi
-
     if ! command -v ldapdomaindump &> /dev/null; then
         echo -e "${YELLOW}Installing ldapdomaindump${NC}"
         pipx install git+https://github.com/dirkjanm/ldapdomaindump.git --force
@@ -478,7 +469,7 @@ function download_Install_windows-resource() {
 
     if ! command -v ldeep &> /dev/null; then
         echo -e "${YELLOW}Installing ldeep${NC}"
-        pipx install git+https://github.com/franc-pentest/ldeep.git --force
+        pip3 install git+https://github.com/franc-pentest/ldeep
         echo -e "${GREEN}ldeep installed successfully.${NC}"
     else
         echo -e "${RED}ldeep is already installed.${NC}"
