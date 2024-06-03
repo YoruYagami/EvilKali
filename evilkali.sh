@@ -60,7 +60,28 @@ else
     echo "Tmux is already set to start automatically when you open the terminal."
 fi
 
-# Map of essentials packages to check to their corresponding commands
+# Function to ask user confirmation for installing missing packages
+ask_user() {
+    echo -e "${YELLOW}\nThe following packages are not installed: ${missing[@]}${NC}"
+    while true; do
+        read -p "Do you want me to install all these packages? (y/n) " yn
+        case $yn in
+            [Yy]* ) 
+                for pkg in "${missing[@]}"; do
+                    if command -v apt-get &> /dev/null; then
+                        sudo apt-get install $pkg -y
+                    elif command -v pacman &> /dev/null; then
+                        sudo pacman -S $pkg --noconfirm
+                    fi
+                done
+                break;;
+            [Nn]* ) return;;
+            * ) echo -e "${RED}Respond yes (y) or no (n).${NC}";;
+        esac
+    done
+}
+
+# Essential packages and their corresponding commands
 declare -A essentials=(
     ["jq"]="jq"
     ["python3"]="python3"
@@ -70,58 +91,61 @@ declare -A essentials=(
     ["uuid-runtime"]="uuidgen"
     ["gcc"]="gcc"
     ["pipx"]="pipx"
+    ["wget"]="wget"
+    ["curl"]="curl"
+    ["git"]="git"
+    ["thunar"]="thunar"
+    ["arandr"]="arandr"
+    ["flameshot"]="flameshot"
+    ["feh"]="feh"
+    ["lxappearance"]="lxappearance"
+    ["rofi"]="rofi"
+    ["unclutter"]="unclutter"
+    ["cargo"]="cargo"
+    ["compton"]="compton"
+    ["autoconf"]="autoconf"
+    ["meson"]="meson"
 )
-
-# Function to ask user confirmation
-ask_user() {
-    echo ""
-    echo "The following packages are not installed:${missing[@]}"
-    while true; do
-        read -p "Do you want me to install all these packages? (y/n) " yn
-        case $yn in
-            [Yy]* ) 
-                for pkg in "${missing[@]}"; do
-                    if command -v apt-get; then
-                        sudo apt-get install $pkg -y
-                    elif command -v pacman; then
-                        sudo pacman -S $pkg --noconfirm
-                    fi
-                done
-                break;;
-            [Nn]* ) return;;
-            * ) echo "Respond yes (y) or no (n).";;
-        esac
-    done
-}
 
 # Initialize an empty array for missing packages
 missing=()
 
-# Check essentials packages
+# Check for essential packages
 for pkg in "${!essentials[@]}"; do
     if command -v ${essentials[$pkg]} &> /dev/null; then
-        echo -e "${GREEN}$pkg already installed.${NC}"
+        echo -e "${GREEN}$pkg is already installed.${NC}"
     else
         missing+=($pkg)
     fi
 done
 
-# If there are missing packages, ask the user
-if [ ${#missing[@]} -gt 0 ]; then
+# Ask user to install missing packages
+if [ ${#missing[@]} -ne 0 ]; then
     ask_user
 fi
 
+# Verify if pipx is installed, install if not
+if ! command -v pipx &> /dev/null; then
+    echo -e "${YELLOW}>>> pipx not found. Installing pipx...${NC}"
+    python3 -m pip install --user pipx
+    python3 -m pipx ensurepath
+fi
+
 # Ensure pipx is added to the PATH
-sudo pipx ensurepath
+echo -e "${BLUE}>>> Ensuring pipx is added to the PATH...${NC}"
+pipx ensurepath
 
 # Add Go binary directory to the PATH if not already added
+echo -e "${BLUE}>>> Ensuring Go binary directory is added to the PATH...${NC}"
 if ! grep -q 'export PATH="$PATH:$HOME/go/bin"' ~/.zshrc; then
     echo 'export PATH="$PATH:$HOME/go/bin"' >> ~/.zshrc
 fi
 
 # Reload the shell configuration to apply changes
+echo -e "${BLUE}>>> Reloading shell configuration...${NC}"
 source ~/.zshrc
 
+echo -e "${GREEN}>>> Configuration of pipx and Go PATH completed!${NC}"
 
 # --[ Command and Control ]--
 function download_empire_and_starkiller() {
