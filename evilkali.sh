@@ -378,15 +378,6 @@ function download_Install_windows-resource() {
         fi
     fi
 
-    if ! command -v nmap-formatter &> /dev/null; then
-        echo -e "${YELLOW}Installing nmap-formatter${NC}"
-        go install github.com/vdjagilev/nmap-formatter@latest
-        echo -e "${GREEN}nmap-formatter installed successfully.${NC}"
-    else
-        echo -e "${RED}nmap-formatter is already installed.${NC}"
-        sleep 1
-    fi
-
     if ! command -v AD-miner &> /dev/null; then
         echo -e "${YELLOW}Installing AD_Miner${NC}" 
         pipx install 'git+https://github.com/Mazars-Tech/AD_Miner.git'
@@ -420,6 +411,15 @@ function download_Install_windows-resource() {
         echo -e "${GREEN}adidnsdump installed successfully.${NC}"
     else
         echo -e "${RED}adidnsdump is already installed.${NC}"
+        sleep 1
+    fi
+
+    if ! command -v pyntdsutil &> /dev/null; then
+        echo -e "${YELLOW}Installing pyntdsutil${NC}"
+        python3 -m pipx install git+https://github.com/mrdanielvelez/pyntdsutil
+        echo -e "${GREEN}pyntdsutil installed successfully${NC}"
+    else
+        echo -e "${RED}pyntdsutil is already installed.${NC}"
         sleep 1
     fi
 

@@ -59,11 +59,11 @@ Choose an option:
 │   │   └─ pwncat-cs
 │   ├─ Windows Active Directory Arsenal (direct install)
 │   │   ├─ impacket
-│   │   ├─ nmap-formatter
 │   │   ├─ AD-miner
 │   │   ├─ ldapdomaindump
 │   │   ├─ NetExec
 │   │   ├─ adidnsdump
+│   │   ├─ pyntdsutil
 │   │   ├─ certi.py
 │   │   ├─ Certipy
 │   │   ├─ bloodhound
