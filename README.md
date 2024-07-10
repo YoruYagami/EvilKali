@@ -54,7 +54,6 @@ Choose an option:
 │   ├─ C2 Framework
 │   │   ├─ Powershell-Empire + Starkiller
 │   │   ├─ Havoc Framework
-│   │   ├─ AM0N-Eye
 │   │   ├─ Sliver Framework
 │   │   └─ pwncat-cs
 │   ├─ Windows Active Directory Arsenal (direct install)

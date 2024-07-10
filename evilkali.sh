@@ -261,18 +261,6 @@ function download_Havoc() {
     sleep 2
 }
 
-function download_AM0N-Eye() {
-    mkdir -p $HOME/tools/C2
-    if [ -d $HOME/tools/C2/AM0N-Eye ]; then
-        echo -e "${RED}AM0N-Eye Framework is already installed.${NC}"
-    else
-        echo -e "${YELLOW}Downloading AM0N-Eye${NC}"
-        git clone 'https://github.com/YoruYagami/AM0N-Eye.git' $HOME/tools/C2/AM0N-Eye 
-        echo -e "${GREEN}AM0N-Eye downloaded successfully.${NC}"
-    fi
-    sleep 2
-}
-
 function install_sliver() {
     if command -v sliver &> /dev/null; then
         echo -e "${RED}Sliver is already installed.${NC}"
@@ -310,7 +298,6 @@ function install_pwncat() {
 function download_install_all_c2_tools() {
     download_empire
     download_Havoc
-    download_AM0N-Eye
     install_sliver
     download_amnesiac
     install_pwncat
@@ -334,10 +321,9 @@ echo
     echo -e "---     -------------------------"
     echo -e " 1   -  Powershell-Empire + Starkiller"
     echo -e " 2   -  Download Havoc"
-    echo -e " 3   -  Download AM0N-Eye"
-    echo -e " 4   -  Install Sliver"
-    echo -e " 5   -  Download Amnesiac.ps1"
-    echo -e " 6   -  Install pwncat-cs"
+    echo -e " 3   -  Install Sliver"
+    echo -e " 4   -  Download Amnesiac.ps1"
+    echo -e " 5   -  Install pwncat-cs"
     echo ""
     echo -e " A   -  Download/Install All Tools"
     echo ""
@@ -349,10 +335,9 @@ echo
     case $option in
         1) download_empire_and_starkiller; command_and_control;;
         2) download_Havoc; command_and_control;;
-        3) download_AM0N-Eye; command_and_control;;
-        4) install_Sliver; command_and_control;;
-        5) download_amnesiac; command_and_control;;
-        6) install_pwncat; command_and_control;;
+        3) install_Sliver; command_and_control;;
+        4) download_amnesiac; command_and_control;;
+        5) install_pwncat; command_and_control;;
         A) download_install_all_c2_tools; command_and_control;;
         0) red_teaming_menu;;
         *) echo "Invalid option"; command_and_control;;
